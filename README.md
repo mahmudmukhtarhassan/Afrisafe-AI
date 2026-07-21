@@ -58,27 +58,6 @@ Frontend (HTML/CSS/JavaScript)
 
 ---
 
-# 📂 Project Structure
-
-```
-backend/
-│
-├── app/
-│   ├── config.py
-│   ├── main.py
-│   ├── routes/
-│   ├── schemas/
-│   ├── services/
-│   └── utils/
-│
-├── models/
-│   └── model.pkl
-│
-└── requirements.txt
-```
-
----
-
 # 🧠 Machine Learning
 
 The prediction model was trained using malaria symptom data and exported as:
