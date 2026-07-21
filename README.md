@@ -246,10 +246,6 @@ This project is licensed under the MIT License.
 
 ## Mahmud Mukhtar Hassan
 
-Founder & AI Engineer
-
-**MAHTECH INNOVATION LAB**
-
 Data Scientist | Machine Learning Engineer | Full Stack Developer
 
 GitHub:
