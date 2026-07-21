@@ -1,1 +1,8 @@
-
+{
+  "name": "AfriSafe AI",
+  "description": "AI-powered early malaria risk assessment designed to support safer healthcare decisions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
