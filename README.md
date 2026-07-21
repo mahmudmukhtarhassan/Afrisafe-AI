@@ -279,22 +279,6 @@ It helps others discover the project and motivates future development.
 
 ---
 
-## 📷 Screenshots
-
-Add screenshots here.
-
-```
-Home Page
-
-Assessment Page
-
-Prediction Result
-
-Swagger Documentation
-```
-
----
-
 ## 📈 Project Status
 
 ✅ Active Development
