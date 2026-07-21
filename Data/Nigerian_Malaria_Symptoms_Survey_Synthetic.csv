@@ -1,1 +1,2041 @@
-
+respondent_id,age,gender,state,fever,high_fever,headache,chills,vomiting,duration,malaria_test,diagnosis
+NGM10001,42.0,Male,Kano,Yes,No,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM10002,12.0,Male,FCT,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM10003,75.0,Male,Enugu,Yes,No,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM10004,40.0,Male,Oyo,Yes,Yes,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10005,69.0,Male,FCT,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM10006,11.0,Male,Rivers,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM10007,54.0,Female,Borno,Yes,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10008,45.0,Male,Kano,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10009,40.0,Male,Oyo,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM10010,8.0,Female,Sokoto,Yes,No,Yes,Yes,No,,Negative,Malaria
+NGM10011,71.0,Female,FCT,No,No,No,Yes,No,,Negative,No Malaria
+NGM10012,20.0,Male,Katsina,Yes,Yes,Yes,Yes,Yes,1-2 days,Negative,Malaria
+NGM10013,37.0,Male,Oyo,Yes,Yes,No,No,No,3-5 days,Not Done,No Malaria
+NGM10014,72.0,Male,FCT,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM10015,,Male,Rivers,Yes,No,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM10016,13.0,Female,Enugu,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM10017,47.0,Male,Lagos,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM10018,14.0,Female,Lagos,No,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM10019,70.0,Female,FCT,Yes,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10020,25.0,Male,Katsina,Yes,No,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM10021,61.0,Male,FCT,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10022,61.0,Male,Kaduna,Yes,No,No,Yes,Yes,,Not Done,No Malaria
+NGM10023,50.0,Female,Kaduna,Yes,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10024,21.0,Female,Borno,Yes,Yes,Yes,Yes,No,3-5 days,Not Done,Malaria
+NGM10025,20.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,,Positive,Malaria
+NGM10026,33.0,Female,Oyo,Yes,No,No,Yes,No,,Positive,No Malaria
+NGM10027,75.0,Male,Lagos,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM10028,19.0,Male,FCT,No,No,Yes,Yes,No,,Positive,No Malaria
+NGM10029,25.0,Male,Katsina,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10030,58.0,Female,Oyo,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM10031,41.0,Male,Borno,Yes,Yes,Yes,No,Yes,6-7 days,Positive,Malaria
+NGM10032,19.0,Male,FCT,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10033,21.0,Female,Kano,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM10034,44.0,Male,Kaduna,No,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10035,30.0,Female,Katsina,Yes,Yes,No,No,Yes,3-5 days,Negative,No Malaria
+NGM10036,52.0,Male,Katsina,Yes,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10037,3.0,Female,Rivers,Yes,No,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM10038,54.0,Male,FCT,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10039,40.0,Male,Katsina,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10040,5.0,Female,Oyo,Yes,Yes,No,Yes,Yes,,Positive,No Malaria
+NGM10041,70.0,Male,Sokoto,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM10042,45.0,Female,Rivers,Yes,Yes,Yes,Yes,No,,Positive,Malaria
+NGM10043,37.0,Female,Borno,Yes,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10044,43.0,Female,Sokoto,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM10045,11.0,Male,Lagos,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM10046,52.0,Male,Enugu,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10047,50.0,Female,Rivers,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM10048,18.0,Male,Sokoto,Yes,Yes,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM10049,58.0,Male,Rivers,Yes,Yes,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10050,9.0,Male,Oyo,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM10051,64.0,Male,Kaduna,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10052,19.0,Female,Kaduna,No,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10053,28.0,Male,Katsina,No,No,No,No,No,,Negative,No Malaria
+NGM10054,11.0,Female,Katsina,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10055,50.0,Female,Kaduna,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM10056,47.0,Female,Sokoto,Yes,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10057,,Female,Sokoto,Yes,No,No,No,No,1-2 days,Negative,No Malaria
+NGM10058,16.0,Male,Borno,Yes,Yes,No,No,No,1-2 days,Negative,No Malaria
+NGM10059,55.0,Male,FCT,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10060,35.0,Female,Rivers,No,No,Yes,No,No,,Positive,No Malaria
+NGM10061,71.0,Female,Kano,Yes,Yes,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10062,71.0,Female,Sokoto,Yes,Yes,No,No,No,6-7 days,Negative,No Malaria
+NGM10063,31.0,Male,Rivers,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM10064,64.0,Male,Lagos,Yes,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM10065,44.0,Female,Sokoto,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10066,53.0,Female,Lagos,Yes,No,No,No,Yes,,Negative,No Malaria
+NGM10067,65.0,Female,Kano,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM10068,17.0,Female,Oyo,Yes,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10069,32.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,,Positive,Malaria
+NGM10070,17.0,Male,Kaduna,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM10071,39.0,Female,Katsina,Yes,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM10072,41.0,Male,Kano,Yes,No,Yes,Yes,Yes,,Not Done,Malaria
+NGM10073,25.0,Female,FCT,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM10074,64.0,Male,FCT,Yes,No,No,No,No,3-5 days,Positive,No Malaria
+NGM10075,64.0,Female,Kaduna,Yes,No,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10076,64.0,Male,Enugu,Yes,Yes,No,No,Yes,3-5 days,Negative,No Malaria
+NGM10077,19.0,Female,Kaduna,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM10078,11.0,Female,Borno,Yes,No,Yes,Yes,No,1-2 days,Negative,Malaria
+NGM10079,43.0,Female,Kaduna,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10080,72.0,Male,Borno,Yes,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10081,70.0,Male,Sokoto,No,No,No,Yes,No,,Positive,No Malaria
+NGM10082,6.0,Male,Enugu,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10083,44.0,Female,Katsina,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM10084,39.0,Female,Katsina,Yes,Yes,Yes,Yes,Yes,,Not Done,Malaria
+NGM10085,56.0,Male,Enugu,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10086,31.0,Male,FCT,No,No,No,No,No,1-2 days,Not Done,No Malaria
+NGM10087,53.0,Female,Enugu,Yes,Yes,No,No,Yes,,Positive,No Malaria
+NGM10088,11.0,Female,Enugu,Yes,Yes,No,No,No,3-5 days,Positive,No Malaria
+NGM10089,31.0,Male,Oyo,Yes,No,No,No,No,6-7 days,Negative,No Malaria
+NGM10090,32.0,Female,FCT,Yes,Yes,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10091,65.0,Male,Oyo,Yes,Yes,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10092,48.0,Male,Kaduna,Yes,No,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM10093,48.0,Female,Lagos,Yes,No,Yes,No,Yes,6-7 days,Positive,Malaria
+NGM10094,6.0,Male,Enugu,Yes,No,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM10095,40.0,Female,Rivers,Yes,Yes,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10096,20.0,Male,Katsina,Yes,Yes,No,No,No,6-7 days,Not Done,No Malaria
+NGM10097,73.0,Female,FCT,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM10098,1.0,Female,Oyo,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10099,21.0,Female,Rivers,Yes,Yes,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM10100,22.0,Male,Katsina,Yes,No,Yes,No,Yes,1-2 days,Positive,Malaria
+NGM10101,17.0,Male,FCT,Yes,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10102,52.0,Female,Kaduna,Yes,No,Yes,Yes,Yes,,Not Done,Malaria
+NGM10103,20.0,Female,Sokoto,Yes,Yes,Yes,Yes,No,1-2 days,Negative,Malaria
+NGM10104,40.0,Female,Kno,Yes,No,No,No,No,,Positive,No Malaria
+NGM10105,31.0,Female,Sokoto,No,No,Yes,No,No,,Positive,No Malaria
+NGM10106,47.0,Male,Kano,Yes,No,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM10107,65.0,Female,Katsina,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10108,22.0,Female,Lagos,Yes,Yes,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM10109,33.0,Male,Sokoto,No,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10110,21.0,Male,Borno,No,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM10111,58.0,Female,Borno,Yes,No,No,No,No,,Negative,No Malaria
+NGM10112,11.0,Female,Kano,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10113,5.0,Male,Enugu,Yes,Yes,No,No,No,6-7 days,Positive,No Malaria
+NGM10114,6.0,Male,Sokoto,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10115,75.0,Male,Lagos,No,No,Yes,Yes,No,,Positive,No Malaria
+NGM10116,58.0,Female,Enugu,Yes,Yes,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10117,75.0,Male,Sokoto,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM10118,24.0,Female,Enugu,Yes,Yes,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10119,23.0,Female,Sokoto,No,No,No,Yes,Yes,,Not Done,No Malaria
+NGM10120,60.0,Male,Borno,Yes,No,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM10121,34.0,Male,Lagos,Yes,No,No,No,No,3-5 days,Positive,No Malaria
+NGM10122,34.0,Female,Rivers,Yes,Yes,No,Yes,Yes,,Negative,No Malaria
+NGM10123,61.0,Male,Sokoto,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM10124,75.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM10125,19.0,Female,FCT,Yes,Yes,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM10126,69.0,Male,Katsina,Yes,No,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10127,62.0,Male,Borno,Yes,Yes,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM10128,33.0,Male,Sokoto,No,No,No,Yes,No,,Negative,No Malaria
+NGM10129,4.0,Male,Enugu,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10130,37.0,Male,Oyo,Yes,No,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM10131,24.0,Male,Oyo,No,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM10132,22.0,Female,Kaduna,Yes,Yes,Yes,No,No,6-7 days,Positive,Malaria
+NGM10133,55.0,Female,FCT,Yes,No,No,Yes,No,,Not Done,No Malaria
+NGM10134,59.0,Female,Lagos,Yes,Yes,No,No,Yes,,Not Done,No Malaria
+NGM10135,60.0,Male,Rivers,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10136,25.0,Female,Lagos,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10137,31.0,Female,Lagos,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10138,19.0,Male,Katsina,No,No,No,No,No,3-5 days,Positive,No Malaria
+NGM10139,27.0,Female,Oyo,No,No,Yes,No,Yes,,Negative,No Malaria
+NGM10140,3.0,Female,FCT,Yes,No,Yes,No,Yes,,Not Done,No Malaria
+NGM10141,75.0,Male,Sokoto,Yes,Yes,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10142,,Female,Rivers,No,No,No,Yes,No,,Negative,No Malaria
+NGM10143,24.0,Male,Lagos,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10144,,Female,Rivers,No,No,No,Yes,Yes,,Not Done,No Malaria
+NGM10145,44.0,Male,Enugu,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM10146,46.0,Female,Borno,Yes,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10147,75.0,Female,Oyo,No,No,Yes,Yes,No,,Not Done,No Malaria
+NGM10148,28.0,Female,Oyo,Yes,Yes,Yes,Yes,No,3-5 days,Positive,Malaria
+NGM10149,38.0,Female,Lagos,Yes,No,Yes,No,No,,Not Done,No Malaria
+NGM10150,62.0,Male,Borno,Yes,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM10151,20.0,Female,Enugu,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM10152,2.0,Male,Lagos,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10153,58.0,Male,Rivers,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM10154,39.0,Female,FCT,Yes,No,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM10155,18.0,Male,Oyo,No,No,Yes,No,No,,Positive,No Malaria
+NGM10156,22.0,Female,Kaduna,Yes,Yes,No,No,No,6-7 days,Negative,No Malaria
+NGM10157,24.0,Female,Lagos,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10158,5.0,Male,Katsina,Yes,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10159,56.0,Female,Sokoto,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10160,43.0,Female,Lagos,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10161,,Male,Oyo,Yes,No,Yes,No,No,6-7 days,Positive,Malaria
+NGM10162,8.0,Male,Kaduna,No,No,Yes,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10163,24.0,Female,Katsina,Yes,No,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10164,24.0,Male,Oyo,No,No,No,Yes,Yes,,Not Done,No Malaria
+NGM10165,73.0,Male,Oyo,Yes,Yes,No,No,No,1-2 days,Positive,No Malaria
+NGM10166,,Male,Kaduna,Yes,Yes,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10167,28.0,Male,Kano,Yes,Yes,Yes,No,No,3-5 days,Negative,No Malaria
+NGM10168,47.0,Male,Kano,Yes,Yes,No,No,No,6-7 days,Positive,No Malaria
+NGM10169,2.0,Female,Enugu,Yes,No,No,No,Yes,,Not Done,No Malaria
+NGM10170,57.0,Female,Oyo,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10171,50.0,Female,Enugu,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM10172,2.0,Male,Oyo,Yes,No,Yes,No,No,,Not Done,No Malaria
+NGM10173,37.0,Male,Katsina,Yes,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM10174,19.0,Male,Katsina,Yes,No,No,No,Yes,,Negative,No Malaria
+NGM10175,8.0,Male,Rivers,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10176,46.0,Male,FCT,Yes,Yes,No,No,No,,Not Done,No Malaria
+NGM10177,25.0,Male,Kano,Yes,Yes,No,No,No,,Not Done,No Malaria
+NGM10178,64.0,Male,Borno,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10179,36.0,Female,Sokoto,Yes,Yes,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10180,13.0,Female,Kaduna,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10181,4.0,Male,Kaduna,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM10182,33.0,Female,FCT,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM10183,29.0,Female,Kano,Yes,Yes,No,No,Yes,1-2 days,Positive,No Malaria
+NGM10184,13.0,Female,Borno,Yes,No,Yes,Yes,No,,Not Done,Malaria
+NGM10185,33.0,Male,Kano,No,No,No,Yes,No,,Positive,No Malaria
+NGM10186,60.0,Female,Kaduna,Yes,Yes,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM10187,50.0,Female,Lagos,Yes,Yes,No,No,No,3-5 days,Negative,No Malaria
+NGM10188,43.0,Female,FCT,Yes,Yes,No,Yes,Yes,,Positive,No Malaria
+NGM10189,20.0,Female,Oyo,Yes,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10190,15.0,Female,Sokoto,Yes,Yes,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10191,34.0,Female,Lagos,Yes,Yes,No,Yes,No,,Positive,No Malaria
+NGM10192,3.0,Female,Sokoto,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10193,6.0,Male,Lagos,No,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10194,26.0,Male,Enugu,Yes,Yes,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10195,40.0,Female,Kaduna,Yes,Yes,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10196,2.0,Female,Kano,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM10197,21.0,Male,Borno,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10198,49.0,Male,Kano,Yes,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10199,32.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM10200,13.0,Male,Lagos,Yes,No,No,Yes,Yes,,Positive,No Malaria
+NGM10201,6.0,Female,Lagos,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10202,70.0,Female,Sokoto,Yes,Yes,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10203,68.0,Female,Enugu,Yes,No,No,Yes,No,,Positive,No Malaria
+NGM10204,42.0,Male,Kno,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10205,14.0,Female,Oyo,Yes,Yes,No,No,Yes,1-2 days,Positive,No Malaria
+NGM10206,6.0,Male,Sokoto,Yes,Yes,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10207,31.0,Female,Kaduna,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10208,60.0,Male,Kaduna,Yes,No,Yes,Yes,No,,Not Done,Malaria
+NGM10209,70.0,Female,Rivers,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM10210,39.0,Female,Enugu,No,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM10211,51.0,Male,Katsina,Yes,No,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM10212,8.0,Female,Borno,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10213,14.0,Female,Rivers,Yes,Yes,No,No,No,3-5 days,Not Done,No Malaria
+NGM10214,13.0,Male,Oyo,No,No,Yes,No,No,1-2 days,Positive,No Malaria
+NGM10215,51.0,Female,Katsina,Yes,No,Yes,No,No,,Not Done,No Malaria
+NGM10216,46.0,Male,Rivers,No,No,No,No,Yes,,Negative,No Malaria
+NGM10217,39.0,Male,Borno,Yes,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10218,27.0,Female,Rivers,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10219,40.0,Female,Oyo,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM10220,2.0,Male,FCT,Yes,Yes,No,Yes,No,,Not Done,No Malaria
+NGM10221,54.0,Female,Kaduna,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10222,40.0,Male,Rivers,Yes,Yes,No,No,No,3-5 days,Not Done,No Malaria
+NGM10223,25.0,Male,Sokoto,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10224,,Male,FCT,Yes,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10225,23.0,Male,Rivers,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM10226,66.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,,Negative,Malaria
+NGM10227,75.0,Male,Enugu,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM10228,9.0,Female,Enugu,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10229,6.0,Male,Borno,No,No,Yes,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10230,1.0,Female,Enugu,No,No,No,No,No,,Positive,No Malaria
+NGM10231,29.0,Male,Borno,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10232,49.0,Mle,Borno,Yes,Yes,No,No,No,1-2 days,Negative,No Malaria
+NGM10233,52.0,Female,FCT,Yes,Yes,No,No,Yes,,Positive,No Malaria
+NGM10234,56.0,Male,Katsina,Yes,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10235,70.0,Female,Sokoto,Yes,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10236,75.0,Female,Enugu,Yes,No,Yes,No,Yes,,Not Done,No Malaria
+NGM10237,57.0,Male,Rivers,No,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10238,35.0,Male,FCT,No,No,Yes,Yes,No,1-2 days,Negative,No Malaria
+NGM10239,42.0,Male,FCT,Yes,Yes,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10240,37.0,Male,Katsina,Yes,No,No,No,No,,Not Done,No Malaria
+NGM10241,23.0,Female,Borno,Yes,No,No,No,Yes,,Positive,No Malaria
+NGM10242,13.0,Male,Sokoto,Yes,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10243,26.0,Male,Enugu,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10244,30.0,Female,Kano,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10245,75.0,Male,Sokoto,Yes,Yes,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10246,51.0,Female,Rivers,Yes,No,No,Yes,No,,Negative,No Malaria
+NGM10247,7.0,Female,Lagos,Yes,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10248,70.0,Male,FCT,Yes,Yes,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10249,40.0,Female,Lagos,Yes,Yes,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10250,45.0,Female,Lagos,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10251,20.0,Male,Kano,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM10252,8.0,Male,Borno,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10253,,Female,Kaduna,No,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM10254,43.0,Female,Kano,No,No,No,Yes,No,,Positive,No Malaria
+NGM10255,46.0,Female,Lagos,Yes,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10256,38.0,Female,Lagos,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10257,46.0,Male,Kaduna,No,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10258,73.0,Female,Enugu,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM10259,75.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,,Not Done,Malaria
+NGM10260,57.0,Female,Lagos,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10261,37.0,Male,Lagos,Yes,Yes,No,No,Yes,,Positive,No Malaria
+NGM10262,49.0,Female,Rivers,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10263,59.0,Female,Enugu,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10264,74.0,Male,Kno,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10265,29.0,Female,Sokoto,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM10266,34.0,Male,Rivers,Yes,Yes,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM10267,33.0,Male,Sokoto,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10268,10.0,Male,FCT,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM10269,73.0,Female,Kano,No,No,Yes,Yes,No,1-2 days,Negative,No Malaria
+NGM10270,2.0,Male,Enugu,Yes,No,Yes,No,Yes,,Positive,Malaria
+NGM10271,15.0,Female,Rivers,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10272,68.0,Male,Kano,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10273,32.0,Male,Oyo,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10274,15.0,Female,Rivers,Yes,No,Yes,Yes,No,,Positive,Malaria
+NGM10275,35.0,Male,Kano,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM10276,10.0,Male,Borno,Yes,No,Yes,No,No,,Positive,Malaria
+NGM10277,43.0,Female,Enugu,Yes,No,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM10278,60.0,Male,Kano,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM10279,32.0,Female,Borno,No,No,Yes,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10280,73.0,Male,Lagos,Yes,Yes,Yes,Yes,No,1-2 days,Negative,Malaria
+NGM10281,10.0,Female,Kano,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM10282,44.0,Male,Kano,No,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM10283,59.0,Female,Katsina,No,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM10284,33.0,Female,Borno,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10285,55.0,Mle,Katsina,Yes,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10286,31.0,Male,FCT,Yes,Yes,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10287,31.0,Male,Katsina,Yes,Yes,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM10288,69.0,Female,Sokoto,Yes,No,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM10289,44.0,Female,Katsina,Yes,Yes,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10290,60.0,Female,Lagos,Yes,Yes,No,No,Yes,,Not Done,No Malaria
+NGM10291,12.0,Male,Enugu,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM10292,74.0,Female,Rivers,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10293,36.0,Female,Lagos,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10294,30.0,Male,Rivers,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10295,24.0,Male,Oyo,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10296,64.0,Male,Kaduna,Yes,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM10297,52.0,Male,Kano,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM10298,33.0,Female,Katsina,Yes,No,Yes,No,Yes,6-7 days,Positive,Malaria
+NGM10299,39.0,Female,Kaduna,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM10300,43.0,Male,Borno,Yes,No,Yes,Yes,No,,Positive,Malaria
+NGM10301,6.0,Male,Lagos,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10302,2.0,Male,Sokoto,Yes,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10303,44.0,Male,Lagos,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10304,65.0,Male,Oyo,Yes,No,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM10305,18.0,Male,Rivers,No,No,Yes,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10306,46.0,Male,Kano,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10307,34.0,Female,Katsina,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10308,2.0,Female,Sokoto,No,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM10309,55.0,Male,Kano,No,No,No,No,Yes,,Negative,No Malaria
+NGM10310,31.0,Male,Kano,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM10311,52.0,Female,Rivers,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM10312,44.0,Female,Enugu,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10313,42.0,Male,Kno,Yes,Yes,No,No,No,6-7 days,Not Done,No Malaria
+NGM10314,9.0,Female,Lagos,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM10315,6.0,Female,Sokoto,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM10316,14.0,Female,Kaduna,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM10317,58.0,Male,Enugu,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10318,48.0,Male,Enugu,No,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10319,23.0,Male,Rivers,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM10320,64.0,Female,Borno,Yes,Yes,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10321,6.0,Male,Enugu,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM10322,25.0,Female,Sokoto,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10323,68.0,Female,Sokoto,No,No,Yes,No,Yes,,Negative,No Malaria
+NGM10324,61.0,Male,FCT,Yes,Yes,No,No,No,3-5 days,Not Done,No Malaria
+NGM10325,26.0,Male,Kaduna,No,No,No,Yes,No,,Negative,No Malaria
+NGM10326,74.0,Male,Borno,Yes,Yes,Yes,No,Yes,,Positive,Malaria
+NGM10327,62.0,Male,Lagos,Yes,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10328,69.0,Female,Rivers,No,No,Yes,No,No,,Negative,No Malaria
+NGM10329,51.0,Female,Katsina,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10330,26.0,Female,Borno,Yes,Yes,No,Yes,No,,Not Done,No Malaria
+NGM10331,26.0,Female,Kano,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10332,36.0,Female,FCT,Yes,No,Yes,No,Yes,,Negative,No Malaria
+NGM10333,27.0,Female,Lagos,Yes,Yes,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM10334,2.0,Male,Rivers,Yes,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10335,13.0,Female,Oyo,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10336,55.0,Female,Rivers,Yes,Yes,Yes,Yes,Yes,,Negative,Malaria
+NGM10337,20.0,Female,Kano,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM10338,42.0,Male,Sokoto,No,No,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10339,43.0,Male,Katsina,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM10340,63.0,Female,Enugu,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10341,75.0,Male,Enugu,Yes,Yes,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10342,13.0,Female,Oyo,Yes,No,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM10343,32.0,Female,Kaduna,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM10344,71.0,Male,Sokoto,Yes,Yes,No,No,Yes,1-2 days,Positive,No Malaria
+NGM10345,17.0,Male,Borno,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM10346,1.0,Male,Lagos,No,No,Yes,No,No,1-2 days,Positive,No Malaria
+NGM10347,64.0,Male,Rivers,No,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10348,33.0,Male,Kaduna,No,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10349,2.0,Female,Kano,Yes,Yes,Yes,No,Yes,1-2 days,Positive,Malaria
+NGM10350,55.0,Male,FCT,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10351,66.0,Male,Katsina,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10352,44.0,Male,Lagos,Yes,No,Yes,Yes,No,,Negative,Malaria
+NGM10353,66.0,Male,Kano,Yes,Yes,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM10354,62.0,Female,Sokoto,Yes,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10355,12.0,Female,Kano,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10356,60.0,Male,FCT,Yes,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10357,26.0,Female,Sokoto,No,No,No,Yes,Yes,,Not Done,No Malaria
+NGM10358,52.0,Male,Kaduna,Yes,Yes,No,No,No,1-2 days,Negative,No Malaria
+NGM10359,61.0,Male,Borno,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM10360,51.0,Female,Sokoto,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10361,69.0,Male,Borno,Yes,Yes,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10362,22.0,Male,Lagos,Yes,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM10363,51.0,Female,Borno,Yes,Yes,Yes,Yes,Yes,,Not Done,Malaria
+NGM10364,13.0,Female,Katsina,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10365,38.0,Male,Kano,No,No,No,No,Yes,,Negative,No Malaria
+NGM10366,16.0,Female,Lagos,No,No,No,No,Yes,,Positive,No Malaria
+NGM10367,1.0,Female,FCT,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM10368,38.0,Female,Borno,Yes,No,Yes,No,No,,Not Done,No Malaria
+NGM10369,21.0,Male,Lagos,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10370,40.0,Female,Oyo,Yes,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM10371,26.0,Female,Oyo,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10372,35.0,Female,Rivers,Yes,Yes,No,No,Yes,6-7 days,Positive,No Malaria
+NGM10373,53.0,Female,Kano,Yes,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM10374,6.0,Male,Enugu,No,No,No,No,No,3-5 days,Positive,No Malaria
+NGM10375,53.0,Female,Sokoto,Yes,No,Yes,Yes,Yes,,Negative,Malaria
+NGM10376,51.0,Female,Katsina,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM10377,18.0,Mle,Sokoto,Yes,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10378,28.0,Female,Kano,No,No,Yes,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10379,49.0,Female,Enugu,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10380,28.0,Male,Kaduna,Yes,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10381,42.0,Female,Enugu,Yes,Yes,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10382,72.0,Female,Borno,Yes,Yes,Yes,No,No,3-5 days,Negative,No Malaria
+NGM10383,68.0,Female,Sokoto,Yes,Yes,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10384,48.0,Female,FCT,Yes,No,Yes,Yes,No,,Not Done,Malaria
+NGM10385,8.0,Female,Enugu,No,No,No,No,Yes,,Not Done,No Malaria
+NGM10386,59.0,Male,Rivers,Yes,No,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10387,3.0,Female,Kano,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM10388,3.0,Male,Enugu,Yes,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10389,41.0,Male,Oyo,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10390,14.0,Female,Borno,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM10391,61.0,Male,Katsina,Yes,Yes,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10392,,Male,Enugu,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM10393,69.0,Male,Borno,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM10394,44.0,Female,Kaduna,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM10395,13.0,Male,Oyo,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM10396,22.0,Female,Kaduna,No,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10397,31.0,Male,Kano,Yes,Yes,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM10398,5.0,Female,Katsina,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10399,6.0,Male,Enugu,Yes,No,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10400,66.0,Male,Rivers,No,No,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10401,72.0,Male,Lagos,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM10402,65.0,Male,Rivers,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM10403,67.0,Female,Katsina,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10404,38.0,Male,Rivers,Yes,No,Yes,No,Yes,1-2 days,Positive,Malaria
+NGM10405,50.0,Male,Lagos,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM10406,56.0,Female,Kano,Yes,Yes,No,No,No,3-5 days,Negative,No Malaria
+NGM10407,42.0,Female,Enugu,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM10408,42.0,Female,Borno,No,No,Yes,Yes,No,1-2 days,Negative,No Malaria
+NGM10409,1.0,Female,Borno,Yes,No,Yes,Yes,Yes,1-2 days,Negative,Malaria
+NGM10410,9.0,Male,FCT,Yes,No,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM10411,28.0,Male,Katsina,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10412,51.0,Male,Kaduna,Yes,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10413,,Female,Kaduna,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM10414,19.0,Female,Lagos,Yes,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10415,57.0,Male,Kaduna,Yes,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10416,27.0,Male,Enugu,No,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10417,40.0,Male,Kno,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM10418,33.0,Male,Borno,Yes,Yes,Yes,Yes,No,1-2 days,Negative,Malaria
+NGM10419,47.0,Male,FCT,Yes,Yes,No,No,No,6-7 days,Positive,No Malaria
+NGM10420,22.0,Female,FCT,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM10421,61.0,Male,Oyo,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM10422,57.0,Female,Oyo,No,No,Yes,Yes,No,,Positive,No Malaria
+NGM10423,23.0,Female,Oyo,Yes,No,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM10424,31.0,Female,Kaduna,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM10425,8.0,Female,Katsina,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10426,60.0,Female,Kaduna,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM10427,16.0,Male,Oyo,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM10428,5.0,Female,Lagos,Yes,No,No,Yes,Yes,,Negative,No Malaria
+NGM10429,30.0,Male,FCT,Yes,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10430,39.0,Female,Oyo,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM10431,30.0,Male,Katsina,Yes,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10432,59.0,Male,Enugu,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM10433,48.0,Female,Lagos,Yes,Yes,Yes,Yes,No,,Negative,Malaria
+NGM10434,34.0,Female,Kano,Yes,Yes,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM10435,22.0,Male,Lagos,Yes,No,Yes,Yes,No,,Negative,Malaria
+NGM10436,35.0,Male,Katsina,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10437,23.0,Female,Rivers,Yes,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10438,72.0,Male,Sokoto,Yes,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10439,47.0,Male,Oyo,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM10440,61.0,Male,Rivers,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10441,53.0,Female,Lagos,No,No,Yes,Yes,No,6-7 days,Negative,No Malaria
+NGM10442,29.0,Male,Oyo,Yes,No,Yes,Yes,Yes,,Not Done,Malaria
+NGM10443,75.0,Female,Kano,No,No,No,No,No,,Negative,No Malaria
+NGM10444,21.0,Male,Borno,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM10445,39.0,Female,Rivers,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10446,35.0,Male,Katsina,Yes,Yes,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10447,31.0,Male,Rivers,Yes,Yes,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10448,45.0,Male,Katsina,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM10449,21.0,Female,Borno,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10450,65.0,Female,Kano,No,No,Yes,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10451,30.0,Female,Oyo,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10452,30.0,Female,FCT,Yes,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10453,34.0,Female,FCT,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10454,59.0,Female,Borno,Yes,Yes,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10455,40.0,Female,Rivers,No,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM10456,31.0,Female,Oyo,Yes,Yes,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10457,68.0,Mle,Rivers,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM10458,29.0,Female,Enugu,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM10459,7.0,Female,Enugu,Yes,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10460,5.0,Male,Kano,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10461,5.0,Female,Lagos,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10462,31.0,Male,Kaduna,Yes,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10463,34.0,Male,Lagos,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10464,25.0,Male,Enugu,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10465,42.0,Male,Enugu,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM10466,45.0,Mle,Borno,Yes,No,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10467,39.0,Male,Sokoto,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM10468,73.0,Female,Sokoto,Yes,Yes,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM10469,40.0,Male,Rivers,Yes,Yes,Yes,No,No,3-5 days,Negative,No Malaria
+NGM10470,7.0,Male,Kaduna,No,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM10471,13.0,Female,Kano,Yes,No,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM10472,26.0,Female,Borno,No,No,No,No,No,,Negative,No Malaria
+NGM10473,45.0,Male,FCT,No,No,Yes,No,Yes,,Negative,No Malaria
+NGM10474,27.0,Male,Lagos,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM10475,55.0,Male,FCT,Yes,Yes,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM10476,47.0,Female,Rivers,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM10477,,Male,Enugu,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM10478,47.0,Male,Lagos,Yes,Yes,Yes,Yes,Yes,,Positive,Malaria
+NGM10479,57.0,Female,Kano,Yes,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10480,12.0,Male,Enugu,Yes,No,Yes,Yes,No,3-5 days,Not Done,Malaria
+NGM10481,23.0,Male,Oyo,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM10482,12.0,Female,Sokoto,Yes,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10483,32.0,Male,Oyo,Yes,Yes,No,Yes,No,,Negative,No Malaria
+NGM10484,11.0,Female,Enugu,Yes,Yes,Yes,No,No,3-5 days,Negative,No Malaria
+NGM10485,63.0,Male,FCT,No,No,No,No,Yes,,Not Done,No Malaria
+NGM10486,10.0,Female,Borno,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10487,51.0,Female,Sokoto,Yes,No,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM10488,39.0,Male,Borno,Yes,Yes,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM10489,21.0,Female,Oyo,No,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10490,64.0,Male,Borno,No,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10491,33.0,Male,Katsina,No,No,Yes,No,No,,Positive,No Malaria
+NGM10492,43.0,Male,Lagos,No,No,Yes,No,No,1-2 days,Positive,No Malaria
+NGM10493,19.0,Male,Lagos,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM10494,71.0,Male,Lagos,Yes,Yes,Yes,No,Yes,,Not Done,No Malaria
+NGM10495,17.0,Female,Lagos,No,No,Yes,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10496,15.0,Male,Borno,No,No,Yes,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10497,16.0,Male,Lagos,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM10498,22.0,Male,Oyo,Yes,Yes,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10499,57.0,Female,Lagos,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10500,1.0,Male,Borno,Yes,No,Yes,No,No,,Negative,No Malaria
+NGM10501,49.0,Female,Kno,Yes,No,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM10502,44.0,Male,Enugu,Yes,No,Yes,No,No,1-2 days,Positive,Malaria
+NGM10503,54.0,Male,Enugu,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM10504,56.0,Mle,FCT,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM10505,9.0,Female,Oyo,No,No,No,No,Yes,,Not Done,No Malaria
+NGM10506,41.0,Male,Borno,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM10507,49.0,Male,FCT,Yes,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10508,60.0,Male,Lagos,No,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10509,65.0,Male,Katsina,No,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10510,34.0,Female,FCT,Yes,Yes,No,Yes,Yes,,Not Done,No Malaria
+NGM10511,13.0,Female,Rivers,No,No,No,No,Yes,,Positive,No Malaria
+NGM10512,26.0,Female,Oyo,No,No,Yes,Yes,No,,Positive,No Malaria
+NGM10513,64.0,Male,Borno,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM10514,49.0,Female,Kano,Yes,Yes,No,No,No,,Not Done,No Malaria
+NGM10515,41.0,Female,Oyo,Yes,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM10516,26.0,Male,Sokoto,Yes,No,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM10517,2.0,Male,FCT,Yes,Yes,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM10518,75.0,Male,Rivers,Yes,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10519,54.0,Male,Katsina,No,No,Yes,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10520,75.0,Female,Kaduna,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM10521,35.0,Female,Lagos,Yes,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10522,48.0,Male,Lagos,No,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM10523,20.0,Male,Kano,Yes,Yes,No,Yes,Yes,,Negative,No Malaria
+NGM10524,31.0,Male,Oyo,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10525,50.0,Male,Oyo,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM10526,65.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM10527,11.0,Mle,Sokoto,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM10528,42.0,Male,Kano,Yes,No,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM10529,37.0,Male,Sokoto,Yes,No,Yes,Yes,Yes,,Positive,Malaria
+NGM10530,34.0,Female,Kaduna,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM10531,26.0,Female,FCT,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10532,5.0,Male,Katsina,No,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10533,13.0,Mle,Katsina,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM10534,9.0,Male,Lagos,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM10535,75.0,Female,Borno,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10536,22.0,Male,Kaduna,No,No,No,No,Yes,,Negative,No Malaria
+NGM10537,70.0,Male,FCT,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10538,1.0,Female,Enugu,Yes,Yes,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10539,69.0,Male,Enugu,Yes,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10540,36.0,Male,Oyo,Yes,Yes,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM10541,48.0,Male,Katsina,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10542,62.0,Female,FCT,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10543,30.0,Female,Sokoto,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM10544,5.0,Male,Oyo,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM10545,14.0,Female,Sokoto,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10546,57.0,Male,Borno,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM10547,36.0,Male,Borno,Yes,Yes,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10548,66.0,Male,Sokoto,Yes,Yes,No,No,No,6-7 days,Positive,No Malaria
+NGM10549,2.0,Male,FCT,No,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10550,3.0,Female,Kaduna,Yes,No,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM10551,5.0,Female,Borno,No,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10552,2.0,Male,Sokoto,Yes,Yes,No,No,Yes,,Positive,No Malaria
+NGM10553,5.0,Female,Oyo,No,No,No,No,No,,Positive,No Malaria
+NGM10554,30.0,Male,Katsina,Yes,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM10555,,Female,Rivers,Yes,Yes,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM10556,59.0,Male,Borno,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM10557,38.0,Female,Kaduna,Yes,Yes,No,No,No,6-7 days,Negative,No Malaria
+NGM10558,47.0,Female,FCT,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10559,52.0,Female,Lagos,Yes,Yes,No,Yes,No,,Negative,No Malaria
+NGM10560,48.0,Female,FCT,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM10561,70.0,Male,Rivers,Yes,Yes,Yes,Yes,No,3-5 days,Not Done,Malaria
+NGM10562,41.0,Male,Rivers,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10563,74.0,Male,Kano,Yes,No,Yes,No,No,,Negative,No Malaria
+NGM10564,14.0,Male,Oyo,Yes,Yes,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10565,12.0,Male,Lagos,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10566,44.0,Female,Katsina,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10567,39.0,Female,Kaduna,Yes,Yes,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM10568,71.0,Male,Katsina,No,No,No,Yes,No,,Negative,No Malaria
+NGM10569,35.0,Female,Oyo,Yes,Yes,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10570,66.0,Female,Sokoto,No,No,Yes,No,No,,Positive,No Malaria
+NGM10571,21.0,Female,Enugu,Yes,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10572,13.0,Male,Borno,No,No,No,No,Yes,,Negative,No Malaria
+NGM10573,56.0,Male,Sokoto,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10574,60.0,Male,Kno,No,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10575,29.0,Male,Lagos,No,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM10576,61.0,Male,Rivers,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10577,56.0,Male,Lagos,Yes,No,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM10578,40.0,Female,Katsina,Yes,No,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10579,12.0,Male,Borno,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10580,32.0,Female,Oyo,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10581,3.0,Female,FCT,Yes,Yes,Yes,No,No,,Negative,No Malaria
+NGM10582,40.0,Female,Sokoto,No,No,No,Yes,No,,Negative,No Malaria
+NGM10583,28.0,Female,Kano,Yes,Yes,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM10584,2.0,Female,FCT,No,No,Yes,No,Yes,,Positive,No Malaria
+NGM10585,19.0,Male,Borno,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM10586,9.0,Male,Kaduna,Yes,Yes,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10587,12.0,Female,Kno,Yes,No,No,Yes,Yes,,Not Done,No Malaria
+NGM10588,16.0,Male,Sokoto,No,No,No,No,No,,Positive,No Malaria
+NGM10589,26.0,Female,Katsina,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM10590,26.0,Female,Lagos,Yes,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM10591,35.0,Female,Enugu,Yes,Yes,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10592,57.0,Female,Kaduna,Yes,Yes,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10593,3.0,Male,Katsina,Yes,Yes,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM10594,54.0,Male,Rivers,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10595,53.0,Male,Enugu,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM10596,36.0,Female,Katsina,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10597,71.0,Female,Rivers,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM10598,65.0,Male,Sokoto,No,No,No,No,Yes,,Not Done,No Malaria
+NGM10599,60.0,Male,Borno,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10600,34.0,Male,Oyo,Yes,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM10601,68.0,Mle,Rivers,No,No,Yes,Yes,No,,Not Done,No Malaria
+NGM10602,37.0,Female,Rivers,No,No,No,No,Yes,,Positive,No Malaria
+NGM10603,60.0,Female,Oyo,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM10604,43.0,Male,Oyo,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM10605,44.0,Male,Sokoto,Yes,Yes,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM10606,2.0,Female,Kano,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10607,13.0,Male,FCT,Yes,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10608,58.0,Male,Enugu,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10609,63.0,Male,Enugu,Yes,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10610,43.0,Male,Kano,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10611,43.0,Female,Kaduna,No,No,No,No,No,,Negative,No Malaria
+NGM10612,23.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM10613,58.0,Female,Kano,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10614,3.0,Female,FCT,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM10615,44.0,Male,Borno,No,No,No,No,No,1-2 days,Not Done,No Malaria
+NGM10616,5.0,Male,Sokoto,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10617,63.0,Female,Sokoto,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM10618,9.0,Female,Sokoto,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10619,65.0,Male,Oyo,Yes,Yes,No,No,Yes,,Not Done,No Malaria
+NGM10620,32.0,Male,Borno,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM10621,40.0,Female,Rivers,Yes,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10622,6.0,Male,Katsina,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10623,31.0,Female,Borno,No,No,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10624,20.0,Female,Kano,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10625,16.0,Male,Katsina,Yes,Yes,Yes,No,No,6-7 days,Positive,Malaria
+NGM10626,70.0,Male,Katsina,Yes,Yes,Yes,No,No,1-2 days,Positive,Malaria
+NGM10627,30.0,Female,Lagos,Yes,Yes,Yes,No,Yes,,Not Done,No Malaria
+NGM10628,24.0,Male,Lagos,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM10629,48.0,Male,Katsina,Yes,Yes,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM10630,60.0,Male,Kano,Yes,No,Yes,Yes,No,,Positive,Malaria
+NGM10631,12.0,Female,Oyo,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM10632,15.0,Female,Rivers,Yes,No,Yes,No,Yes,,Not Done,No Malaria
+NGM10633,47.0,Male,Sokoto,Yes,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10634,42.0,Mle,Kaduna,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM10635,58.0,Male,Rivers,Yes,No,No,No,No,6-7 days,Negative,No Malaria
+NGM10636,56.0,Male,Sokoto,Yes,Yes,No,No,No,,Not Done,No Malaria
+NGM10637,20.0,Female,Enugu,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM10638,62.0,Female,Borno,Yes,Yes,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10639,28.0,Male,Kaduna,No,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10640,29.0,Female,Sokoto,No,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10641,47.0,Female,Sokoto,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10642,45.0,Female,Oyo,No,No,Yes,Yes,No,6-7 days,Negative,No Malaria
+NGM10643,5.0,Male,FCT,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10644,31.0,Male,FCT,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10645,12.0,Female,FCT,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10646,16.0,Female,Oyo,Yes,Yes,No,No,Yes,,Not Done,No Malaria
+NGM10647,30.0,Female,Lagos,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10648,51.0,Female,Sokoto,Yes,Yes,No,No,No,3-5 days,Not Done,No Malaria
+NGM10649,30.0,Female,Oyo,No,No,Yes,Yes,No,,Not Done,No Malaria
+NGM10650,30.0,Mle,Kaduna,Yes,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM10651,2.0,Male,Oyo,Yes,No,No,No,Yes,,Not Done,No Malaria
+NGM10652,5.0,Male,Oyo,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10653,27.0,Male,Katsina,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10654,45.0,Male,Kaduna,Yes,Yes,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10655,39.0,Female,Katsina,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM10656,2.0,Male,Katsina,Yes,No,No,Yes,Yes,,Negative,No Malaria
+NGM10657,37.0,Male,Rivers,Yes,No,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM10658,24.0,Male,Borno,No,No,Yes,No,No,,Negative,No Malaria
+NGM10659,54.0,Female,Enugu,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10660,13.0,Female,Borno,Yes,Yes,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10661,64.0,Male,Kano,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM10662,44.0,Male,Kaduna,Yes,Yes,No,No,Yes,,Positive,No Malaria
+NGM10663,67.0,Female,Borno,Yes,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10664,51.0,Male,Oyo,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10665,29.0,Female,Kaduna,Yes,No,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM10666,70.0,Male,FCT,Yes,No,No,No,No,6-7 days,Negative,No Malaria
+NGM10667,63.0,Male,Rivers,Yes,Yes,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10668,6.0,Female,Rivers,Yes,Yes,No,No,No,6-7 days,Positive,No Malaria
+NGM10669,6.0,Female,Lagos,No,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10670,63.0,Male,Oyo,No,No,Yes,No,No,,Not Done,No Malaria
+NGM10671,75.0,Female,Lagos,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10672,65.0,Female,Enugu,No,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10673,13.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM10674,54.0,Male,Lagos,Yes,Yes,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10675,72.0,Female,Kaduna,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM10676,27.0,Female,Enugu,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM10677,1.0,Male,Sokoto,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10678,31.0,Male,Oyo,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM10679,3.0,Female,Kano,No,No,No,Yes,No,,Positive,No Malaria
+NGM10680,31.0,Male,FCT,Yes,Yes,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10681,58.0,Female,Kaduna,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10682,45.0,Female,Enugu,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM10683,61.0,Male,Enugu,Yes,Yes,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10684,30.0,Male,Rivers,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10685,43.0,Female,Kano,Yes,No,Yes,Yes,No,,Not Done,Malaria
+NGM10686,58.0,Female,Oyo,Yes,No,Yes,Yes,No,3-5 days,Not Done,Malaria
+NGM10687,20.0,Male,FCT,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM10688,43.0,Male,Sokoto,Yes,No,No,No,No,,Positive,No Malaria
+NGM10689,33.0,Female,Oyo,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10690,66.0,Female,Lagos,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10691,9.0,Male,Katsina,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10692,36.0,Male,Enugu,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10693,56.0,Male,Sokoto,Yes,Yes,No,No,No,1-2 days,Negative,No Malaria
+NGM10694,46.0,Male,FCT,No,No,Yes,Yes,No,6-7 days,Negative,No Malaria
+NGM10695,6.0,Male,Rivers,Yes,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM10696,66.0,Female,Lagos,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10697,,Female,Lagos,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM10698,4.0,Female,Lagos,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10699,70.0,Male,Lagos,No,No,Yes,No,Yes,,Positive,No Malaria
+NGM10700,39.0,Male,Rivers,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM10701,43.0,Female,Sokoto,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10702,3.0,Female,Kaduna,Yes,Yes,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10703,48.0,Female,Katsina,No,No,Yes,No,No,,Not Done,No Malaria
+NGM10704,42.0,Female,Oyo,Yes,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM10705,36.0,Female,Rivers,Yes,Yes,Yes,No,Yes,,Positive,Malaria
+NGM10706,70.0,Female,Enugu,Yes,No,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM10707,1.0,Male,Lagos,Yes,Yes,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM10708,68.0,Female,Kano,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM10709,,Female,Rivers,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10710,71.0,Female,Kano,Yes,Yes,No,No,No,6-7 days,Not Done,No Malaria
+NGM10711,16.0,Female,Kaduna,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM10712,57.0,Male,Rivers,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM10713,45.0,Female,Katsina,Yes,No,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10714,37.0,Male,Oyo,Yes,Yes,No,No,No,6-7 days,Not Done,No Malaria
+NGM10715,59.0,Female,Lagos,No,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10716,65.0,Male,Borno,Yes,No,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM10717,1.0,Female,Katsina,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10718,19.0,Female,FCT,Yes,Yes,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10719,53.0,Female,Kaduna,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM10720,74.0,Female,Kano,No,No,Yes,No,No,,Positive,No Malaria
+NGM10721,48.0,Female,Borno,Yes,Yes,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10722,13.0,Female,Rivers,Yes,Yes,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM10723,44.0,Male,Lagos,No,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM10724,57.0,Male,Rivers,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10725,17.0,Female,Kano,Yes,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM10726,8.0,Male,FCT,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10727,14.0,Female,Lagos,Yes,Yes,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10728,52.0,Male,Oyo,No,No,No,Yes,No,,Positive,No Malaria
+NGM10729,72.0,Female,Oyo,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10730,61.0,Male,Enugu,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10731,72.0,Female,Rivers,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10732,64.0,Female,Kaduna,No,No,Yes,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10733,61.0,Female,FCT,Yes,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10734,4.0,Male,Rivers,Yes,Yes,No,No,No,3-5 days,Negative,No Malaria
+NGM10735,34.0,Male,Kano,Yes,Yes,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10736,50.0,Male,Oyo,No,No,No,No,Yes,,Positive,No Malaria
+NGM10737,,Male,Oyo,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM10738,,Male,Rivers,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10739,67.0,Female,Enugu,Yes,No,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM10740,75.0,Female,Sokoto,Yes,Yes,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10741,8.0,Male,FCT,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM10742,44.0,Female,Enugu,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10743,30.0,Male,Oyo,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM10744,7.0,Female,FCT,Yes,Yes,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM10745,35.0,Female,Kano,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10746,39.0,Male,Kaduna,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM10747,15.0,Female,Sokoto,Yes,Yes,Yes,Yes,No,3-5 days,Positive,Malaria
+NGM10748,27.0,Female,Borno,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10749,42.0,Female,FCT,Yes,Yes,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10750,62.0,Male,Enugu,Yes,Yes,Yes,No,Yes,6-7 days,Positive,Malaria
+NGM10751,49.0,Male,FCT,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10752,73.0,Female,FCT,No,No,Yes,No,No,,Not Done,No Malaria
+NGM10753,33.0,Female,Lagos,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM10754,19.0,Female,Borno,Yes,No,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10755,41.0,Male,Kaduna,Yes,Yes,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM10756,48.0,Male,Rivers,Yes,No,No,No,No,,Not Done,No Malaria
+NGM10757,6.0,Female,Oyo,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM10758,29.0,Female,Oyo,Yes,No,No,No,No,6-7 days,Negative,No Malaria
+NGM10759,6.0,Female,Katsina,No,No,No,No,Yes,,Positive,No Malaria
+NGM10760,14.0,Female,Oyo,No,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10761,65.0,Male,Borno,No,No,No,No,Yes,,Positive,No Malaria
+NGM10762,37.0,Male,Lagos,Yes,No,No,No,No,,Not Done,No Malaria
+NGM10763,17.0,Female,Enugu,Yes,No,No,Yes,No,,Positive,No Malaria
+NGM10764,74.0,Female,Oyo,Yes,Yes,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM10765,37.0,Male,Oyo,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM10766,71.0,Male,Borno,Yes,Yes,Yes,No,No,6-7 days,Positive,Malaria
+NGM10767,64.0,Male,Kano,Yes,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10768,,Female,Katsina,Yes,No,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM10769,31.0,Male,Lagos,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10770,66.0,Female,Katsina,No,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10771,37.0,Female,Kaduna,Yes,No,Yes,No,Yes,,Negative,No Malaria
+NGM10772,18.0,Female,Lagos,Yes,Yes,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10773,24.0,Female,Lagos,Yes,No,Yes,No,No,1-2 days,Positive,Malaria
+NGM10774,29.0,Female,Rivers,Yes,Yes,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM10775,46.0,Female,Kaduna,Yes,Yes,Yes,Yes,No,,Negative,Malaria
+NGM10776,16.0,Male,Borno,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10777,46.0,Male,Enugu,Yes,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10778,18.0,Male,Kaduna,Yes,Yes,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM10779,44.0,Male,Kano,Yes,Yes,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM10780,11.0,Male,Kaduna,Yes,No,No,No,No,6-7 days,Negative,No Malaria
+NGM10781,73.0,Female,Lagos,No,No,No,Yes,No,,Not Done,No Malaria
+NGM10782,7.0,Female,Oyo,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM10783,12.0,Female,Oyo,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10784,31.0,Male,Katsina,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM10785,10.0,Female,Borno,Yes,Yes,No,No,No,6-7 days,Not Done,No Malaria
+NGM10786,30.0,Female,Oyo,Yes,No,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM10787,71.0,Female,Sokoto,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM10788,1.0,Female,FCT,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM10789,21.0,Male,Kano,Yes,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10790,50.0,Male,Rivers,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10791,22.0,Female,Kano,Yes,Yes,No,No,No,6-7 days,Not Done,No Malaria
+NGM10792,16.0,Male,FCT,Yes,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10793,19.0,Male,Rivers,Yes,Yes,No,No,No,1-2 days,Negative,No Malaria
+NGM10794,19.0,Female,Katsina,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM10795,70.0,Female,Oyo,Yes,Yes,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM10796,8.0,Female,Kano,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10797,55.0,Female,Kaduna,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM10798,73.0,Male,Katsina,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10799,66.0,Male,Enugu,Yes,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10800,35.0,Male,Enugu,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM10801,35.0,Male,Rivers,No,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10802,8.0,Female,Katsina,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM10803,66.0,Female,FCT,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10804,47.0,Female,Enugu,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10805,48.0,Female,Rivers,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10806,61.0,Female,Lagos,Yes,Yes,Yes,Yes,No,3-5 days,Positive,Malaria
+NGM10807,46.0,Male,Katsina,Yes,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10808,62.0,Female,Sokoto,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10809,47.0,Male,Sokoto,Yes,Yes,No,No,No,,Positive,No Malaria
+NGM10810,56.0,Male,Oyo,Yes,Yes,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10811,56.0,Male,Rivers,No,No,No,No,No,1-2 days,Not Done,No Malaria
+NGM10812,45.0,Male,Borno,Yes,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10813,69.0,Female,Enugu,Yes,No,No,No,No,6-7 days,Positive,No Malaria
+NGM10814,55.0,Male,Borno,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM10815,30.0,Female,Sokoto,Yes,Yes,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10816,70.0,Male,Kno,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10817,9.0,Male,Rivers,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10818,31.0,Female,Katsina,No,No,Yes,No,No,1-2 days,Positive,No Malaria
+NGM10819,35.0,Female,FCT,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM10820,16.0,Male,Rivers,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10821,42.0,Male,Kano,Yes,Yes,No,Yes,Yes,,Positive,No Malaria
+NGM10822,30.0,Female,Sokoto,Yes,Yes,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM10823,72.0,Female,Enugu,Yes,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10824,7.0,Male,Enugu,Yes,Yes,Yes,Yes,Yes,,Positive,Malaria
+NGM10825,15.0,Female,Kaduna,No,No,Yes,Yes,No,,Positive,No Malaria
+NGM10826,28.0,Female,Oyo,Yes,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10827,11.0,Male,Katsina,No,No,No,No,Yes,,Negative,No Malaria
+NGM10828,64.0,Female,Sokoto,Yes,Yes,No,Yes,Yes,,Not Done,No Malaria
+NGM10829,38.0,Male,Kaduna,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10830,5.0,Male,Rivers,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10831,54.0,Male,Rivers,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10832,62.0,Male,Oyo,No,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10833,19.0,Female,Sokoto,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM10834,2.0,Female,Kano,No,No,Yes,No,No,,Not Done,No Malaria
+NGM10835,28.0,Female,Lagos,No,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10836,12.0,Female,Rivers,Yes,Yes,No,No,Yes,6-7 days,Positive,No Malaria
+NGM10837,30.0,Male,Enugu,Yes,Yes,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM10838,68.0,Female,Oyo,Yes,No,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM10839,66.0,Male,Lagos,Yes,No,No,Yes,No,,Positive,No Malaria
+NGM10840,62.0,Male,Lagos,Yes,Yes,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10841,25.0,Mle,Lagos,No,No,Yes,Yes,Yes,6-7 days,Negative,No Malaria
+NGM10842,45.0,Male,Enugu,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10843,68.0,Male,Borno,Yes,Yes,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10844,9.0,Male,Sokoto,No,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10845,75.0,Female,Kaduna,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM10846,43.0,Female,FCT,Yes,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM10847,21.0,Male,Rivers,Yes,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10848,64.0,Female,Katsina,No,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM10849,15.0,Male,Oyo,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM10850,51.0,Male,Borno,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10851,36.0,Male,Kaduna,Yes,Yes,No,Yes,No,,Positive,No Malaria
+NGM10852,37.0,Male,Katsina,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM10853,66.0,Female,Sokoto,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM10854,14.0,Female,FCT,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10855,17.0,Male,Kano,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM10856,72.0,Female,Rivers,Yes,Yes,Yes,No,No,3-5 days,Negative,No Malaria
+NGM10857,74.0,Male,Lagos,Yes,No,No,No,No,,Negative,No Malaria
+NGM10858,65.0,Female,Borno,Yes,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10859,59.0,Male,FCT,Yes,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM10860,17.0,Male,FCT,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10861,65.0,Male,Enugu,Yes,No,Yes,No,Yes,6-7 days,Positive,Malaria
+NGM10862,6.0,Male,Borno,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM10863,29.0,Female,Oyo,Yes,Yes,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10864,28.0,Female,Katsina,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM10865,28.0,Male,Oyo,Yes,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10866,66.0,Female,Borno,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM10867,37.0,Female,Rivers,No,No,No,Yes,No,,Positive,No Malaria
+NGM10868,65.0,Female,Enugu,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10869,54.0,Female,Lagos,No,No,No,No,No,,Negative,No Malaria
+NGM10870,48.0,Female,Lagos,Yes,Yes,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM10871,53.0,Male,Katsina,Yes,Yes,Yes,No,No,6-7 days,Positive,Malaria
+NGM10872,34.0,Female,Lagos,Yes,No,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10873,10.0,Male,FCT,Yes,Yes,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM10874,25.0,Male,Sokoto,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10875,39.0,Male,Rivers,Yes,Yes,No,No,Yes,1-2 days,Positive,No Malaria
+NGM10876,26.0,Male,Enugu,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM10877,60.0,Female,Oyo,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM10878,2.0,Female,Sokoto,Yes,No,No,Yes,No,,Positive,No Malaria
+NGM10879,27.0,Female,FCT,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM10880,66.0,Female,Kaduna,Yes,Yes,Yes,Yes,No,,Positive,Malaria
+NGM10881,45.0,Male,Lagos,Yes,Yes,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10882,75.0,Male,Katsina,Yes,Yes,No,Yes,No,,Negative,No Malaria
+NGM10883,8.0,Male,Rivers,Yes,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10884,44.0,Male,Sokoto,Yes,Yes,Yes,Yes,No,3-5 days,Not Done,Malaria
+NGM10885,55.0,Male,Kaduna,Yes,Yes,Yes,No,Yes,1-2 days,Positive,Malaria
+NGM10886,39.0,Male,Kaduna,No,No,Yes,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10887,75.0,Male,Sokoto,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM10888,15.0,Female,Kano,Yes,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10889,73.0,Female,Sokoto,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10890,2.0,Male,Katsina,No,No,Yes,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10891,46.0,Male,Kano,Yes,Yes,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM10892,25.0,Female,Lagos,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM10893,73.0,Female,Oyo,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10894,16.0,Female,Oyo,Yes,Yes,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10895,32.0,Male,Rivers,Yes,No,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM10896,46.0,Female,Enugu,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM10897,44.0,Female,Lagos,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10898,56.0,Male,Rivers,No,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10899,75.0,Female,FCT,Yes,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10900,44.0,Male,Oyo,Yes,Yes,No,No,No,,Positive,No Malaria
+NGM10901,15.0,Male,Enugu,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM10902,6.0,Female,Borno,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10903,44.0,Male,FCT,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10904,74.0,Female,Enugu,Yes,Yes,No,No,Yes,3-5 days,Positive,No Malaria
+NGM10905,75.0,Female,FCT,Yes,Yes,Yes,No,Yes,,Positive,Malaria
+NGM10906,33.0,Male,Kano,Yes,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM10907,63.0,Male,Enugu,Yes,Yes,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10908,64.0,Male,Rivers,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM10909,31.0,Male,Rivers,Yes,No,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM10910,15.0,Female,Katsina,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM10911,58.0,Male,FCT,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM10912,2.0,Male,Oyo,Yes,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10913,17.0,Male,Sokoto,No,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM10914,58.0,Female,Kno,Yes,Yes,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM10915,63.0,Male,Sokoto,Yes,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM10916,15.0,Male,Borno,Yes,Yes,No,No,No,,Positive,No Malaria
+NGM10917,70.0,Female,Sokoto,Yes,No,No,No,No,1-2 days,Negative,No Malaria
+NGM10918,35.0,Male,Lagos,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM10919,53.0,Female,Kano,Yes,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM10920,9.0,Female,Borno,Yes,No,Yes,Yes,Yes,,Positive,Malaria
+NGM10921,67.0,Male,FCT,Yes,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10922,63.0,Female,FCT,Yes,No,No,Yes,No,,Negative,No Malaria
+NGM10923,43.0,Male,Borno,Yes,No,No,No,No,,Negative,No Malaria
+NGM10924,21.0,Female,Enugu,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM10925,68.0,Female,FCT,Yes,Yes,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM10926,47.0,Male,Katsina,No,No,No,Yes,Yes,,Not Done,No Malaria
+NGM10927,18.0,Female,Borno,Yes,Yes,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM10928,1.0,Female,Borno,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10929,29.0,Male,Sokoto,Yes,No,No,No,No,3-5 days,Negative,No Malaria
+NGM10930,,Female,Borno,No,No,No,No,Yes,,Positive,No Malaria
+NGM10931,1.0,Male,Borno,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM10932,63.0,Female,Oyo,Yes,Yes,Yes,No,No,,Negative,No Malaria
+NGM10933,43.0,Male,Rivers,Yes,No,Yes,No,Yes,,Negative,No Malaria
+NGM10934,37.0,Male,Rivers,Yes,Yes,No,No,Yes,,Negative,No Malaria
+NGM10935,20.0,Male,Lagos,Yes,No,No,No,No,,Negative,No Malaria
+NGM10936,31.0,Male,Katsina,Yes,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10937,30.0,Female,Oyo,Yes,No,Yes,Yes,Yes,,Negative,Malaria
+NGM10938,32.0,Male,Lagos,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM10939,11.0,Female,Lagos,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10940,1.0,Female,FCT,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10941,49.0,Female,Borno,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM10942,31.0,Male,Oyo,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM10943,28.0,Female,Rivers,No,No,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM10944,23.0,Male,Katsina,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10945,6.0,Male,Katsina,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM10946,20.0,Male,Oyo,Yes,Yes,No,No,Yes,1-2 days,Negative,No Malaria
+NGM10947,75.0,Female,Borno,No,No,No,No,No,,Not Done,No Malaria
+NGM10948,44.0,Female,FCT,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM10949,37.0,Male,Oyo,Yes,Yes,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10950,30.0,Female,Oyo,No,No,No,No,No,,Not Done,No Malaria
+NGM10951,12.0,Female,Oyo,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM10952,34.0,Male,Rivers,No,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM10953,10.0,Male,Oyo,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM10954,14.0,Male,Kaduna,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM10955,16.0,Male,Kano,Yes,Yes,Yes,Yes,No,3-5 days,Not Done,Malaria
+NGM10956,,Female,Borno,Yes,Yes,No,No,No,,Not Done,No Malaria
+NGM10957,12.0,Female,Enugu,Yes,Yes,No,Yes,Yes,,Positive,No Malaria
+NGM10958,10.0,Female,Lagos,Yes,Yes,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM10959,49.0,Male,Katsina,Yes,No,Yes,Yes,No,3-5 days,Not Done,Malaria
+NGM10960,27.0,Female,Lagos,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM10961,54.0,Female,Sokoto,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10962,16.0,Male,Sokoto,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM10963,23.0,Female,FCT,Yes,Yes,Yes,No,No,1-2 days,Negative,No Malaria
+NGM10964,55.0,Female,Kano,Yes,Yes,No,No,No,1-2 days,Positive,No Malaria
+NGM10965,20.0,Female,Sokoto,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM10966,63.0,Male,FCT,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM10967,,Female,Kaduna,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM10968,58.0,Male,Lagos,Yes,Yes,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10969,37.0,Male,Lagos,No,No,Yes,No,No,,Not Done,No Malaria
+NGM10970,59.0,Male,Lagos,Yes,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10971,68.0,Female,Sokoto,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM10972,7.0,Female,Oyo,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM10973,7.0,Female,Borno,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM10974,45.0,Male,Enugu,Yes,No,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM10975,8.0,Female,Sokoto,No,No,Yes,No,No,1-2 days,Positive,No Malaria
+NGM10976,44.0,Male,Borno,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM10977,60.0,Male,Enugu,Yes,Yes,No,No,No,,Negative,No Malaria
+NGM10978,7.0,Female,Sokoto,Yes,Yes,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10979,,Female,Sokoto,Yes,Yes,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10980,70.0,Male,Sokoto,Yes,No,Yes,No,Yes,6-7 days,Positive,Malaria
+NGM10981,45.0,Female,Borno,No,No,Yes,Yes,No,6-7 days,Negative,No Malaria
+NGM10982,68.0,Female,Oyo,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10983,57.0,Female,Kno,Yes,Yes,No,Yes,No,3-5 days,Positive,No Malaria
+NGM10984,29.0,Male,Katsina,Yes,Yes,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM10985,60.0,Male,Sokoto,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10986,34.0,Male,Borno,Yes,Yes,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM10987,16.0,Male,Sokoto,Yes,Yes,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10988,26.0,Female,Sokoto,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM10989,60.0,Female,Rivers,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM10990,59.0,Female,Oyo,Yes,No,Yes,No,No,,Positive,Malaria
+NGM10991,55.0,Female,Oyo,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10992,57.0,Male,Katsina,Yes,Yes,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM10993,52.0,Female,Rivers,No,No,Yes,Yes,Yes,3-5 days,Positive,No Malaria
+NGM10994,49.0,Male,Kano,No,No,No,No,Yes,,Not Done,No Malaria
+NGM10995,55.0,Female,Kaduna,Yes,Yes,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM10996,14.0,Female,Katsina,Yes,No,Yes,No,No,,Not Done,No Malaria
+NGM10997,9.0,Male,Lagos,Yes,No,No,Yes,No,,Not Done,No Malaria
+NGM10998,15.0,Female,Sokoto,Yes,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM10999,48.0,Female,Lagos,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11000,55.0,Male,FCT,No,No,No,No,Yes,,Negative,No Malaria
+NGM11001,29.0,Male,Rivers,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11002,42.0,Female,Enugu,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM11003,65.0,Female,Lagos,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11004,3.0,Female,Sokoto,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM11005,1.0,Male,Kaduna,Yes,Yes,No,Yes,No,,Not Done,No Malaria
+NGM11006,1.0,Male,Katsina,No,No,No,Yes,No,,Positive,No Malaria
+NGM11007,31.0,Male,Katsina,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM11008,36.0,Female,Kaduna,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM11009,11.0,Female,Kano,Yes,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM11010,2.0,Female,Borno,Yes,No,No,No,Yes,,Not Done,No Malaria
+NGM11011,20.0,Female,Lagos,Yes,Yes,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM11012,70.0,Male,Lagos,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM11013,47.0,Male,Oyo,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM11014,15.0,Male,Katsina,Yes,Yes,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM11015,71.0,Male,Oyo,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11016,45.0,Female,Lagos,No,No,Yes,Yes,No,,Not Done,No Malaria
+NGM11017,63.0,Male,Katsina,No,No,No,No,No,3-5 days,Positive,No Malaria
+NGM11018,36.0,Female,Lagos,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11019,57.0,Mle,Borno,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11020,41.0,Female,Rivers,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11021,57.0,Male,Borno,Yes,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11022,54.0,Female,Kano,No,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM11023,59.0,Male,Oyo,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11024,66.0,Female,FCT,No,No,Yes,No,No,,Negative,No Malaria
+NGM11025,60.0,Male,Enugu,Yes,No,No,No,Yes,,Negative,No Malaria
+NGM11026,32.0,Male,Katsina,Yes,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM11027,40.0,Male,Katsina,Yes,Yes,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11028,48.0,Male,Rivers,Yes,Yes,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM11029,71.0,Male,Borno,Yes,No,Yes,Yes,Yes,,Positive,Malaria
+NGM11030,56.0,Male,Katsina,Yes,Yes,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11031,31.0,Female,FCT,Yes,Yes,Yes,No,No,,Negative,No Malaria
+NGM11032,19.0,Male,Lagos,Yes,Yes,No,No,No,,Negative,No Malaria
+NGM11033,10.0,Female,Rivers,No,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11034,68.0,Male,Lagos,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM11035,22.0,Female,Kano,No,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11036,73.0,Male,Kano,Yes,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11037,20.0,Female,Sokoto,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM11038,56.0,Male,Lagos,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM11039,55.0,Female,Lagos,Yes,No,Yes,No,Yes,1-2 days,Positive,Malaria
+NGM11040,8.0,Male,Kaduna,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11041,72.0,Male,Oyo,No,No,No,No,Yes,,Positive,No Malaria
+NGM11042,75.0,Female,Enugu,Yes,No,Yes,Yes,Yes,,Negative,Malaria
+NGM11043,38.0,Female,Lagos,No,No,Yes,No,Yes,,Negative,No Malaria
+NGM11044,62.0,Male,Rivers,Yes,No,No,No,Yes,,Not Done,No Malaria
+NGM11045,4.0,Male,Sokoto,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM11046,8.0,Female,Rivers,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM11047,45.0,Female,Katsina,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM11048,61.0,Male,Enugu,No,No,Yes,Yes,No,1-2 days,Negative,No Malaria
+NGM11049,68.0,Male,FCT,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11050,55.0,Female,Rivers,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM11051,48.0,Male,Sokoto,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM11052,59.0,Female,Katsina,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11053,23.0,Female,Kano,Yes,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11054,36.0,Male,Kaduna,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11055,34.0,Male,Lagos,Yes,No,Yes,No,No,1-2 days,Positive,Malaria
+NGM11056,,Female,FCT,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11057,63.0,Female,Kaduna,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM11058,22.0,Male,Rivers,Yes,No,Yes,No,No,6-7 days,Positive,Malaria
+NGM11059,28.0,Female,Borno,No,No,No,No,Yes,,Negative,No Malaria
+NGM11060,55.0,Male,Rivers,Yes,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11061,6.0,Female,Rivers,Yes,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11062,71.0,Male,Kaduna,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM11063,9.0,Male,Rivers,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM11064,58.0,Male,Sokoto,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11065,48.0,Male,Sokoto,Yes,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11066,39.0,Female,Kano,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM11067,68.0,Female,Sokoto,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11068,72.0,Female,Enugu,Yes,Yes,Yes,Yes,Yes,1-2 days,Negative,Malaria
+NGM11069,44.0,Male,Enugu,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11070,62.0,Male,Rivers,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11071,39.0,Female,Rivers,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11072,74.0,Female,Kano,Yes,Yes,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM11073,10.0,Female,Borno,Yes,Yes,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11074,11.0,Female,Sokoto,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM11075,22.0,Female,Oyo,Yes,Yes,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11076,44.0,Male,Lagos,Yes,Yes,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11077,40.0,Female,Katsina,Yes,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11078,61.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM11079,50.0,Female,Rivers,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11080,47.0,Female,Rivers,Yes,Yes,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11081,22.0,Female,FCT,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11082,21.0,Male,Kaduna,Yes,No,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM11083,30.0,Female,FCT,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM11084,11.0,Male,Kano,Yes,No,No,No,Yes,,Not Done,No Malaria
+NGM11085,26.0,Female,Borno,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM11086,39.0,Female,Oyo,No,No,Yes,Yes,No,6-7 days,Negative,No Malaria
+NGM11087,73.0,Female,Sokoto,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11088,30.0,Male,Kano,Yes,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11089,68.0,Male,FCT,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11090,17.0,Female,Lagos,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11091,14.0,Female,Enugu,Yes,No,No,Yes,Yes,,Not Done,No Malaria
+NGM11092,28.0,Mle,Oyo,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11093,33.0,Male,FCT,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM11094,20.0,Female,Katsina,No,No,Yes,No,Yes,,Positive,No Malaria
+NGM11095,12.0,Female,Lagos,No,No,No,No,Yes,,Positive,No Malaria
+NGM11096,53.0,Female,Sokoto,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11097,73.0,Male,Rivers,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM11098,66.0,Female,Borno,No,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11099,52.0,Female,Sokoto,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11100,73.0,Female,Borno,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11101,15.0,Male,Kaduna,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM11102,39.0,Female,FCT,Yes,No,Yes,Yes,Yes,,Positive,Malaria
+NGM11103,48.0,Male,Enugu,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11104,21.0,Male,Rivers,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11105,8.0,Female,Kaduna,Yes,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11106,57.0,Male,Katsina,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM11107,18.0,Male,Kaduna,No,No,No,No,No,,Negative,No Malaria
+NGM11108,48.0,Male,Kaduna,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11109,37.0,Male,Enugu,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11110,1.0,Male,Kaduna,Yes,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM11111,74.0,Female,Borno,Yes,No,No,No,No,,Positive,No Malaria
+NGM11112,17.0,Male,Kaduna,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM11113,12.0,Female,Enugu,Yes,Yes,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11114,55.0,Male,Kano,Yes,Yes,Yes,No,Yes,,Positive,Malaria
+NGM11115,12.0,Mle,Oyo,Yes,Yes,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11116,9.0,Male,Katsina,No,No,Yes,Yes,No,,Not Done,No Malaria
+NGM11117,21.0,Female,Borno,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM11118,10.0,Female,Katsina,Yes,Yes,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11119,17.0,Male,FCT,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM11120,55.0,Female,Oyo,Yes,No,Yes,No,No,3-5 days,Positive,Malaria
+NGM11121,24.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM11122,48.0,Male,Katsina,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM11123,63.0,Male,Borno,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11124,,Female,Oyo,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11125,31.0,Male,Sokoto,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM11126,33.0,Female,Kaduna,Yes,No,No,Yes,Yes,,Negative,No Malaria
+NGM11127,43.0,Female,Kaduna,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11128,43.0,Male,Enugu,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM11129,64.0,Male,FCT,Yes,Yes,Yes,Yes,No,,Positive,Malaria
+NGM11130,19.0,Male,Kaduna,Yes,Yes,Yes,No,Yes,6-7 days,Positive,Malaria
+NGM11131,19.0,Female,Katsina,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM11132,71.0,Female,Enugu,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM11133,65.0,Female,Lagos,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM11134,22.0,Male,Rivers,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11135,50.0,Male,Oyo,Yes,Yes,Yes,No,No,6-7 days,Positive,Malaria
+NGM11136,58.0,Male,Sokoto,No,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM11137,3.0,Female,Sokoto,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM11138,2.0,Female,Oyo,Yes,Yes,Yes,Yes,Yes,,Positive,Malaria
+NGM11139,51.0,Female,Kaduna,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM11140,8.0,Male,Oyo,Yes,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11141,52.0,Female,Borno,Yes,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11142,71.0,Male,Borno,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM11143,24.0,Female,Lagos,Yes,No,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM11144,33.0,Male,Katsina,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM11145,12.0,Female,Katsina,Yes,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11146,60.0,Male,Kano,Yes,No,No,No,Yes,,Positive,No Malaria
+NGM11147,,Male,Kaduna,Yes,No,Yes,Yes,Yes,,Negative,Malaria
+NGM11148,17.0,Female,Kaduna,Yes,No,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM11149,44.0,Male,Lagos,Yes,No,Yes,Yes,No,,Not Done,Malaria
+NGM11150,28.0,Male,Oyo,Yes,Yes,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM11151,57.0,Male,Kaduna,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM11152,10.0,Female,Enugu,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11153,,Female,Kaduna,No,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM11154,36.0,Male,Kano,Yes,Yes,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11155,27.0,Female,Kno,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11156,32.0,Female,Katsina,Yes,Yes,No,Yes,No,1-2 days,Negative,No Malaria
+NGM11157,15.0,Female,Katsina,No,No,Yes,Yes,No,1-2 days,Negative,No Malaria
+NGM11158,62.0,Male,Kaduna,No,No,Yes,No,No,,Positive,No Malaria
+NGM11159,51.0,Female,Rivers,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11160,52.0,Female,Katsina,Yes,Yes,No,No,No,3-5 days,Negative,No Malaria
+NGM11161,26.0,Male,Enugu,No,No,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11162,23.0,Male,Katsina,Yes,Yes,Yes,No,No,1-2 days,Positive,Malaria
+NGM11163,33.0,Male,Sokoto,Yes,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11164,43.0,Female,FCT,Yes,Yes,Yes,Yes,No,3-5 days,Positive,Malaria
+NGM11165,27.0,Female,FCT,Yes,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11166,60.0,Male,Rivers,Yes,Yes,No,No,No,3-5 days,Not Done,No Malaria
+NGM11167,66.0,Female,Oyo,Yes,Yes,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11168,1.0,Female,Sokoto,Yes,Yes,Yes,No,Yes,,Negative,No Malaria
+NGM11169,12.0,Male,Sokoto,Yes,Yes,No,No,No,3-5 days,Not Done,No Malaria
+NGM11170,32.0,Male,Lagos,Yes,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11171,22.0,Female,Kano,Yes,Yes,No,No,No,,Not Done,No Malaria
+NGM11172,44.0,Mle,Oyo,No,No,Yes,Yes,No,,Not Done,No Malaria
+NGM11173,3.0,Female,Lagos,Yes,No,No,No,Yes,,Not Done,No Malaria
+NGM11174,71.0,Female,Oyo,Yes,Yes,No,Yes,No,,Negative,No Malaria
+NGM11175,59.0,Female,Kaduna,Yes,No,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM11176,58.0,Female,FCT,Yes,Yes,Yes,No,No,,Positive,Malaria
+NGM11177,21.0,Male,FCT,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM11178,70.0,Male,FCT,Yes,Yes,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM11179,62.0,Male,Oyo,No,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM11180,1.0,Female,Rivers,Yes,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM11181,55.0,Female,Borno,No,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11182,50.0,Female,Oyo,Yes,Yes,Yes,Yes,No,,Not Done,Malaria
+NGM11183,42.0,Male,FCT,Yes,No,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM11184,24.0,Male,FCT,No,No,Yes,No,Yes,,Positive,No Malaria
+NGM11185,5.0,Male,Kano,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11186,50.0,Male,Borno,Yes,Yes,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM11187,62.0,Male,Enugu,No,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM11188,59.0,Female,Oyo,Yes,Yes,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11189,57.0,Male,Katsina,No,No,No,No,Yes,,Negative,No Malaria
+NGM11190,70.0,Female,Enugu,Yes,No,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM11191,10.0,Female,Sokoto,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11192,72.0,Male,FCT,Yes,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11193,2.0,Male,Katsina,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11194,49.0,Male,Kano,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM11195,5.0,Female,Enugu,Yes,Yes,No,No,No,,Not Done,No Malaria
+NGM11196,70.0,Female,Katsina,Yes,No,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM11197,4.0,Female,Kaduna,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM11198,43.0,Male,Kaduna,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11199,59.0,Male,Rivers,Yes,Yes,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM11200,32.0,Male,Rivers,Yes,No,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM11201,24.0,Female,Rivers,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11202,38.0,Female,Enugu,Yes,No,Yes,No,No,3-5 days,Positive,Malaria
+NGM11203,71.0,Mle,Rivers,Yes,No,Yes,Yes,No,3-5 days,Positive,Malaria
+NGM11204,26.0,Male,Kaduna,Yes,Yes,Yes,No,Yes,,Positive,Malaria
+NGM11205,61.0,Male,Rivers,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11206,13.0,Male,Sokoto,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM11207,19.0,Female,Kaduna,No,No,No,No,No,3-5 days,Positive,No Malaria
+NGM11208,57.0,Female,Katsina,Yes,No,Yes,Yes,No,,Not Done,Malaria
+NGM11209,54.0,Male,Oyo,Yes,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11210,62.0,Female,Katsina,Yes,No,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM11211,6.0,Male,Rivers,Yes,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11212,35.0,Female,Katsina,Yes,Yes,No,No,No,3-5 days,Not Done,No Malaria
+NGM11213,63.0,Male,Enugu,Yes,Yes,Yes,No,No,1-2 days,Positive,Malaria
+NGM11214,29.0,Male,Enugu,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11215,50.0,Male,Borno,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM11216,75.0,Female,Lagos,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11217,39.0,Male,Kaduna,No,No,Yes,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11218,55.0,Female,Borno,Yes,Yes,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11219,5.0,Female,Katsina,Yes,Yes,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11220,27.0,Male,Borno,No,No,No,Yes,No,,Negative,No Malaria
+NGM11221,37.0,Male,Enugu,Yes,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11222,60.0,Female,Kno,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11223,9.0,Male,FCT,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM11224,66.0,Female,Enugu,No,No,Yes,No,Yes,,Positive,No Malaria
+NGM11225,24.0,Male,Oyo,Yes,No,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM11226,72.0,Female,Enugu,No,No,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11227,9.0,Female,Sokoto,Yes,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM11228,68.0,Male,FCT,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11229,74.0,Female,Kaduna,No,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11230,20.0,Male,Sokoto,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11231,7.0,Male,Rivers,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11232,30.0,Female,Katsina,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11233,25.0,Female,Lagos,No,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11234,68.0,Female,Kano,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11235,69.0,Female,Kano,Yes,Yes,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11236,49.0,Female,Rivers,No,No,No,No,No,,Positive,No Malaria
+NGM11237,68.0,Male,Rivers,Yes,Yes,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11238,65.0,Female,Kaduna,Yes,Yes,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM11239,4.0,Female,Kano,Yes,Yes,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11240,21.0,Male,Rivers,Yes,No,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM11241,59.0,Male,Kno,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM11242,10.0,Female,Kano,Yes,Yes,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11243,54.0,Male,FCT,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM11244,42.0,Female,Rivers,Yes,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM11245,15.0,Female,Kaduna,Yes,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11246,55.0,Female,Lagos,Yes,No,Yes,No,No,,Positive,Malaria
+NGM11247,72.0,Female,Katsina,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM11248,,Female,Rivers,Yes,Yes,No,Yes,No,,Not Done,No Malaria
+NGM11249,,Female,Katsina,Yes,Yes,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11250,70.0,Female,Rivers,Yes,Yes,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11251,20.0,Female,Lagos,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11252,47.0,Female,Oyo,Yes,Yes,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11253,56.0,Male,Borno,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11254,41.0,Male,FCT,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11255,65.0,Male,Lagos,Yes,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11256,20.0,Male,Borno,Yes,Yes,No,No,No,1-2 days,Positive,No Malaria
+NGM11257,59.0,Female,Katsina,Yes,Yes,No,No,No,,Negative,No Malaria
+NGM11258,44.0,Male,Enugu,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM11259,25.0,Male,Lagos,Yes,No,Yes,Yes,Yes,,Positive,Malaria
+NGM11260,13.0,Male,Lagos,Yes,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11261,11.0,Female,Oyo,Yes,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11262,33.0,Male,Rivers,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11263,49.0,Female,Rivers,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM11264,72.0,Female,FCT,No,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM11265,17.0,Male,Kaduna,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM11266,35.0,Female,Kaduna,Yes,No,No,No,Yes,,Negative,No Malaria
+NGM11267,3.0,Male,Enugu,Yes,Yes,Yes,Yes,Yes,,Positive,Malaria
+NGM11268,51.0,Male,Sokoto,No,No,No,Yes,No,,Not Done,No Malaria
+NGM11269,26.0,Female,Lagos,Yes,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM11270,7.0,Male,Lagos,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM11271,61.0,Male,Lagos,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM11272,55.0,Male,Oyo,No,No,Yes,Yes,No,1-2 days,Negative,No Malaria
+NGM11273,73.0,Male,Borno,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11274,63.0,Male,Rivers,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM11275,9.0,Male,Lagos,Yes,Yes,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM11276,62.0,Female,Sokoto,Yes,Yes,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11277,71.0,Male,Sokoto,Yes,Yes,Yes,No,Yes,,Not Done,No Malaria
+NGM11278,30.0,Male,Borno,No,No,Yes,No,No,,Negative,No Malaria
+NGM11279,19.0,Female,Kaduna,No,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM11280,5.0,Female,Kano,No,No,No,Yes,No,,Not Done,No Malaria
+NGM11281,30.0,Female,Kano,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11282,27.0,Female,FCT,Yes,Yes,No,No,No,,Negative,No Malaria
+NGM11283,7.0,Female,Enugu,Yes,Yes,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11284,75.0,Female,Enugu,No,No,Yes,No,No,,Negative,No Malaria
+NGM11285,36.0,Male,Katsina,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM11286,16.0,Male,Kno,No,No,No,No,No,,Not Done,No Malaria
+NGM11287,27.0,Female,Sokoto,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM11288,62.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM11289,21.0,Male,Enugu,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM11290,38.0,Male,Rivers,No,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM11291,51.0,Male,Lagos,Yes,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM11292,25.0,Male,Kaduna,Yes,Yes,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM11293,19.0,Female,Kano,Yes,Yes,Yes,Yes,Yes,,Positive,Malaria
+NGM11294,42.0,Male,Kno,Yes,Yes,Yes,Yes,No,3-5 days,Not Done,Malaria
+NGM11295,70.0,Female,Enugu,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11296,50.0,Female,Sokoto,No,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11297,,Mle,Lagos,Yes,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11298,23.0,Female,Rivers,Yes,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11299,26.0,Female,Enugu,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM11300,60.0,Male,FCT,Yes,Yes,No,Yes,No,,Negative,No Malaria
+NGM11301,63.0,Male,Kno,Yes,Yes,No,Yes,Yes,,Negative,No Malaria
+NGM11302,39.0,Male,Oyo,Yes,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM11303,18.0,Female,Borno,Yes,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11304,54.0,Female,Enugu,Yes,Yes,No,Yes,No,,Not Done,No Malaria
+NGM11305,32.0,Male,Katsina,No,No,No,No,No,3-5 days,Positive,No Malaria
+NGM11306,46.0,Male,Oyo,No,No,No,No,No,3-5 days,Positive,No Malaria
+NGM11307,58.0,Female,Rivers,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM11308,47.0,Male,Enugu,Yes,Yes,No,Yes,Yes,,Negative,No Malaria
+NGM11309,29.0,Female,Lagos,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11310,28.0,Female,Enugu,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11311,71.0,Female,Katsina,Yes,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11312,74.0,Male,Oyo,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM11313,47.0,Male,Oyo,Yes,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM11314,39.0,Female,Lagos,Yes,Yes,Yes,Yes,No,,Not Done,Malaria
+NGM11315,5.0,Male,FCT,Yes,No,Yes,Yes,Yes,,Not Done,Malaria
+NGM11316,13.0,Male,Enugu,Yes,No,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM11317,47.0,Female,FCT,Yes,Yes,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11318,11.0,Female,Kano,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11319,75.0,Male,Katsina,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM11320,8.0,Female,Enugu,Yes,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11321,70.0,Female,Borno,Yes,Yes,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11322,49.0,Female,Kano,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11323,74.0,Male,Enugu,Yes,Yes,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11324,28.0,Male,Rivers,Yes,Yes,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11325,51.0,Female,FCT,Yes,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM11326,55.0,Male,Lagos,Yes,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11327,41.0,Female,Kano,Yes,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11328,63.0,Male,Kano,Yes,Yes,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM11329,60.0,Male,Lagos,No,No,No,Yes,Yes,,Not Done,No Malaria
+NGM11330,61.0,Male,Kano,Yes,Yes,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11331,7.0,Female,Lagos,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11332,12.0,Female,Oyo,Yes,Yes,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11333,23.0,Mle,Rivers,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11334,45.0,Male,FCT,Yes,Yes,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11335,61.0,Male,Sokoto,Yes,Yes,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11336,1.0,Male,Kaduna,Yes,No,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM11337,40.0,Male,Enugu,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11338,64.0,Female,Borno,Yes,No,No,No,Yes,,Positive,No Malaria
+NGM11339,2.0,Female,Oyo,Yes,Yes,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11340,22.0,Female,FCT,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11341,46.0,Male,FCT,Yes,No,No,No,No,1-2 days,Positive,No Malaria
+NGM11342,41.0,Female,Rivers,Yes,No,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM11343,58.0,Male,Lagos,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM11344,29.0,Male,Lagos,Yes,Yes,Yes,Yes,No,,Positive,Malaria
+NGM11345,48.0,Female,Enugu,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11346,55.0,Female,Kaduna,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11347,24.0,Female,Lagos,Yes,No,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM11348,46.0,Female,FCT,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11349,66.0,Female,Kano,No,No,No,No,No,3-5 days,Positive,No Malaria
+NGM11350,5.0,Male,Katsina,No,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM11351,72.0,Male,Enugu,No,No,No,No,No,1-2 days,Not Done,No Malaria
+NGM11352,60.0,Male,Katsina,No,No,No,No,Yes,,Negative,No Malaria
+NGM11353,47.0,Male,Borno,Yes,No,Yes,Yes,No,3-5 days,Positive,Malaria
+NGM11354,27.0,Male,Rivers,Yes,No,Yes,No,Yes,1-2 days,Positive,Malaria
+NGM11355,43.0,Male,Lagos,Yes,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM11356,65.0,Female,Lagos,Yes,Yes,Yes,Yes,Yes,,Negative,Malaria
+NGM11357,3.0,Female,Borno,Yes,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM11358,41.0,Female,Kaduna,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM11359,8.0,Male,Kano,Yes,Yes,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM11360,10.0,Female,Oyo,Yes,No,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM11361,7.0,Male,Kaduna,Yes,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11362,12.0,Female,Rivers,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11363,24.0,Male,Lagos,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11364,11.0,Male,Kano,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM11365,17.0,Female,FCT,No,No,No,No,Yes,,Positive,No Malaria
+NGM11366,29.0,Female,Sokoto,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM11367,11.0,Male,Enugu,Yes,No,Yes,Yes,Yes,,Negative,Malaria
+NGM11368,34.0,Male,FCT,Yes,No,No,No,No,1-2 days,Not Done,No Malaria
+NGM11369,6.0,Female,Rivers,Yes,Yes,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11370,8.0,Male,Rivers,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM11371,,Female,Katsina,Yes,No,Yes,No,No,,Positive,Malaria
+NGM11372,73.0,Female,Katsina,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11373,51.0,Male,Rivers,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11374,8.0,Female,Kano,Yes,No,Yes,No,No,6-7 days,Positive,Malaria
+NGM11375,34.0,Female,FCT,No,No,Yes,Yes,No,6-7 days,Negative,No Malaria
+NGM11376,66.0,Male,Katsina,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM11377,42.0,Male,Oyo,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11378,61.0,Male,Enugu,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11379,,Male,Borno,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM11380,52.0,Female,Kano,No,No,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11381,45.0,Male,Lagos,Yes,No,Yes,No,Yes,1-2 days,Positive,Malaria
+NGM11382,37.0,Female,Kaduna,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11383,68.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM11384,27.0,Male,Borno,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM11385,17.0,Female,Rivers,Yes,No,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM11386,57.0,Male,Lagos,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11387,43.0,Male,FCT,No,No,Yes,No,No,,Not Done,No Malaria
+NGM11388,69.0,Male,Enugu,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11389,65.0,Female,Sokoto,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11390,61.0,Female,FCT,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM11391,11.0,Female,Katsina,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM11392,50.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,,Positive,Malaria
+NGM11393,50.0,Female,Katsina,No,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11394,40.0,Female,Sokoto,Yes,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11395,75.0,Male,Borno,No,No,Yes,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11396,19.0,Male,Oyo,Yes,Yes,Yes,No,Yes,,Negative,No Malaria
+NGM11397,2.0,Male,Lagos,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11398,11.0,Female,Oyo,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM11399,71.0,Male,Enugu,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11400,47.0,Female,Kaduna,Yes,Yes,No,No,No,1-2 days,Positive,No Malaria
+NGM11401,45.0,Male,Katsina,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11402,24.0,Male,Sokoto,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11403,67.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM11404,67.0,Female,Sokoto,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11405,28.0,Male,Kano,Yes,Yes,No,Yes,No,,Positive,No Malaria
+NGM11406,36.0,Male,FCT,Yes,No,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM11407,73.0,Female,Kaduna,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11408,65.0,Female,Borno,Yes,Yes,No,No,No,3-5 days,Positive,No Malaria
+NGM11409,60.0,Male,Sokoto,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11410,52.0,Female,Kaduna,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11411,21.0,Male,Borno,Yes,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11412,5.0,Female,Oyo,No,No,Yes,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11413,8.0,Female,Borno,Yes,No,No,Yes,Yes,,Negative,No Malaria
+NGM11414,37.0,Male,Rivers,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM11415,15.0,Male,Kaduna,Yes,Yes,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11416,58.0,Male,Katsina,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM11417,60.0,Female,Enugu,Yes,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11418,13.0,Female,Katsina,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM11419,36.0,Female,Enugu,Yes,No,No,No,No,1-2 days,Positive,No Malaria
+NGM11420,40.0,Male,Sokoto,Yes,Yes,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11421,,Male,Kaduna,Yes,Yes,No,Yes,Yes,,Negative,No Malaria
+NGM11422,46.0,Male,Kano,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11423,7.0,Female,Rivers,No,No,Yes,Yes,No,6-7 days,Negative,No Malaria
+NGM11424,39.0,Female,Sokoto,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11425,64.0,Male,Kaduna,Yes,Yes,No,Yes,No,1-2 days,Negative,No Malaria
+NGM11426,58.0,Female,FCT,Yes,No,Yes,No,No,6-7 days,Positive,Malaria
+NGM11427,43.0,Female,Kano,No,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM11428,35.0,Female,Borno,Yes,Yes,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM11429,58.0,Male,Sokoto,Yes,Yes,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM11430,56.0,Female,Sokoto,No,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM11431,60.0,Female,Oyo,Yes,No,No,Yes,No,,Negative,No Malaria
+NGM11432,39.0,Female,Katsina,Yes,Yes,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11433,14.0,Female,Sokoto,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM11434,58.0,Male,Sokoto,No,No,No,No,No,1-2 days,Not Done,No Malaria
+NGM11435,74.0,Male,Kno,No,No,No,No,Yes,,Negative,No Malaria
+NGM11436,73.0,Mle,Enugu,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM11437,56.0,Male,Rivers,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11438,63.0,Male,Rivers,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11439,69.0,Male,Rivers,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM11440,74.0,Male,Borno,Yes,Yes,No,No,Yes,,Not Done,No Malaria
+NGM11441,40.0,Female,Lagos,No,No,Yes,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11442,64.0,Male,FCT,Yes,Yes,Yes,No,No,6-7 days,Positive,Malaria
+NGM11443,70.0,Female,Rivers,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11444,46.0,Female,Rivers,No,No,Yes,No,No,1-2 days,Positive,No Malaria
+NGM11445,52.0,Female,Sokoto,Yes,Yes,No,No,Yes,1-2 days,Positive,No Malaria
+NGM11446,70.0,Female,FCT,Yes,No,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM11447,34.0,Male,FCT,Yes,Yes,No,No,No,1-2 days,Negative,No Malaria
+NGM11448,42.0,Male,FCT,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11449,60.0,Male,Katsina,Yes,Yes,No,Yes,No,,Positive,No Malaria
+NGM11450,11.0,Female,FCT,No,No,Yes,Yes,No,,Positive,No Malaria
+NGM11451,18.0,Male,Sokoto,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM11452,48.0,Male,Sokoto,Yes,Yes,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11453,52.0,Mle,Katsina,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM11454,1.0,Male,Kano,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM11455,16.0,Female,FCT,Yes,Yes,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11456,29.0,Male,Katsina,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11457,36.0,Male,Enugu,Yes,Yes,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM11458,28.0,Male,FCT,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11459,10.0,Male,Lagos,Yes,Yes,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM11460,42.0,Female,Katsina,Yes,No,Yes,No,No,,Not Done,No Malaria
+NGM11461,46.0,Female,Sokoto,Yes,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11462,7.0,Male,Kaduna,Yes,Yes,No,Yes,No,,Not Done,No Malaria
+NGM11463,1.0,Female,Kaduna,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11464,42.0,Male,Oyo,Yes,Yes,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM11465,34.0,Male,Kano,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11466,29.0,Male,Lagos,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM11467,70.0,Male,Katsina,Yes,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11468,4.0,Male,FCT,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM11469,19.0,Female,Sokoto,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11470,48.0,Female,Lagos,Yes,Yes,Yes,Yes,Yes,1-2 days,Negative,Malaria
+NGM11471,42.0,Female,FCT,No,No,Yes,Yes,No,,Not Done,No Malaria
+NGM11472,44.0,Male,Kaduna,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11473,20.0,Female,Borno,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11474,26.0,Male,Kaduna,No,No,Yes,No,No,,Negative,No Malaria
+NGM11475,61.0,Female,Oyo,Yes,No,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM11476,26.0,Male,FCT,No,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM11477,9.0,Female,Sokoto,No,No,Yes,Yes,Yes,,Positive,No Malaria
+NGM11478,43.0,Female,Katsina,No,No,No,No,No,3-5 days,Positive,No Malaria
+NGM11479,37.0,Female,Katsina,Yes,Yes,Yes,Yes,No,,Positive,Malaria
+NGM11480,48.0,Male,Kano,No,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM11481,40.0,Female,Borno,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM11482,10.0,Female,Kaduna,No,No,Yes,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11483,57.0,Male,FCT,Yes,Yes,Yes,Yes,No,1-2 days,Negative,Malaria
+NGM11484,54.0,Female,Borno,Yes,Yes,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM11485,64.0,Male,Katsina,Yes,No,No,No,No,,Positive,No Malaria
+NGM11486,51.0,Male,Kno,Yes,No,Yes,Yes,Yes,,Positive,Malaria
+NGM11487,51.0,Male,FCT,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11488,55.0,Male,Sokoto,Yes,Yes,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11489,1.0,Female,FCT,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM11490,50.0,Female,FCT,Yes,No,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM11491,17.0,Male,Borno,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11492,66.0,Female,Oyo,Yes,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11493,9.0,Female,Rivers,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11494,12.0,Male,Rivers,Yes,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11495,65.0,Male,Oyo,No,No,No,No,No,,Positive,No Malaria
+NGM11496,21.0,Female,Enugu,Yes,Yes,Yes,No,Yes,,Negative,No Malaria
+NGM11497,36.0,Female,Kano,No,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11498,3.0,Male,Enugu,No,No,No,Yes,Yes,,Not Done,No Malaria
+NGM11499,70.0,Male,Enugu,Yes,Yes,No,No,No,3-5 days,Positive,No Malaria
+NGM11500,68.0,Male,Kano,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11501,14.0,Male,Kaduna,No,No,No,No,No,,Positive,No Malaria
+NGM11502,13.0,Male,FCT,No,No,No,Yes,No,,Positive,No Malaria
+NGM11503,10.0,Female,Lagos,No,No,Yes,No,Yes,,Negative,No Malaria
+NGM11504,25.0,Female,FCT,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11505,43.0,Female,Katsina,Yes,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11506,30.0,Female,Borno,Yes,No,No,No,No,1-2 days,Not Done,No Malaria
+NGM11507,9.0,Male,Sokoto,Yes,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM11508,63.0,Female,Sokoto,No,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11509,47.0,Male,FCT,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11510,61.0,Male,Enugu,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11511,11.0,Female,Rivers,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11512,75.0,Female,Kano,Yes,No,Yes,No,Yes,,Negative,No Malaria
+NGM11513,69.0,Male,Kaduna,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11514,67.0,Female,Borno,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM11515,47.0,Male,Rivers,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11516,51.0,Female,Borno,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11517,47.0,Female,Kano,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11518,23.0,Female,Rivers,Yes,Yes,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM11519,74.0,Female,Rivers,No,No,Yes,No,No,,Negative,No Malaria
+NGM11520,49.0,Male,Oyo,Yes,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11521,63.0,Male,Katsina,No,No,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11522,16.0,Female,Lagos,No,No,Yes,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11523,57.0,Female,Sokoto,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11524,54.0,Mle,Sokoto,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11525,10.0,Male,FCT,Yes,No,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM11526,5.0,Female,Kano,Yes,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11527,40.0,Female,Sokoto,Yes,Yes,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11528,46.0,Male,Kaduna,No,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM11529,65.0,Male,Kano,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM11530,7.0,Female,Kano,Yes,Yes,Yes,No,No,1-2 days,Negative,No Malaria
+NGM11531,21.0,Male,Oyo,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11532,60.0,Female,Sokoto,Yes,Yes,Yes,No,No,1-2 days,Positive,Malaria
+NGM11533,72.0,Male,Lagos,Yes,Yes,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM11534,63.0,Female,Kno,Yes,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11535,39.0,Female,Sokoto,No,No,Yes,No,No,,Not Done,No Malaria
+NGM11536,14.0,Male,Borno,No,No,Yes,No,Yes,,Positive,No Malaria
+NGM11537,35.0,Male,Rivers,Yes,Yes,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11538,68.0,Male,Oyo,Yes,Yes,No,Yes,No,,Positive,No Malaria
+NGM11539,45.0,Male,Lagos,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM11540,8.0,Female,Kaduna,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM11541,71.0,Male,Kano,Yes,Yes,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11542,68.0,Female,Katsina,No,No,Yes,Yes,No,,Not Done,No Malaria
+NGM11543,32.0,Female,Katsina,No,No,No,Yes,No,,Negative,No Malaria
+NGM11544,53.0,Female,Lagos,Yes,Yes,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11545,42.0,Female,Borno,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM11546,61.0,Male,Borno,Yes,No,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM11547,,Female,Kaduna,Yes,Yes,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM11548,20.0,Female,Rivers,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11549,15.0,Male,Sokoto,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11550,70.0,Male,Enugu,No,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM11551,59.0,Male,Katsina,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11552,6.0,Female,Borno,Yes,Yes,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM11553,8.0,Male,Borno,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11554,13.0,Female,Borno,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM11555,36.0,Male,Kno,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11556,45.0,Male,Kaduna,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM11557,44.0,Male,Oyo,Yes,No,No,No,Yes,,Negative,No Malaria
+NGM11558,25.0,Female,Rivers,Yes,Yes,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM11559,64.0,Female,Enugu,No,No,Yes,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11560,19.0,Male,Sokoto,No,No,Yes,No,No,,Positive,No Malaria
+NGM11561,59.0,Female,Katsina,No,No,Yes,No,No,1-2 days,Negative,No Malaria
+NGM11562,72.0,Female,FCT,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11563,39.0,Male,Enugu,Yes,Yes,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM11564,19.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM11565,35.0,Female,Kaduna,Yes,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11566,32.0,Male,Sokoto,Yes,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM11567,42.0,Male,Sokoto,Yes,Yes,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM11568,9.0,Male,Kano,Yes,No,Yes,No,No,,Positive,Malaria
+NGM11569,39.0,Female,Katsina,No,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11570,56.0,Female,Borno,No,No,Yes,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11571,28.0,Female,Oyo,Yes,Yes,No,Yes,No,,Not Done,No Malaria
+NGM11572,73.0,Male,Kano,Yes,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11573,21.0,Female,Rivers,Yes,No,Yes,Yes,Yes,,Not Done,Malaria
+NGM11574,27.0,Male,Kaduna,No,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11575,51.0,Female,Sokoto,No,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11576,53.0,Male,Kano,Yes,Yes,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11577,70.0,Female,Lagos,No,No,Yes,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11578,37.0,Female,Sokoto,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11579,13.0,Female,Borno,No,No,No,No,No,,Not Done,No Malaria
+NGM11580,72.0,Male,Enugu,Yes,No,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM11581,56.0,Male,Sokoto,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11582,4.0,Female,Katsina,Yes,No,Yes,Yes,Yes,6-7 days,Positive,Malaria
+NGM11583,20.0,Female,Sokoto,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11584,25.0,Female,Kaduna,No,No,No,No,No,,Not Done,No Malaria
+NGM11585,38.0,Female,FCT,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11586,20.0,Male,FCT,Yes,Yes,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11587,20.0,Female,Sokoto,Yes,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11588,64.0,Female,Oyo,Yes,Yes,Yes,No,No,1-2 days,Positive,Malaria
+NGM11589,36.0,Male,Oyo,Yes,Yes,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM11590,70.0,Female,Oyo,Yes,No,No,No,No,3-5 days,Negative,No Malaria
+NGM11591,20.0,Male,Oyo,No,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11592,69.0,Female,Kano,Yes,Yes,Yes,No,Yes,,Negative,No Malaria
+NGM11593,8.0,Male,Sokoto,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11594,40.0,Male,Oyo,No,No,No,Yes,No,,Positive,No Malaria
+NGM11595,56.0,Male,Lagos,Yes,Yes,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM11596,18.0,Male,FCT,No,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM11597,1.0,Male,Sokoto,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11598,2.0,Male,Borno,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11599,63.0,Male,Katsina,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM11600,2.0,Male,Sokoto,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM11601,42.0,Female,Kaduna,Yes,Yes,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM11602,53.0,Female,Kano,Yes,No,No,No,No,3-5 days,Negative,No Malaria
+NGM11603,45.0,Male,Rivers,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11604,6.0,Female,Enugu,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11605,48.0,Female,Enugu,Yes,Yes,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11606,73.0,Female,FCT,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11607,43.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,,Negative,Malaria
+NGM11608,67.0,Female,Kaduna,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11609,25.0,Male,Kano,Yes,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11610,58.0,Male,Kaduna,Yes,Yes,Yes,No,No,1-2 days,Negative,No Malaria
+NGM11611,23.0,Female,Kano,Yes,No,Yes,Yes,No,,Positive,Malaria
+NGM11612,32.0,Male,Kano,No,No,No,No,Yes,,Not Done,No Malaria
+NGM11613,28.0,Male,FCT,Yes,Yes,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11614,4.0,Male,Kano,Yes,Yes,No,No,Yes,,Not Done,No Malaria
+NGM11615,47.0,Male,Katsina,Yes,Yes,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM11616,41.0,Female,Kano,Yes,Yes,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11617,16.0,Male,Borno,No,No,No,No,Yes,1-2 days,Positive,No Malaria
+NGM11618,16.0,Male,Kano,Yes,No,Yes,Yes,No,,Not Done,Malaria
+NGM11619,75.0,Male,Oyo,Yes,Yes,No,No,No,6-7 days,Positive,No Malaria
+NGM11620,23.0,Male,Sokoto,Yes,No,Yes,No,No,3-5 days,Positive,Malaria
+NGM11621,42.0,Female,Enugu,No,No,Yes,No,No,,Positive,No Malaria
+NGM11622,41.0,Male,Oyo,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM11623,59.0,Male,Katsina,No,No,Yes,No,No,,Negative,No Malaria
+NGM11624,74.0,Male,Kano,No,No,No,No,No,3-5 days,Positive,No Malaria
+NGM11625,39.0,Male,Kaduna,No,No,Yes,No,No,,Not Done,No Malaria
+NGM11626,69.0,Male,Rivers,Yes,No,Yes,No,No,,Not Done,No Malaria
+NGM11627,74.0,Male,Kaduna,Yes,No,No,Yes,Yes,,Positive,No Malaria
+NGM11628,68.0,Male,Kano,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM11629,10.0,Male,Kaduna,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11630,60.0,Male,Borno,No,No,Yes,Yes,No,6-7 days,Negative,No Malaria
+NGM11631,45.0,Female,Enugu,Yes,Yes,No,No,Yes,1-2 days,Positive,No Malaria
+NGM11632,50.0,Female,Rivers,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM11633,28.0,Male,Oyo,Yes,Yes,Yes,Yes,No,1-2 days,Negative,Malaria
+NGM11634,75.0,Female,Kaduna,No,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM11635,50.0,Female,Sokoto,Yes,No,No,Yes,No,,Not Done,No Malaria
+NGM11636,51.0,Male,Lagos,Yes,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11637,5.0,Male,Rivers,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11638,34.0,Male,Katsina,Yes,No,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM11639,42.0,Male,Oyo,Yes,No,No,Yes,No,,Negative,No Malaria
+NGM11640,45.0,Male,Borno,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11641,61.0,Male,Kano,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11642,36.0,Male,Kaduna,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11643,65.0,Female,Lagos,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM11644,64.0,Male,Borno,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM11645,69.0,Female,FCT,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM11646,47.0,Female,Enugu,Yes,Yes,No,No,No,3-5 days,Negative,No Malaria
+NGM11647,69.0,Female,Rivers,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM11648,72.0,Male,Rivers,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11649,62.0,Female,Borno,Yes,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11650,19.0,Female,Borno,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11651,52.0,Male,FCT,No,No,Yes,No,Yes,,Not Done,No Malaria
+NGM11652,11.0,Female,FCT,No,No,No,No,No,,Not Done,No Malaria
+NGM11653,5.0,Female,Enugu,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM11654,29.0,Female,Borno,Yes,Yes,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11655,50.0,Male,Katsina,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11656,21.0,Male,Sokoto,No,No,No,Yes,No,,Not Done,No Malaria
+NGM11657,40.0,Female,Borno,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11658,44.0,Male,Enugu,Yes,Yes,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11659,6.0,Male,Kano,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM11660,27.0,Female,Kaduna,No,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11661,44.0,Male,Enugu,No,No,No,No,Yes,,Positive,No Malaria
+NGM11662,24.0,Female,Lagos,Yes,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11663,5.0,Male,Sokoto,Yes,Yes,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11664,6.0,Male,Oyo,No,No,Yes,No,No,1-2 days,Positive,No Malaria
+NGM11665,23.0,Male,Borno,Yes,No,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM11666,70.0,Mle,Katsina,Yes,Yes,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11667,23.0,Female,Sokoto,No,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11668,57.0,Female,Sokoto,Yes,Yes,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11669,6.0,Male,FCT,Yes,No,Yes,No,No,3-5 days,Positive,Malaria
+NGM11670,31.0,Male,Borno,Yes,Yes,No,Yes,No,1-2 days,Positive,No Malaria
+NGM11671,25.0,Male,Sokoto,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11672,58.0,Female,Sokoto,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM11673,33.0,Female,Kano,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11674,61.0,Female,Kano,Yes,Yes,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11675,34.0,Male,Borno,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM11676,13.0,Female,Kaduna,Yes,Yes,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11677,75.0,Female,Rivers,No,No,Yes,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11678,62.0,Male,Kaduna,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11679,70.0,Male,Sokoto,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM11680,27.0,Male,Kaduna,No,No,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11681,17.0,Mle,FCT,Yes,Yes,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM11682,64.0,Male,Kaduna,No,No,Yes,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11683,17.0,Female,Enugu,No,No,Yes,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11684,24.0,Female,FCT,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11685,5.0,Female,Sokoto,No,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11686,54.0,Male,Oyo,Yes,Yes,Yes,Yes,No,,Positive,Malaria
+NGM11687,33.0,Male,Borno,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11688,75.0,Male,FCT,Yes,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11689,40.0,Male,Sokoto,Yes,No,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM11690,71.0,Female,Rivers,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11691,46.0,Female,Oyo,Yes,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11692,38.0,Female,Oyo,No,No,Yes,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11693,16.0,Female,FCT,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM11694,15.0,Male,Oyo,No,No,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11695,23.0,Female,FCT,Yes,No,Yes,Yes,Yes,,Not Done,Malaria
+NGM11696,45.0,Male,Lagos,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM11697,50.0,Female,Lagos,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11698,70.0,Male,Kano,No,No,Yes,No,Yes,,Negative,No Malaria
+NGM11699,30.0,Male,Kano,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11700,27.0,Female,Enugu,Yes,Yes,No,No,No,6-7 days,Negative,No Malaria
+NGM11701,14.0,Male,FCT,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM11702,36.0,Female,Lagos,Yes,Yes,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11703,57.0,Female,Oyo,Yes,No,No,No,No,3-5 days,Negative,No Malaria
+NGM11704,13.0,Female,Rivers,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM11705,1.0,Male,FCT,Yes,No,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM11706,50.0,Female,Borno,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11707,52.0,Female,Rivers,Yes,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11708,44.0,Female,Lagos,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11709,52.0,Female,Enugu,Yes,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11710,55.0,Female,Kaduna,Yes,Yes,Yes,No,No,,Negative,No Malaria
+NGM11711,3.0,Female,Rivers,No,No,No,No,No,,Not Done,No Malaria
+NGM11712,20.0,Female,Katsina,Yes,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11713,14.0,Female,Rivers,Yes,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM11714,37.0,Male,Kaduna,Yes,No,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM11715,44.0,Female,FCT,No,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM11716,15.0,Female,FCT,Yes,Yes,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM11717,42.0,Female,Borno,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM11718,29.0,Female,Enugu,Yes,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM11719,11.0,Male,Borno,No,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM11720,10.0,Male,Lagos,No,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM11721,26.0,Female,Katsina,Yes,Yes,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM11722,25.0,Female,Enugu,No,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11723,56.0,Female,Lagos,No,No,No,Yes,No,,Not Done,No Malaria
+NGM11724,34.0,Male,Enugu,No,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11725,51.0,Male,Kno,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11726,18.0,Male,Rivers,Yes,Yes,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11727,18.0,Female,Borno,Yes,Yes,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11728,37.0,Male,Oyo,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM11729,69.0,Male,FCT,No,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11730,37.0,Female,Enugu,Yes,Yes,No,No,No,,Negative,No Malaria
+NGM11731,59.0,Female,Katsina,Yes,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11732,12.0,Male,Katsina,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11733,28.0,Female,Katsina,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11734,67.0,Female,Kano,Yes,Yes,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM11735,68.0,Female,Rivers,Yes,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11736,48.0,Female,FCT,Yes,Yes,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11737,71.0,Female,Katsina,Yes,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11738,2.0,Female,Katsina,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11739,39.0,Male,Borno,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11740,13.0,Male,Borno,Yes,Yes,No,No,No,1-2 days,Positive,No Malaria
+NGM11741,56.0,Male,Enugu,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM11742,47.0,Female,Borno,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11743,58.0,Male,Lagos,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11744,22.0,Female,Oyo,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11745,16.0,Female,Katsina,Yes,Yes,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11746,36.0,Female,Borno,Yes,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11747,25.0,Male,Sokoto,No,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11748,63.0,Male,Kano,Yes,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM11749,23.0,Male,FCT,Yes,Yes,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11750,44.0,Female,Lagos,Yes,Yes,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11751,26.0,Female,Oyo,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11752,46.0,Female,Lagos,No,No,No,No,No,,Positive,No Malaria
+NGM11753,50.0,Female,Borno,Yes,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11754,14.0,Female,Katsina,Yes,No,No,No,Yes,,Positive,No Malaria
+NGM11755,4.0,Female,Lagos,No,No,Yes,No,No,1-2 days,Positive,No Malaria
+NGM11756,74.0,Female,Lagos,No,No,No,No,No,,Positive,No Malaria
+NGM11757,40.0,Female,Kano,Yes,Yes,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11758,6.0,Female,Enugu,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM11759,24.0,Female,Sokoto,Yes,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11760,8.0,Male,FCT,No,No,No,Yes,Yes,,Not Done,No Malaria
+NGM11761,75.0,Male,Katsina,Yes,Yes,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11762,52.0,Female,Enugu,Yes,No,Yes,Yes,No,1-2 days,Not Done,Malaria
+NGM11763,5.0,Male,Lagos,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11764,62.0,Female,Lagos,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11765,29.0,Female,Kano,No,No,Yes,No,No,,Positive,No Malaria
+NGM11766,17.0,Female,Oyo,Yes,No,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM11767,16.0,Male,Kaduna,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11768,66.0,Male,Katsina,No,No,Yes,Yes,No,3-5 days,Negative,No Malaria
+NGM11769,61.0,Male,Borno,No,No,Yes,Yes,No,1-2 days,Not Done,No Malaria
+NGM11770,71.0,Male,Lagos,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11771,54.0,Male,Katsina,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM11772,49.0,Male,Rivers,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11773,19.0,Male,Rivers,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11774,65.0,Female,Rivers,Yes,Yes,Yes,No,No,,Positive,Malaria
+NGM11775,75.0,Male,Lagos,Yes,Yes,Yes,No,Yes,,Not Done,No Malaria
+NGM11776,32.0,Female,Enugu,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM11777,6.0,Female,Enugu,No,No,Yes,No,No,,Not Done,No Malaria
+NGM11778,43.0,Female,Sokoto,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11779,71.0,Female,Sokoto,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM11780,27.0,Female,Borno,Yes,Yes,Yes,No,No,1-2 days,Positive,Malaria
+NGM11781,15.0,Female,Oyo,No,No,No,No,No,,Not Done,No Malaria
+NGM11782,55.0,Male,Kaduna,Yes,No,Yes,No,No,,Positive,Malaria
+NGM11783,25.0,Female,Enugu,Yes,Yes,No,No,No,3-5 days,Negative,No Malaria
+NGM11784,47.0,Female,Rivers,Yes,No,Yes,Yes,No,,Not Done,Malaria
+NGM11785,65.0,Male,FCT,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11786,49.0,Female,Kaduna,No,No,No,Yes,No,1-2 days,Positive,No Malaria
+NGM11787,51.0,Female,Kano,No,No,No,No,No,1-2 days,Not Done,No Malaria
+NGM11788,73.0,Male,Lagos,Yes,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM11789,48.0,Female,Kaduna,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11790,54.0,Female,Enugu,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM11791,44.0,Female,Katsina,Yes,Yes,No,Yes,Yes,3-5 days,Positive,No Malaria
+NGM11792,7.0,Female,Katsina,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11793,21.0,Male,Enugu,No,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11794,63.0,Male,Kano,Yes,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11795,22.0,Female,Borno,Yes,Yes,Yes,Yes,Yes,1-2 days,Negative,Malaria
+NGM11796,17.0,Female,Rivers,No,No,No,No,No,1-2 days,Positive,No Malaria
+NGM11797,40.0,Male,Sokoto,No,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11798,16.0,Female,Borno,Yes,No,Yes,Yes,No,6-7 days,Not Done,Malaria
+NGM11799,29.0,Male,Kano,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11800,66.0,Male,Kano,No,No,No,No,No,,Negative,No Malaria
+NGM11801,39.0,Female,Oyo,Yes,Yes,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11802,27.0,Male,Lagos,Yes,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11803,5.0,Male,Lagos,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11804,59.0,Male,Rivers,No,No,No,No,No,3-5 days,Negative,No Malaria
+NGM11805,60.0,Male,Rivers,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM11806,23.0,Female,Katsina,Yes,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11807,39.0,Male,Enugu,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM11808,20.0,Male,Kano,No,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11809,17.0,Female,Enugu,No,No,Yes,Yes,No,,Negative,No Malaria
+NGM11810,61.0,Female,FCT,Yes,No,No,No,Yes,,Negative,No Malaria
+NGM11811,62.0,Female,Lagos,Yes,No,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM11812,56.0,Male,FCT,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11813,37.0,Female,FCT,No,No,No,No,Yes,,Negative,No Malaria
+NGM11814,2.0,Female,Sokoto,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM11815,36.0,Male,Enugu,No,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11816,33.0,Female,Lagos,Yes,No,No,No,No,,Negative,No Malaria
+NGM11817,60.0,Male,Katsina,Yes,No,No,No,No,6-7 days,Positive,No Malaria
+NGM11818,25.0,Male,Katsina,No,No,No,Yes,No,,Positive,No Malaria
+NGM11819,17.0,Male,Lagos,Yes,No,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM11820,74.0,Female,Kaduna,No,No,Yes,No,No,6-7 days,Positive,No Malaria
+NGM11821,12.0,Female,Lagos,No,No,Yes,No,No,,Negative,No Malaria
+NGM11822,50.0,Female,FCT,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11823,5.0,Female,Enugu,Yes,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11824,65.0,Male,Borno,No,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM11825,73.0,Female,Lagos,Yes,No,Yes,No,Yes,,Not Done,No Malaria
+NGM11826,17.0,Female,Borno,No,No,Yes,Yes,Yes,,Negative,No Malaria
+NGM11827,71.0,Male,FCT,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11828,27.0,Mle,Rivers,Yes,Yes,No,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11829,44.0,Male,Lagos,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM11830,7.0,Male,Rivers,Yes,No,Yes,Yes,No,1-2 days,Positive,Malaria
+NGM11831,24.0,Male,Oyo,Yes,Yes,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11832,35.0,Female,Kano,Yes,No,No,Yes,No,,Positive,No Malaria
+NGM11833,46.0,Male,Oyo,No,No,Yes,No,No,3-5 days,Not Done,No Malaria
+NGM11834,67.0,Male,Katsina,No,No,No,No,No,,Negative,No Malaria
+NGM11835,55.0,Male,Oyo,Yes,No,No,No,No,1-2 days,Negative,No Malaria
+NGM11836,46.0,Female,FCT,Yes,Yes,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11837,53.0,Male,Borno,Yes,No,Yes,No,No,,Positive,Malaria
+NGM11838,37.0,Male,Oyo,Yes,Yes,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM11839,50.0,Female,Kaduna,Yes,No,No,No,No,1-2 days,Not Done,No Malaria
+NGM11840,44.0,Male,Kano,Yes,No,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM11841,68.0,Female,Oyo,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11842,18.0,Male,Borno,Yes,Yes,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11843,20.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM11844,31.0,Male,Rivers,Yes,No,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM11845,52.0,Female,Kano,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11846,54.0,Male,Lagos,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM11847,37.0,Male,Sokoto,Yes,Yes,Yes,Yes,Yes,,Negative,Malaria
+NGM11848,45.0,Female,Lagos,Yes,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11849,57.0,Female,Rivers,Yes,No,Yes,No,No,3-5 days,Positive,Malaria
+NGM11850,71.0,Mle,Sokoto,Yes,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11851,1.0,Male,Sokoto,Yes,Yes,Yes,Yes,Yes,,Negative,Malaria
+NGM11852,6.0,Male,Borno,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM11853,14.0,Male,Borno,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11854,39.0,Male,Kno,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11855,31.0,Male,Katsina,Yes,Yes,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11856,27.0,Female,Katsina,No,No,No,Yes,No,,Negative,No Malaria
+NGM11857,70.0,Female,Katsina,Yes,Yes,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM11858,74.0,Female,Borno,Yes,Yes,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11859,48.0,Female,Oyo,Yes,No,Yes,No,Yes,,Positive,Malaria
+NGM11860,38.0,Female,Kaduna,Yes,No,Yes,Yes,No,6-7 days,Negative,Malaria
+NGM11861,49.0,Male,Kaduna,Yes,Yes,Yes,No,No,,Positive,Malaria
+NGM11862,22.0,Female,Borno,Yes,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11863,26.0,Female,Lagos,No,No,Yes,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11864,64.0,Male,Enugu,Yes,No,Yes,No,No,,Not Done,No Malaria
+NGM11865,11.0,Female,Kno,No,No,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM11866,37.0,Female,Katsina,Yes,No,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM11867,13.0,Male,Oyo,No,No,Yes,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11868,43.0,Male,FCT,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11869,67.0,Female,Borno,No,No,No,Yes,Yes,3-5 days,Negative,No Malaria
+NGM11870,11.0,Female,Enugu,No,No,No,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11871,43.0,Female,Borno,No,No,Yes,Yes,No,1-2 days,Negative,No Malaria
+NGM11872,3.0,Female,Katsina,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11873,,Female,Oyo,No,No,No,No,Yes,,Negative,No Malaria
+NGM11874,19.0,Female,Borno,Yes,Yes,Yes,Yes,Yes,6-7 days,Not Done,Malaria
+NGM11875,75.0,Male,Enugu,Yes,No,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11876,50.0,Male,Oyo,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11877,4.0,Male,Kaduna,Yes,Yes,No,No,Yes,3-5 days,Negative,No Malaria
+NGM11878,41.0,Male,Sokoto,No,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11879,44.0,Male,Sokoto,No,No,No,Yes,No,1-2 days,Negative,No Malaria
+NGM11880,11.0,Female,Borno,Yes,No,Yes,Yes,Yes,1-2 days,Not Done,Malaria
+NGM11881,12.0,Male,Enugu,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11882,48.0,Male,Kaduna,Yes,No,No,No,No,3-5 days,Negative,No Malaria
+NGM11883,46.0,Female,Rivers,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11884,1.0,Male,Kaduna,Yes,Yes,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11885,47.0,Mle,Enugu,No,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11886,51.0,Male,Borno,Yes,Yes,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM11887,28.0,Female,Rivers,No,No,Yes,No,Yes,,Positive,No Malaria
+NGM11888,58.0,Male,Oyo,Yes,Yes,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11889,65.0,Male,Rivers,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM11890,57.0,Male,Sokoto,Yes,No,Yes,Yes,No,3-5 days,Positive,Malaria
+NGM11891,38.0,Male,Borno,No,No,No,No,Yes,6-7 days,Positive,No Malaria
+NGM11892,17.0,Male,Rivers,No,No,No,Yes,No,,Not Done,No Malaria
+NGM11893,3.0,Female,Lagos,Yes,Yes,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11894,54.0,Male,Kaduna,No,No,Yes,Yes,No,6-7 days,Positive,No Malaria
+NGM11895,33.0,Male,Rivers,Yes,No,No,No,No,3-5 days,Positive,No Malaria
+NGM11896,67.0,Female,Katsina,Yes,No,No,No,Yes,,Positive,No Malaria
+NGM11897,15.0,Male,Borno,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM11898,16.0,Male,Oyo,No,No,Yes,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11899,19.0,Female,Kano,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11900,24.0,Male,Katsina,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11901,42.0,Female,Kaduna,Yes,No,No,No,Yes,,Not Done,No Malaria
+NGM11902,11.0,Male,Enugu,No,No,No,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11903,46.0,Female,FCT,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11904,38.0,Female,Borno,No,No,Yes,Yes,No,3-5 days,Not Done,No Malaria
+NGM11905,51.0,Male,Kaduna,Yes,Yes,No,No,No,1-2 days,Not Done,No Malaria
+NGM11906,24.0,Female,FCT,Yes,Yes,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11907,16.0,Female,Katsina,No,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM11908,4.0,Male,Enugu,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM11909,32.0,Female,Rivers,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM11910,64.0,Male,Kano,No,No,No,Yes,No,6-7 days,Positive,No Malaria
+NGM11911,,Male,Kaduna,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11912,62.0,Male,FCT,No,No,No,No,Yes,,Negative,No Malaria
+NGM11913,38.0,Male,Oyo,Yes,Yes,No,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11914,,Female,Rivers,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM11915,55.0,Male,Kaduna,Yes,Yes,No,No,No,,Positive,No Malaria
+NGM11916,2.0,Female,Katsina,Yes,Yes,Yes,Yes,No,3-5 days,Not Done,Malaria
+NGM11917,56.0,Female,Sokoto,Yes,No,No,No,Yes,6-7 days,Not Done,No Malaria
+NGM11918,55.0,Male,Lagos,Yes,Yes,Yes,No,No,1-2 days,Positive,Malaria
+NGM11919,2.0,Female,Kaduna,No,No,No,Yes,Yes,,Negative,No Malaria
+NGM11920,49.0,Male,Oyo,No,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11921,21.0,Male,Kaduna,Yes,No,No,No,No,1-2 days,Positive,No Malaria
+NGM11922,21.0,Male,Katsina,No,No,Yes,Yes,Yes,6-7 days,Not Done,No Malaria
+NGM11923,56.0,Male,Enugu,No,No,Yes,Yes,No,6-7 days,Not Done,No Malaria
+NGM11924,44.0,Female,Enugu,Yes,Yes,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11925,31.0,Female,Kaduna,Yes,No,Yes,Yes,Yes,3-5 days,Not Done,Malaria
+NGM11926,64.0,Female,Oyo,Yes,Yes,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM11927,24.0,Male,Sokoto,Yes,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11928,56.0,Female,FCT,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11929,,Male,Sokoto,No,No,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM11930,41.0,Male,Katsina,Yes,Yes,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11931,65.0,Male,Kaduna,Yes,Yes,Yes,Yes,Yes,,Not Done,Malaria
+NGM11932,32.0,Male,Kaduna,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11933,50.0,Female,Oyo,No,No,No,Yes,No,1-2 days,Not Done,No Malaria
+NGM11934,21.0,Female,Oyo,Yes,No,Yes,No,Yes,6-7 days,Negative,No Malaria
+NGM11935,30.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,,Positive,Malaria
+NGM11936,66.0,Female,Borno,No,No,Yes,Yes,Yes,1-2 days,Positive,No Malaria
+NGM11937,62.0,Female,Kano,No,No,Yes,No,Yes,1-2 days,Negative,No Malaria
+NGM11938,29.0,Female,Katsina,Yes,Yes,No,No,Yes,1-2 days,Negative,No Malaria
+NGM11939,,Female,Borno,Yes,Yes,No,No,No,,Negative,No Malaria
+NGM11940,22.0,Male,Kaduna,No,No,Yes,Yes,No,1-2 days,Negative,No Malaria
+NGM11941,73.0,Female,Sokoto,No,No,No,No,Yes,3-5 days,Positive,No Malaria
+NGM11942,8.0,Female,Enugu,Yes,Yes,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11943,59.0,Male,Oyo,Yes,Yes,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11944,25.0,Male,Sokoto,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11945,21.0,Female,Rivers,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11946,1.0,Female,Lagos,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11947,6.0,Female,Oyo,Yes,Yes,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11948,27.0,Female,Lagos,Yes,No,No,No,No,3-5 days,Positive,No Malaria
+NGM11949,5.0,Female,Kaduna,Yes,No,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM11950,73.0,Male,FCT,Yes,No,Yes,Yes,Yes,3-5 days,Negative,Malaria
+NGM11951,46.0,Female,Sokoto,Yes,Yes,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11952,58.0,Female,Rivers,Yes,Yes,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM11953,33.0,Female,Borno,No,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11954,56.0,Male,Katsina,Yes,Yes,Yes,Yes,No,6-7 days,Positive,Malaria
+NGM11955,42.0,Mle,Kaduna,No,No,Yes,No,No,1-2 days,Not Done,No Malaria
+NGM11956,39.0,Female,Oyo,No,No,No,Yes,Yes,6-7 days,Negative,No Malaria
+NGM11957,1.0,Male,Kano,No,No,Yes,Yes,No,1-2 days,Positive,No Malaria
+NGM11958,57.0,Male,Enugu,Yes,Yes,No,Yes,Yes,,Not Done,No Malaria
+NGM11959,23.0,Male,Kaduna,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11960,68.0,Male,Enugu,Yes,No,No,Yes,Yes,,Not Done,No Malaria
+NGM11961,41.0,Female,Sokoto,Yes,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11962,19.0,Female,Enugu,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11963,45.0,Mle,Kano,Yes,Yes,No,Yes,No,3-5 days,Negative,No Malaria
+NGM11964,43.0,Male,Rivers,Yes,No,No,No,Yes,6-7 days,Negative,No Malaria
+NGM11965,13.0,Female,Kaduna,Yes,Yes,No,Yes,Yes,,Not Done,No Malaria
+NGM11966,44.0,Male,Katsina,Yes,Yes,No,No,No,1-2 days,Negative,No Malaria
+NGM11967,12.0,Female,Lagos,No,No,Yes,Yes,No,6-7 days,Negative,No Malaria
+NGM11968,71.0,Male,Kaduna,No,No,Yes,No,No,1-2 days,Positive,No Malaria
+NGM11969,57.0,Male,Enugu,No,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11970,65.0,Male,Borno,Yes,Yes,No,Yes,No,3-5 days,Not Done,No Malaria
+NGM11971,5.0,Male,FCT,No,No,Yes,No,Yes,1-2 days,Positive,No Malaria
+NGM11972,72.0,Female,Kaduna,Yes,Yes,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11973,21.0,Male,Rivers,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11974,71.0,Female,Oyo,No,No,No,Yes,Yes,,Positive,No Malaria
+NGM11975,19.0,Male,Kaduna,Yes,No,Yes,No,Yes,3-5 days,Positive,Malaria
+NGM11976,27.0,Male,Katsina,Yes,No,Yes,Yes,No,,Not Done,Malaria
+NGM11977,5.0,Male,Sokoto,Yes,No,Yes,Yes,Yes,1-2 days,Positive,Malaria
+NGM11978,17.0,Male,Katsina,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM11979,36.0,Female,Katsina,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM11980,37.0,Female,Katsina,Yes,No,No,No,Yes,,Negative,No Malaria
+NGM11981,25.0,Female,Sokoto,Yes,Yes,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM11982,29.0,Male,Sokoto,No,No,Yes,Yes,Yes,6-7 days,Positive,No Malaria
+NGM11983,48.0,Male,Kano,Yes,Yes,Yes,Yes,Yes,1-2 days,Negative,Malaria
+NGM11984,2.0,Male,Katsina,No,No,Yes,No,Yes,6-7 days,Positive,No Malaria
+NGM11985,34.0,Male,Rivers,No,No,No,No,No,,Positive,No Malaria
+NGM11986,70.0,Male,Oyo,No,No,Yes,No,No,,Negative,No Malaria
+NGM11987,37.0,Male,Rivers,No,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11988,66.0,Female,Enugu,No,No,Yes,No,Yes,1-2 days,Not Done,No Malaria
+NGM11989,51.0,Male,Borno,No,No,No,Yes,No,3-5 days,Positive,No Malaria
+NGM11990,25.0,Female,Rivers,Yes,No,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM11991,2.0,Mle,Kaduna,Yes,No,Yes,No,No,,Positive,Malaria
+NGM11992,38.0,Male,Rivers,No,No,No,No,Yes,3-5 days,Negative,No Malaria
+NGM11993,71.0,Female,Borno,No,No,Yes,No,No,3-5 days,Negative,No Malaria
+NGM11994,40.0,Female,Kaduna,No,No,No,No,No,,Positive,No Malaria
+NGM11995,4.0,Female,Borno,Yes,No,Yes,No,Yes,3-5 days,Not Done,No Malaria
+NGM11996,41.0,Female,Sokoto,Yes,Yes,No,Yes,No,6-7 days,Negative,No Malaria
+NGM11997,19.0,Male,Kno,Yes,Yes,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11998,27.0,Female,Sokoto,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM11999,23.0,Female,Kaduna,Yes,Yes,Yes,No,No,,Positive,Malaria
+NGM12000,3.0,Male,Oyo,No,No,No,Yes,Yes,1-2 days,Negative,No Malaria
+NGM10675,72.0,Female,Kaduna,No,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM11700,27.0,Female,Enugu,Yes,Yes,No,No,No,6-7 days,Negative,No Malaria
+NGM11283,7.0,Female,Enugu,Yes,Yes,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11316,13.0,Male,Enugu,Yes,No,Yes,Yes,No,3-5 days,Negative,Malaria
+NGM11211,6.0,Male,Rivers,Yes,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM11637,5.0,Male,Rivers,No,No,No,Yes,No,6-7 days,Negative,No Malaria
+NGM10614,3.0,Female,FCT,No,No,Yes,No,No,3-5 days,Positive,No Malaria
+NGM10448,45.0,Male,Katsina,No,No,No,No,No,6-7 days,Negative,No Malaria
+NGM11132,71.0,Female,Enugu,No,No,Yes,Yes,Yes,,Not Done,No Malaria
+NGM10809,47.0,Male,Sokoto,Yes,Yes,No,No,No,,Positive,No Malaria
+NGM11497,36.0,Female,Kano,No,No,No,Yes,No,6-7 days,Not Done,No Malaria
+NGM11469,19.0,Female,Sokoto,No,No,Yes,No,No,6-7 days,Negative,No Malaria
+NGM11683,17.0,Female,Enugu,No,No,Yes,Yes,Yes,1-2 days,Not Done,No Malaria
+NGM11150,28.0,Male,Oyo,Yes,Yes,Yes,No,No,6-7 days,Not Done,No Malaria
+NGM10443,75.0,Female,Kano,No,No,No,No,No,,Negative,No Malaria
+NGM11814,2.0,Female,Sokoto,No,No,Yes,Yes,No,3-5 days,Positive,No Malaria
+NGM10655,39.0,Female,Katsina,No,No,No,No,No,6-7 days,Not Done,No Malaria
+NGM11265,17.0,Male,Kaduna,Yes,Yes,Yes,Yes,Yes,6-7 days,Negative,Malaria
+NGM10859,59.0,Male,FCT,Yes,No,No,No,No,3-5 days,Not Done,No Malaria
+NGM11483,57.0,Male,FCT,Yes,Yes,Yes,Yes,No,1-2 days,Negative,Malaria
+NGM10232,49.0,Female,Borno,Yes,Yes,No,No,No,1-2 days,Negative,No Malaria
+NGM11822,50.0,Female,FCT,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM11927,24.0,Male,Sokoto,Yes,No,No,Yes,Yes,3-5 days,Not Done,No Malaria
+NGM10882,75.0,Male,Katsina,Yes,Yes,No,Yes,No,,Negative,No Malaria
+NGM10632,15.0,Female,Rivers,Yes,No,Yes,No,Yes,,Not Done,No Malaria
+NGM10376,51.0,Female,Katsina,No,No,No,No,Yes,3-5 days,Not Done,No Malaria
+NGM11961,41.0,Female,Sokoto,Yes,No,Yes,No,Yes,6-7 days,Not Done,No Malaria
+NGM10368,38.0,Female,Borno,Yes,No,Yes,No,No,,Not Done,No Malaria
+NGM10559,52.0,Female,Lagos,Yes,Yes,No,Yes,No,,Negative,No Malaria
+NGM10276,10.0,Male,Borno,Yes,No,Yes,No,No,,Positive,Malaria
+NGM11978,17.0,Male,Katsina,Yes,Yes,Yes,No,No,,Not Done,No Malaria
+NGM10875,39.0,Male,Rivers,Yes,Yes,No,No,Yes,1-2 days,Positive,No Malaria
+NGM11679,70.0,Male,Sokoto,No,No,Yes,No,Yes,3-5 days,Positive,No Malaria
+NGM10731,72.0,Female,Rivers,Yes,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10574,60.0,Male,Borno,No,No,Yes,No,Yes,3-5 days,Negative,No Malaria
+NGM10719,53.0,Female,Kaduna,No,No,No,No,Yes,1-2 days,Not Done,No Malaria
+NGM10578,40.0,Female,Katsina,Yes,No,Yes,Yes,Yes,3-5 days,Positive,Malaria
+NGM10057,,Female,Sokoto,Yes,No,No,No,No,1-2 days,Negative,No Malaria
+NGM10869,54.0,Female,Lagos,No,No,No,No,No,,Negative,No Malaria
+NGM11729,69.0,Male,FCT,No,No,Yes,No,Yes,3-5 days,Negative,No Malaria
