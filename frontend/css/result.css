@@ -1,1 +1,680 @@
+/* ==========================================================================
+   Design Tokens & Base Variables (Unified with assessment.css)
+   ========================================================================== */
+:root {
+  --primary-green: #0F9D58;
+  --primary-green-dark: #0B8043;
+  --medical-blue: #1E88E5;
+  --white: #FFFFFF;
+  --bg-main: #F4F7F9;
+  --text-dark: #1F2937;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+  
+  --danger: #EF4444;
+  --danger-bg: rgba(239, 68, 68, 0.08);
+  --warning: #F59E0B;
+  --warning-bg: rgba(245, 158, 11, 0.08);
+  --success: #10B981;
+  --success-bg: rgba(16, 185, 129, 0.08);
 
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-shadow: 0 12px 32px -8px rgba(31, 41, 55, 0.08), 0 0 16px rgba(15, 157, 88, 0.04);
+  --radius-card: 20px;
+  --radius-btn: 12px;
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ambient Background Blobs */
+.ambient-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.45;
+}
+
+.blob-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--primary-green);
+  top: -150px;
+  left: -100px;
+}
+
+.blob-2 {
+  width: 550px;
+  height: 550px;
+  background: var(--medical-blue);
+  bottom: -200px;
+  right: -150px;
+}
+
+/* Header & Navbar */
+.navbar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  background: rgba(15, 157, 88, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-green);
+}
+
+.logo-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.brand-name {
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-badge {
+  font-size: 0.7rem;
+  background: var(--primary-green);
+  color: var(--white);
+  padding: 2px 8px;
+  border-radius: 12px;
+  vertical-align: middle;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.925rem;
+  transition: var(--transition);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary-green);
+}
+
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 157, 88, 0.08);
+  border: 1px solid rgba(15, 157, 88, 0.2);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--primary-green);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--success);
+  border-radius: 50%;
+}
+
+/* Layout Structure */
+.main-layout {
+  max-width: 1320px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  flex: 1;
+  width: 100%;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+}
+
+.primary-column, .secondary-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Glassmorphism Cards */
+.result-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--glass-shadow);
+  padding: 2rem;
+  transition: var(--transition);
+}
+
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.report-timestamp {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Hero Prediction Block */
+.prediction-hero {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.confidence-meter-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+  stroke: #E5E7EB;
+  stroke-width: 10;
+  fill: transparent;
+}
+
+.progress-ring-circle {
+  stroke: var(--primary-green);
+  stroke-width: 10;
+  stroke-linecap: round;
+  fill: transparent;
+  stroke-dasharray: 364.42; /* 2 * PI * 58 */
+  stroke-dashoffset: 364.42;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s ease;
+}
+
+.confidence-value-box {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.confidence-number {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.confidence-percent {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.confidence-sub {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-weight: 700;
+}
+
+.prediction-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-sub-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.prediction-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0.2rem 0;
+}
+
+.prediction-subtext {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Card Headers & Dynamic Risk Badges */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.header-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(15, 157, 88, 0.1);
+  color: var(--primary-green);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.risk-badge {
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Dynamic Color Themes */
+.risk-low {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.risk-medium {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.risk-high {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Content Details */
+.insights-body, .recommendation-text {
+  font-size: 0.975rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+.recommendation-card {
+  border-left: 5px solid var(--primary-green);
+}
+
+.recommendation-card.risk-high {
+  border-left-color: var(--danger);
+}
+
+.recommendation-card.risk-medium {
+  border-left-color: var(--warning);
+}
+
+/* Patient Summary List */
+.summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 0.6rem;
+}
+
+.full-width-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-bottom: none;
+}
+
+.row-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.row-value {
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.symptoms-tags-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.symptom-tag {
+  background: rgba(15, 157, 88, 0.1);
+  color: var(--primary-green);
+  font-size: 0.775rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.no-tags {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Buttons & Actions */
+.action-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.btn {
+  height: 48px;
+  padding: 0 1.5rem;
+  border-radius: var(--radius-btn);
+  font-family: inherit;
+  font-size: 0.925rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.btn-action-large {
+  width: 100%;
+  height: 52px;
+}
+
+.btn-primary {
+  background: var(--primary-green);
+  color: var(--white);
+  box-shadow: 0 6px 16px rgba(15, 157, 88, 0.2);
+}
+
+.btn-primary:hover {
+  background: var(--primary-green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 157, 88, 0.3);
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--text-dark);
+  border: 1.5px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: #F9FAFB;
+  border-color: #D1D5DB;
+  transform: translateY(-2px);
+}
+
+.btn-tertiary {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn-tertiary:hover {
+  color: var(--text-dark);
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Disclaimer Sidebar Box */
+.disclaimer-box {
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+}
+
+.disclaimer-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #D97706;
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.disclaimer-header svg {
+  width: 18px;
+  height: 18px;
+}
+
+.disclaimer-text {
+  font-size: 0.8rem;
+  color: #92400E;
+  line-height: 1.5;
+}
+
+/* Empty State Card */
+.empty-state-card {
+  background: var(--white);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--glass-shadow);
+  padding: 4rem 2rem;
+  text-align: center;
+  max-width: 560px;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-illustration {
+  width: 80px;
+  height: 80px;
+  background: rgba(239, 68, 68, 0.08);
+  color: var(--danger);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.empty-illustration svg {
+  width: 40px;
+  height: 40px;
+}
+
+.empty-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.empty-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+/* Animations & Transitions */
+.fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.45s; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Footer */
+.app-footer {
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  margin-top: 3rem;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .prediction-hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .result-card {
+    padding: 1.5rem;
+  }
+
+  .prediction-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* Print Styles for PDF Generation */
+@media print {
+  body {
+    background: #FFF;
+    color: #000;
+  }
+
+  .navbar, .ambient-background, .action-card, .app-footer, .nav-actions {
+    display: none !important;
+  }
+
+  .main-layout {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .result-card {
+    box-shadow: none;
+    border: 1px solid #CCC;
+    break-inside: avoid;
+    backdrop-filter: none;
+    background: #FFF;
+  }
+
+  .progress-ring-circle {
+    stroke-dashoffset: 0 !important;
+  }
+}
