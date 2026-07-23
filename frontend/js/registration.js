@@ -1,12 +1,14 @@
-// ==========================================
+// ===========================================
 // AfriSafe AI Registration
-// ==========================================
+// ===========================================
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://afrisafe-ai.onrender.com";
+// Development:
+// const API_BASE_URL = "http://127.0.0.1:8000";
 
-const registerForm = document.getElementById("registerForm");
+const form = document.getElementById("registerForm");
 const registerBtn = document.getElementById("registerBtn");
-const alertBox = document.getElementById("alertBox");
+const formAlert = document.getElementById("formAlert");
 
 const password = document.getElementById("password");
 const confirmPassword = document.getElementById("confirm_password");
@@ -14,32 +16,33 @@ const confirmPassword = document.getElementById("confirm_password");
 const togglePassword = document.getElementById("togglePassword");
 const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
 
-// ==========================================
-// Show Alert
-// ==========================================
+// ===========================================
+// Alert
+// ===========================================
 
-function showAlert(message, type = "info") {
+function showAlert(message, type = "error") {
 
-    alertBox.classList.remove("hidden", "info", "danger");
+    formAlert.style.display = "block";
+    formAlert.textContent = message;
 
-    alertBox.classList.add(type);
+    formAlert.className = "form-alert";
 
-    alertBox.textContent = message;
+    if (type === "success") {
+        formAlert.classList.add("success");
+    } else {
+        formAlert.classList.add("error");
+    }
 }
-
-// ==========================================
-// Hide Alert
-// ==========================================
 
 function hideAlert() {
 
-    alertBox.classList.add("hidden");
+    formAlert.style.display = "none";
 
 }
 
-// ==========================================
-// Toggle Password
-// ==========================================
+// ===========================================
+// Password Toggle
+// ===========================================
 
 togglePassword.addEventListener("click", () => {
 
@@ -59,11 +62,11 @@ toggleConfirmPassword.addEventListener("click", () => {
 
 });
 
-// ==========================================
-// Register
-// ==========================================
+// ===========================================
+// Registration
+// ===========================================
 
-registerForm.addEventListener("submit", async (e) => {
+form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
@@ -76,7 +79,7 @@ registerForm.addEventListener("submit", async (e) => {
         document.getElementById("email").value.trim();
 
     const age =
-        Number(document.getElementById("age").value);
+        parseInt(document.getElementById("age").value);
 
     const gender =
         document.getElementById("gender").value;
@@ -87,47 +90,28 @@ registerForm.addEventListener("submit", async (e) => {
     const lga =
         document.getElementById("lga").value.trim();
 
-    const passwordValue =
-        password.value;
+    const agree =
+        document.getElementById("agreeTerms").checked;
 
-    const confirmValue =
-        confirmPassword.value;
+    if (!agree) {
 
-    // Validation
-
-    if (
-        !full_name ||
-        !email ||
-        !passwordValue ||
-        !confirmValue ||
-        !age ||
-        !gender ||
-        !state
-    ) {
-
-        showAlert("Please fill all required fields.", "danger");
+        showAlert("Please accept Terms & Conditions.");
 
         return;
 
     }
 
-    if (passwordValue.length < 8) {
+    if (password.value.length < 8) {
 
-        showAlert(
-            "Password must be at least 8 characters.",
-            "danger"
-        );
+        showAlert("Password must contain at least 8 characters.");
 
         return;
 
     }
 
-    if (passwordValue !== confirmValue) {
+    if (password.value !== confirmPassword.value) {
 
-        showAlert(
-            "Passwords do not match.",
-            "danger"
-        );
+        showAlert("Passwords do not match.");
 
         return;
 
@@ -135,10 +119,7 @@ registerForm.addEventListener("submit", async (e) => {
 
     registerBtn.disabled = true;
 
-    registerBtn.innerHTML = `
-        <span class="btn-spinner"></span>
-        Creating Account...
-    `;
+    registerBtn.innerHTML = "Creating Account...";
 
     try {
 
@@ -162,7 +143,7 @@ registerForm.addEventListener("submit", async (e) => {
 
                     email,
 
-                    password: passwordValue,
+                    password: password.value,
 
                     age,
 
@@ -185,7 +166,7 @@ registerForm.addEventListener("submit", async (e) => {
             throw new Error(
 
                 data.detail ||
-                data.message ||
+
                 "Registration failed."
 
             );
@@ -194,9 +175,9 @@ registerForm.addEventListener("submit", async (e) => {
 
         showAlert(
 
-            "Registration successful! Redirecting...",
+            "Registration Successful! Redirecting...",
 
-            "info"
+            "success"
 
         );
 
@@ -210,7 +191,7 @@ registerForm.addEventListener("submit", async (e) => {
 
     catch (error) {
 
-        showAlert(error.message, "danger");
+        showAlert(error.message);
 
     }
 
