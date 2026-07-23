@@ -1,367 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Register | AfriSafe AI</title>
 
-    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/login.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/animations.css">
 
-    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/registration.css">
+
 </head>
 
 <body>
 
-    <!-- Background -->
-    <div class="background-decorations">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
+<div class="background-elements"></div>
+
+<div class="login-container">
+
+    <!-- LEFT SIDE -->
+
+    <div class="login-left">
+
+        <!-- Copy EXACTLY the same content from login.html -->
+
     </div>
 
-    <main class="login-wrapper">
+    <!-- RIGHT SIDE -->
 
-        <!-- ================= Left Section ================= -->
+    <div class="login-right">
 
-        <section class="brand-side">
+        <div class="glass-card">
 
-            <div class="brand-content">
+            <div class="card-header">
 
-                <div class="badge">
-                    <span class="badge-dot"></span>
-                    AI Powered Healthcare
-                </div>
+                <h2>Create Account</h2>
 
-                <h1 class="brand-title">
-                    Join
-                    <span class="highlight-text">
-                        AfriSafe AI
-                    </span>
-                </h1>
-
-                <p class="brand-subtitle">
-                    Create your secure account and access AI-powered malaria risk assessment,
-                    health insights, prediction history and personalized recommendations.
-                </p>
-
-                <ul class="feature-list">
-
-                    <li class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        Secure User Authentication
-                    </li>
-
-                    <li class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        AI Malaria Prediction
-                    </li>
-
-                    <li class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        Prediction History
-                    </li>
-
-                    <li class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        Medical Dashboard
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </section>
-
-        <!-- ================= Right Section ================= -->
-
-        <section class="form-side">
-
-            <div class="glass-card">
-
-                <div class="card-header">
-
-                    <div class="logo-wrapper">
-                        <img
-                            src="assets/logo.png"
-                            class="app-logo"
-                            alt="AfriSafe AI">
-                    </div>
-
-                    <h2 class="card-title">
-                        Create Account
-                    </h2>
-
-                    <p class="card-subtitle">
-                        Register to continue
-                    </p>
-
-                </div>
-
-                <div
-                    id="alertBox"
-                    class="form-alert info hidden">
-                </div>
-
-                <form
-                    id="registerForm"
-                    class="auth-form">
-
-                    <!-- Full Name -->
-
-                    <div class="input-group">
-
-                        <div class="input-wrapper">
-
-                            <input
-                                id="full_name"
-                                class="form-control"
-                                type="text"
-                                placeholder=" "
-                                required>
-
-                            <label
-                                class="floating-label">
-                                Full Name
-                            </label>
-
-                        </div>
-
-                        <small
-                            class="error-message"
-                            id="nameError"></small>
-
-                    </div>
-
-                    <!-- Email -->
-
-                    <div class="input-group">
-
-                        <div class="input-wrapper">
-
-                            <input
-                                id="email"
-                                class="form-control"
-                                type="email"
-                                placeholder=" "
-                                required>
-
-                            <label class="floating-label">
-                                Email Address
-                            </label>
-
-                        </div>
-
-                        <small
-                            class="error-message"
-                            id="emailError"></small>
-
-                    </div>
-
-                    <!-- Password -->
-
-                    <div class="input-group">
-
-                        <div class="input-wrapper">
-
-                            <input
-                                id="password"
-                                class="form-control"
-                                type="password"
-                                placeholder=" "
-                                required>
-
-                            <label class="floating-label">
-                                Password
-                            </label>
-
-                            <button
-                                type="button"
-                                id="togglePassword"
-                                class="password-toggle-btn">
-
-                                👁
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Confirm Password -->
-
-                    <div class="input-group">
-
-                        <div class="input-wrapper">
-
-                            <input
-                                id="confirm_password"
-                                class="form-control"
-                                type="password"
-                                placeholder=" "
-                                required>
-
-                            <label class="floating-label">
-                                Confirm Password
-                            </label>
-
-                            <button
-                                type="button"
-                                id="toggleConfirmPassword"
-                                class="password-toggle-btn">
-
-                                👁
-
-                            </button>
-
-                        </div>
-
-                        <small
-                            id="passwordError"
-                            class="error-message"></small>
-
-                    </div>
-
-                    <!-- Age & Gender -->
-
-                    <div
-                        style="display:flex;gap:15px;">
-
-                        <div class="input-group" style="flex:1;">
-
-                            <div class="input-wrapper">
-
-                                <input
-                                    id="age"
-                                    class="form-control"
-                                    type="number"
-                                    placeholder=" "
-                                    min="1"
-                                    max="120"
-                                    required>
-
-                                <label class="floating-label">
-                                    Age
-                                </label>
-
-                            </div>
-
-                        </div>
-
-                        <div class="input-group" style="flex:1;">
-
-                            <div class="input-wrapper">
-
-                                <select
-                                    id="gender"
-                                    class="form-control"
-                                    required>
-
-                                    <option value=""></option>
-
-                                    <option>
-                                        Male
-                                    </option>
-
-                                    <option>
-                                        Female
-                                    </option>
-
-                                </select>
-
-                                <label class="floating-label">
-                                    Gender
-                                </label>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!-- State -->
-
-                    <div class="input-group">
-
-                        <div class="input-wrapper">
-
-                            <input
-                                id="state"
-                                class="form-control"
-                                type="text"
-                                placeholder=" "
-                                required>
-
-                            <label class="floating-label">
-                                State
-                            </label>
-
-                        </div>
-
-                    </div>
-
-                    <!-- LGA -->
-
-                    <div class="input-group">
-
-                        <div class="input-wrapper">
-
-                            <input
-                                id="lga"
-                                class="form-control"
-                                type="text"
-                                placeholder=" ">
-
-                            <label class="floating-label">
-                                LGA
-                            </label>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Register Button -->
-
-                    <button
-                        id="registerBtn"
-                        class="btn btn-primary"
-                        type="submit">
-
-                        Create Account
-
-                    </button>
-
-                </form>
-
-                <p class="card-footer-text">
-
-                    Already have an account?
-
-                    <a
-                        href="login.html"
-                        class="register-link">
-
-                        Sign In
-
-                    </a>
-
+                <p>
+                    Register to continue using
+                    <strong>AfriSafe AI</strong>
                 </p>
 
             </div>
 
-        </section>
+            <form id="registerForm" class="auth-form">
 
-    </main>
+    <!-- Full Name -->
 
-    <footer class="app-footer">
+    <div class="input-group">
 
-        © 2026 AfriSafe AI • AI-Powered Malaria Detection Platform
+        <label for="full_name">Full Name</label>
 
-    </footer>
+        <div class="input-wrapper">
 
-    <script src="js/registration.js"></script>
+            <input
+                type="text"
+                id="full_name"
+                class="form-control"
+                placeholder="Enter your full name"
+                required>
+
+        </div>
+
+    </div>
+
+    <!-- Email -->
+
+    <div class="input-group">
+
+        <label for="email">Email Address</label>
+
+        <div class="input-wrapper">
+
+            <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="Enter your email"
+                required>
+
+        </div>
+
+    </div>
+
+    <!-- Age + Gender -->
+
+    <div class="form-row">
+
+        <div class="input-group">
+
+            <label for="age">Age</label>
+
+            <input
+                type="number"
+                id="age"
+                class="form-control"
+                min="1"
+                max="120"
+                required>
+
+        </div>
+
+        <div class="input-group">
+
+            <label for="gender">Gender</label>
+
+            <select
+                id="gender"
+                class="form-control"
+                required>
+
+                <option value="">Select</option>
+
+                <option value="Male">Male</option>
+
+                <option value="Female">Female</option>
+
+                <option value="Other">Other</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <!-- State -->
+
+    <div class="input-group">
+
+        <label for="state">State</label>
+
+        <input
+            type="text"
+            id="state"
+            class="form-control"
+            placeholder="State"
+            required>
+
+    </div>
+
+    <!-- LGA -->
+
+    <div class="input-group">
+
+        <label for="lga">LGA</label>
+
+        <input
+            type="text"
+            id="lga"
+            class="form-control"
+            placeholder="Local Government Area">
+
+    </div>
+
+    <!-- Password -->
+
+    <div class="input-group">
+
+        <label for="password">Password</label>
+
+        <div class="input-wrapper">
+
+            <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Create password"
+                required>
+
+            <button
+                type="button"
+                id="togglePassword"
+                class="password-toggle">
+
+                👁
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Confirm Password -->
+
+    <div class="input-group">
+
+        <label for="confirm_password">Confirm Password</label>
+
+        <div class="input-wrapper">
+
+            <input
+                type="password"
+                id="confirm_password"
+                class="form-control"
+                placeholder="Confirm password"
+                required>
+
+            <button
+                type="button"
+                id="toggleConfirmPassword"
+                class="password-toggle">
+
+                👁
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Terms -->
+
+    <div class="remember-row">
+
+        <label>
+
+            <input
+                type="checkbox"
+                id="agreeTerms"
+                required>
+
+            I agree to the
+            <a href="#">Terms & Conditions</a>
+
+        </label>
+
+    </div>
+
+    <!-- Alert -->
+
+    <div
+        id="formAlert"
+        class="form-alert">
+
+    </div>
+
+    <!-- Submit -->
+
+    <button
+        type="submit"
+        id="registerBtn"
+        class="btn btn-primary ripple-btn">
+
+        <span class="btn-text">
+
+            Create Account
+
+        </span>
+
+    </button>
+
+</form>
+
+<div class="divider">
+
+    <span>OR</span>
+
+</div>
+
+<div class="alt-actions">
+
+    <p>
+
+        Already have an account?
+
+        <a href="login.html">
+
+            Sign In
+
+        </a>
+
+    </p>
+
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/registration.js"></script>
 
 </body>
+
 </html>
