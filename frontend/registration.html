@@ -3,374 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - AfriSafe AI</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Register | AfriSafe AI</title>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
+    <link rel="stylesheet" href="css/auth.css">
 
-        body{
-            font-family:'Inter',sans-serif;
-            min-height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            background:linear-gradient(135deg,#0f172a 0%,#065f46 50%,#0f172a 100%);
-            overflow:hidden;
-            position:relative;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        .bg-blur{
-            position:absolute;
-            width:500px;
-            height:500px;
-            background:rgba(16,185,129,0.15);
-            border-radius:50%;
-            filter:blur(100px);
-            animation:float 10s ease-in-out infinite;
-        }
-
-        .bg-blur:nth-child(2){
-            top:-100px;
-            right:-100px;
-            animation-delay:2s;
-        }
-
-        .bg-blur:nth-child(3){
-            bottom:-100px;
-            left:-100px;
-            animation-delay:4s;
-        }
-
-        @keyframes float{
-            0%,100%{transform:translateY(0px);}
-            50%{transform:translateY(-30px);}
-        }
-
-        .container{
-            width:100%;
-            max-width:460px;
-            padding:20px;
-            position:relative;
-            z-index:10;
-        }
-
-        .card{
-            background:rgba(255,255,255,0.12);
-            backdrop-filter:blur(20px);
-            border:1px solid rgba(255,255,255,0.2);
-            border-radius:28px;
-            padding:38px 34px;
-            box-shadow:0 20px 50px rgba(0,0,0,0.35);
-        }
-
-        .logo{
-            width:74px;
-            height:74px;
-            margin:0 auto 18px;
-            border-radius:22px;
-            background:linear-gradient(135deg,#10b981,#059669);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:white;
-            font-size:34px;
-            font-weight:800;
-            box-shadow:0 10px 30px rgba(16,185,129,0.35);
-        }
-
-        h1{
-            color:white;
-            text-align:center;
-            font-size:32px;
-            font-weight:800;
-            margin-bottom:10px;
-        }
-
-        .subtitle{
-            color:rgba(255,255,255,0.78);
-            text-align:center;
-            font-size:15px;
-            margin-bottom:30px;
-            line-height:1.6;
-        }
-
-        .form-group{
-            margin-bottom:18px;
-        }
-
-        label{
-            display:block;
-            color:white;
-            font-size:14px;
-            font-weight:600;
-            margin-bottom:8px;
-        }
-
-        input,select{
-            width:100%;
-            padding:14px 16px;
-            border-radius:14px;
-            border:1px solid rgba(255,255,255,0.2);
-            background:rgba(255,255,255,0.1);
-            color:white;
-            font-size:15px;
-            outline:none;
-            transition:0.3s;
-        }
-
-        input::placeholder{
-            color:rgba(255,255,255,0.55);
-        }
-
-        select option{
-            color:black;
-        }
-
-        input:focus,select:focus{
-            border-color:#10b981;
-            background:rgba(255,255,255,0.16);
-            box-shadow:0 0 0 4px rgba(16,185,129,0.2);
-        }
-
-        .row{
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:16px;
-        }
-
-        .btn{
-            width:100%;
-            padding:15px;
-            border:none;
-            border-radius:14px;
-            background:linear-gradient(135deg,#10b981,#059669);
-            color:white;
-            font-size:16px;
-            font-weight:700;
-            cursor:pointer;
-            transition:0.3s;
-            margin-top:10px;
-        }
-
-        .btn:hover{
-            transform:translateY(-2px);
-            box-shadow:0 12px 25px rgba(16,185,129,0.35);
-        }
-
-        .btn:disabled{
-            opacity:0.7;
-            cursor:not-allowed;
-        }
-
-        .message{
-            margin-top:16px;
-            padding:12px;
-            border-radius:12px;
-            display:none;
-            font-size:14px;
-            text-align:center;
-            font-weight:600;
-        }
-
-        .success{
-            background:rgba(16,185,129,0.2);
-            border:1px solid rgba(16,185,129,0.4);
-            color:#d1fae5;
-        }
-
-        .error{
-            background:rgba(239,68,68,0.2);
-            border:1px solid rgba(239,68,68,0.4);
-            color:#fee2e2;
-        }
-
-        .footer{
-            margin-top:24px;
-            text-align:center;
-            color:rgba(255,255,255,0.8);
-            font-size:14px;
-        }
-
-        .footer a{
-            color:#34d399;
-            text-decoration:none;
-            font-weight:600;
-        }
-
-        .footer a:hover{
-            text-decoration:underline;
-        }
-
-        @media (max-width:520px){
-            .card{
-                padding:30px 22px;
-            }
-
-            .row{
-                grid-template-columns:1fr;
-            }
-        }
-    </style>
+    <link rel="icon" href="assets/logo.png">
 </head>
+
 <body>
 
-    <div class="bg-blur"></div>
-    <div class="bg-blur"></div>
-    <div class="bg-blur"></div>
-
-    <div class="container">
-        <div class="card">
-
-            <div class="logo">🛡️</div>
-
-            <h1>Create Account</h1>
-            <p class="subtitle">
-                Join AfriSafe AI and access intelligent malaria risk assessment powered by artificial intelligence.
-            </p>
-
-            <form id="registerForm">
-
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="fullname" placeholder="Mahmud Mukhtar Hassan" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="email" placeholder="you@example.com" required>
-                </div>
-
-                <div class="row">
-                    <div class="form-group">
-                        <label>Age</label>
-                        <input type="number" id="age" placeholder="25" min="1" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Gender</label>
-                        <select id="gender" required>
-                            <option value="">Select</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>State</label>
-                    <input type="text" id="state" placeholder="Kano" required>
-                </div>
-
-                <div class="form-group">
-                    <label>LGA</label>
-                    <input type="text" id="lga" placeholder="Nassarawa" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Phone Number (Optional)</label>
-                    <input type="text" id="phone" placeholder="08012345678">
-                </div>
-
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" id="confirmPassword" placeholder="••••••••" required>
-                </div>
-
-                <button type="submit" class="btn" id="submitBtn">
-                    Create Account
-                </button>
-
-            </form>
-
-            <div id="message" class="message"></div>
-
-            <div class="footer">
-                Already have an account?
-                <a href="login.html">Sign In</a>
-            </div>
-
-        </div>
+    <!-- Background -->
+    <div class="background-decorations">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
     </div>
 
-    <script>
-        const form = document.getElementById('registerForm');
-        const message = document.getElementById('message');
-        const submitBtn = document.getElementById('submitBtn');
+    <main class="login-wrapper">
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        <!-- ================= Left Section ================= -->
 
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+        <section class="brand-side">
 
-            if(password !== confirmPassword){
-                showMessage('Passwords do not match','error');
-                return;
-            }
+            <div class="brand-content">
 
-            const payload = {
-                full_name: document.getElementById('fullname').value,
-                email: document.getElementById('email').value,
-                password: password,
-                age: parseInt(document.getElementById('age').value),
-                gender: document.getElementById('gender').value,
-                state: document.getElementById('state').value,
-                lga: document.getElementById('lga').value,
-                phone_number: document.getElementById('phone').value || null
-            };
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    AI Powered Healthcare
+                </div>
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Creating Account...';
+                <h1 class="brand-title">
+                    Join
+                    <span class="highlight-text">
+                        AfriSafe AI
+                    </span>
+                </h1>
 
-            try{
-                const response = await fetch('http://127.0.0.1:8000/api/v1/auth/register',{
-                    method:'POST',
-                    headers:{
-                        'Content-Type':'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
+                <p class="brand-subtitle">
+                    Create your secure account and access AI-powered malaria risk assessment,
+                    health insights, prediction history and personalized recommendations.
+                </p>
 
-                const data = await response.json();
+                <ul class="feature-list">
 
-                if(!response.ok){
-                    throw new Error(data.detail || 'Registration failed');
-                }
+                    <li class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        Secure User Authentication
+                    </li>
 
-                showMessage('Account created successfully! Redirecting to login...','success');
+                    <li class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        AI Malaria Prediction
+                    </li>
 
-                setTimeout(()=>{
-                    window.location.href='login.html';
-                },2000);
+                    <li class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        Prediction History
+                    </li>
 
-            }catch(error){
-                showMessage(error.message,'error');
-            }finally{
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Create Account';
-            }
-        });
+                    <li class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        Medical Dashboard
+                    </li>
 
-        function showMessage(text,type){
-            message.className = `message ${type}`;
-            message.textContent = text;
-            message.style.display = 'block';
-        }
-    </script>
+                </ul>
+
+            </div>
+
+        </section>
+
+        <!-- ================= Right Section ================= -->
+
+        <section class="form-side">
+
+            <div class="glass-card">
+
+                <div class="card-header">
+
+                    <div class="logo-wrapper">
+                        <img
+                            src="assets/logo.png"
+                            class="app-logo"
+                            alt="AfriSafe AI">
+                    </div>
+
+                    <h2 class="card-title">
+                        Create Account
+                    </h2>
+
+                    <p class="card-subtitle">
+                        Register to continue
+                    </p>
+
+                </div>
+
+                <div
+                    id="alertBox"
+                    class="form-alert info hidden">
+                </div>
+
+                <form
+                    id="registerForm"
+                    class="auth-form">
+
+                    <!-- Full Name -->
+
+                    <div class="input-group">
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="full_name"
+                                class="form-control"
+                                type="text"
+                                placeholder=" "
+                                required>
+
+                            <label
+                                class="floating-label">
+                                Full Name
+                            </label>
+
+                        </div>
+
+                        <small
+                            class="error-message"
+                            id="nameError"></small>
+
+                    </div>
+
+                    <!-- Email -->
+
+                    <div class="input-group">
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="email"
+                                class="form-control"
+                                type="email"
+                                placeholder=" "
+                                required>
+
+                            <label class="floating-label">
+                                Email Address
+                            </label>
+
+                        </div>
+
+                        <small
+                            class="error-message"
+                            id="emailError"></small>
+
+                    </div>
+
+                    <!-- Password -->
+
+                    <div class="input-group">
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="password"
+                                class="form-control"
+                                type="password"
+                                placeholder=" "
+                                required>
+
+                            <label class="floating-label">
+                                Password
+                            </label>
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-toggle-btn">
+
+                                👁
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Confirm Password -->
+
+                    <div class="input-group">
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="confirm_password"
+                                class="form-control"
+                                type="password"
+                                placeholder=" "
+                                required>
+
+                            <label class="floating-label">
+                                Confirm Password
+                            </label>
+
+                            <button
+                                type="button"
+                                id="toggleConfirmPassword"
+                                class="password-toggle-btn">
+
+                                👁
+
+                            </button>
+
+                        </div>
+
+                        <small
+                            id="passwordError"
+                            class="error-message"></small>
+
+                    </div>
+
+                    <!-- Age & Gender -->
+
+                    <div
+                        style="display:flex;gap:15px;">
+
+                        <div class="input-group" style="flex:1;">
+
+                            <div class="input-wrapper">
+
+                                <input
+                                    id="age"
+                                    class="form-control"
+                                    type="number"
+                                    placeholder=" "
+                                    min="1"
+                                    max="120"
+                                    required>
+
+                                <label class="floating-label">
+                                    Age
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="input-group" style="flex:1;">
+
+                            <div class="input-wrapper">
+
+                                <select
+                                    id="gender"
+                                    class="form-control"
+                                    required>
+
+                                    <option value=""></option>
+
+                                    <option>
+                                        Male
+                                    </option>
+
+                                    <option>
+                                        Female
+                                    </option>
+
+                                </select>
+
+                                <label class="floating-label">
+                                    Gender
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- State -->
+
+                    <div class="input-group">
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="state"
+                                class="form-control"
+                                type="text"
+                                placeholder=" "
+                                required>
+
+                            <label class="floating-label">
+                                State
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- LGA -->
+
+                    <div class="input-group">
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="lga"
+                                class="form-control"
+                                type="text"
+                                placeholder=" ">
+
+                            <label class="floating-label">
+                                LGA
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Register Button -->
+
+                    <button
+                        id="registerBtn"
+                        class="btn btn-primary"
+                        type="submit">
+
+                        Create Account
+
+                    </button>
+
+                </form>
+
+                <p class="card-footer-text">
+
+                    Already have an account?
+
+                    <a
+                        href="login.html"
+                        class="register-link">
+
+                        Sign In
+
+                    </a>
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+
+        © 2026 AfriSafe AI • AI-Powered Malaria Detection Platform
+
+    </footer>
+
+    <script src="js/registration.js"></script>
 
 </body>
 </html>
