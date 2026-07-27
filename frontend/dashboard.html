@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AfriSafe AI</title>
+  <meta name="description" content="Your AfriSafe AI dashboard - monitor malaria risk assessments and view past predictions.">
+
+  <!-- SEO & Social -->
+  <meta name="theme-color" content="#0F9D58">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta property="og:title" content="Dashboard - AfriSafe AI">
+  <meta property="og:description" content="Your AfriSafe AI dashboard - monitor malaria risk assessments and view past predictions.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/gemini-svg.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Dashboard - AfriSafe AI">
+  <meta name="twitter:description" content="Your AfriSafe AI dashboard - monitor malaria risk assessments and view past predictions.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/assessment.css">
+  <style>
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--glass-shadow);
+      padding: 1.75rem;
+      transition: var(--transition);
+    }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px -8px rgba(31,41,55,0.12); }
+    .stat-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1rem;
+    }
+    .stat-icon.green { background: rgba(15,157,88,0.1); color: var(--primary-green); }
+    .stat-icon.blue { background: rgba(30,136,229,0.1); color: var(--medical-blue); }
+    .stat-icon.amber { background: rgba(245,158,11,0.1); color: var(--warning); }
+    .stat-icon.red { background: rgba(239,68,68,0.1); color: var(--danger); }
+    .stat-value { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+    .welcome-banner {
+      background: linear-gradient(135deg, var(--primary-green), var(--medical-blue));
+      color: #fff; border-radius: var(--radius-card); padding: 2.25rem;
+      margin-bottom: 2rem; box-shadow: 0 12px 32px -8px rgba(15,157,88,0.25);
+    }
+    .welcome-banner h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .welcome-banner p { font-size: 1rem; opacity: 0.95; max-width: 600px; line-height: 1.5; }
+    .quick-actions { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: #fff; color: var(--primary-green-dark); border: none;
+      padding: 0.75rem 1.5rem; border-radius: var(--radius-btn);
+      font-weight: 700; font-size: 0.925rem; cursor: pointer; transition: var(--transition);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.75rem 1.5rem; border-radius: var(--radius-btn);
+      font-weight: 700; font-size: 0.925rem; cursor: pointer; transition: var(--transition);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+    /* History Tracker Component Styles */
+    .tracker-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--glass-shadow);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .tracker-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .tracker-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .tracker-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tracker-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .tracker-search {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+    }
+    .tracker-search input {
+      width: 100%;
+      padding: 0.55rem 0.85rem 0.55rem 2.2rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-btn);
+      font-size: 0.85rem;
+      background: rgba(255,255,255,0.8);
+      font-family: inherit;
+    }
+    .tracker-search svg {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      color: var(--text-muted);
+    }
+    .filter-pill {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      padding: 0.45rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.775rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-pill:hover, .filter-pill.active {
+      background: var(--primary-green);
+      color: #fff;
+      border-color: var(--primary-green);
+    }
+
+    /* Trend Chart Bar */
+    .trend-container {
+      background: rgba(15,157,88,0.04);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .trend-title {
+      font-size: 0.825rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .trend-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 70px;
+      padding-top: 10px;
+    }
+    .trend-bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+      cursor: pointer;
+      position: relative;
+    }
+    .trend-bar {
+      width: 100%;
+      max-width: 28px;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.5s ease;
+      min-height: 8px;
+    }
+    .trend-bar.high { background: var(--danger); }
+    .trend-bar.medium { background: var(--warning); }
+    .trend-bar.low { background: var(--success); }
+    .trend-label {
+      font-size: 0.675rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 4px;
+      white-space: nowrap;
+    }
+
+    /* History Cards List */
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .history-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.1rem 1.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .history-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      border-color: var(--primary-green);
+    }
+    .history-left { display: flex; align-items: center; gap: 1rem; }
+    .history-risk-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .history-risk-dot.high { background: var(--danger); }
+    .history-risk-dot.medium { background: var(--warning); }
+    .history-risk-dot.low { background: var(--success); }
+    .history-info h4 { font-size: 0.95rem; font-weight: 700; color: var(--text-color); margin-bottom: 2px; }
+    .history-info p { font-size: 0.8rem; color: var(--text-muted); }
+    .history-right { display: flex; align-items: center; gap: 1rem; }
+    .history-confidence { font-size: 1.1rem; font-weight: 800; }
+    .view-details-btn {
+      background: transparent;
+      border: none;
+      color: var(--primary-green);
+      font-size: 0.825rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Modal Dialog */
+    /* Prevention Tips Grid on Dashboard */
+    .prevention-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--glass-shadow);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .prevention-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .prevention-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .prevention-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
+    }
+    .tip-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.25rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tip-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+      border-color: var(--primary-green);
+    }
+    .tip-icon-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .tip-icon-wrap.green { background: rgba(15,157,88,0.1); color: var(--primary-green); }
+    .tip-icon-wrap.blue { background: rgba(30,136,229,0.1); color: var(--medical-blue); }
+    .tip-icon-wrap.amber { background: rgba(245,158,11,0.1); color: var(--warning); }
+    .tip-icon-wrap.purple { background: rgba(139,92,246,0.1); color: #8B5CF6; }
+    .tip-box h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-color);
+      margin-bottom: 0.4rem;
+    }
+    .tip-box p {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .tip-action-link {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary-green);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .tip-action-link:hover {
+      text-decoration: underline;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: var(--radius-card);
+      max-width: 540px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: rgba(0,0,0,0.06);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Additional Dashboard Layout Styles */
+    .initiate-card {
+      background: linear-gradient(135deg, rgba(15,157,88,0.08) 0%, rgba(30,136,229,0.08) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    @media (min-width: 768px) {
+      .initiate-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .initiate-content h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-color);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .initiate-content p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 650px;
+    }
+    .initiate-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 0.75rem;
+    }
+    .initiate-tag {
+      font-size: 0.725rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+    }
+    .btn-lg-primary {
+      background: var(--primary-green);
+      color: #ffffff;
+      padding: 0.85rem 1.75rem;
+      border-radius: var(--radius-btn);
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(15,157,88,0.3);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-lg-primary:hover {
+      background: var(--primary-green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(15,157,88,0.4);
+    }
+
+    /* Prevention Tips Section */
+    .prevention-section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--glass-shadow);
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+    .prevention-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .prevention-header-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .prevention-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    @media (min-width: 640px) {
+      .prevention-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .prevention-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .tip-card {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .tip-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border-color: var(--primary-green);
+    }
+    .tip-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .tip-icon.green { background: rgba(15,157,88,0.12); color: var(--primary-green); }
+    .tip-icon.blue { background: rgba(30,136,229,0.12); color: var(--medical-blue); }
+    .tip-icon.amber { background: rgba(217,119,6,0.12); color: var(--warning); }
+    .tip-icon.purple { background: rgba(124,58,237,0.12); color: #7C3AED; }
+    .tip-title { font-size: 0.95rem; font-weight: 800; color: var(--text-color); margin-bottom: 0.5rem; }
+    .tip-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.45; margin-bottom: 1rem; }
+    .tip-link {
+      font-size: 0.775rem;
+      font-weight: 700;
+      color: var(--primary-green);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: auto;
+    }
+    .tip-link:hover { text-decoration: underline; }
+
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+    .empty-state svg { width: 56px; height: 56px; margin-bottom: 1rem; opacity: 0.3; }
+    .spinner {
+      width: 40px; height: 40px; border: 3px solid var(--border-color);
+      border-top-color: var(--primary-green); border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 2rem auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="ambient-background">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="dashboard.html" class="brand-group" style="text-decoration:none;color:inherit;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+        </div>
+        <div class="brand-name">AfriSafe <span class="brand-badge">AI</span></div>
+      </a>
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="dashboard.html" class="nav-link active" aria-current="page">Dashboard</a>
+        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="guidelines.html" class="nav-link">Guidelines</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="user-badge" title="Active Session">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="user-text">User</span>
+        </div>
+        <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-layout" style="grid-template-columns: 1fr;">
+    <div id="loadingState" class="spinner"></div>
+
+    <div id="dashboardContent" style="display:none;">
+      <div class="welcome-banner">
+        <h1>Welcome back, <span id="welcomeName">User</span>!</h1>
+        <p>Monitor your malaria risk assessments, track historical screening trends, and start new risk evaluations.</p>
+        <div class="quick-actions">
+          <a href="assessment.html" class="btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            New Assessment
+          </a>
+          <a href="guidelines.html" class="btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Health Guidelines
+          </a>
+          <a href="history.html" class="btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Full History
+          </a>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="stat-value" id="totalAssessments">0</div>
+          <div class="stat-label">Total Assessments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          </div>
+          <div class="stat-value" id="highRiskCount">0</div>
+          <div class="stat-label">High Risk Results</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="stat-value" id="avgConfidence">0%</div>
+          <div class="stat-label">Avg. Confidence</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon amber">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="stat-value" id="lastAssessment">--</div>
+          <div class="stat-label">Last Screening</div>
+        </div>
+      </div>
+
+      <!-- Persistent Historical Malaria Assessment Tracker Component -->
+      <section class="tracker-card">
+        <div class="tracker-header">
+          <div class="tracker-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: var(--primary-green);"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-5 5"/></svg>
+            Historical Assessment Tracker
+          </div>
+          <div class="tracker-controls">
+            <div class="tracker-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input type="text" id="trackerSearch" placeholder="Filter by date or symptom...">
+            </div>
+            <button class="filter-pill active" data-filter="all">All</button>
+            <button class="filter-pill" data-filter="High">High Risk</button>
+            <button class="filter-pill" data-filter="Medium">Medium</button>
+            <button class="filter-pill" data-filter="Low">Low Risk</button>
+          </div>
+        </div>
+
+        <!-- Risk Trajectory Chart -->
+        <div class="trend-container" id="trendChartWrap" style="display:none;">
+          <div class="trend-title">
+            <span>Risk Trajectory Trend (Recent Screenings)</span>
+            <span id="trendSummaryText" style="color: var(--primary-green);"></span>
+          </div>
+          <div class="trend-bars" id="trendBars"></div>
+        </div>
+
+        <!-- Assessment Records List -->
+        <div id="trackerHistoryList" class="history-list">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            <p>No historical assessments recorded yet.</p>
+            <a href="assessment.html" class="btn-primary" style="margin-top: 1rem; background: var(--primary-green); color: #fff;">Start First Assessment</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- General Malaria Prevention Tips Section -->
+      <section class="prevention-card">
+        <div class="prevention-header">
+          <div class="prevention-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: var(--medical-blue);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            General Malaria Prevention & Health Tips
+          </div>
+          <a href="guidelines.html" class="tip-action-link" style="font-size: 0.875rem;">
+            Explore Full WHO & NMEP Guidelines &rarr;
+          </a>
+        </div>
+
+        <div class="prevention-grid">
+          <!-- Tip 1: Insecticide-Treated Nets -->
+          <div class="tip-box">
+            <div>
+              <div class="tip-icon-wrap green">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+              </div>
+              <h4>Insecticide-Treated Nets (LLINs)</h4>
+              <p>Sleep under Long-Lasting Insecticide-Treated Nets every night. Ensure nets are tucked under mattress edges without tears.</p>
+            </div>
+            <a href="guidelines.html#llin" class="tip-action-link">Net usage guide &rarr;</a>
+          </div>
+
+          <!-- Tip 2: Indoor Residual Spraying & Vector Control -->
+          <div class="tip-box">
+            <div>
+              <div class="tip-icon-wrap blue">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              </div>
+              <h4>Standing Water Drain & Vector Control</h4>
+              <p>Inspect household surroundings weekly. Clear rain gutters, cover water drums, and fill open puddles where mosquitoes breed.</p>
+            </div>
+            <a href="guidelines.html#vector" class="tip-action-link">Vector control steps &rarr;</a>
+          </div>
+
+          <!-- Tip 3: Test Before Treatment -->
+          <div class="tip-box">
+            <div>
+              <div class="tip-icon-wrap amber">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <h4>Test Before Treatment (RDT / Microscopy)</h4>
+              <p>Never take antimalarials without a confirmed parasite test. Prompt rapid testing prevents drug resistance and misdiagnosis.</p>
+            </div>
+            <a href="assessment.html" class="tip-action-link">Assess symptoms now &rarr;</a>
+          </div>
+
+          <!-- Tip 4: R21 Malaria Vaccine -->
+          <div class="tip-box">
+            <div>
+              <div class="tip-icon-wrap purple">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </div>
+              <h4>Childhood Immunization (R21 Vaccine)</h4>
+              <p>Check if infants in high-risk zones have completed all 4 scheduled doses of WHO-approved R21/Matrix-M malaria vaccine.</p>
+            </div>
+            <a href="guidelines.html#vaccine" class="tip-action-link">Vaccine schedules &rarr;</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal Dialog for Full Assessment Details -->
+  <div class="modal-overlay" id="detailsModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/notifications.js"></script>
+  <script>
+    let allHistoryItems = [];
+    let currentFilter = "all";
+    let currentSearch = "";
+
+    const LOCAL_HISTORY_KEY = "afrisafe_local_history_cache";
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      if (!requireAuth()) return;
+      populateUserBadge();
+      wireLogout();
+
+      const user = getUser();
+      document.getElementById("welcomeName").textContent = user ? user.full_name || "User" : "User";
+
+      // Setup filter events
+      document.querySelectorAll(".filter-pill").forEach(pill => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
+          pill.classList.add("active");
+          currentFilter = pill.getAttribute("data-filter");
+          renderFilteredTracker();
+        });
+      });
+
+      document.getElementById("trackerSearch").addEventListener("input", (e) => {
+        currentSearch = e.target.value.toLowerCase().trim();
+        renderFilteredTracker();
+      });
+
+      document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
+      document.getElementById("detailsModal").addEventListener("click", (e) => {
+        if (e.target.id === "detailsModal") closeModal();
+      });
+
+      // Load local cache first for instant render
+      const cached = localStorage.getItem(LOCAL_HISTORY_KEY);
+      if (cached) {
+        try {
+          allHistoryItems = JSON.parse(cached);
+          renderDashboard(allHistoryItems);
+        } catch(e) {}
+      }
+
+      // Fetch fresh data from API
+      try {
+        const data = await apiRequest("/api/v1/prediction/history?limit=50");
+        if (data && data.items) {
+          allHistoryItems = data.items;
+          localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(allHistoryItems));
+          renderDashboard(allHistoryItems);
+        }
+      } catch (err) {
+        document.getElementById("loadingState").style.display = "none";
+        if (allHistoryItems.length === 0) {
+          showToast(err.message || "Failed to load dashboard data.", "error");
+        }
+      }
+    });
+
+    function renderDashboard(items) {
+      document.getElementById("loadingState").style.display = "none";
+      document.getElementById("dashboardContent").style.display = "block";
+
+      document.getElementById("totalAssessments").textContent = items.length;
+
+      const highRisk = items.filter(i => i.risk === "High").length;
+      document.getElementById("highRiskCount").textContent = highRisk;
+
+      const avgConf = items.length > 0
+        ? Math.round(items.reduce((s, i) => s + (i.confidence || 0), 0) / items.length)
+        : 0;
+      document.getElementById("avgConfidence").textContent = avgConf + "%";
+
+      if (items.length > 0) {
+        document.getElementById("lastAssessment").textContent = formatDate(items[0].created_at).split(",")[0];
+      } else {
+        document.getElementById("lastAssessment").textContent = "--";
+      }
+
+      renderTrendChart(items);
+      renderFilteredTracker();
+    }
+
+    function renderTrendChart(items) {
+      const chartWrap = document.getElementById("trendChartWrap");
+      const barsContainer = document.getElementById("trendBars");
+      const summaryText = document.getElementById("trendSummaryText");
+
+      if (!items || items.length < 2) {
+        chartWrap.style.display = "none";
+        return;
+      }
+
+      chartWrap.style.display = "block";
+      barsContainer.innerHTML = "";
+
+      // Take up to 10 recent items chronologically
+      const recent = items.slice(0, 10).reverse();
+
+      const last = recent[recent.length - 1];
+      const prev = recent[recent.length - 2];
+      if (last && prev) {
+        if (last.risk === "High" && prev.risk !== "High") {
+          summaryText.textContent = "⚠️ Risk elevated in latest test";
+          summaryText.style.color = "var(--danger)";
+        } else if (last.risk === "Low" && prev.risk === "High") {
+          summaryText.textContent = "✓ Risk level improved";
+          summaryText.style.color = "var(--success)";
+        } else {
+          summaryText.textContent = "Stable screening history";
+          summaryText.style.color = "var(--text-muted)";
+        }
+      }
+
+      recent.forEach((item, index) => {
+        const col = document.createElement("div");
+        col.className = "trend-bar-col";
+        col.title = `${formatDate(item.created_at)} - ${item.risk} Risk (${item.confidence}%)`;
+
+        const heightPct = item.risk === "High" ? 90 : item.risk === "Medium" ? 55 : 30;
+        const riskClass = item.risk === "High" ? "high" : item.risk === "Medium" ? "medium" : "low";
+
+        col.innerHTML = `
+          <div class="trend-bar ${riskClass}" style="height: ${heightPct}%;"></div>
+          <span class="trend-label">#${recent.length - index}</span>
+        `;
+
+        col.addEventListener("click", () => openDetailsModal(item));
+        barsContainer.appendChild(col);
+      });
+    }
+
+    function renderFilteredTracker() {
+      const listEl = document.getElementById("trackerHistoryList");
+
+      let filtered = allHistoryItems;
+
+      if (currentFilter !== "all") {
+        filtered = filtered.filter(i => i.risk === currentFilter);
+      }
+
+      if (currentSearch) {
+        filtered = filtered.filter(i => {
+          const dateStr = formatDate(i.created_at).toLowerCase();
+          const predStr = (i.prediction || "").toLowerCase();
+          const symptomsList = Array.isArray(i.symptoms?.symptoms) ? i.symptoms.symptoms.join(" ").toLowerCase() : "";
+          return dateStr.includes(currentSearch) || predStr.includes(currentSearch) || symptomsList.includes(currentSearch);
+        });
+      }
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            <p>No historical assessments match your current filter.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = "";
+      filtered.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "history-card";
+        const riskClass = item.risk === "High" ? "high" : item.risk === "Medium" ? "medium" : "low";
+
+        const symptomsFormatted = Array.isArray(item.symptoms?.symptoms) && item.symptoms.symptoms.length > 0
+          ? item.symptoms.symptoms.join(", ")
+          : "No specific symptoms logged";
+
+        card.innerHTML = `
+          <div class="history-left">
+            <div class="history-risk-dot ${riskClass}"></div>
+            <div class="history-info">
+              <h4>${escapeHtml(item.prediction)} (${item.risk} Risk)</h4>
+              <p>${formatDate(item.created_at)} &bull; ${escapeHtml(symptomsFormatted)}</p>
+            </div>
+          </div>
+          <div class="history-right">
+            <div class="history-confidence" style="color: var(--${item.risk === "High" ? "danger" : item.risk === "Medium" ? "warning" : "success"});">
+              ${item.confidence}%
+            </div>
+            <button class="view-details-btn">
+              Details &rarr;
+            </button>
+          </div>
+        `;
+
+        card.addEventListener("click", () => openDetailsModal(item));
+        listEl.appendChild(card);
+      });
+    }
+
+    function openDetailsModal(item) {
+      const modal = document.getElementById("detailsModal");
+      const body = document.getElementById("modalBody");
+
+      const riskClass = item.risk === "High" ? "danger" : item.risk === "Medium" ? "warning" : "success";
+      const symptomsList = Array.isArray(item.symptoms?.symptoms) ? item.symptoms.symptoms : [];
+      const adviceList = Array.isArray(item.advice) ? item.advice : [];
+
+      body.innerHTML = `
+        <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 0.5rem;">
+          <span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 12px; background: var(--${riskClass}-bg); color: var(--${riskClass});">
+            ${escapeHtml(item.risk)} Risk
+          </span>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">${formatDate(item.created_at)}</span>
+        </div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-color);">
+          Result: ${escapeHtml(item.prediction)} (${item.confidence}% Confidence)
+        </h2>
+
+        <div style="margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Recorded Symptoms</h4>
+          <div style="display:flex; flex-wrap:wrap; gap: 6px;">
+            ${symptomsList.length > 0
+              ? symptomsList.map(s => `<span style="background: rgba(30,136,229,0.08); color: var(--medical-blue); padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;">${escapeHtml(s)}</span>`).join("")
+              : "<span style='font-size:0.85rem; color:var(--text-muted);'>None reported</span>"}
+          </div>
+        </div>
+
+        ${item.ai_insights ? `
+          <div style="background: rgba(15,157,88,0.06); border-left: 3px solid var(--primary-green); border-radius: 0 8px 8px 0; padding: 0.85rem 1rem; margin-bottom: 1.25rem; font-size: 0.875rem; line-height: 1.5;">
+            <strong>AI Clinical Insights:</strong> ${escapeHtml(item.ai_insights)}
+          </div>
+        ` : ""}
+
+        ${item.recommendation ? `
+          <div style="margin-bottom: 1.25rem;">
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.35rem;">Action Plan</h4>
+            <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-color);">${escapeHtml(item.recommendation)}</p>
+          </div>
+        ` : ""}
+
+        ${adviceList.length > 0 ? `
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Health Guidelines</h4>
+            <ul style="padding-left: 1.25rem; font-size: 0.85rem; line-height: 1.5; color: var(--text-color);">
+              ${adviceList.map(a => `<li>${escapeHtml(a)}</li>`).join("")}
+            </ul>
+          </div>
+        ` : ""}
+
+        <div style="display:flex; justify-content: flex-end; gap: 0.75rem;">
+          <button onclick="deleteAssessmentFromModal(${item.id})" style="background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.825rem; cursor: pointer;">
+            Delete Record
+          </button>
+          <button onclick="closeModal()" style="background: var(--primary-green); color: #fff; border: none; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 700; font-size: 0.825rem; cursor: pointer;">
+            Done
+          </button>
+        </div>
+      `;
+
+      modal.classList.add("open");
+    }
+
+    function closeModal() {
+      document.getElementById("detailsModal").classList.remove("open");
+    }
+
+    async function deleteAssessmentFromModal(id) {
+      if (!confirm("Are you sure you want to delete this assessment record?")) return;
+
+      try {
+        await apiRequest(`/api/v1/prediction/history/${id}`, "DELETE");
+        showToast("Assessment record deleted successfully.", "success");
+
+        allHistoryItems = allHistoryItems.filter(i => i.id !== id);
+        localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(allHistoryItems));
+
+        closeModal();
+        renderDashboard(allHistoryItems);
+      } catch (err) {
+        showToast(err.message || "Failed to delete record.", "error");
+      }
+    }
+  </script>
+</body>
+</html>
+
+
