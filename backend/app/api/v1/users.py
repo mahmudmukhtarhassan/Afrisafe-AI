@@ -1,4 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
+from app.dependencies.auth import get_current_user
 
 router = APIRouter(
     prefix="/api/v1/users",
@@ -7,8 +9,10 @@ router = APIRouter(
 
 
 @router.get("/me")
-async def profile():
+async def me(
+    current_user=Depends(get_current_user)
+):
 
     return {
-        "message": "Coming in Module 3"
+        "user": current_user
     }
