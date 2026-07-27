@@ -1,0 +1,17 @@
+{
+  "name": "AfriSafe AI",
+  "short_name": "AfriSafe",
+  "description": "AI-powered Malaria Risk Prediction System for Nigeria.",
+  "start_url": "/login.html",
+  "display": "standalone",
+  "background_color": "#F4F7F9",
+  "theme_color": "#0F9D58",
+  "icons": [
+    {
+      "src": "assets/gemini-svg.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
