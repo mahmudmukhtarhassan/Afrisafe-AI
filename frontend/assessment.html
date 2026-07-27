@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AfriSafe AI - Guided Patient Risk Assessment">
+  <title>Assessment - AfriSafe AI</title>
+
+  <!-- SEO & Social -->
+  <meta name="theme-color" content="#0F9D58">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta property="og:title" content="Assessment - AfriSafe AI">
+  <meta property="og:description" content="AI-powered guided malaria risk assessment for patients in Nigeria.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/gemini-svg.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Assessment - AfriSafe AI">
+  <meta name="twitter:description" content="AI-powered guided malaria risk assessment for patients in Nigeria.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/assessment.css">
+</head>
+<body>
+
+  <!-- Background Animated Decor -->
+  <div class="ambient-background" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay hidden" aria-live="polite" aria-busy="true">
+    <div class="loading-card">
+      <div class="ai-spinner">
+        <div class="spinner-ring"></div>
+        <div class="pulse-node"></div>
+      </div>
+      <h3 class="loading-title">Analyzing Symptoms...</h3>
+      <p class="loading-text">Our AI model is evaluating your symptom matrix against clinical triage parameters.</p>
+    </div>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand-group">
+        <div class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2v20M2 12h20" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="5" fill="#0F9D58" stroke="none"/>
+          </svg>
+        </div>
+        <span class="brand-name">AfriSafe <span class="brand-badge">AI</span></span>
+      </div>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="assessment.html" class="nav-link active" aria-current="page">Assessment</a>
+        <a href="guidelines.html" class="nav-link">Guidelines</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- User Session Badge -->
+        <div class="user-badge" title="Active Session">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="user-text">User</span>
+        </div>
+        <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-layout">
+    
+    <!-- Left Column: Multi-Step Interactive Form -->
+    <div class="content-area">
+      
+      <!-- Progress Bar & Stepper -->
+      <nav class="stepper-card" aria-label="Assessment Progress">
+        <div class="progress-bar-bg" role="progressbar" id="progressBar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar-fill" style="width: 25%;"></div>
+        </div>
+        
+        <ol class="stepper-steps">
+          <li class="step-item active" id="stepIndicator-1">
+            <span class="step-circle" aria-hidden="true">1</span>
+            <span class="step-label">Patient Info</span>
+          </li>
+          <li class="step-item" id="stepIndicator-2">
+            <span class="step-circle" aria-hidden="true">2</span>
+            <span class="step-label">Symptoms</span>
+          </li>
+          <li class="step-item" id="stepIndicator-3">
+            <span class="step-circle" aria-hidden="true">3</span>
+            <span class="step-label">Review</span>
+          </li>
+          <li class="step-item" id="stepIndicator-4">
+            <span class="step-circle" aria-hidden="true">4</span>
+            <span class="step-label">AI Prediction</span>
+          </li>
+        </ol>
+      </nav>
+
+      <!-- System Error / Alert Card Container -->
+      <div id="alertContainer" class="alert-container hidden" role="alert" aria-live="assertive"></div>
+
+      <!-- Assessment Form Wrapper -->
+      <form id="triageForm" class="triage-form" novalidate>
+
+        <!-- SECTION 1: Patient Information -->
+        <section class="form-section active-section" id="section-1" aria-labelledby="heading-step-1">
+          <div class="section-header">
+            <h2 id="heading-step-1" class="section-title">Step 1: Patient Information</h2>
+            <p class="section-desc">Provide basic demographic info to contextualize risk thresholds.</p>
+          </div>
+
+          <div class="grid-form">
+            <!-- Full Name -->
+            <div class="field-group full-width">
+              <label for="fullName" class="field-label">Full Name <span class="optional-tag">(Optional)</span></label>
+              <input type="text" id="fullName" name="fullName" class="form-control" autocomplete="name" placeholder="e.g., Amina Bello">
+            </div>
+
+            <!-- Age -->
+            <div class="field-group">
+              <label for="age" class="field-label">Age (Years) <span class="required-star">*</span></label>
+              <input type="number" id="age" name="age" class="form-control" placeholder="e.g., 28" min="0" max="120" required aria-describedby="ageError">
+              <span class="field-error" id="ageError" aria-live="polite"></span>
+            </div>
+
+            <!-- Gender -->
+            <div class="field-group">
+              <label for="gender" class="field-label">Gender <span class="required-star">*</span></label>
+              <select id="gender" name="gender" class="form-control" required aria-describedby="genderError" autocomplete="sex">
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other / Prefer not to say</option>
+              </select>
+              <span class="field-error" id="genderError" aria-live="polite"></span>
+            </div>
+
+            <!-- State -->
+            <div class="field-group">
+              <label for="state" class="field-label">State <span class="required-star">*</span></label>
+              <select id="state" name="state" class="form-control" required aria-describedby="stateError" autocomplete="address-level1">
+                <option value="" disabled selected>Select Nigerian State</option>
+                <option value="Kano">Kano</option>
+                <option value="Lagos">Lagos</option>
+                <option value="Abuja (FCT)">Abuja (FCT)</option>
+                <option value="Kaduna">Kaduna</option>
+                <option value="Oyo">Oyo</option>
+                <option value="Rivers">Rivers</option>
+                <option value="Enugu">Enugu</option>
+                <option value="Borno">Borno</option>
+                <option value="Sokoto">Sokoto</option>
+                <option value="Other">Other State</option>
+              </select>
+              <span class="field-error" id="stateError" aria-live="polite"></span>
+            </div>
+
+            <!-- LGA -->
+            <div class="field-group">
+              <label for="lga" class="field-label">LGA <span class="optional-tag">(Optional)</span></label>
+              <input type="text" id="lga" name="lga" class="form-control" autocomplete="address-level2" placeholder="Local Government Area">
+            </div>
+          </div>
+
+          <div class="section-actions align-right">
+            <button type="button" class="btn btn-primary btn-next" data-next="2">Continue to Symptoms &rarr;</button>
+          </div>
+        </section>
+
+        <!-- SECTION 2: Symptoms Selection -->
+        <section class="form-section hidden-section" id="section-2" aria-labelledby="heading-step-2">
+          <div class="section-header">
+            <h2 id="heading-step-2" class="section-title">Step 2: Select Current Symptoms</h2>
+            <p class="section-desc">Toggle all symptoms currently experienced by the patient.</p>
+          </div>
+
+          <fieldset class="symptoms-fieldset">
+            <legend class="sr-only">Patient Symptoms Checklist</legend>
+            <div class="symptoms-grid">
+              
+              <!-- Fever -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-fever" class="symptom-title">Fever</label>
+                  <p class="symptom-desc">Mild to moderate elevated body temperature.</p>
+                </div>
+                <label class="switch" for="symptom-fever">
+                  <input type="checkbox" id="symptom-fever" name="symptoms" value="Fever" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- High Fever -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v10M12 18h.01M8.5 22h7a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-high-fever" class="symptom-title">High Fever</label>
+                  <p class="symptom-desc">Severe body temperature spike (&gt;38.5°C).</p>
+                </div>
+                <label class="switch" for="symptom-high-fever">
+                  <input type="checkbox" id="symptom-high-fever" name="symptoms" value="High Fever" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- Headache -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-headache" class="symptom-title">Headache</label>
+                  <p class="symptom-desc">Throbbing or persistent pain around forehead/temples.</p>
+                </div>
+                <label class="switch" for="symptom-headache">
+                  <input type="checkbox" id="symptom-headache" name="symptoms" value="Headache" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- Chills -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-chills" class="symptom-title">Chills & Shivering</label>
+                  <p class="symptom-desc">Involuntary shivering or severe cold sensations.</p>
+                </div>
+                <label class="switch" for="symptom-chills">
+                  <input type="checkbox" id="symptom-chills" name="symptoms" value="Chills" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- Vomiting -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM8 15s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-vomiting" class="symptom-title">Nausea / Vomiting</label>
+                  <p class="symptom-desc">Upset stomach or inability to keep food down.</p>
+                </div>
+                <label class="switch" for="symptom-vomiting">
+                  <input type="checkbox" id="symptom-vomiting" name="symptoms" value="Vomiting" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- Fatigue -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-fatigue" class="symptom-title">Fatigue</label>
+                  <p class="symptom-desc">Extreme weakness, lethargy, or loss of energy.</p>
+                </div>
+                <label class="switch" for="symptom-fatigue">
+                  <input type="checkbox" id="symptom-fatigue" name="symptoms" value="Fatigue" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- Body Pain -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-body-pain" class="symptom-title">Body & Joint Pain</label>
+                  <p class="symptom-desc">Generalized muscular aches or joint stiffness.</p>
+                </div>
+                <label class="switch" for="symptom-body-pain">
+                  <input type="checkbox" id="symptom-body-pain" name="symptoms" value="Body Pain" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- Loss of Appetite -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-loss-appetite" class="symptom-title">Loss of Appetite</label>
+                  <p class="symptom-desc">Reduced desire or complete refusal to eat.</p>
+                </div>
+                <label class="switch" for="symptom-loss-appetite">
+                  <input type="checkbox" id="symptom-loss-appetite" name="symptoms" value="Loss of Appetite" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- Sweating -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-sweating" class="symptom-title">Profuse Sweating</label>
+                  <p class="symptom-desc">Excessive sweating episodes, especially at night.</p>
+                </div>
+                <label class="switch" for="symptom-sweating">
+                  <input type="checkbox" id="symptom-sweating" name="symptoms" value="Sweating" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- Bitter Taste -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 0 0 9-9c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9z"/><path d="M8 11h8"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-bitter-taste" class="symptom-title">Bitter Taste in Mouth</label>
+                  <p class="symptom-desc">Unpleasant metallic or bitter taste interfering with eating.</p>
+                </div>
+                <label class="switch" for="symptom-bitter-taste">
+                  <input type="checkbox" id="symptom-bitter-taste" name="symptoms" value="Bitter Taste" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <!-- Dizziness -->
+              <div class="symptom-card">
+                <div class="symptom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div class="symptom-info">
+                  <label for="symptom-dizziness" class="symptom-title">Dizziness / Vertigo</label>
+                  <p class="symptom-desc">Feeling lightheaded or sensation of spinning.</p>
+                </div>
+                <label class="switch" for="symptom-dizziness">
+                  <input type="checkbox" id="symptom-dizziness" name="symptoms" value="Dizziness" class="symptom-checkbox">
+                  <span class="slider" aria-hidden="true"></span>
+                </label>
+              </div>
+
+            </div>
+          </fieldset>
+
+          <span class="field-error center-text" id="symptomsError" aria-live="polite"></span>
+
+          <!-- SECTION 3: Duration Slider -->
+          <div class="duration-box">
+            <div class="duration-header">
+              <label for="durationSlider" class="field-label">Symptom Duration (Days)</label>
+              <span id="durationDisplay" class="duration-value">3 Days</span>
+            </div>
+            <input type="range" id="durationSlider" name="duration" min="1" max="14" value="3" class="range-slider">
+            <div class="slider-ticks" aria-hidden="true">
+              <span>1 Day</span>
+              <span>7 Days</span>
+              <span>14 Days</span>
+            </div>
+          </div>
+
+          <div class="section-actions">
+            <button type="button" class="btn btn-secondary btn-prev" data-prev="1">&larr; Back</button>
+            <button type="button" class="btn btn-primary btn-next" data-next="3">Continue to Context &rarr;</button>
+          </div>
+        </section>
+
+        <!-- SECTION 4: Additional Context -->
+        <section class="form-section hidden-section" id="section-3" aria-labelledby="heading-step-3">
+          <div class="section-header">
+            <h2 id="heading-step-3" class="section-title">Step 3: Exposure & Medical Context</h2>
+            <p class="section-desc">Answering these context questions helps refine triage probability.</p>
+          </div>
+
+          <div class="context-cards-list">
+            
+            <!-- Mosquito Bites -->
+            <fieldset class="context-card">
+              <legend class="context-text">
+                <span class="context-title">Recent mosquito bites?</span>
+                <span class="context-desc">Noticed multiple bites or high mosquito activity in the last 14 days.</span>
+              </legend>
+              <div class="radio-toggle-group">
+                <label class="radio-tile">
+                  <input type="radio" name="mosquitoBites" value="Yes">
+                  <span class="tile-btn">Yes</span>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="mosquitoBites" value="No" checked>
+                  <span class="tile-btn">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Standing / Stagnant Water -->
+            <fieldset class="context-card">
+              <legend class="context-text">
+                <span class="context-title">Standing water near residence?</span>
+                <span class="context-desc">Open gutters, flooded puddles, or unsealed water storage nearby.</span>
+              </legend>
+              <div class="radio-toggle-group">
+                <label class="radio-tile">
+                  <input type="radio" name="standingWater" value="Yes">
+                  <span class="tile-btn">Yes</span>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="standingWater" value="No" checked>
+                  <span class="tile-btn">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Bed Net Usage -->
+            <fieldset class="context-card">
+              <legend class="context-text">
+                <span class="context-title">Sleep under treated bed net?</span>
+                <span class="context-desc">Consistently use an insecticide-treated mosquito net at night.</span>
+              </legend>
+              <div class="radio-toggle-group">
+                <label class="radio-tile">
+                  <input type="radio" name="bedNet" value="Yes" checked>
+                  <span class="tile-btn">Yes</span>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="bedNet" value="No">
+                  <span class="tile-btn">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Travelled Recently -->
+            <fieldset class="context-card">
+              <legend class="context-text">
+                <span class="context-title">Travelled recently?</span>
+                <span class="context-desc">Visited a high-endemic malaria region or rural area recently.</span>
+              </legend>
+              <div class="radio-toggle-group">
+                <label class="radio-tile">
+                  <input type="radio" name="travelled" value="Yes">
+                  <span class="tile-btn">Yes</span>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="travelled" value="No" checked>
+                  <span class="tile-btn">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Taken Malaria Drugs -->
+            <fieldset class="context-card">
+              <legend class="context-text">
+                <span class="context-title">Taken malaria medication recently?</span>
+                <span class="context-desc">Started or completed ACT antimalarials within the past month.</span>
+              </legend>
+              <div class="radio-toggle-group">
+                <label class="radio-tile">
+                  <input type="radio" name="malariaDrugs" value="Yes">
+                  <span class="tile-btn">Yes</span>
+                </label>
+                <label class="radio-tile">
+                  <input type="radio" name="malariaDrugs" value="No" checked>
+                  <span class="tile-btn">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+          </div>
+
+          <div class="section-actions">
+            <button type="button" class="btn btn-secondary btn-prev" data-prev="2">&larr; Back</button>
+            <button type="button" class="btn btn-primary btn-next" data-next="4">Review Assessment &rarr;</button>
+          </div>
+        </section>
+
+        <!-- SECTION 5: Review & Submit -->
+        <section class="form-section hidden-section" id="section-4" aria-labelledby="heading-step-4">
+          <div class="section-header">
+            <h2 id="heading-step-4" class="section-title">Step 4: Confirm & Predict</h2>
+            <p class="section-desc">Review your assessment entries prior to AI model execution.</p>
+          </div>
+
+          <div class="review-box">
+            <div class="review-group">
+              <span class="review-key">Patient Profile:</span>
+              <span class="review-val" id="reviewPatient">Not configured</span>
+            </div>
+            <div class="review-group">
+              <span class="review-key">Location:</span>
+              <span class="review-val" id="reviewLocation">Not selected</span>
+            </div>
+            <div class="review-group">
+              <span class="review-key">Symptoms Reported:</span>
+              <span class="review-val" id="reviewSymptoms">None</span>
+            </div>
+            <div class="review-group">
+              <span class="review-key">Symptom Duration:</span>
+              <span class="review-val" id="reviewDuration">3 Days</span>
+            </div>
+            <div class="review-group">
+              <span class="review-key">Exposure Flags:</span>
+              <span class="review-val" id="reviewContext">Bites: No | Travel: No | Drugs: No</span>
+            </div>
+          </div>
+
+          <div class="section-actions">
+            <button type="button" class="btn btn-secondary btn-prev" data-prev="3">&larr; Back</button>
+            <button type="submit" id="submitBtn" class="btn btn-submit-large">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="btn-icon" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <span>Predict Malaria Risk</span>
+            </button>
+          </div>
+        </section>
+
+      </form>
+    </div>
+
+    <!-- Right Column: Live Summary Sidebar -->
+    <aside class="sidebar-area" aria-label="Assessment Live Summary">
+      <div class="summary-card">
+        <div class="summary-header">
+          <div class="ai-pulse-dot" aria-hidden="true"></div>
+          <h3 class="summary-title">Live Summary</h3>
+        </div>
+
+        <div class="summary-body">
+          <div class="summary-item">
+            <span class="item-label">Patient</span>
+            <span class="item-value" id="summaryPatient">--</span>
+          </div>
+
+          <div class="summary-item">
+            <span class="item-label">Location</span>
+            <span class="item-value" id="summaryLocation">--</span>
+          </div>
+
+          <div class="summary-item">
+            <span class="item-label">Symptoms Selected</span>
+            <div class="tags-container" id="summarySymptomTags">
+              <span class="no-tags">No symptoms selected</span>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <span class="item-label">Estimated Baseline Risk</span>
+            <div class="risk-badge-wrapper">
+              <span id="summaryRiskBadge" class="risk-badge risk-low">Low</span>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <span class="item-label">Status</span>
+            <span class="status-indicator" id="summaryStatus">Pending Required Info</span>
+          </div>
+        </div>
+
+        <div class="summary-footer">
+          <div class="shield-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Privacy Secured Session</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="app-footer">
+    <p class="copyright">&copy; 2026 AfriSafe AI</p>
+    <p class="disclaimer">
+      This application provides AI-assisted screening only. It is NOT a medical diagnosis.
+    </p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/assessment.js"></script>
+</body>
+</html>
