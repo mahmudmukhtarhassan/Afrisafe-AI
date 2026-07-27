@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Health Guidelines - AfriSafe AI</title>
+  <meta name="description" content="Latest public health guidelines and awareness tips for malaria prevention and treatment in Nigeria.">
+
+  <!-- SEO & Social -->
+  <meta name="theme-color" content="#0F9D58">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/assessment.css">
+  <style>
+    .guidelines-header {
+      background: linear-gradient(135deg, var(--primary-green-dark), #004D40);
+      color: #fff;
+      border-radius: var(--radius-card);
+      padding: 2.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 12px 32px -8px rgba(15,157,88,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .guidelines-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .guidelines-header p {
+      font-size: 1rem;
+      opacity: 0.92;
+      max-width: 680px;
+      line-height: 1.6;
+    }
+    .source-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .source-pill {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+    }
+    
+    .search-filter-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    @media (min-width: 768px) {
+      .search-filter-bar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 480px;
+    }
+    .search-input-wrap input {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-btn);
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text-color);
+      transition: var(--transition);
+    }
+    .search-input-wrap input:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 4px rgba(15,157,88,0.15);
+    }
+    .search-input-wrap svg {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      width: 18px;
+      height: 18px;
+    }
+    
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .cat-btn {
+      background: var(--glass-bg);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .cat-btn:hover, .cat-btn.active {
+      background: var(--primary-green);
+      color: #fff;
+      border-color: var(--primary-green);
+      box-shadow: 0 4px 12px rgba(15,157,88,0.25);
+    }
+
+    .guidelines-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .guideline-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--glass-shadow);
+      padding: 1.75rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .guideline-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px -8px rgba(31,41,55,0.12);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .badge-tag {
+      font-size: 0.725rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      background: rgba(15,157,88,0.12);
+      color: var(--primary-green-dark);
+    }
+    .badge-tag.emergency {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+    .badge-tag.vaccine {
+      background: rgba(30,136,229,0.12);
+      color: var(--medical-blue);
+    }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+    .card-summary {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+    .tips-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.25rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      flex: 1;
+    }
+    .tips-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--text-color);
+      line-height: 1.45;
+    }
+    .tips-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary-green);
+      font-weight: 800;
+    }
+    .rec-box {
+      background: rgba(15,157,88,0.06);
+      border-left: 3px solid var(--primary-green);
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 1rem;
+      font-size: 0.825rem;
+      color: var(--text-color);
+      font-weight: 600;
+      line-height: 1.4;
+      margin-top: auto;
+    }
+    .card-footer-src {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .spinner {
+      width: 40px; height: 40px; border: 3px solid var(--border-color);
+      border-top-color: var(--primary-green); border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 3rem auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="ambient-background">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="dashboard.html" class="brand-group" style="text-decoration:none;color:inherit;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+        </div>
+        <div class="brand-name">AfriSafe <span class="brand-badge">AI</span></div>
+      </a>
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="guidelines.html" class="nav-link active" aria-current="page">Guidelines</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="user-badge" title="Active Session">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="user-text">User</span>
+        </div>
+        <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-layout" style="grid-template-columns: 1fr;">
+    <div class="guidelines-header">
+      <h1>Nigeria Malaria Public Health Guidelines & Awareness</h1>
+      <p>Official, up-to-date prevention protocols, vaccination schedules (R21/Matrix-M), vector control standards, and diagnostic treatment guidelines compiled from WHO and NMEP.</p>
+      <div class="source-pills" id="sourcePills">
+        <span class="source-pill">NMEP Nigeria</span>
+        <span class="source-pill">WHO Africa</span>
+        <span class="source-pill">NCDC Guidelines</span>
+      </div>
+    </div>
+
+    <div class="search-filter-bar">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Search guidelines (e.g. vaccine, nets, testing, fever)..." aria-label="Search guidelines">
+      </div>
+      <div class="category-pills">
+        <button class="cat-btn active" data-cat="all">All Topics</button>
+        <button class="cat-btn" data-cat="vector">Vector Control</button>
+        <button class="cat-btn" data-cat="vaccine">Vaccines & SMC</button>
+        <button class="cat-btn" data-cat="treatment">Testing & ACTs</button>
+        <button class="cat-btn" data-cat="community">Sanitation</button>
+        <button class="cat-btn" data-cat="emergency">Emergency Signs</button>
+      </div>
+    </div>
+
+    <div id="loadingSpinner" class="spinner"></div>
+
+    <div id="guidelinesGrid" class="guidelines-grid" style="display:none;"></div>
+
+    <div id="emptyResult" style="display:none; text-align:center; padding: 4rem 1rem; color: var(--text-muted);">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1rem; opacity: 0.5;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-color); margin-bottom: 0.5rem;">No matching guidelines found</h3>
+      <p style="font-size: 0.9rem;">Try searching with a different term or select another category filter above.</p>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/notifications.js"></script>
+  <script>
+    let activeCategory = "all";
+    let searchQuery = "";
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      populateUserBadge();
+      wireLogout();
+      
+      const searchInput = document.getElementById("searchInput");
+      const catButtons = document.querySelectorAll(".cat-btn");
+
+      searchInput.addEventListener("input", (e) => {
+        searchQuery = e.target.value.trim();
+        fetchGuidelines();
+      });
+
+      catButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          catButtons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeCategory = btn.getAttribute("data-cat");
+          fetchGuidelines();
+        });
+      });
+
+      fetchGuidelines();
+    });
+
+    async function fetchGuidelines() {
+      const spinner = document.getElementById("loadingSpinner");
+      const grid = document.getElementById("guidelinesGrid");
+      const empty = document.getElementById("emptyResult");
+
+      spinner.style.display = "block";
+      grid.style.display = "none";
+      empty.style.display = "none";
+
+      try {
+        let url = `/api/v1/prevention-guidelines?category=${encodeURIComponent(activeCategory)}`;
+        if (searchQuery) {
+          url += `&query=${encodeURIComponent(searchQuery)}`;
+        }
+
+        const data = await apiRequest(url, "GET", null, false);
+        renderGuidelines(data);
+      } catch (err) {
+        spinner.style.display = "none";
+        showToast("Failed to load guidelines. Please try again.", "error");
+      }
+    }
+
+    function renderGuidelines(data) {
+      const spinner = document.getElementById("loadingSpinner");
+      const grid = document.getElementById("guidelinesGrid");
+      const empty = document.getElementById("emptyResult");
+
+      spinner.style.display = "none";
+
+      if (!data || !data.guidelines || data.guidelines.length === 0) {
+        empty.style.display = "block";
+        return;
+      }
+
+      grid.style.display = "grid";
+      grid.innerHTML = "";
+
+      data.guidelines.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "guideline-card";
+
+        let badgeClass = "badge-tag";
+        if (item.category === "emergency") badgeClass += " emergency";
+        if (item.category === "vaccine") badgeClass += " vaccine";
+
+        const tipsHtml = item.tips.map(tip => `<li>${escapeHtml(tip)}</li>`).join("");
+
+        card.innerHTML = `
+          <div class="card-top">
+            <span class="${badgeClass}">${escapeHtml(item.badge)}</span>
+          </div>
+          <h2 class="card-title">${escapeHtml(item.title)}</h2>
+          <p class="card-summary">${escapeHtml(item.summary)}</p>
+          <ul class="tips-list">
+            ${tipsHtml}
+          </ul>
+          <div class="rec-box">
+            <strong>Key Insight:</strong> ${escapeHtml(item.key_recommendations)}
+          </div>
+          <div class="card-footer-src">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Source: ${escapeHtml(item.source)}
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>
