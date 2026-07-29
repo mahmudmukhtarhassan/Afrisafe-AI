@@ -27,6 +27,4 @@ async def root():
         "application": settings.APP_NAME,
         "version": settings.APP_VERSION,
         "status": "running",
-    }from app.api.v1.router import api_router
-
-app.include_router(api_router)_router)
+    }
