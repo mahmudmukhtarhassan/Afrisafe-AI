@@ -135,23 +135,26 @@ async function apiRequest(path, options = {}) {
  * Try to refresh the access token using the stored refresh token.
  * Returns true on success.
  */
-async function tryRefreshToken() {
-  const refreshToken = getRefreshToken();
-  if (!refreshToken) return false;
+async function logout() {
+    const token = localStorage.getItem("access_token");
 
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ refresh_token: refreshToken }),
-    });
-    if (!response.ok) return false;
-    const data = await response.json();
-    setTokens(data.access_token, refreshToken);
-    return true;
-  } catch {
-    return false;
-  }
+    try {
+        await apiRequest("/api/v1/auth/logout", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.error("Logout failed:", error);
+    } finally {
+        // Clear local session regardless of API response
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+
+        // Redirect to login page
+        window.location.href = "login.html";
+    }
 }
 
 /**
@@ -290,16 +293,26 @@ function populateUserBadge() {
  * Wire up a logout link/button with id="logoutBtn".
  */
 function wireLogout() {
-  const btn = document.getElementById("logoutBtn");
-  if (!btn) return;
-  btn.addEventListener("click", async (e) => {
-    e.preventDefault();
-    const refreshToken = getRefreshToken();
+  async function logout() {
+    const token = localStorage.getItem("access_token");
+
     try {
-      if (refreshToken) {
         await apiRequest("/api/v1/auth/logout", {
-          method: "POST",
-          body: JSON.stringify({ refresh_token: refreshToken }),
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.error("Logout failed:", error);
+    } finally {
+        // Clear local session regardless of API response
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+
+        // Redirect to login page
+        window.location.href = "login.html";
+    }
         });
       }
     } catch {
