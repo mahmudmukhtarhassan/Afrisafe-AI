@@ -62,3 +62,19 @@ async def logout(authorization: str = Header()):
     await logout_user(token)
 
     return {"message": "Logged out"}
+
+from pydantic import BaseModel
+
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
+@router.post("/refresh")
+async def refresh_token(data: RefreshRequest):
+    try:
+        session = supabase.auth.refresh_session(data.refresh_token)
+        return {
+            "access_token": session.session.access_token,
+            "refresh_token": session.session.refresh_token,
+        }
+    except Exception as e:
+        raise HTTPException(401, str(e))
