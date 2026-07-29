@@ -67,7 +67,7 @@ from pydantic import BaseModel
 
 class RefreshRequest(BaseModel):
     refresh_token: str
-
+from app.core.supabase import supabase
 @router.post("/refresh")
 async def refresh_token(data: RefreshRequest):
     try:
