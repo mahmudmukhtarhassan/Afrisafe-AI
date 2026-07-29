@@ -12,3 +12,4 @@ def error(message, code=400):
         "code": code,
         "message": message,
     }
+    
