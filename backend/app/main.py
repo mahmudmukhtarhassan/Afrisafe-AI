@@ -1,3 +1,6 @@
+from app.api.v1.router import api_router
+
+app.include_router(api_router)
 from fastapi import FastAPI
 
 from fastapi.middleware.cors import CORSMiddleware
