@@ -6,7 +6,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("registerForm");
   const registerBtn = document.getElementById("registerBtn");
-  const formAlert = document.getElementById("formAlert");
 
   const password = document.getElementById("password");
   const confirmPassword = document.getElementById("confirm_password");
@@ -15,19 +14,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
 
   // If already logged in, go to assessment
-  if (isLoggedIn()) {
+  if (typeof isLoggedIn === "function" && isLoggedIn()) {
     window.location.href = "assessment.html";
     return;
   }
 
   // Password Toggle
-  if (togglePassword) {
+  if (togglePassword && password) {
     togglePassword.addEventListener("click", () => {
       password.type = password.type === "password" ? "text" : "password";
     });
   }
 
-  if (toggleConfirmPassword) {
+  if (toggleConfirmPassword && confirmPassword) {
     toggleConfirmPassword.addEventListener("click", () => {
       confirmPassword.type = confirmPassword.type === "password" ? "text" : "password";
     });
@@ -37,15 +36,20 @@ document.addEventListener("DOMContentLoaded", () => {
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      hideInlineAlert("formAlert");
+      if (typeof hideInlineAlert === "function") hideInlineAlert("formAlert");
 
-      const full_name = document.getElementById("full_name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const age = parseInt(document.getElementById("age").value, 10);
-      const gender = document.getElementById("gender").value;
-      const state = document.getElementById("state").value.trim();
-      const lga = document.getElementById("lga").value.trim();
-      const agree = document.getElementById("agreeTerms").checked;
+      // Safely read input values
+      const full_name = document.getElementById("full_name")?.value.trim() || "";
+      const email = document.getElementById("email")?.value.trim() || "";
+      const ageRaw = document.getElementById("age")?.value;
+      const age = ageRaw ? parseInt(ageRaw, 10) : NaN;
+      const gender = document.getElementById("gender")?.value || "";
+      const state = document.getElementById("state")?.value.trim() || "";
+      const lga = document.getElementById("lga")?.value.trim() || "";
+      const agree = document.getElementById("agreeTerms")?.checked || false;
+
+      const pwdValue = password?.value || "";
+      const confirmPwdValue = confirmPassword?.value || "";
 
       // Validation
       if (!full_name) {
@@ -58,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (!age || age < 1 || age > 120) {
+      if (isNaN(age) || age < 1 || age > 120) {
         showInlineAlert("formAlert", "Please enter a valid age (1-120).");
         return;
       }
@@ -83,18 +87,17 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (password.value.length < 6) {
+      if (pwdValue.length < 6) {
         showInlineAlert("formAlert", "Password must be at least 6 characters.");
         return;
       }
 
-      if (password.value !== confirmPassword.value) {
+      if (pwdValue !== confirmPwdValue) {
         showInlineAlert("formAlert", "Passwords do not match.");
         return;
       }
 
-      registerBtn.disabled = true;
-      registerBtn.innerHTML = '<span class="btn-text">Creating Account...</span>';
+      setLoadingState(true);
 
       try {
         const data = await apiRequest("/api/v1/auth/register", {
@@ -102,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify({
             full_name,
             email,
-            password: password.value,
+            password: pwdValue,
             age,
             gender,
             state,
@@ -112,23 +115,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Auto-login: store tokens if returned
         if (data.access_token) {
-          setTokens(data.access_token, data.refresh_token);
-          if (data.user) setUser(data.user);
+          if (typeof setTokens === "function") setTokens(data.access_token, data.refresh_token);
+          if (data.user && typeof setUser === "function") setUser(data.user);
+
           showInlineAlert("formAlert", "Account created! Redirecting...", "success");
-          showToast("Registration successful!", "success");
+          if (typeof showToast === "function") showToast("Registration successful!", "success");
+
           setTimeout(() => {
             window.location.href = "assessment.html";
           }, 1000);
         } else {
           showInlineAlert("formAlert", "Registration successful! Redirecting to login...", "success");
-          showToast("Registration successful!", "success");
+          if (typeof showToast === "function") showToast("Registration successful!", "success");
+
           setTimeout(() => {
             window.location.href = "login.html";
           }, 1500);
         }
       } catch (err) {
-        registerBtn.disabled = false;
-        registerBtn.innerHTML = '<span class="btn-text">Create Account</span>';
+        setLoadingState(false);
 
         if (err.status === 409) {
           showInlineAlert("formAlert", "An account with this email already exists.");
@@ -142,5 +147,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
 
+  function setLoadingState(isLoading) {
+    if (!registerBtn) return;
+
+    const btnText = registerBtn.querySelector(".btn-text");
+    const btnSpinner = registerBtn.querySelector(".btn-spinner");
+
+    registerBtn.disabled = isLoading;
+
+    if (btnSpinner) {
+      btnSpinner.classList.toggle("hidden", !isLoading);
+    }
+
+    if (btnText) {
+      btnText.textContent = isLoading ? "Creating Account..." : "Create Account";
+    } else if (!btnSpinner) {
+      registerBtn.textContent = isLoading ? "Creating Account..." : "Create Account";
+    }
+  }
+});
