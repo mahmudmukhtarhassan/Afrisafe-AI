@@ -1,18 +1,13 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account - AfriSafe AI</title>
     <meta name="description" content="Create your AfriSafe AI account to start AI-powered malaria risk assessments.">
 
-    <!-- SEO & Social -->
+    <!-- SEO & Social Meta Tags -->
     <meta name="theme-color" content="#0F9D58">
     <meta name="robots" content="index, follow">
     <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
@@ -26,526 +21,236 @@
     <meta name="twitter:description" content="Create your AfriSafe AI account to start AI-powered malaria risk assessments.">
 
     <!-- Fonts -->
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- Icons -->
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <!-- CSS -->
-
+    <!-- Application Stylesheets -->
     <link rel="stylesheet" href="css/login.css">
-
     <link rel="stylesheet" href="css/animations.css">
-
     <link rel="stylesheet" href="css/registration.css">
-
 </head>
 
 <body>
 
-<div class="background-elements">
-
-    <div class="gradient-circle circle-1"></div>
-
-    <div class="gradient-circle circle-2"></div>
-
-    <div class="floating-particles"></div>
-
-</div>
-
-<div class="login-container">
-
-    <!-- ===============================
-            LEFT PANEL
-    ================================ -->
-
-    <div class="login-left">
-
-        <div class="brand-content">
-
-            <div class="brand-logo">
-
-                <img
-                    src="assets/gemini-svg.svg"
-                    alt="AfriSafe AI">
-
-                <span>AfriSafe AI</span>
-
-            </div>
-
-            <h1>
-
-                AI Powered
-
-                <span class="gradient-text">
-
-                    Malaria Detection
-
-                </span>
-
-            </h1>
-
-            <p>
-
-                Join thousands of healthcare professionals
-                using Artificial Intelligence to detect malaria
-                early and improve patient outcomes.
-
-            </p>
-
-            <div class="feature-list">
-
-                <div class="feature-item">
-
-                    <i class="fas fa-brain"></i>
-
-                    <span>AI Prediction Engine</span>
-
-                </div>
-
-                <div class="feature-item">
-
-                    <i class="fas fa-shield-virus"></i>
-
-                    <span>Secure Patient Records</span>
-
-                </div>
-
-                <div class="feature-item">
-
-                    <i class="fas fa-chart-line"></i>
-
-                    <span>Prediction Analytics</span>
-
-                </div>
-
-                <div class="feature-item">
-
-                    <i class="fas fa-user-shield"></i>
-
-                    <span>JWT Authentication</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
+    <!-- Ambient Background Elements -->
+    <div class="background-elements" aria-hidden="true">
+        <div class="gradient-circle circle-1"></div>
+        <div class="gradient-circle circle-2"></div>
+        <div class="floating-particles"></div>
     </div>
 
-    <!-- ===============================
-            RIGHT PANEL
-    ================================ -->
+    <!-- Main Container -->
+    <div class="login-container">
 
-    <div class="login-right">
+        <!-- ===============================
+             LEFT PANEL: BRAND & FEATURES
+        ================================ -->
+        <section class="login-left" aria-label="Brand Overview">
+            <div class="brand-content">
+                
+                <div class="brand-logo">
+                    <img src="assets/gemini-svg.svg" alt="AfriSafe AI Logo">
+                    <span>AfriSafe AI</span>
+                </div>
 
-        <div class="glass-card">
-
-            <div class="card-header">
-
-                <h2>
-
-                    Create Account
-
-                </h2>
+                <h1>
+                    AI-Powered
+                    <span class="gradient-text">Malaria Risk Triage</span>
+                </h1>
 
                 <p>
-
-                    Register to continue with AfriSafe AI
-
+                    Join healthcare providers and individuals using artificial intelligence for early risk assessments and data-driven healthcare support.
                 </p>
 
-            </div>
+                <div class="feature-list" aria-label="Key Features">
+                    <div class="feature-item">
+                        <i class="fas fa-brain" aria-hidden="true"></i>
+                        <span>AI Risk Assessment</span>
+                    </div>
 
-            <!-- Alert -->
+                    <div class="feature-item">
+                        <i class="fas fa-shield-virus" aria-hidden="true"></i>
+                        <span>Secure Health Data</span>
+                    </div>
 
-            <div
-                id="formAlert"
-                class="form-alert">
+                    <div class="feature-item">
+                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                        <span>Triage Analytics</span>
+                    </div>
 
-            </div>
-            <form id="registerForm" class="auth-form">
-
-    <!-- Full Name -->
-
-    <div class="input-group">
-
-        <label for="full_name">
-
-            Full Name
-
-        </label>
-
-        <div class="input-wrapper">
-
-            <i class="fas fa-user input-icon"></i>
-
-            <input
-                type="text"
-                id="full_name"
-                class="form-control"
-                placeholder="Enter your full name"
-                required>
-
-        </div>
-
-    </div>
-
-    <!-- Email -->
-
-    <div class="input-group">
-
-        <label for="email">
-
-            Email Address
-
-        </label>
-
-        <div class="input-wrapper">
-
-            <i class="fas fa-envelope input-icon"></i>
-
-            <input
-                type="email"
-                id="email"
-                class="form-control"
-                placeholder="Enter your email"
-                required>
-
-        </div>
-
-    </div>
-
-    <!-- Age + Gender -->
-
-    <div class="form-row">
-
-        <div class="input-group">
-
-            <label for="age">
-
-                Age
-
-            </label>
-
-            <div class="input-wrapper">
-
-                <i class="fas fa-calendar input-icon"></i>
-
-                <input
-                    type="number"
-                    id="age"
-                    class="form-control"
-                    min="1"
-                    max="120"
-                    placeholder="Age"
-                    required>
+                    <div class="feature-item">
+                        <i class="fas fa-user-shield" aria-hidden="true"></i>
+                        <span>JWT Authentication</span>
+                    </div>
+                </div>
 
             </div>
+        </section>
 
-        </div>
+        <!-- ===============================
+             RIGHT PANEL: FORM CARD
+        ================================ -->
+        <section class="login-right" aria-label="Registration Area">
+            <div class="glass-card animate-fade-in-up">
 
-        <div class="input-group">
+                <div class="card-header">
+                    <h2>Create Account</h2>
+                    <p>Register to begin using AfriSafe AI services</p>
+                </div>
 
-            <label for="gender">
+                <!-- Alert Message Box -->
+                <div id="formAlert" class="form-alert hidden" role="alert" aria-live="assertive"></div>
 
-                Gender
+                <!-- Registration Form -->
+                <form id="registerForm" class="auth-form" novalidate>
 
-            </label>
+                    <!-- Full Name -->
+                    <div class="input-group">
+                        <label for="full_name">Full Name</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon" aria-hidden="true"></i>
+                            <input type="text" id="full_name" name="full_name" class="form-control" placeholder="Enter your full name" required autocomplete="name">
+                        </div>
+                        <span class="error-message" id="fullNameError" aria-live="polite"></span>
+                    </div>
 
-            <div class="input-wrapper">
+                    <!-- Email Address -->
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon" aria-hidden="true"></i>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required autocomplete="email">
+                        </div>
+                        <span class="error-message" id="emailError" aria-live="polite"></span>
+                    </div>
 
-                <i class="fas fa-venus-mars input-icon"></i>
+                    <!-- Age & Gender Grid -->
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="age">Age</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-calendar input-icon" aria-hidden="true"></i>
+                                <input type="number" id="age" name="age" class="form-control" min="1" max="120" placeholder="Age" required>
+                            </div>
+                            <span class="error-message" id="ageError" aria-live="polite"></span>
+                        </div>
 
-                <select
-                    id="gender"
-                    class="form-control"
-                    required>
+                        <div class="input-group">
+                            <label for="gender">Gender</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-venus-mars input-icon" aria-hidden="true"></i>
+                                <select id="gender" name="gender" class="form-control" required>
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <span class="error-message" id="genderError" aria-live="polite"></span>
+                        </div>
+                    </div>
 
-                    <option value="">
+                    <!-- State Location -->
+                    <div class="input-group">
+                        <label for="state">State</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-map-marker-alt input-icon" aria-hidden="true"></i>
+                            <input type="text" id="state" name="state" class="form-control" placeholder="e.g. Kano" required autocomplete="address-level1">
+                        </div>
+                        <span class="error-message" id="stateError" aria-live="polite"></span>
+                    </div>
 
-                        Select Gender
+                    <!-- Local Government Area (LGA) -->
+                    <div class="input-group">
+                        <label for="lga">Local Government Area (LGA)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-location-dot input-icon" aria-hidden="true"></i>
+                            <input type="text" id="lga" name="lga" class="form-control" placeholder="e.g. Municipal" autocomplete="address-level2">
+                        </div>
+                        <span class="error-message" id="lgaError" aria-live="polite"></span>
+                    </div>
 
-                    </option>
+                    <!-- Password -->
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon" aria-hidden="true"></i>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Create Password" required autocomplete="new-password">
+                            <button type="button" id="togglePassword" class="password-toggle" aria-label="Toggle Password Visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message" id="passwordError" aria-live="polite"></span>
+                    </div>
 
-                    <option value="Male">
+                    <!-- Confirm Password -->
+                    <div class="input-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon" aria-hidden="true"></i>
+                            <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm Password" required autocomplete="new-password">
+                            <button type="button" id="toggleConfirmPassword" class="password-toggle" aria-label="Toggle Confirm Password Visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message" id="confirmPasswordError" aria-live="polite"></span>
+                    </div>
 
-                        Male
+                    <!-- Terms Checkbox -->
+                    <div class="remember-row">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                            <span>I agree to the <a href="terms.html">Terms & Conditions</a></span>
+                        </label>
+                    </div>
 
-                    </option>
+                    <!-- Submit Button -->
+                    <button type="submit" id="registerBtn" class="btn btn-primary ripple-btn">
+                        <span class="btn-text">Create Account</span>
+                        <span class="btn-spinner hidden" aria-hidden="true"></span>
+                    </button>
 
-                    <option value="Female">
+                </form>
 
-                        Female
+                <!-- Divider -->
+                <div class="divider">
+                    <span>OR</span>
+                </div>
 
-                    </option>
+                <!-- Social Authentication -->
+                <div class="social-login">
+                    <button type="button" class="social-btn">
+                        <i class="fab fa-google" aria-hidden="true"></i>
+                        Continue with Google
+                    </button>
+                    <button type="button" class="social-btn">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                        Continue with GitHub
+                    </button>
+                </div>
 
-                    <option value="Other">
-
-                        Other
-
-                    </option>
-
-                </select>
+                <!-- Login Redirect Link -->
+                <div class="register-link">
+                    <p>Already have an account? <a href="login.html">Sign In</a></p>
+                </div>
 
             </div>
-
-        </div>
-
-    </div>
-
-    <!-- State -->
-
-    <div class="input-group">
-
-        <label for="state">
-
-            State
-
-        </label>
-
-        <div class="input-wrapper">
-
-            <i class="fas fa-map-marker-alt input-icon"></i>
-
-            <input
-                type="text"
-                id="state"
-                class="form-control"
-                placeholder="State"
-                required>
-
-        </div>
+        </section>
 
     </div>
 
-    <!-- LGA -->
-
-    <div class="input-group">
-
-        <label for="lga">
-
-            Local Government Area
-
-        </label>
-
-        <div class="input-wrapper">
-
-            <i class="fas fa-location-dot input-icon"></i>
-
-            <input
-                type="text"
-                id="lga"
-                class="form-control"
-                placeholder="LGA">
-
-        </div>
-
-    </div>
-
-    <!-- Password -->
-
-    <div class="input-group">
-
-        <label for="password">
-
-            Password
-
-        </label>
-
-        <div class="input-wrapper">
-
-            <i class="fas fa-lock input-icon"></i>
-
-            <input
-                type="password"
-                id="password"
-                class="form-control"
-                placeholder="Create Password"
-                required>
-
-            <button
-                type="button"
-                id="togglePassword"
-                class="password-toggle">
-
-                <i class="fas fa-eye"></i>
-
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- Confirm Password -->
-
-    <div class="input-group">
-
-        <label for="confirm_password">
-
-            Confirm Password
-
-        </label>
-
-        <div class="input-wrapper">
-
-            <i class="fas fa-lock input-icon"></i>
-
-            <input
-                type="password"
-                id="confirm_password"
-                class="form-control"
-                placeholder="Confirm Password"
-                required>
-
-            <button
-                type="button"
-                id="toggleConfirmPassword"
-                class="password-toggle">
-
-                <i class="fas fa-eye"></i>
-
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- Terms -->
-
-    <div class="remember-row">
-
-        <label class="checkbox-wrapper">
-
-            <input
-                type="checkbox"
-                id="agreeTerms"
-                required>
-
-            <span>
-
-                I agree to the
-
-                <a href="#">
-
-                    Terms & Conditions
-
-                </a>
-
-            </span>
-
-        </label>
-
-    </div>
-
-    <!-- Register Button -->
-
-    <button
-        type="submit"
-        id="registerBtn"
-        class="btn btn-primary ripple-btn">
-
-        <span class="btn-text">
-
-            Create Account
-
-        </span>
-
-    </button>
-
-</form>
-                        <!-- Divider -->
-
-            <div class="divider">
-
-                <span>OR</span>
-
-            </div>
-
-            <!-- Social Login -->
-
-            <div class="social-login">
-
-                <button
-                    type="button"
-                    class="social-btn">
-
-                    <i class="fab fa-google"></i>
-
-                    Continue with Google
-
-                </button>
-
-                <button
-                    type="button"
-                    class="social-btn">
-
-                    <i class="fab fa-github"></i>
-
-                    Continue with GitHub
-
-                </button>
-
-            </div>
-
-            <!-- Login Link -->
-
-            <div class="register-link">
-
-                <p>
-
-                    Already have an account?
-
-                    <a href="login.html">
-
-                        Sign In
-
-                    </a>
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Footer -->
-
-<footer class="app-footer">
-
-    <p>
-
-        © 2026 AfriSafe AI
-
-        |
-
-        AI Powered Malaria Detection Platform
-
-    </p>
-
-</footer>
-
-<!-- Scripts -->
-
-<script src="js/config.js"></script>
-
-<script src="js/registration.js"></script>
-
+    <!-- Global Footer -->
+    <footer class="app-footer">
+        <p>&copy; 2026 AfriSafe AI | AI-Powered Early Screening Platform</p>
+    </footer>
+
+    <!-- Script Attachments -->
+    <script src="js/config.js"></script>
+    <script src="js/registration.js"></script>
 </body>
 
 </html>
-
