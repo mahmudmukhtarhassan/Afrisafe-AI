@@ -1,6 +1,5 @@
 // ========================================
 // AfriSafe AI - Login
-// Works with config.js
 // ========================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -24,8 +23,7 @@ loginForm.addEventListener("submit", async (e) => {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
-    const submitBtn =
-        loginForm.querySelector("button[type='submit']");
+    const submitBtn = loginForm.querySelector("button[type='submit']");
 
     if (submitBtn) {
         submitBtn.disabled = true;
@@ -33,30 +31,23 @@ loginForm.addEventListener("submit", async (e) => {
     }
 
     try {
-        // login() comes from config.js
         const data = await login(email, password);
 
         console.log("Login successful", data);
 
-        // Tokens are already saved by login() in config.js
+        // login() in config.js already saves tokens
         window.location.href = "assessment.html";
 
     } catch (error) {
-
         console.error(error);
-
         alert(error.message || "Login failed");
-
     } finally {
-
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = "Login";
         }
-
     }
 });
 ```
 
 });
-
