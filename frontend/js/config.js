@@ -101,16 +101,14 @@ async function apiRequest(path, options = {}) {
   }
 
   // Attempt a single token refresh on 401
-  if (response.status === 401 && getRefreshToken() && !options._retried) {
-    const refreshed = await tryRefreshToken();
-    if (refreshed) {
-      return apiRequest(path, { ...options, _retried: true });
-    }
-    clearAuth();
-    window.location.href = "login.html";
-    throw { status: 401, message: "Session expired. Please log in again." };
+ if (response.status === 401 && getRefreshToken() && !options._retried) {
+  const refreshed = await tryRefreshToken();
+  if (refreshed) {
+    return apiRequest(path, { ...options, _retried: true });
   }
-
+  clearAuth();
+  throw { status: 401, message: "Session expired. Please log in again." };
+}
   if (response.status === 204) {
     return null;
   }
