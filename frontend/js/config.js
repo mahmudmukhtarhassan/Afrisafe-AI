@@ -75,10 +75,18 @@ async function refreshAccessToken() {
 
         return true;
 
-    } catch (error) {
-        console.error("Token refresh failed:", error);
-        clearAuth();
-        return false;
+    } if (response.status === 401) {
+    const refreshed = await refreshAccessToken();
+
+    if (refreshed) {
+        token = getToken();
+        headers.Authorization = `Bearer ${token}`;
+        response = await fetch(`${API_BASE_URL}${endpoint}`, {
+            ...options,
+            headers
+        });
+    } else {
+        throw new Error("Session expired");
     }
 }
 
