@@ -3,7 +3,6 @@
 // ========================================
 
 document.addEventListener("DOMContentLoaded", () => {
-// If already logged in, go to assessment page
 if (isAuthenticated()) {
 window.location.href = "assessment.html";
 return;
@@ -31,13 +30,8 @@ loginForm.addEventListener("submit", async (e) => {
     }
 
     try {
-        const data = await login(email, password);
-
-        console.log("Login successful", data);
-
-        // login() in config.js already saves tokens
+        await login(email, password);
         window.location.href = "assessment.html";
-
     } catch (error) {
         console.error(error);
         alert(error.message || "Login failed");
@@ -51,3 +45,4 @@ loginForm.addEventListener("submit", async (e) => {
 ```
 
 });
+
