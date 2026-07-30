@@ -3,7 +3,7 @@
 // FastAPI + Supabase
 // ========================================
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://afrisafe-ai.onrender.com";
 
 // Token storage keys
 const TOKEN_KEY = "afrisafe_access_token";
