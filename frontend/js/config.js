@@ -1,17 +1,12 @@
 // ========================================
 // AfriSafe AI - Frontend Configuration
-// Works with Render + FastAPI + Supabase
+// Render + FastAPI + Supabase
 // ========================================
 
 const API_BASE_URL = "https://afrisafe-ai.onrender.com";
 
-// Storage keys
 const TOKEN_KEY = "afrisafe_access_token";
 const REFRESH_KEY = "afrisafe_refresh_token";
-
-// ========================================
-// Token Helpers
-// ========================================
 
 function getToken() {
 return localStorage.getItem(TOKEN_KEY);
@@ -31,17 +26,9 @@ localStorage.removeItem(TOKEN_KEY);
 localStorage.removeItem(REFRESH_KEY);
 }
 
-// ========================================
-// Authentication Status
-// ========================================
-
 function isAuthenticated() {
 return !!getToken();
 }
-
-// ========================================
-// Refresh Access Token
-// ========================================
 
 async function refreshAccessToken() {
 const refreshToken = getRefreshToken();
@@ -82,10 +69,6 @@ try {
 
 }
 
-// ========================================
-// API Request Helper
-// ========================================
-
 async function apiRequest(endpoint, options = {}) {
 let token = getToken();
 
@@ -104,13 +87,11 @@ let response = await fetch(`${API_BASE_URL}${endpoint}`, {
     headers
 });
 
-// Token expired → try refresh once
 if (response.status === 401 && endpoint !== "/api/v1/auth/refresh") {
     const refreshed = await refreshAccessToken();
 
     if (refreshed) {
         token = getToken();
-
         headers.Authorization = `Bearer ${token}`;
 
         response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -143,10 +124,6 @@ return response;
 ```
 
 }
-
-// ========================================
-// Authentication API
-// ========================================
 
 async function login(email, password) {
 const data = await apiRequest("/api/v1/auth/login", {
@@ -199,17 +176,9 @@ try {
 
 }
 
-// ========================================
-// Current User
-// ========================================
-
 async function getCurrentUser() {
 return await apiRequest("/api/v1/users/me");
 }
-
-// ========================================
-// Route Protection
-// ========================================
 
 function requireAuth() {
 if (!isAuthenticated()) {
@@ -222,10 +191,6 @@ if (isAuthenticated()) {
 window.location.href = "assessment.html";
 }
 }
-
-// ========================================
-// Auto-bind logout button
-// ========================================
 
 document.addEventListener("DOMContentLoaded", () => {
 const logoutBtn = document.getElementById("logoutBtn");
