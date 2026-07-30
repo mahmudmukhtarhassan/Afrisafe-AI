@@ -1,11 +1,11 @@
 // ========================================
 // AfriSafe AI - Frontend Configuration
-// FastAPI + Supabase
+// Works with Render + FastAPI + Supabase
 // ========================================
 
 const API_BASE_URL = "https://afrisafe-ai.onrender.com";
 
-// Token storage keys
+// Storage keys
 const TOKEN_KEY = "afrisafe_access_token";
 const REFRESH_KEY = "afrisafe_refresh_token";
 
@@ -14,21 +14,21 @@ const REFRESH_KEY = "afrisafe_refresh_token";
 // ========================================
 
 function getToken() {
-    return localStorage.getItem(TOKEN_KEY);
+return localStorage.getItem(TOKEN_KEY);
 }
 
 function getRefreshToken() {
-    return localStorage.getItem(REFRESH_KEY);
+return localStorage.getItem(REFRESH_KEY);
 }
 
 function saveTokens(accessToken, refreshToken) {
-    localStorage.setItem(TOKEN_KEY, accessToken);
-    localStorage.setItem(REFRESH_KEY, refreshToken);
+localStorage.setItem(TOKEN_KEY, accessToken);
+localStorage.setItem(REFRESH_KEY, refreshToken);
 }
 
 function clearAuth() {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(REFRESH_KEY);
+localStorage.removeItem(TOKEN_KEY);
+localStorage.removeItem(REFRESH_KEY);
 }
 
 // ========================================
@@ -36,7 +36,7 @@ function clearAuth() {
 // ========================================
 
 function isAuthenticated() {
-    return !!getToken();
+return !!getToken();
 }
 
 // ========================================
@@ -44,43 +44,75 @@ function isAuthenticated() {
 // ========================================
 
 async function refreshAccessToken() {
-    const refreshToken = getRefreshToken();
+const refreshToken = getRefreshToken();
 
-    if (!refreshToken) {
-        clearAuth();
-        return false;
+```
+if (!refreshToken) {
+    clearAuth();
+    return false;
+}
+
+try {
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            refresh_token: refreshToken
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error("Refresh failed");
     }
 
-    try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                refresh_token: refreshToken
-            })
-        });
+    const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error("Refresh failed");
-        }
+    saveTokens(data.access_token, data.refresh_token);
 
-        const data = await response.json();
+    return true;
 
-        saveTokens(
-            data.access_token,
-            data.refresh_token
-        );
+} catch (error) {
+    console.error("Token refresh failed:", error);
+    clearAuth();
+    return false;
+}
+```
 
-        return true;
+}
 
-    } if (response.status === 401) {
+// ========================================
+// API Request Helper
+// ========================================
+
+async function apiRequest(endpoint, options = {}) {
+let token = getToken();
+
+```
+const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {})
+};
+
+if (token && !headers.Authorization) {
+    headers.Authorization = `Bearer ${token}`;
+}
+
+let response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    ...options,
+    headers
+});
+
+// Token expired → try refresh once
+if (response.status === 401 && endpoint !== "/api/v1/auth/refresh") {
     const refreshed = await refreshAccessToken();
 
     if (refreshed) {
         token = getToken();
+
         headers.Authorization = `Bearer ${token}`;
+
         response = await fetch(`${API_BASE_URL}${endpoint}`, {
             ...options,
             headers
@@ -90,155 +122,81 @@ async function refreshAccessToken() {
     }
 }
 
-// ========================================
-// Generic API Request
-// ========================================
+if (!response.ok) {
+    let message = `Request failed (${response.status})`;
 
-async function apiRequest(endpoint, options = {}) {
+    try {
+        const err = await response.json();
+        message = err.detail || err.message || message;
+    } catch (_) {}
 
-    let token = getToken();
+    throw new Error(message);
+}
 
-    const headers = {
-        "Content-Type": "application/json",
-        ...(options.headers || {})
-    };
+const contentType = response.headers.get("content-type");
 
-    if (token && !headers.Authorization) {
-        headers.Authorization = `Bearer ${token}`;
-    }
+if (contentType && contentType.includes("application/json")) {
+    return response.json();
+}
 
-    let response = await fetch(
-        `${API_BASE_URL}${endpoint}`,
-        {
-            ...options,
-            headers
-        }
-    );
+return response;
+```
 
-    // Access token expired
-    if (response.status === 401) {
-
-        const refreshed = await refreshAccessToken();
-
-        if (refreshed) {
-
-            token = getToken();
-
-            headers.Authorization = `Bearer ${token}`;
-
-            response = await fetch(
-                `${API_BASE_URL}${endpoint}`,
-                {
-                    ...options,
-                    headers
-                }
-            );
-
-        } else {
-
-            window.location.href = "login.html";
-            throw new Error("Session expired");
-
-        }
-    }
-
-    if (!response.ok) {
-
-        let message = `Request failed (${response.status})`;
-
-        try {
-            const error = await response.json();
-            message = error.detail || error.message || message;
-        } catch (_) {}
-
-        throw new Error(message);
-
-    }
-
-    const contentType = response.headers.get("content-type");
-
-    if (contentType && contentType.includes("application/json")) {
-        return response.json();
-    }
-
-    return response;
 }
 
 // ========================================
-// Login
+// Authentication API
 // ========================================
 
 async function login(email, password) {
+const data = await apiRequest("/api/v1/auth/login", {
+method: "POST",
+body: JSON.stringify({
+email,
+password
+})
+});
 
-    const result = await apiRequest(
-        "/api/v1/auth/login",
-        {
-            method: "POST",
-            body: JSON.stringify({
-                email,
-                password
-            })
-        }
-    );
+```
+saveTokens(data.access_token, data.refresh_token);
 
-    saveTokens(
-        result.access_token,
-        result.refresh_token
-    );
+return data;
+```
 
-    return result;
 }
-
-// ========================================
-// Register
-// ========================================
 
 async function register(fullName, email, password) {
-
-    return await apiRequest(
-        "/api/v1/auth/register",
-        {
-            method: "POST",
-            body: JSON.stringify({
-                full_name: fullName,
-                email,
-                password
-            })
-        }
-    );
+return await apiRequest("/api/v1/auth/register", {
+method: "POST",
+body: JSON.stringify({
+full_name: fullName,
+email,
+password
+})
+});
 }
 
-// ========================================
-// Logout
-// ========================================
-
 async function logout() {
+const token = getToken();
 
-    const token = getToken();
-
-    try {
-
-        await apiRequest(
-            "/api/v1/auth/logout",
-            {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+```
+try {
+    if (token) {
+        await apiRequest("/api/v1/auth/logout", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
             }
-        );
-
-    } catch (error) {
-
-        console.error("Logout failed:", error);
-
-    } finally {
-
-        clearAuth();
-
-        window.location.href = "login.html";
-
+        });
     }
+} catch (error) {
+    console.error("Logout failed:", error);
+} finally {
+    clearAuth();
+    window.location.href = "login.html";
+}
+```
+
 }
 
 // ========================================
@@ -246,10 +204,7 @@ async function logout() {
 // ========================================
 
 async function getCurrentUser() {
-
-    return await apiRequest(
-        "/api/v1/users/me"
-    );
+return await apiRequest("/api/v1/users/me");
 }
 
 // ========================================
@@ -257,31 +212,29 @@ async function getCurrentUser() {
 // ========================================
 
 function requireAuth() {
-
-    if (!isAuthenticated()) {
-        window.location.href = "login.html";
-    }
-
+if (!isAuthenticated()) {
+window.location.href = "login.html";
+}
 }
 
 function redirectIfAuthenticated() {
-
-    if (isAuthenticated()) {
-        window.location.href = "dashboard.html";
-    }
-
+if (isAuthenticated()) {
+window.location.href = "assessment.html";
+}
 }
 
 // ========================================
-// Global Auth Button Helper
+// Auto-bind logout button
 // ========================================
 
 document.addEventListener("DOMContentLoaded", () => {
+const logoutBtn = document.getElementById("logoutBtn");
 
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", logout);
-    }
+```
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", logout);
+}
+```
 
 });
+
