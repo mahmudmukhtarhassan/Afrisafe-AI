@@ -2,161 +2,218 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AfriSafe AI - Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfriSafe AI - Login</title>
 
-```
-<style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
     }
 
     body {
-        background: #f4f7fb;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0b5d3b 0%, #0f7a4a 55%, #d4af37 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
     }
 
-    .login-container {
-        background: white;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-        width: 100%;
-        max-width: 400px;
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255,255,255,0.98);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.18);
+      backdrop-filter: blur(10px);
     }
 
-    h1 {
-        text-align: center;
-        color: #1f4e66;
-        margin-bottom: 10px;
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 28px;
     }
 
-    p {
-        text-align: center;
-        color: #666;
-        margin-bottom: 30px;
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #0b5d3b, #d4af37);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 24px rgba(11,93,59,0.28);
+    }
+
+    .brand h1 {
+      font-size: 30px;
+      color: #0b5d3b;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .brand p {
+      color: #5b6470;
+      font-size: 14px;
+      text-align: center;
+      line-height: 1.5;
     }
 
     .form-group {
-        margin-bottom: 18px;
+      margin-bottom: 18px;
     }
 
-    label {
-        display: block;
-        margin-bottom: 8px;
-        color: #333;
-        font-weight: bold;
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #1f2937;
+      font-weight: 600;
+      font-size: 14px;
     }
 
-    input {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 16px;
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #d7dce3;
+      border-radius: 14px;
+      font-size: 15px;
+      transition: all .2s ease;
+      background: #fff;
     }
 
-    input:focus {
-        outline: none;
-        border-color: #1f4e66;
+    .form-group input:focus {
+      outline: none;
+      border-color: #0b5d3b;
+      box-shadow: 0 0 0 4px rgba(11,93,59,0.12);
     }
 
-    button {
-        width: 100%;
-        padding: 14px;
-        background: #1f4e66;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 10px;
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0b5d3b, #0f7a4a);
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .2s ease;
+      box-shadow: 0 10px 24px rgba(11,93,59,0.22);
     }
 
-    button:hover {
-        background: #163b4d;
+    .login-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(11,93,59,0.28);
+    }
+
+    .login-btn:disabled {
+      opacity: .7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .status {
+      margin-top: 16px;
+      min-height: 22px;
+      text-align: center;
+      font-size: 14px;
+      color: #c62828;
     }
 
     .footer {
-        text-align: center;
-        margin-top: 20px;
-        color: #666;
+      margin-top: 26px;
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
     }
 
     .footer a {
-        color: #1f4e66;
-        text-decoration: none;
+      color: #0b5d3b;
+      text-decoration: none;
+      font-weight: 600;
     }
 
     .footer a:hover {
-        text-decoration: underline;
+      text-decoration: underline;
     }
 
-    #status {
-        margin-top: 15px;
-        text-align: center;
-        color: #d32f2f;
-        min-height: 20px;
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 28px;
+        border-radius: 20px;
+      }
+
+      .brand h1 {
+        font-size: 26px;
+      }
     }
-</style>
-```
+  </style>
 
 </head>
-
 <body>
 
-```
-<div class="login-container">
-    <h1>AfriSafe AI</h1>
-    <p>Sign in to continue</p>
-
-    <form id="loginForm">
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                required
-            />
-        </div>
-
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                required
-            />
-        </div>
-
-        <button type="submit">Login</button>
-
-        <div id="status"></div>
-
-    </form>
-
-    <div class="footer">
-        Don't have an account?
-        <a href="register.html">Register</a>
+  <div class="login-card">
+    <div class="brand">
+      <div class="logo">A</div>
+      <h1>AfriSafe AI</h1>
+      <p>AI-powered malaria screening and healthcare assistance platform for Africa.</p>
     </div>
-</div>
 
-<!-- IMPORTANT: config.js must load first -->
-<script src="js/config.js"></script>
-<script src="js/login.js"></script>
 ```
+<form id="loginForm">
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="Enter your email"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      placeholder="Enter your password"
+      required
+    />
+  </div>
+
+  <button type="submit" class="login-btn" id="loginBtn">
+    Sign In
+  </button>
+
+  <div id="status" class="status"></div>
+</form>
+
+<div class="footer">
+  Don't have an account?
+  <a href="register.html">Create an account</a>
+</div>
+```
+
+  </div>
+
+  <script src="js/config.js"></script>
+
+  <script src="js/login.js"></script>
 
 </body>
 </html>
