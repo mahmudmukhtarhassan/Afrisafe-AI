@@ -5,7 +5,7 @@
  */
 
 // Local Express backend API base URL
-const API_BASE_URL = "";
+const API_BASE_URL = "https://afrisafe-ai.onrender.com";
 
 // ---------------------------------------------------------------------------
 // Token Storage Helpers
@@ -78,7 +78,7 @@ function requireAuth() {
  *  - redirects to login on auth failure
  */
 async function apiRequest(path, options = {}) {
-  const url = path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
+  const url = path.startsWith("http") ? path : `${"https://afrisafe-ai.onrender.com";}${path}`;
 
   const headers = {
     "Content-Type": "application/json",
@@ -140,7 +140,7 @@ async function tryRefreshToken() {
   if (!refreshToken) return false;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
+    const response = await fetch(`${"https://afrisafe-ai.onrender.com";L}/api/v1/auth/refresh`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh_token: refreshToken }),
