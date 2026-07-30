@@ -154,29 +154,6 @@ async function tryRefreshToken() {
 }
 
 /**
- * Try to refresh the access token using the stored refresh token.
- * Returns true on success.
- */
-async function tryRefreshToken() {
-  const refreshToken = getRefreshToken();
-  if (!refreshToken) return false;
-
-  try {
-    const response = await fetch(`${"https://afrisafe-ai.onrender.com";L}/api/v1/auth/refresh`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ refresh_token: refreshToken }),
-    });
-    if (!response.ok) return false;
-    const data = await response.json();
-    setTokens(data.access_token, refreshToken);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-/**
  * Extract a human-readable error message from a failed API response.
  */
 function extractErrorMessage(data, status) {
