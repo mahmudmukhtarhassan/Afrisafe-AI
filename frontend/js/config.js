@@ -78,7 +78,7 @@ function requireAuth() {
  *  - redirects to login on auth failure
  */
 async function apiRequest(path, options = {}) {
-  const url = path.startsWith("http") ? path : `${"https://afrisafe-ai.onrender.com";}${path}`;
+  const url = path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
 
   const headers = {
     "Content-Type": "application/json",
@@ -101,14 +101,15 @@ async function apiRequest(path, options = {}) {
   }
 
   // Attempt a single token refresh on 401
- if (response.status === 401 && getRefreshToken() && !options._retried) {
-  const refreshed = await tryRefreshToken();
-  if (refreshed) {
-    return apiRequest(path, { ...options, _retried: true });
+  if (response.status === 401 && getRefreshToken() && !options._retried) {
+    const refreshed = await tryRefreshToken();
+    if (refreshed) {
+      return apiRequest(path, { ...options, _retried: true });
+    }
+    clearAuth();
+    throw { status: 401, message: "Session expired. Please log in again." };
   }
-  clearAuth();
-  throw { status: 401, message: "Session expired. Please log in again." };
-}
+  
   if (response.status === 204) {
     return null;
   }
@@ -127,6 +128,29 @@ async function apiRequest(path, options = {}) {
   }
 
   return data;
+}
+
+/**
+ * Try to refresh the access token using the stored refresh token.
+ * Returns true on success.
+ */
+async function tryRefreshToken() {
+  const refreshToken = getRefreshToken();
+  if (!refreshToken) return false;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refresh_token: refreshToken }),
+    });
+    if (!response.ok) return false;
+    const data = await response.json();
+    setTokens(data.access_token, refreshToken);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 /**
