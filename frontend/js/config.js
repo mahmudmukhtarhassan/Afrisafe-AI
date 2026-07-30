@@ -1,143 +1,67 @@
 // ========================================
-// AfriSafe AI - Simple Frontend Config
-// Render + FastAPI + Supabase
+// AfriSafe AI - Login
+// Clean version for Render backend
 // ========================================
 
-const API_BASE_URL = "https://afrisafe-ai.onrender.com";
-
-// Local storage key
-const TOKEN_KEY = "afrisafe_access_token";
-
-// ----------------------
-// Token helpers
-// ----------------------
-
-function getToken() {
-return localStorage.getItem(TOKEN_KEY);
-}
-
-function saveToken(token) {
-localStorage.setItem(TOKEN_KEY, token);
-}
-
-function clearAuth() {
-localStorage.removeItem(TOKEN_KEY);
-}
-
-function isAuthenticated() {
-return !!getToken();
-}
-
-// ----------------------
-// API request helper
-// ----------------------
-
-async function apiRequest(endpoint, options = {}) {
-const headers = {
-"Content-Type": "application/json",
-...(options.headers || {})
-};
-
-const token = getToken();
-if (token) {
-headers.Authorization = `Bearer ${token}`;
-}
-
-const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-...options,
-headers
-});
-
-if (!response.ok) {
-let message = `Request failed (${response.status})`;
-
-```
-try {
-  const err = await response.json();
-  message = err.detail || err.message || message;
-} catch (_) {}
-
-throw new Error(message);
-```
-
-}
-
-const contentType = response.headers.get("content-type");
-
-if (contentType && contentType.includes("application/json")) {
-return response.json();
-}
-
-return response;
-}
-
-// ----------------------
-// Authentication
-// ----------------------
-
-async function login(email, password) {
-const data = await apiRequest("/api/v1/auth/login", {
-method: "POST",
-body: JSON.stringify({
-email,
-password
-})
-});
-
-saveToken(data.access_token);
-
-return data;
-}
-
-async function register(fullName, email, password) {
-return await apiRequest("/api/v1/auth/register", {
-method: "POST",
-body: JSON.stringify({
-full_name: fullName,
-email,
-password
-})
-});
-}
-
-async function logout() {
-clearAuth();
-window.location.href = "login.html";
-}
-
-// ----------------------
-// User
-// ----------------------
-
-async function getCurrentUser() {
-return await apiRequest("/api/v1/users/me");
-}
-
-// ----------------------
-// Route protection
-// ----------------------
-
-function requireAuth() {
-if (!isAuthenticated()) {
-window.location.href = "login.html";
-}
-}
-
-function redirectIfAuthenticated() {
-if (isAuthenticated()) {
-window.location.href = "assessment.html";
-}
-}
-
-// ----------------------
-// Auto logout button
-// ----------------------
-
 document.addEventListener("DOMContentLoaded", () => {
-const logoutBtn = document.getElementById("logoutBtn");
+const form = document.getElementById("loginForm");
+const status = document.getElementById("status");
+const button = document.getElementById("loginBtn");
 
-if (logoutBtn) {
-logoutBtn.addEventListener("click", logout);
+form.addEventListener("submit", async (e) => {
+e.preventDefault();
+
+```
+status.textContent = "";
+
+const email = document.getElementById("email").value.trim();
+const password = document.getElementById("password").value;
+
+button.disabled = true;
+button.textContent = "Signing in...";
+
+try {
+  const response = await fetch("https://afrisafe-ai.onrender.com/api/v1/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password
+    })
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.detail || "Login failed");
+  }
+
+  // Save tokens
+  localStorage.setItem("afrisafe_access_token", data.access_token);
+  localStorage.setItem("afrisafe_refresh_token", data.refresh_token);
+
+  // Optional user data
+  if (data.user) {
+    localStorage.setItem("afrisafe_user", JSON.stringify(data.user));
+  }
+
+  // Redirect
+  window.location.href = "assessment.html";
+
+} catch (err) {
+
+  console.error(err);
+  status.textContent = err.message || "Unable to login. Please try again.";
+
+} finally {
+
+  button.disabled = false;
+  button.textContent = "Sign In";
+
 }
-});
+```
 
+});
+});
