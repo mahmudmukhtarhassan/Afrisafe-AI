@@ -1,223 +1,312 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AfriSafe AI - AI-powered early malaria risk assessment designed to support safer healthcare decisions in Nigeria.">
-  <title>Sign In - AfriSafe AI</title>
+/**
+ * AfriSafe AI - Central Configuration & API Client
+ * Single source of truth for API base URL, auth token management,
+ * and authenticated fetch requests with automatic error handling.
+ */
 
-  <!-- SEO & Social -->
-  <meta name="theme-color" content="#0F9D58">
-  <meta name="robots" content="index, follow">
-  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta property="og:title" content="AfriSafe AI - AI-Powered Malaria Risk Assessment">
-  <meta property="og:description" content="AI-powered early malaria risk assessment designed to support safer healthcare decisions in Nigeria.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/gemini-svg.svg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AfriSafe AI - AI-Powered Malaria Risk Assessment">
-  <meta name="twitter:description" content="AI-powered early malaria risk assessment designed to support safer healthcare decisions in Nigeria.">
+// Local Express backend API base URL
+const API_BASE_URL = "";
 
-  <!-- External Stylesheets -->
-  <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/login.css">
+// ---------------------------------------------------------------------------
+// Token Storage Helpers
+// ---------------------------------------------------------------------------
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
+const TOKEN_KEY = "afrisafe_access_token";
+const REFRESH_KEY = "afrisafe_refresh_token";
+const USER_KEY = "afrisafe_user";
 
-  <!-- Floating Background Ambient Shapes -->
-  <div class="background-decorations" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-  </div>
+function getToken() {
+  return localStorage.getItem(TOKEN_KEY);
+}
 
-  <!-- Main Split-Screen Container -->
-  <main class="login-wrapper">
+function getRefreshToken() {
+  return localStorage.getItem(REFRESH_KEY);
+}
 
-    <!-- Left Side: Hero Area & Feature Showcase -->
-    <section class="brand-side" aria-label="Application Presentation">
-      <div class="brand-content">
-        
-        <div class="badge">
-          <span class="badge-dot"></span> Digital Health AI Support
-        </div>
+function setTokens(accessToken, refreshToken) {
+  localStorage.setItem(TOKEN_KEY, accessToken);
+  if (refreshToken) {
+    localStorage.setItem(REFRESH_KEY, refreshToken);
+  }
+}
 
-        <h1 class="brand-title">
-          AfriSafe<br><span class="highlight-text">AI</span>
-        </h1>
+function setUser(user) {
+  localStorage.setItem(USER_KEY, JSON.stringify(user));
+}
 
-        <p class="brand-subtitle">
-          AI-powered early malaria risk assessment designed to support safer healthcare decisions
-        </p>
+function getUser() {
+  try {
+    return JSON.parse(localStorage.getItem(USER_KEY));
+  } catch {
+    return null;
+  }
+}
 
-        <!-- Feature Checklist -->
-        <ul class="feature-list" aria-label="Key Platform Features">
-          <li class="feature-item">
-            <span class="feature-icon" aria-hidden="true">✔</span>
-            <span>AI-Powered Screening</span>
-          </li>
-          <li class="feature-item">
-            <span class="feature-icon" aria-hidden="true">✔</span>
-            <span>Built for Nigeria</span>
-          </li>
-          <li class="feature-item">
-            <span class="feature-icon" aria-hidden="true">✔</span>
-            <span>Fast Risk Assessment</span>
-          </li>
-          <li class="feature-item">
-            <span class="feature-icon" aria-hidden="true">✔</span>
-            <span>Privacy Focused</span>
-          </li>
-          <li class="feature-item">
-            <span class="feature-icon" aria-hidden="true">✔</span>
-            <span>Not a Medical Diagnosis</span>
-          </li>
-        </ul>
+function clearAuth() {
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(REFRESH_KEY);
+  localStorage.removeItem(USER_KEY);
+}
 
-        <!-- Floating Animated Medical & AI Icons -->
-        <div class="floating-icons-wrapper" aria-hidden="true">
-          <!-- AI Circuit Pattern Node -->
-          <div class="float-node node-1" title="AI Circuit Pattern">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-            </svg>
-          </div>
-          <!-- Shield Icon Node -->
-          <div class="float-node node-2" title="Data Security Shield">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <!-- Heartbeat Line Node -->
-          <div class="float-node node-3" title="Real-time Telemetry">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-            </svg>
-          </div>
-        </div>
+function isLoggedIn() {
+  return !!getToken();
+}
 
-      </div>
-    </section>
+/**
+ * Redirect to login if no valid token is present.
+ * Call at the top of any protected page.
+ */
+function requireAuth() {
+  if (!isLoggedIn()) {
+    window.location.href = "login.html";
+    return false;
+  }
+  return true;
+}
 
-    <!-- Right Side: Glassmorphism Login Card -->
-    <section class="form-side" aria-label="Authentication Area">
-      <div class="glass-card animate-fade-in-up">
-        
-        <!-- App Header inside Card -->
-        <div class="card-header">
-          <div class="logo-wrapper">
-            <img src="assets/gemini-svg.svg" alt="AfriSafe AI Logo" class="app-logo">
-          </div>
-          <h2 class="card-title">Welcome Back</h2>
-          <p class="card-subtitle">Sign in to access real-time triage & risk prediction analytics</p>
-        </div>
+// ---------------------------------------------------------------------------
+// Authenticated API Client
+// ---------------------------------------------------------------------------
 
-        <!-- System Message / Alert Area -->
-        <div id="formAlert" class="form-alert hidden" role="alert" aria-live="assertive"></div>
+/**
+ * Wrapper around fetch that:
+ *  - prefixes API_BASE_URL
+ *  - injects the Authorization header
+ *  - parses JSON
+ *  - normalises errors into a consistent shape
+ *  - auto-refreshes the access token on 401 (once)
+ *  - redirects to login on auth failure
+ */
+async function apiRequest(path, options = {}) {
+  const url = path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
 
-        <!-- Sign In Form -->
-        <form id="loginForm" class="auth-form" novalidate>
-          
-          <!-- Email Field -->
-          <div class="input-group">
-            <div class="input-wrapper">
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                class="form-control" 
-                placeholder=" " 
-                required 
-                autocomplete="email"
-                aria-required="true">
-              <label for="email" class="floating-label">Email Address</label>
-              <span class="input-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-              </span>
-            </div>
-            <span class="error-message" id="emailError" aria-live="polite"></span>
-          </div>
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
+  };
 
-          <!-- Password Field -->
-          <div class="input-group">
-            <div class="input-wrapper">
-              <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                class="form-control" 
-                placeholder=" " 
-                required 
-                autocomplete="current-password"
-                aria-required="true">
-              <label for="password" class="floating-label">Password</label>
-              
-              <!-- Visibility Toggle Button -->
-              <button 
-                type="button" 
-                id="togglePassword" 
-                class="password-toggle-btn" 
-                aria-label="Show password" 
-                tabindex="0">
-                <svg class="eye-icon eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
-                <svg class="eye-icon eye-closed hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
-                  <line x1="1" y1="1" x2="23" y2="23"/>
-                </svg>
-              </button>
-            </div>
-            <span class="error-message" id="passwordError" aria-live="polite"></span>
-          </div>
+  const token = getToken();
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
 
-          <!-- Options (Remember Me & Forgot Password) -->
-          <div class="form-options">
-            <label class="custom-checkbox">
-              <input type="checkbox" id="rememberMe" name="rememberMe">
-              <span class="checkmark"></span>
-              <span class="checkbox-label">Remember Me</span>
-            </label>
-            <a href="forgot-password.html" class="forgot-link" id="forgotPasswordLink">Forgot Password?</a>
-          </div>
+  let response;
+  try {
+    response = await fetch(url, { ...options, headers });
+  } catch (err) {
+    throw {
+      status: 0,
+      message: "Unable to reach the server. Check your internet connection.",
+    };
+  }
 
-          <!-- Primary Sign In Action Button -->
-          <button type="submit" id="loginBtn" class="btn btn-primary ripple-btn">
-            <span class="btn-text">Sign In</span>
-            <span class="btn-spinner hidden" aria-hidden="true"></span>
-          </button>
-        </form>
+  // Attempt a single token refresh on 401
+  if (response.status === 401 && getRefreshToken() && !options._retried) {
+    const refreshed = await tryRefreshToken();
+    if (refreshed) {
+      return apiRequest(path, { ...options, _retried: true });
+    }
+    clearAuth();
+    window.location.href = "login.html";
+    throw { status: 401, message: "Session expired. Please log in again." };
+  }
 
-        <!-- Account Registration Link -->
-        <div class="card-footer-text">
-          Don't have an account? <a href="registration.html" class="register-link" id="registerLink">Create Account</a>
-        </div>
+  if (response.status === 204) {
+    return null;
+  }
 
-      </div>
-    </section>
+  let data = null;
+  const contentType = response.headers.get("content-type") || "";
+  if (contentType.includes("application/json")) {
+    data = await response.json();
+  } else {
+    data = await response.text();
+  }
 
-  </main>
+  if (!response.ok) {
+    const message = extractErrorMessage(data, response.status);
+    throw { status: response.status, message, data };
+  }
 
-  <!-- Global Footer -->
-  <footer class="app-footer">
-    <p class="copyright">&copy; 2026 AfriSafe AI. All rights reserved.</p>
-    <p class="disclaimer">
-      <strong>Medical Disclaimer:</strong> This application provides AI-assisted screening only and is NOT a medical diagnosis. In emergency situations, please contact your local healthcare provider immediately.
-    </p>
-  </footer>
+  return data;
+}
 
-  <!-- Application Logic -->
-  <script src="js/config.js"></script>
-  <script src="js/login.js"></script>
-</body>
-</html>
+/**
+ * Try to refresh the access token using the stored refresh token.
+ * Returns true on success.
+ */
+async function tryRefreshToken() {
+  const refreshToken = getRefreshToken();
+  if (!refreshToken) return false;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refresh_token: refreshToken }),
+    });
+    if (!response.ok) return false;
+    const data = await response.json();
+    setTokens(data.access_token, refreshToken);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Extract a human-readable error message from a failed API response.
+ */
+function extractErrorMessage(data, status) {
+  if (!data) return `Request failed (${status}).`;
+
+  // FastAPI validation error: [{msg: "..."}]
+  if (Array.isArray(data.detail)) {
+    return data.detail.map((e) => e.msg || JSON.stringify(e)).join("; ");
+  }
+
+  // Standard error envelope: {detail: "..."} or {message: "..."}
+  if (typeof data.detail === "string") return data.detail;
+  if (typeof data.message === "string") return data.message;
+
+  // Nested error object
+  if (data.error && typeof data.error.message === "string") return data.error.message;
+
+  return `Request failed (${status}).`;
+}
+
+// ---------------------------------------------------------------------------
+// Toast / Alert Utility
+// ---------------------------------------------------------------------------
+
+/**
+ * Show a transient toast notification.
+ * type: "success" | "error" | "info" | "warning"
+ */
+function showToast(message, type = "info", duration = 4000) {
+  let container = document.getElementById("toastContainer");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "toastContainer";
+    container.style.cssText = `
+      position: fixed; top: 20px; right: 20px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 10px; max-width: 380px;
+    `;
+    document.body.appendChild(container);
+  }
+
+  const colors = {
+    success: { bg: "#0F9D58", icon: "✓" },
+    error: { bg: "#EF4444", icon: "✕" },
+    warning: { bg: "#F59E0B", icon: "!" },
+    info: { bg: "#1E88E5", icon: "i" },
+  };
+  const c = colors[type] || colors.info;
+
+  const toast = document.createElement("div");
+  toast.style.cssText = `
+    background: ${c.bg}; color: #fff; padding: 14px 18px; border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 0.9rem;
+    font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    display: flex; align-items: center; gap: 10px; cursor: pointer;
+    transform: translateX(420px); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  `;
+  toast.innerHTML = `<span style="font-size:1.2rem;font-weight:800;">${c.icon}</span><span>${escapeHtml(message)}</span>`;
+  container.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.style.transform = "translateX(0)";
+  });
+
+  const dismiss = () => {
+    toast.style.transform = "translateX(420px)";
+    setTimeout(() => toast.remove(), 300);
+  };
+  toast.addEventListener("click", dismiss);
+  setTimeout(dismiss, duration);
+}
+
+/**
+ * Show an inline alert inside a designated alert container element.
+ */
+function showInlineAlert(elementId, message, type = "error") {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  el.style.display = "block";
+  el.textContent = message;
+  el.className = "form-alert";
+  if (type === "success") {
+    el.classList.add("success");
+  } else if (type === "warning") {
+    el.classList.add("warning");
+  } else {
+    el.classList.add("error");
+  }
+}
+
+function hideInlineAlert(elementId) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+  el.style.display = "none";
+  el.textContent = "";
+}
+
+// ---------------------------------------------------------------------------
+// Misc Helpers
+// ---------------------------------------------------------------------------
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = String(str);
+  return div.innerHTML;
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return "--";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return "--";
+  return d.toLocaleDateString("en-NG", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+/**
+ * Populate the navbar user badge with the logged-in user's name.
+ */
+function populateUserBadge() {
+  const user = getUser();
+  const badge = document.querySelector(".user-badge .user-text");
+  if (badge && user) {
+    badge.textContent = user.full_name || user.email || "User";
+  }
+}
+
+/**
+ * Wire up a logout link/button with id="logoutBtn".
+ */
+function wireLogout() {
+  const btn = document.getElementById("logoutBtn");
+  if (!btn) return;
+  btn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const refreshToken = getRefreshToken();
+    try {
+      if (refreshToken) {
+        await apiRequest("/api/v1/auth/logout", {
+          method: "POST",
+          body: JSON.stringify({ refresh_token: refreshToken }),
+        });
+      }
+    } catch {
+      // Even if the server call fails, clear local state
+    } finally {
+      clearAuth();
+      window.location.href = "login.html";
+    }
+  });
+}
