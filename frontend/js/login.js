@@ -17,13 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
   localStorage.removeItem("patientInputs");
 
   // If already logged in, go to assessment
-  if (isLoggedIn()) {
+  if (typeof isLoggedIn === "function" && isLoggedIn()) {
     window.location.href = "assessment.html";
     return;
   }
 
   // Toggle Password Visibility
-  if (togglePasswordBtn) {
+  if (togglePasswordBtn && passwordInput) {
     togglePasswordBtn.addEventListener("click", () => {
       const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
       passwordInput.setAttribute("type", type);
@@ -32,12 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const eyeClosed = togglePasswordBtn.querySelector(".eye-closed");
 
       if (type === "text") {
-        eyeOpen.classList.add("hidden");
-        eyeClosed.classList.remove("hidden");
+        eyeOpen?.classList.add("hidden");
+        eyeClosed?.classList.remove("hidden");
         togglePasswordBtn.setAttribute("aria-label", "Hide password");
       } else {
-        eyeOpen.classList.remove("hidden");
-        eyeClosed.classList.add("hidden");
+        eyeOpen?.classList.remove("hidden");
+        eyeClosed?.classList.add("hidden");
         togglePasswordBtn.setAttribute("aria-label", "Show password");
       }
     });
@@ -49,31 +49,31 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       let isValid = true;
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
+      const email = emailInput ? emailInput.value.trim() : "";
+      const password = passwordInput ? passwordInput.value : "";
 
       // Reset errors
-      emailError.textContent = "";
-      passwordError.textContent = "";
-      emailInput.classList.remove("invalid");
-      passwordInput.classList.remove("invalid");
-      formAlert.classList.add("hidden");
+      if (emailError) emailError.textContent = "";
+      if (passwordError) passwordError.textContent = "";
+      emailInput?.classList.remove("invalid");
+      passwordInput?.classList.remove("invalid");
+      formAlert?.classList.add("hidden");
 
       // Validate Email
       if (!email) {
-        emailError.textContent = "Email address is required.";
-        emailInput.classList.add("invalid");
+        if (emailError) emailError.textContent = "Email address is required.";
+        emailInput?.classList.add("invalid");
         isValid = false;
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        emailError.textContent = "Please enter a valid email address.";
-        emailInput.classList.add("invalid");
+        if (emailError) emailError.textContent = "Please enter a valid email address.";
+        emailInput?.classList.add("invalid");
         isValid = false;
       }
 
       // Validate Password
       if (!password) {
-        passwordError.textContent = "Password is required.";
-        passwordInput.classList.add("invalid");
+        if (passwordError) passwordError.textContent = "Password is required.";
+        passwordInput?.classList.add("invalid");
         isValid = false;
       }
 
@@ -109,18 +109,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setLoadingState(isLoading) {
     const loginBtn = document.getElementById("loginBtn");
+    if (!loginBtn) return;
+
     const btnText = loginBtn.querySelector(".btn-text");
     const btnSpinner = loginBtn.querySelector(".btn-spinner");
 
-    if (isLoading) {
-      loginBtn.disabled = true;
-      btnSpinner.classList.remove("hidden");
-      btnText.textContent = "Signing In...";
-    } else {
-      loginBtn.disabled = false;
-      btnSpinner.classList.add("hidden");
-      btnText.textContent = "Sign In";
+    loginBtn.disabled = isLoading;
+
+    if (btnSpinner) {
+      btnSpinner.classList.toggle("hidden", !isLoading);
+    }
+
+    if (btnText) {
+      btnText.textContent = isLoading ? "Signing In..." : "Sign In";
+    } else if (!btnSpinner) {
+      loginBtn.textContent = isLoading ? "Signing In..." : "Sign In";
     }
   }
 });
-
