@@ -1,129 +1,79 @@
 // ========================================
-// AfriSafe AI - Frontend Configuration
+// AfriSafe AI - Simple Frontend Config
 // Render + FastAPI + Supabase
 // ========================================
 
 const API_BASE_URL = "https://afrisafe-ai.onrender.com";
 
+// Local storage key
 const TOKEN_KEY = "afrisafe_access_token";
-const REFRESH_KEY = "afrisafe_refresh_token";
+
+// ----------------------
+// Token helpers
+// ----------------------
 
 function getToken() {
 return localStorage.getItem(TOKEN_KEY);
 }
 
-function getRefreshToken() {
-return localStorage.getItem(REFRESH_KEY);
-}
-
-function saveTokens(accessToken, refreshToken) {
-localStorage.setItem(TOKEN_KEY, accessToken);
-localStorage.setItem(REFRESH_KEY, refreshToken);
+function saveToken(token) {
+localStorage.setItem(TOKEN_KEY, token);
 }
 
 function clearAuth() {
 localStorage.removeItem(TOKEN_KEY);
-localStorage.removeItem(REFRESH_KEY);
 }
 
 function isAuthenticated() {
 return !!getToken();
 }
 
-async function refreshAccessToken() {
-const refreshToken = getRefreshToken();
-
-```
-if (!refreshToken) {
-    clearAuth();
-    return false;
-}
-
-try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            refresh_token: refreshToken
-        })
-    });
-
-    if (!response.ok) {
-        throw new Error("Refresh failed");
-    }
-
-    const data = await response.json();
-
-    saveTokens(data.access_token, data.refresh_token);
-
-    return true;
-
-} catch (error) {
-    console.error("Token refresh failed:", error);
-    clearAuth();
-    return false;
-}
-```
-
-}
+// ----------------------
+// API request helper
+// ----------------------
 
 async function apiRequest(endpoint, options = {}) {
-let token = getToken();
-
-```
 const headers = {
-    "Content-Type": "application/json",
-    ...(options.headers || {})
+"Content-Type": "application/json",
+...(options.headers || {})
 };
 
-if (token && !headers.Authorization) {
-    headers.Authorization = `Bearer ${token}`;
+const token = getToken();
+if (token) {
+headers.Authorization = `Bearer ${token}`;
 }
 
-let response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    ...options,
-    headers
+const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+...options,
+headers
 });
 
-if (response.status === 401 && endpoint !== "/api/v1/auth/refresh") {
-    const refreshed = await refreshAccessToken();
-
-    if (refreshed) {
-        token = getToken();
-        headers.Authorization = `Bearer ${token}`;
-
-        response = await fetch(`${API_BASE_URL}${endpoint}`, {
-            ...options,
-            headers
-        });
-    } else {
-        throw new Error("Session expired");
-    }
-}
-
 if (!response.ok) {
-    let message = `Request failed (${response.status})`;
+let message = `Request failed (${response.status})`;
 
-    try {
-        const err = await response.json();
-        message = err.detail || err.message || message;
-    } catch (_) {}
+```
+try {
+  const err = await response.json();
+  message = err.detail || err.message || message;
+} catch (_) {}
 
-    throw new Error(message);
+throw new Error(message);
+```
+
 }
 
 const contentType = response.headers.get("content-type");
 
 if (contentType && contentType.includes("application/json")) {
-    return response.json();
+return response.json();
 }
 
 return response;
-```
-
 }
+
+// ----------------------
+// Authentication
+// ----------------------
 
 async function login(email, password) {
 const data = await apiRequest("/api/v1/auth/login", {
@@ -134,12 +84,9 @@ password
 })
 });
 
-```
-saveTokens(data.access_token, data.refresh_token);
+saveToken(data.access_token);
 
 return data;
-```
-
 }
 
 async function register(fullName, email, password) {
@@ -154,31 +101,21 @@ password
 }
 
 async function logout() {
-const token = getToken();
-
-```
-try {
-    if (token) {
-        await apiRequest("/api/v1/auth/logout", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-    }
-} catch (error) {
-    console.error("Logout failed:", error);
-} finally {
-    clearAuth();
-    window.location.href = "login.html";
+clearAuth();
+window.location.href = "login.html";
 }
-```
 
-}
+// ----------------------
+// User
+// ----------------------
 
 async function getCurrentUser() {
 return await apiRequest("/api/v1/users/me");
 }
+
+// ----------------------
+// Route protection
+// ----------------------
 
 function requireAuth() {
 if (!isAuthenticated()) {
@@ -192,14 +129,15 @@ window.location.href = "assessment.html";
 }
 }
 
+// ----------------------
+// Auto logout button
+// ----------------------
+
 document.addEventListener("DOMContentLoaded", () => {
 const logoutBtn = document.getElementById("logoutBtn");
 
-```
 if (logoutBtn) {
-    logoutBtn.addEventListener("click", logout);
+logoutBtn.addEventListener("click", logout);
 }
-```
-
 });
 
