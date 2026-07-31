@@ -1,5 +1,6 @@
-from app.core.supabase import supabase
+from app.core.supabase import get_supabase
 
+supabase = get_supabase()
 class ReminderService:
 
     @staticmethod
