@@ -614,22 +614,42 @@ app.get("/api/v1/admin/statistics", authenticateToken, requireAdmin, (req: Authe
 });
 
 // ---------------------------------------------------------------------------
-// Static Assets & Frontend Routing
+// Static Assets & Frontend Routing (FIXED & EXTENDED)
 // ---------------------------------------------------------------------------
 
 const frontendDir = path.join(process.cwd(), "frontend");
-app.use(express.static(frontendDir));
 
+// Enable serving static files with automatic .html extension resolution
+app.use(express.static(frontendDir, { extensions: ["html", "htm"] }));
+
+// Redirect base path to login
 app.get("/", (req: Request, res: Response) => {
   res.redirect("/login.html");
 });
 
-// Catch-all route for unknown frontend routes
+// Explicit frontend page routes to fix 404 errors
+app.get("/dashboard", (req: Request, res: Response) => {
+  res.sendFile(path.join(frontendDir, "dashboard.html"));
+});
+
+app.get("/profile", (req: Request, res: Response) => {
+  res.sendFile(path.join(frontendDir, "profile.html"));
+});
+
+app.get("/prediction", (req: Request, res: Response) => {
+  res.sendFile(path.join(frontendDir, "assessment.html"));
+});
+
+// Catch-all route for missing API endpoints and unknown frontend paths
 app.get("*", (req: Request, res: Response) => {
   if (req.path.startsWith("/api/")) {
     return res.status(404).json({ detail: "Endpoint not found" });
   }
-  res.status(404).send("404 - Page Not Found");
+  res.status(404).sendFile(path.join(frontendDir, "404.html"), (err) => {
+    if (err) {
+      res.status(404).send("404 - Page Not Found");
+    }
+  });
 });
 
 // ---------------------------------------------------------------------------
