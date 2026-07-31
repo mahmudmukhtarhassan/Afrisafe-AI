@@ -781,7 +781,7 @@
 
       // Fetch fresh data from API
       try {
-        const data = await apiRequest("/api/v1/prediction/history?limit=50");
+        const data = await apiRequest("/api/v1/assessment/history?limit=50");
         if (data && data.items) {
           allHistoryItems = data.items;
           localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(allHistoryItems));
