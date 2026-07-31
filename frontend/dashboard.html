@@ -246,7 +246,6 @@
       gap: 4px;
     }
 
-    /* Modal Dialog */
     /* Prevention Tips Grid on Dashboard */
     .prevention-card {
       background: var(--glass-bg);
@@ -375,154 +374,6 @@
       align-items: center;
       justify-content: center;
     }
-
-    /* Additional Dashboard Layout Styles */
-    .initiate-card {
-      background: linear-gradient(135deg, rgba(15,157,88,0.08) 0%, rgba(30,136,229,0.08) 100%);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-card);
-      padding: 1.75rem 2rem;
-      margin-bottom: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-    @media (min-width: 768px) {
-      .initiate-card {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
-    .initiate-content h2 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--text-color);
-      margin-bottom: 0.35rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .initiate-content p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      max-width: 650px;
-    }
-    .initiate-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 0.75rem;
-    }
-    .initiate-tag {
-      font-size: 0.725rem;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.7);
-      border: 1px solid var(--border-color);
-      color: var(--text-color);
-    }
-    .btn-lg-primary {
-      background: var(--primary-green);
-      color: #ffffff;
-      padding: 0.85rem 1.75rem;
-      border-radius: var(--radius-btn);
-      font-weight: 800;
-      font-size: 0.95rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 14px rgba(15,157,88,0.3);
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .btn-lg-primary:hover {
-      background: var(--primary-green-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(15,157,88,0.4);
-    }
-
-    /* Prevention Tips Section */
-    .prevention-section {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-card);
-      box-shadow: var(--glass-shadow);
-      padding: 2rem;
-      margin-top: 2rem;
-    }
-    .prevention-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .prevention-header-title {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--text-color);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .prevention-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-    @media (min-width: 640px) {
-      .prevention-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1024px) {
-      .prevention-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-    .tip-card {
-      background: rgba(255,255,255,0.7);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.2s ease;
-    }
-    .tip-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-      border-color: var(--primary-green);
-    }
-    .tip-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-    .tip-icon.green { background: rgba(15,157,88,0.12); color: var(--primary-green); }
-    .tip-icon.blue { background: rgba(30,136,229,0.12); color: var(--medical-blue); }
-    .tip-icon.amber { background: rgba(217,119,6,0.12); color: var(--warning); }
-    .tip-icon.purple { background: rgba(124,58,237,0.12); color: #7C3AED; }
-    .tip-title { font-size: 0.95rem; font-weight: 800; color: var(--text-color); margin-bottom: 0.5rem; }
-    .tip-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.45; margin-bottom: 1rem; }
-    .tip-link {
-      font-size: 0.775rem;
-      font-weight: 700;
-      color: var(--primary-green);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: auto;
-    }
-    .tip-link:hover { text-decoration: underline; }
 
     .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
     .empty-state svg { width: 56px; height: 56px; margin-bottom: 1rem; opacity: 0.3; }
@@ -673,7 +524,6 @@
         </div>
 
         <div class="prevention-grid">
-          <!-- Tip 1: Insecticide-Treated Nets -->
           <div class="tip-box">
             <div>
               <div class="tip-icon-wrap green">
@@ -685,7 +535,6 @@
             <a href="guidelines.html#llin" class="tip-action-link">Net usage guide &rarr;</a>
           </div>
 
-          <!-- Tip 2: Indoor Residual Spraying & Vector Control -->
           <div class="tip-box">
             <div>
               <div class="tip-icon-wrap blue">
@@ -697,7 +546,6 @@
             <a href="guidelines.html#vector" class="tip-action-link">Vector control steps &rarr;</a>
           </div>
 
-          <!-- Tip 3: Test Before Treatment -->
           <div class="tip-box">
             <div>
               <div class="tip-icon-wrap amber">
@@ -709,7 +557,6 @@
             <a href="assessment.html" class="tip-action-link">Assess symptoms now &rarr;</a>
           </div>
 
-          <!-- Tip 4: R21 Malaria Vaccine -->
           <div class="tip-box">
             <div>
               <div class="tip-icon-wrap purple">
@@ -850,143 +697,108 @@
         }
       }
 
-      recent.forEach((item, index) => {
+      recent.forEach((item) => {
         const col = document.createElement("div");
         col.className = "trend-bar-col";
         col.title = `${formatDate(item.created_at)} - ${item.risk} Risk (${item.confidence}%)`;
 
-        const heightPct = item.risk === "High" ? 90 : item.risk === "Medium" ? 55 : 30;
-        const riskClass = item.risk === "High" ? "high" : item.risk === "Medium" ? "medium" : "low";
+        const heightPct = item.risk === "High" ? 90 : item.risk === "Medium" ? 55 : 25;
+        const riskClass = item.risk ? item.risk.toLowerCase() : "low";
 
         col.innerHTML = `
           <div class="trend-bar ${riskClass}" style="height: ${heightPct}%;"></div>
-          <span class="trend-label">#${recent.length - index}</span>
+          <span class="trend-label">${formatDate(item.created_at).split(",")[0].slice(0, 6)}</span>
         `;
-
-        col.addEventListener("click", () => openDetailsModal(item));
+        col.addEventListener("click", () => openModal(item));
         barsContainer.appendChild(col);
       });
     }
 
     function renderFilteredTracker() {
-      const listEl = document.getElementById("trackerHistoryList");
-
-      let filtered = allHistoryItems;
-
-      if (currentFilter !== "all") {
-        filtered = filtered.filter(i => i.risk === currentFilter);
-      }
-
-      if (currentSearch) {
-        filtered = filtered.filter(i => {
-          const dateStr = formatDate(i.created_at).toLowerCase();
-          const predStr = (i.prediction || "").toLowerCase();
-          const symptomsList = Array.isArray(i.symptoms?.symptoms) ? i.symptoms.symptoms.join(" ").toLowerCase() : "";
-          return dateStr.includes(currentSearch) || predStr.includes(currentSearch) || symptomsList.includes(currentSearch);
-        });
-      }
-
-      if (filtered.length === 0) {
-        listEl.innerHTML = `
+      const container = document.getElementById("trackerHistoryList");
+      if (!allHistoryItems || allHistoryItems.length === 0) {
+        container.innerHTML = `
           <div class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-            <p>No historical assessments match your current filter.</p>
-          </div>
-        `;
+            <p>No historical assessments recorded yet.</p>
+            <a href="assessment.html" class="btn-primary" style="margin-top: 1rem; background: var(--primary-green); color: #fff;">Start First Assessment</a>
+          </div>`;
         return;
       }
 
-      listEl.innerHTML = "";
+      let filtered = allHistoryItems.filter(item => {
+        const matchesFilter = currentFilter === "all" || item.risk === currentFilter;
+        const symptomsStr = item.symptoms ? item.symptoms.join(" ").toLowerCase() : "";
+        const dateStr = formatDate(item.created_at).toLowerCase();
+        const matchesSearch = !currentSearch || symptomsStr.includes(currentSearch) || dateStr.includes(currentSearch);
+        return matchesFilter && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <p>No assessments match your current filter criteria.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = "";
       filtered.forEach(item => {
         const card = document.createElement("div");
         card.className = "history-card";
-        const riskClass = item.risk === "High" ? "high" : item.risk === "Medium" ? "medium" : "low";
-
-        const symptomsFormatted = Array.isArray(item.symptoms?.symptoms) && item.symptoms.symptoms.length > 0
-          ? item.symptoms.symptoms.join(", ")
-          : "No specific symptoms logged";
+        const riskClass = item.risk ? item.risk.toLowerCase() : "low";
+        const symptomsPreview = item.symptoms && item.symptoms.length > 0
+          ? item.symptoms.slice(0, 3).join(", ") + (item.symptoms.length > 3 ? "..." : "")
+          : "No specific symptoms noted";
 
         card.innerHTML = `
           <div class="history-left">
             <div class="history-risk-dot ${riskClass}"></div>
             <div class="history-info">
-              <h4>${escapeHtml(item.prediction)} (${item.risk} Risk)</h4>
-              <p>${formatDate(item.created_at)} &bull; ${escapeHtml(symptomsFormatted)}</p>
+              <h4>${item.risk} Risk Assessment</h4>
+              <p>${formatDate(item.created_at)} • ${symptomsPreview}</p>
             </div>
           </div>
           <div class="history-right">
-            <div class="history-confidence" style="color: var(--${item.risk === "High" ? "danger" : item.risk === "Medium" ? "warning" : "success"});">
-              ${item.confidence}%
-            </div>
-            <button class="view-details-btn">
-              Details &rarr;
-            </button>
+            <span class="history-confidence">${item.confidence || 0}%</span>
+            <button class="view-details-btn">Details &rarr;</button>
           </div>
         `;
 
-        card.addEventListener("click", () => openDetailsModal(item));
-        listEl.appendChild(card);
+        card.addEventListener("click", () => openModal(item));
+        container.appendChild(card);
       });
     }
 
-    function openDetailsModal(item) {
+    function openModal(item) {
       const modal = document.getElementById("detailsModal");
       const body = document.getElementById("modalBody");
-
-      const riskClass = item.risk === "High" ? "danger" : item.risk === "Medium" ? "warning" : "success";
-      const symptomsList = Array.isArray(item.symptoms?.symptoms) ? item.symptoms.symptoms : [];
-      const adviceList = Array.isArray(item.advice) ? item.advice : [];
+      const riskColor = item.risk === "High" ? "var(--danger)" : item.risk === "Medium" ? "var(--warning)" : "var(--success)";
 
       body.innerHTML = `
-        <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 0.5rem;">
-          <span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 12px; background: var(--${riskClass}-bg); color: var(--${riskClass});">
-            ${escapeHtml(item.risk)} Risk
-          </span>
-          <span style="font-size: 0.8rem; color: var(--text-muted);">${formatDate(item.created_at)}</span>
-        </div>
-        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-color);">
-          Result: ${escapeHtml(item.prediction)} (${item.confidence}% Confidence)
-        </h2>
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem;">Assessment Details</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Recorded on ${formatDate(item.created_at)}</p>
 
-        <div style="margin-bottom: 1.25rem;">
-          <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Recorded Symptoms</h4>
-          <div style="display:flex; flex-wrap:wrap; gap: 6px;">
-            ${symptomsList.length > 0
-              ? symptomsList.map(s => `<span style="background: rgba(30,136,229,0.08); color: var(--medical-blue); padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;">${escapeHtml(s)}</span>`).join("")
-              : "<span style='font-size:0.85rem; color:var(--text-muted);'>None reported</span>"}
+        <div style="background: rgba(0,0,0,0.03); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span style="font-weight: 700;">Calculated Risk:</span>
+            <span style="font-weight: 800; color: ${riskColor}; font-size: 1.1rem;">${item.risk} Risk</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700;">Model Confidence:</span>
+            <span style="font-weight: 800; font-size: 1.1rem;">${item.confidence || 0}%</span>
           </div>
         </div>
 
-        ${item.ai_insights ? `
-          <div style="background: rgba(15,157,88,0.06); border-left: 3px solid var(--primary-green); border-radius: 0 8px 8px 0; padding: 0.85rem 1rem; margin-bottom: 1.25rem; font-size: 0.875rem; line-height: 1.5;">
-            <strong>AI Clinical Insights:</strong> ${escapeHtml(item.ai_insights)}
-          </div>
-        ` : ""}
+        <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 0.5rem;">Reported Symptoms:</h4>
+        <ul style="padding-left: 1.2rem; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          ${item.symptoms && item.symptoms.length > 0 ? item.symptoms.map(s => `<li>${s}</li>`).join('') : '<li>None logged</li>'}
+        </ul>
 
         ${item.recommendation ? `
-          <div style="margin-bottom: 1.25rem;">
-            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.35rem;">Action Plan</h4>
-            <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-color);">${escapeHtml(item.recommendation)}</p>
-          </div>
-        ` : ""}
-
-        ${adviceList.length > 0 ? `
-          <div style="margin-bottom: 1.5rem;">
-            <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Health Guidelines</h4>
-            <ul style="padding-left: 1.25rem; font-size: 0.85rem; line-height: 1.5; color: var(--text-color);">
-              ${adviceList.map(a => `<li>${escapeHtml(a)}</li>`).join("")}
-            </ul>
-          </div>
-        ` : ""}
-
-        <div style="display:flex; justify-content: flex-end; gap: 0.75rem;">
-          <button onclick="deleteAssessmentFromModal(${item.id})" style="background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.825rem; cursor: pointer;">
-            Delete Record
-          </button>
-          <button onclick="closeModal()" style="background: var(--primary-green); color: #fff; border: none; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 700; font-size: 0.825rem; cursor: pointer;">
-            Done
-          </button>
-        </div>
+          <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 0.5rem;">Recommendation:</h4>
+          <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-color);">${item.recommendation}</p>
+        ` : ''}
       `;
 
       modal.classList.add("open");
@@ -996,25 +808,11 @@
       document.getElementById("detailsModal").classList.remove("open");
     }
 
-    async function deleteAssessmentFromModal(id) {
-      if (!confirm("Are you sure you want to delete this assessment record?")) return;
-
-      try {
-        await apiRequest(`/api/v1/assessment/${id}`, {
-  method: "DELETE"});
-        showToast("Assessment record deleted successfully.", "success");
-
-        allHistoryItems = allHistoryItems.filter(i => i.id !== id);
-        localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(allHistoryItems));
-
-        closeModal();
-        renderDashboard(allHistoryItems);
-      } catch (err) {
-        showToast(err.message || "Failed to delete record.", "error");
-      }
+    function formatDate(dateStr) {
+      if (!dateStr) return "--";
+      const d = new Date(dateStr);
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) + ", " + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
   </script>
 </body>
 </html>
-
-
