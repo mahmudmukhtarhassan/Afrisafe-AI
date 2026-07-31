@@ -1,30 +1,12 @@
 from app.core.supabase import get_supabase
 
-supabase = get_supabase()
 class ReminderService:
+    def __init__(self):
+        # A nan za ka kira shi, ba a lokacin import ba
+        self.supabase = get_supabase()
 
+    # Ko kuma idan static methods kake amfani da su:
     @staticmethod
-    async def create(user_id: str, data):
-        return (
-            supabase
-            .table("reminders")
-            .insert({
-                "user_id": user_id,
-                "title": data.title,
-                "reminder_date": data.reminder_date.isoformat()
-            })
-            .execute()
-            .data
-        )
-
-    @staticmethod
-    async def list(user_id: str):
-        return (
-            supabase
-            .table("reminders")
-            .select("*")
-            .eq("user_id", user_id)
-            .order("reminder_date")
-            .execute()
-            .data
-        )
+    def get_all_reminders():
+        client = get_supabase()
+        # sauran logic din...
