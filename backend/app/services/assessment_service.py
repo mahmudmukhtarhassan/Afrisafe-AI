@@ -2,51 +2,18 @@ from app.repositories.assessment_repository import AssessmentRepository
 
 
 class AssessmentService:
+    def __init__(self):
+        self.repository = AssessmentRepository()
 
-    @staticmethod
-    async def save(user_id: str, data):
-
-        payload = {
-            "user_id": user_id,
-            "fever": data.fever,
-            "headache": data.headache,
-            "chills": data.chills,
-            "vomiting": data.vomiting,
-            "fatigue": data.fatigue,
-            "body_pain": data.body_pain,
-            "prediction": data.prediction,
-            "probability": data.probability,
-            "recommendation": data.recommendation,
-            "urgency": data.urgency,
-            "next_action": data.next_action,
+    def process_triage(self, payload: dict):
+        # Process triage business logic/ML predictions here
+        result = {
+            "assessment_id": payload.get("assessment_id"),
+            "risk_level": "High",
+            "condition": "Malaria Risk Detected",
+            "confidence": 88,
         }
-
-        return AssessmentRepository.create(payload).data
-
-    @staticmethod
-    async def history(user_id: str):
-        return AssessmentRepository.list_by_user(user_id).data
-
-    @staticmethod
-    async def remove(user_id: str, assessment_id: str):
-        return AssessmentRepository.delete(user_id, assessment_id).data
-
-    @staticmethod
-    async def dashboard(user_id: str):
-
-        rows = AssessmentRepository.list_by_user(user_id).data
-
-        total = len(rows)
-
-        high = len([r for r in rows if r["prediction"] == "High Risk"])
-
-        medium = len([r for r in rows if r["prediction"] == "Medium Risk"])
-
-        low = len([r for r in rows if r["prediction"] == "Low Risk"])
-
-        return {
-            "total": total,
-            "high_risk": high,
-            "medium_risk": medium,
-            "low_risk": low,
-        }
+        
+        # Save to database
+        self.repository.create_assessment(result)
+        return result
