@@ -1,334 +1,404 @@
 /**
  * AfriSafe AI - Result Controller
- * Reads the prediction result from localStorage (set by assessment.js)
- * and renders it. Supports PDF download via jsPDF.
+ * Reads prediction and patient state from localStorage and populates the DOM.
+ * Generates client-side PDF summaries via jsPDF.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Guard: must be logged in
-  if (!requireAuth()) return;
+  // 1. Session & Auth Check
+  if (typeof requireAuth === "function" && !requireAuth()) return;
+  if (typeof populateUserBadge === "function") populateUserBadge();
+  if (typeof wireLogout === "function") wireLogout();
 
-  populateUserBadge();
-  wireLogout();
+  // 2. DOM Elements
+  const emptyState = document.getElementById("emptyState");
+  const resultContent = document.getElementById("resultContent");
 
-  const emptyState = document.getElementById('emptyState');
-  const resultContent = document.getElementById('resultContent');
-  const reportDate = document.getElementById('reportDate');
-  const riskLevelBadge = document.getElementById('riskLevelBadge');
-  const confidenceCircle = document.getElementById('confidenceCircle');
-  const confidenceNumber = document.getElementById('confidenceNumber');
-  const predictionTitle = document.getElementById('predictionTitle');
-  const predictionSubtext = document.getElementById('predictionSubtext');
-  const aiInsightsText = document.getElementById('aiInsightsText');
-  const recommendationCard = document.getElementById('recommendationCard');
-  const recommendationText = document.getElementById('recommendationText');
-  const adviceListContainer = document.getElementById('adviceList');
+  const reportDate = document.getElementById("reportDate");
+  const riskLevelBadge = document.getElementById("riskLevelBadge");
+  const confidenceCircle = document.getElementById("confidenceCircle");
+  const confidenceNumber = document.getElementById("confidenceNumber");
+  const predictionTitle = document.getElementById("predictionTitle");
+  const predictionSubtext = document.getElementById("predictionSubtext");
 
-  const patientDemographics = document.getElementById('patientDemographics');
-  const patientLocation = document.getElementById('patientLocation');
-  const patientDuration = document.getElementById('patientDuration');
-  const patientSymptomsTags = document.getElementById('patientSymptomsTags');
-  const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+  const aiInsightsText = document.getElementById("aiInsightsText");
+  const recommendationCard = document.getElementById("recommendationCard");
+  const recommendationText = document.getElementById("recommendationText");
+  const adviceListContainer = document.getElementById("adviceList");
 
-  // Load Data from LocalStorage
+  const patientDemographics = document.getElementById("patientDemographics");
+  const patientLocation = document.getElementById("patientLocation");
+  const patientDuration = document.getElementById("patientDuration");
+  const patientSymptomsTags = document.getElementById("patientSymptomsTags");
+  const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+
+  // 3. Load Data from LocalStorage (Supports fallback keys)
   let resultData = null;
   let patientInputs = null;
+
   try {
-    resultData = JSON.parse(localStorage.getItem('triageResult'));
-    patientInputs = JSON.parse(localStorage.getItem('patientInputs'));
-  } catch {
-    resultData = null;
-    patientInputs = null;
+    resultData =
+      JSON.parse(localStorage.getItem("triageResult")) ||
+      JSON.parse(localStorage.getItem("afrisafe_latest_result"));
+
+    patientInputs =
+      JSON.parse(localStorage.getItem("patientInputs")) ||
+      JSON.parse(localStorage.getItem("afrisafe_patient_inputs"));
+  } catch (err) {
+    console.error("Error reading evaluation data from localStorage:", err);
   }
 
-  // If no triage data, show empty state
+  // 4. Handle Empty State
   if (!resultData) {
-    emptyState.classList.remove('hidden');
-    resultContent.classList.add('hidden');
+    if (emptyState) emptyState.classList.remove("hidden");
+    if (resultContent) resultContent.classList.add("hidden");
     return;
   }
 
-  // Show result content
-  emptyState.classList.add('hidden');
-  resultContent.classList.remove('hidden');
+  // Reveal Content
+  if (emptyState) emptyState.classList.add("hidden");
+  if (resultContent) resultContent.classList.remove("hidden");
 
-  // Map backend fields (with fallbacks for older formats)
-  const prediction = resultData.prediction || 'Unknown';
-  const confidence = resultData.confidence !== undefined ? resultData.confidence : 0.0;
-  const risk = resultData.risk || resultData.urgency || 'Low';
-  const recommendation = resultData.recommendation || '';
-  const advice = resultData.advice || [];
-  const aiInsights = resultData.ai_insights || resultData.aiInsights || '';
-  const timestamp = resultData.timestamp || new Date().toISOString();
+  // 5. Data Field Extraction & Normalization
+  const prediction = resultData.prediction || resultData.model_outcome || "Malaria Assessment";
+  const confidence = resultData.confidence !== undefined ? parseFloat(resultData.confidence) : 0;
+  const risk = resultData.risk || resultData.urgency || "Low";
+  const recommendation = resultData.recommendation || "";
+  const advice = Array.isArray(resultData.advice) ? resultData.advice : [];
+  const aiInsights = resultData.ai_insights || resultData.aiInsights || "";
+  const timestamp = resultData.timestamp || resultData.created_at || new Date().toISOString();
 
-  // Set report date
-  reportDate.textContent = `Evaluated on: ${formatDate(timestamp)}`;
-
-  // 1. Update Prediction Outcome Titles
-  predictionTitle.textContent = prediction;
-  if (prediction === 'Malaria') {
-    predictionSubtext.textContent = 'Our symptom triage engine has flagged highly matching indicators for acute malaria infection.';
-  } else {
-    predictionSubtext.textContent = 'Triage metrics suggest low clinical indicators for active malaria. Monitor status.';
+  // 6. Populate Header & Assessment Meta
+  if (reportDate) {
+    reportDate.textContent = `Evaluated on: ${formatDate(timestamp)}`;
   }
 
-  // 2. Dynamic Risk Level Badge & Layout
-  riskLevelBadge.textContent = `${risk} Risk`;
-  riskLevelBadge.className = 'risk-badge';
-  recommendationCard.className = 'result-card recommendation-card';
-
-  if (risk === 'High') {
-    riskLevelBadge.classList.add('risk-high');
-    recommendationCard.classList.add('risk-high');
-  } else if (risk === 'Medium') {
-    riskLevelBadge.classList.add('risk-medium');
-    recommendationCard.classList.add('risk-medium');
-  } else {
-    riskLevelBadge.classList.add('risk-low');
-    recommendationCard.classList.add('risk-low');
+  if (predictionTitle) {
+    predictionTitle.textContent = prediction;
   }
 
-  // 3. Confidence Ring Animation
-  // Backend returns confidence as 0-100 percentage; convert to 0-1 for ring math
+  if (predictionSubtext) {
+    if (prediction.toLowerCase().includes("malaria") || risk === "High") {
+      predictionSubtext.textContent = "Symptom matrix indicates strong correlation with active Plasmodium indicators.";
+    } else if (risk === "Medium") {
+      predictionSubtext.textContent = "Moderate symptom correlation detected. Close clinical monitoring is advised.";
+    } else {
+      predictionSubtext.textContent = "Triage metrics suggest low probability for active acute infection.";
+    }
+  }
+
+  // 7. Dynamic Risk Badge & Styling
+  if (riskLevelBadge) {
+    riskLevelBadge.textContent = `${risk} Risk`;
+    riskLevelBadge.className = `risk-badge risk-${risk.toLowerCase()}`;
+  }
+
+  if (recommendationCard) {
+    recommendationCard.className = `result-card recommendation-card risk-${risk.toLowerCase()}`;
+  }
+
+  // 8. Progress Ring & Number Counter Animation
   const confidencePercent = Math.min(100, Math.max(0, confidence));
   const confidenceFraction = confidencePercent / 100;
-  const circumference = 2 * Math.PI * 58; // ~364.42
-  confidenceCircle.style.strokeDasharray = `${circumference}`;
-  const offset = circumference - (confidenceFraction * circumference);
+  const radius = confidenceCircle ? confidenceCircle.r.baseVal.value : 58;
+  const circumference = 2 * Math.PI * radius; // ~364.42 for r=58
 
-  setTimeout(() => {
-    confidenceCircle.style.strokeDashoffset = offset;
+  if (confidenceCircle) {
+    confidenceCircle.style.strokeDasharray = `${circumference}`;
+    const offset = circumference - confidenceFraction * circumference;
 
-    // Smooth number tick-up
-    const targetCount = Math.round(confidencePercent);
-    let currentCount = 0;
-    const interval = setInterval(() => {
-      if (currentCount >= targetCount) {
-        confidenceNumber.textContent = targetCount;
-        clearInterval(interval);
-      } else {
-        currentCount++;
-        confidenceNumber.textContent = currentCount;
-      }
-    }, 12);
-  }, 300);
-
-  // Set Ring Stroke Color based on Risk
-  if (risk === 'High') {
-    confidenceCircle.style.stroke = 'var(--danger)';
-  } else if (risk === 'Medium') {
-    confidenceCircle.style.stroke = 'var(--warning)';
-  } else {
-    confidenceCircle.style.stroke = 'var(--success)';
-  }
-
-  // 4. Fill AI Insights & Recommendation text
-  aiInsightsText.innerHTML = formatText(aiInsights || 'No additional insights available.');
-
-  recommendationText.innerHTML = formatText(recommendation || 'No specific recommendation available.');
-
-  // 5. Render advice list if present
-  if (adviceListContainer && Array.isArray(advice) && advice.length > 0) {
-    adviceListContainer.innerHTML = '';
-    const ul = document.createElement('ul');
-    ul.className = 'insights-list';
-    ul.style.cssText = 'margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 1.5rem; list-style-type: disc;';
-    advice.forEach(item => {
-      const li = document.createElement('li');
-      li.style.marginBottom = '0.35rem';
-      li.textContent = item;
-      ul.appendChild(li);
-    });
-    adviceListContainer.appendChild(ul);
-  }
-
-  // 6. Populate Patient Profile Summary Side Card
-  if (patientInputs) {
-    const age = patientInputs.age || '--';
-    const gender = patientInputs.gender || '--';
-    patientDemographics.textContent = `${age} Years / ${gender}`;
-
-    const state = patientInputs.state || '--';
-    const lga = patientInputs.lga ? `, ${patientInputs.lga}` : '';
-    patientLocation.textContent = `${state}${lga}`;
-
-    const duration = patientInputs.duration || 1;
-    patientDuration.textContent = `${duration} ${duration === 1 ? 'Day' : 'Days'}`;
-
-    // Symptoms tags
-    patientSymptomsTags.innerHTML = '';
-    const symptoms = patientInputs.symptoms || [];
-    if (symptoms.length > 0) {
-      symptoms.forEach(sym => {
-        const span = document.createElement('span');
-        span.className = 'symptom-tag';
-        span.textContent = sym;
-        patientSymptomsTags.appendChild(span);
-      });
+    // Set Stroke Color by Risk Level
+    if (risk === "High") {
+      confidenceCircle.style.stroke = "var(--danger, #EA4335)";
+    } else if (risk === "Medium") {
+      confidenceCircle.style.stroke = "var(--warning, #FBBC05)";
     } else {
-      patientSymptomsTags.innerHTML = '<span class="no-tags">None listed</span>';
+      confidenceCircle.style.stroke = "var(--success, #0F9D58)";
+    }
+
+    setTimeout(() => {
+      confidenceCircle.style.strokeDashoffset = offset;
+    }, 200);
+  }
+
+  if (confidenceNumber) {
+    animateCounter(confidenceNumber, 0, Math.round(confidencePercent), 800);
+  }
+
+  // 9. Render Insights & Recommendations
+  if (aiInsightsText) {
+    aiInsightsText.innerHTML = formatText(aiInsights || "No additional AI insights generated for this assessment.");
+  }
+
+  if (recommendationText) {
+    recommendationText.innerHTML = formatText(recommendation || "Consult a qualified healthcare provider for clinical evaluation.");
+  }
+
+  if (adviceListContainer) {
+    adviceListContainer.innerHTML = "";
+    if (advice.length > 0) {
+      const ul = document.createElement("ul");
+      ul.className = "advice-ul";
+      ul.style.cssText = "margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 1.25rem; list-style-type: disc;";
+      advice.forEach((item) => {
+        const li = document.createElement("li");
+        li.style.marginBottom = "0.35rem";
+        li.textContent = item;
+        ul.appendChild(li);
+      });
+      adviceListContainer.appendChild(ul);
+    }
+  }
+
+  // 10. Populate Patient Profile Sidebar
+  if (patientInputs) {
+    const age = patientInputs.age || patientInputs.patient_age || "--";
+    const gender = patientInputs.gender || patientInputs.patient_gender || "--";
+    if (patientDemographics) patientDemographics.textContent = `${age} Yrs / ${gender}`;
+
+    const state = patientInputs.state || patientInputs.location || "";
+    const lga = patientInputs.lga ? `, ${patientInputs.lga}` : "";
+    if (patientLocation) patientLocation.textContent = state ? `${state}${lga}` : "Not specified";
+
+    const duration = patientInputs.duration || patientInputs.symptom_duration || 1;
+    if (patientDuration) patientDuration.textContent = `${duration} ${parseInt(duration, 10) === 1 ? "Day" : "Days"}`;
+
+    // Render Symptom Tags
+    if (patientSymptomsTags) {
+      patientSymptomsTags.innerHTML = "";
+      const symptoms = Array.isArray(patientInputs.symptoms) ? patientInputs.symptoms : [];
+      
+      if (symptoms.length > 0) {
+        symptoms.forEach((sym) => {
+          const span = document.createElement("span");
+          span.className = "symptom-tag";
+          span.textContent = sym;
+          patientSymptomsTags.appendChild(span);
+        });
+      } else {
+        patientSymptomsTags.innerHTML = '<span class="no-tags">None listed</span>';
+      }
     }
   } else {
-    patientDemographics.textContent = '--';
-    patientLocation.textContent = '--';
-    patientDuration.textContent = '--';
-    patientSymptomsTags.innerHTML = '<span class="no-tags">None listed</span>';
+    if (patientDemographics) patientDemographics.textContent = "--";
+    if (patientLocation) patientLocation.textContent = "--";
+    if (patientDuration) patientDuration.textContent = "--";
+    if (patientSymptomsTags) patientSymptomsTags.innerHTML = '<span class="no-tags">None listed</span>';
   }
 
-  // 7. PDF Download via jsPDF (loaded from CDN in result.html)
+  // 11. PDF Download Handler
   if (downloadPdfBtn) {
-    downloadPdfBtn.addEventListener('click', generatePDF);
+    downloadPdfBtn.addEventListener("click", generatePDF);
   }
 
+  /**
+   * PDF Generator using jsPDF
+   */
   function generatePDF() {
-    if (typeof window.jspdf === 'undefined') {
-      showToast('PDF library not loaded. Using print instead.', 'warning');
+    if (typeof window.jspdf === "undefined" && typeof jsPDF === "undefined") {
+      if (typeof showToast === "function") {
+        showToast("PDF library loading. Triggering print window...", "warning");
+      }
       window.print();
       return;
     }
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('p', 'mm', 'a4');
+    const { jsPDF } = window.jspdf || window;
+    const doc = new jsPDF("p", "mm", "a4");
 
-    // Header
-    doc.setFillColor(15, 157, 88);
-    doc.rect(0, 0, 210, 30, 'F');
+    // Header Band
+    doc.setFillColor(15, 157, 88); // #0F9D58
+    doc.rect(0, 0, 210, 28, "F");
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    doc.text('AfriSafe AI - Malaria Risk Report', 105, 18, { align: 'center' });
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("AfriSafe AI - Clinical Triage Report", 105, 18, { align: "center" });
 
-    // Date
-    doc.setTextColor(50, 50, 50);
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Generated: ${formatDate(timestamp)}`, 105, 38, { align: 'center' });
+    // Timestamp
+    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Generated: ${formatDate(timestamp)}`, 105, 35, { align: "center" });
 
-    // Prediction result box
-    doc.setDrawColor(229, 231, 235);
-    doc.setFillColor(244, 247, 249);
-    doc.roundedRect(15, 45, 180, 30, 3, 3, 'FD');
+    // Result Summary Box
+    doc.setDrawColor(220, 225, 230);
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(15, 42, 180, 32, 3, 3, "FD");
 
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(31, 41, 55);
-    doc.text('Prediction:', 20, 55);
-    doc.text(String(prediction), 60, 55);
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(30, 41, 59);
 
-    doc.text('Confidence:', 20, 63);
-    doc.text(`${confidencePercent}%`, 60, 63);
+    doc.text("Assessment Outcome:", 20, 52);
+    doc.setFont("helvetica", "normal");
+    doc.text(String(prediction), 68, 52);
 
-    doc.text('Risk Level:', 20, 71);
-    const riskColors = { High: [239, 68, 68], Medium: [245, 158, 11], Low: [16, 185, 129] };
-    const rc = riskColors[risk] || [16, 185, 129];
+    doc.setFont("helvetica", "bold");
+    doc.text("Model Confidence:", 20, 60);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${Math.round(confidencePercent)}%`, 68, 60);
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Risk Classification:", 20, 68);
+
+    const riskColors = { High: [234, 67, 53], Medium: [251, 188, 5], Low: [15, 157, 88] };
+    const rc = riskColors[risk] || [15, 157, 88];
     doc.setTextColor(rc[0], rc[1], rc[2]);
-    doc.text(String(risk), 60, 71);
+    doc.text(`${risk} Risk`, 68, 68);
 
-    // Patient info
-    doc.setTextColor(31, 41, 55);
+    // Patient Profile Section
+    let y = 85;
+    doc.setTextColor(30, 41, 59);
     doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Patient Profile', 15, 88);
+    doc.setFont("helvetica", "bold");
+    doc.text("Patient Demographics", 15, y);
+    y += 6;
 
     doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    let y = 96;
+    doc.setFont("helvetica", "normal");
     if (patientInputs) {
-      doc.text(`Age / Gender: ${patientInputs.age || '--'} / ${patientInputs.gender || '--'}`, 20, y); y += 6;
-      doc.text(`Location: ${patientInputs.state || '--'}${patientInputs.lga ? ', ' + patientInputs.lga : ''}`, 20, y); y += 6;
-      doc.text(`Symptom Duration: ${patientInputs.duration || '--'} days`, 20, y); y += 6;
-      const symText = (patientInputs.symptoms || []).join(', ') || 'None';
-      doc.text(`Symptoms: ${symText}`, 20, y); y += 6;
+      doc.text(`Age / Gender: ${patientInputs.age || "--"} Yrs / ${patientInputs.gender || "--"}`, 15, y); y += 5;
+      doc.text(`Location: ${patientInputs.state || "--"}${patientInputs.lga ? ", " + patientInputs.lga : ""}`, 15, y); y += 5;
+      doc.text(`Symptom Duration: ${patientInputs.duration || "--"} Day(s)`, 15, y); y += 5;
+      const symList = Array.isArray(patientInputs.symptoms) ? patientInputs.symptoms.join(", ") : "None";
+      const splitSym = doc.splitTextToSize(`Symptoms: ${symList}`, 180);
+      doc.text(splitSym, 15, y);
+      y += splitSym.length * 5;
     }
 
-    // Recommendation
+    // Recommended Action
     y += 4;
     doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Recommendation', 15, y); y += 8;
+    doc.setFont("helvetica", "bold");
+    doc.text("Clinical Guidance & Actions", 15, y); y += 6;
+
     doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    const recLines = doc.splitTextToSize(recommendation || 'N/A', 175);
+    doc.setFont("helvetica", "normal");
+    const recLines = doc.splitTextToSize(recommendation || "Consult healthcare provider.", 180);
     doc.text(recLines, 15, y);
     y += recLines.length * 5 + 4;
 
-    // Advice
-    if (Array.isArray(advice) && advice.length > 0) {
-      doc.setFontSize(12);
-      doc.setFont('helvetica', 'bold');
-      doc.text('Clinical Advice', 15, y); y += 8;
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      advice.forEach(item => {
-        const lines = doc.splitTextToSize(`• ${item}`, 175);
-        doc.text(lines, 15, y);
-        y += lines.length * 5;
+    // Direct Advice
+    if (advice.length > 0) {
+      advice.forEach((item) => {
+        const itemLines = doc.splitTextToSize(`• ${item}`, 180);
+        doc.text(itemLines, 15, y);
+        y += itemLines.length * 5;
       });
+      y += 4;
     }
 
-    // AI Insights
+    // Insights
     if (aiInsights) {
-      y += 4;
       doc.setFontSize(12);
-      doc.setFont('helvetica', 'bold');
-      doc.text('AI Insights', 15, y); y += 8;
+      doc.setFont("helvetica", "bold");
+      doc.text("AI Insights", 15, y); y += 6;
       doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      const insightLines = doc.splitTextToSize(aiInsights, 175);
+      doc.setFont("helvetica", "normal");
+      const insightLines = doc.splitTextToSize(aiInsights, 180);
       doc.text(insightLines, 15, y);
       y += insightLines.length * 5;
     }
 
-    // Disclaimer
-    y = Math.max(y + 10, 270);
-    doc.setDrawColor(229, 231, 235);
+    // Disclaimer Box
+    y = Math.max(y + 8, 265);
+    doc.setDrawColor(220, 220, 220);
     doc.line(15, y, 195, y);
     doc.setFontSize(8);
-    doc.setTextColor(107, 114, 128);
-    doc.setFont('helvetica', 'italic');
-    const disclaimerLines = doc.splitTextToSize(
-      'This application provides AI-assisted screening only. It is NOT a medical diagnosis. Always consult a qualified healthcare professional.',
-      175
-    );
-    doc.text(disclaimerLines, 15, y + 5);
+    doc.setTextColor(120, 120, 120);
+    doc.setFont("helvetica", "italic");
+    const disclaimer = "IMPORTANT DISCLAIMER: This document contains AI-assisted screening logic and does NOT constitute a formal medical diagnosis. Always verify clinical findings via accredited laboratory tests (RDT/Microscopy) with a licensed healthcare practitioner.";
+    const splitDisclaimer = doc.splitTextToSize(disclaimer, 180);
+    doc.text(splitDisclaimer, 15, y + 5);
 
-    doc.save(`AfriSafe_Report_${new Date().toISOString().slice(0, 10)}.pdf`);
-    showToast('Report downloaded.', 'success');
-  }
+    doc.save(`AfriSafe_Triage_Report_${new Date().toISOString().slice(0, 10)}.pdf`);
 
-  /**
-   * Simple helper to format raw paragraphs and list markers into HTML.
-   */
-  function formatText(text) {
-    if (!text) return '--';
-
-    let lines = text.split('\n');
-    let inList = false;
-    let formattedHtml = '';
-
-    lines.forEach(line => {
-      const cleanLine = line.trim();
-      if (cleanLine.startsWith('-') || cleanLine.startsWith('*')) {
-        if (!inList) {
-          formattedHtml += '<ul class="insights-list" style="margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 1.5rem; list-style-type: disc;">';
-          inList = true;
-        }
-        formattedHtml += `<li style="margin-bottom: 0.35rem;">${escapeHtml(cleanLine.substring(1).trim())}</li>`;
-      } else {
-        if (inList) {
-          formattedHtml += '</ul>';
-          inList = false;
-        }
-        if (cleanLine.length > 0) {
-          formattedHtml += `<p style="margin-bottom: 0.75rem;">${escapeHtml(cleanLine)}</p>`;
-        }
-      }
-    });
-
-    if (inList) {
-      formattedHtml += '</ul>';
+    if (typeof showToast === "function") {
+      showToast("PDF report downloaded successfully.", "success");
     }
-
-    return formattedHtml;
   }
 });
+
+/**
+ * Helper: Formats ISO timestamps into human-readable strings
+ */
+function formatDate(dateString) {
+  try {
+    const d = new Date(dateString);
+    if (isNaN(d.getTime())) return dateString;
+    return d.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  } catch {
+    return dateString;
+  }
+}
+
+/**
+ * Helper: Escapes raw strings for safe innerHTML injection
+ */
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/**
+ * Helper: Converts multi-line paragraph text or lists into HTML
+ */
+function formatText(text) {
+  if (!text) return "--";
+
+  const lines = text.split("\n");
+  let inList = false;
+  let formattedHtml = "";
+
+  lines.forEach((line) => {
+    const cleanLine = line.trim();
+    if (cleanLine.startsWith("-") || cleanLine.startsWith("*")) {
+      if (!inList) {
+        formattedHtml += '<ul class="insights-list" style="margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 1.25rem; list-style-type: disc;">';
+        inList = true;
+      }
+      formattedHtml += `<li style="margin-bottom: 0.35rem;">${escapeHtml(cleanLine.substring(1).trim())}</li>`;
+    } else {
+      if (inList) {
+        formattedHtml += "</ul>";
+        inList = false;
+      }
+      if (cleanLine.length > 0) {
+        formattedHtml += `<p style="margin-bottom: 0.5rem;">${escapeHtml(cleanLine)}</p>`;
+      }
+    }
+  });
+
+  if (inList) {
+    formattedHtml += "</ul>";
+  }
+
+  return formattedHtml;
+}
+
+/**
+ * Helper: Smooth numerical counter animation
+ */
+function animateCounter(element, start, end, duration) {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    element.textContent = Math.floor(progress * (end - start) + start);
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+}
