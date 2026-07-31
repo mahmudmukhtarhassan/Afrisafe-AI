@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Persist result and inputs for the result page
       localStorage.setItem('triageResult', JSON.stringify(result));
       localStorage.setItem('patientInputs', JSON.stringify(payload));
-      window.location.href = 'result.html';
+      window.location.href = 'results.html';
     } catch (err) {
       console.error('API Prediction request error:', err);
       if (err.status === 401) {
