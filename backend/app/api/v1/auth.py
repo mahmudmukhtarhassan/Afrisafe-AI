@@ -67,7 +67,7 @@ def login_user(payload: LoginRequest):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password"
-        ))
+        )
 
 
 # Pydantic Schemas
