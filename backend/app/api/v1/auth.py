@@ -1,23 +1,73 @@
-import os
-from fastapi import APIRouter, HTTPException, Depends, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pydantic import BaseModel, EmailStr
-from supabase import create_client, Client
+from fastapi import APIRouter, HTTPException, status
+from app.schemas.auth import RegisterRequest, LoginRequest, AuthResponse
+from app.core.supabase import get_supabase
 
-router = APIRouter()
-security = HTTPBearer()
+router = APIRouter(prefix="/auth", tags=["Authentication"])
 
-# Supabase Initialization
-SUPABASE_URL = os.getenv("SUPABASE_URL", "")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
 
-def get_supabase() -> Client:
-    if not SUPABASE_URL or not SUPABASE_KEY:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Supabase credentials are not configured in environment variables."
+@router.post("/register", response_model=AuthResponse, status_code=status.HTTP_201_CREATED)
+def register_user(payload: RegisterRequest):
+    supabase = get_supabase()
+    try:
+        response = supabase.auth.sign_up({
+            "email": payload.email,
+            "password": payload.password,
+            "options": {
+                "data": {
+                    "full_name": payload.full_name
+                }
+            }
+        })
+
+        # Idan Supabase yana bukatar Email Confirmation, session za tayi None
+        if response.session is None:
+            # Wannan yana nufin an yi signup amma ana jiran confirmation
+            raise HTTPException(
+                status_code=status.HTTP_202_ACCEPTED,
+                detail="User registered successfully. Please check your email for confirmation before logging in."
+            )
+
+        return AuthResponse(
+            access_token=response.session.access_token,
+            refresh_token=response.session.refresh_token,
+            token_type="bearer"
         )
-    return create_client(SUPABASE_URL, SUPABASE_KEY)
+
+    except HTTPException:
+        # Don meye a re-raise ainihin HTTPExceptions dinmu ba tare da catch-all ya goge su ba
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+
+@router.post("/login", response_model=AuthResponse)
+def login_user(payload: LoginRequest):
+    supabase = get_supabase()
+    try:
+        response = supabase.auth.sign_in_with_password({
+            "email": payload.email,
+            "password": payload.password
+        })
+
+        if not response.session:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect email or password"
+            )
+
+        return AuthResponse(
+            access_token=response.session.access_token,
+            refresh_token=response.session.refresh_token,
+            token_type="bearer"
+        )
+
+    except HTTPException:
+        raise
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password"
+        ))
 
 
 # Pydantic Schemas
