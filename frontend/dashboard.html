@@ -1000,7 +1000,8 @@
       if (!confirm("Are you sure you want to delete this assessment record?")) return;
 
       try {
-        await apiRequest(`/api/v1/prediction/history/${id}`, "DELETE");
+        await apiRequest(`/api/v1/assessment/${id}`, {
+  method: "DELETE"});
         showToast("Assessment record deleted successfully.", "success");
 
         allHistoryItems = allHistoryItems.filter(i => i.id !== id);
