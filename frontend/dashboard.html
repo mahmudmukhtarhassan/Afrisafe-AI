@@ -404,7 +404,7 @@
       </a>
       <nav class="nav-links" aria-label="Main Navigation">
         <a href="dashboard.html" class="nav-link active" aria-current="page">Dashboard</a>
-        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="prediction.html" class="nav-link">Assessment</a>
         <a href="guidelines.html" class="nav-link">Guidelines</a>
         <a href="history.html" class="nav-link">History</a>
         <a href="profile.html" class="nav-link">Profile</a>
@@ -427,7 +427,7 @@
         <h1>Welcome back, <span id="welcomeName">User</span>!</h1>
         <p>Monitor your malaria risk assessments, track historical screening trends, and start new risk evaluations.</p>
         <div class="quick-actions">
-          <a href="assessment.html" class="btn-primary">
+          <a href="prediction.html" class="btn-primary">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
             New Assessment
           </a>
@@ -506,7 +506,7 @@
           <div class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
             <p>No historical assessments recorded yet.</p>
-            <a href="assessment.html" class="btn-primary" style="margin-top: 1rem; background: var(--primary-green); color: #fff;">Start First Assessment</a>
+            <a href="prediction.html" class="btn-primary" style="margin-top: 1rem; background: var(--primary-green); color: #fff;">Start First Assessment</a>
           </div>
         </div>
       </section>
@@ -554,7 +554,7 @@
               <h4>Test Before Treatment (RDT / Microscopy)</h4>
               <p>Never take antimalarials without a confirmed parasite test. Prompt rapid testing prevents drug resistance and misdiagnosis.</p>
             </div>
-            <a href="assessment.html" class="tip-action-link">Assess symptoms now &rarr;</a>
+            <a href="prediction.html" class="tip-action-link">Assess symptoms now &rarr;</a>
           </div>
 
           <div class="tip-box">
@@ -588,6 +588,25 @@
     let currentSearch = "";
 
     const LOCAL_HISTORY_KEY = "afrisafe_local_history_cache";
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "--";
+      try {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
+      } catch (e) {
+        return dateStr;
+      }
+    }
+
+    function extractSymptomList(symptomsObj) {
+      if (!symptomsObj) return [];
+      if (Array.isArray(symptomsObj)) return symptomsObj;
+      if (typeof symptomsObj === "object" && Array.isArray(symptomsObj.symptoms)) {
+        return symptomsObj.symptoms;
+      }
+      return [];
+    }
 
     document.addEventListener("DOMContentLoaded", async () => {
       if (typeof requireAuth === "function" && !requireAuth()) return;
@@ -626,9 +645,9 @@
         } catch(e) {}
       }
 
-      // Fetch fresh data from API
+      // Fetch fresh data from Express API
       try {
-        const data = await apiRequest("/api/v1/assessment/history?limit=50");
+        const data = await apiRequest("/api/v1/prediction/history?limit=50");
         if (data && data.items) {
           allHistoryItems = data.items;
           localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(allHistoryItems));
@@ -723,14 +742,15 @@
           <div class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
             <p>No historical assessments recorded yet.</p>
-            <a href="assessment.html" class="btn-primary" style="margin-top: 1rem; background: var(--primary-green); color: #fff;">Start First Assessment</a>
+            <a href="prediction.html" class="btn-primary" style="margin-top: 1rem; background: var(--primary-green); color: #fff;">Start First Assessment</a>
           </div>`;
         return;
       }
 
       let filtered = allHistoryItems.filter(item => {
         const matchesFilter = currentFilter === "all" || item.risk === currentFilter;
-        const symptomsStr = item.symptoms ? item.symptoms.join(" ").toLowerCase() : "";
+        const rawSymptoms = extractSymptomList(item.symptoms);
+        const symptomsStr = rawSymptoms.join(" ").toLowerCase();
         const dateStr = formatDate(item.created_at).toLowerCase();
         const matchesSearch = !currentSearch || symptomsStr.includes(currentSearch) || dateStr.includes(currentSearch);
         return matchesFilter && matchesSearch;
@@ -749,8 +769,9 @@
         const card = document.createElement("div");
         card.className = "history-card";
         const riskClass = item.risk ? item.risk.toLowerCase() : "low";
-        const symptomsPreview = item.symptoms && item.symptoms.length > 0
-          ? item.symptoms.slice(0, 3).join(", ") + (item.symptoms.length > 3 ? "..." : "")
+        const rawSymptoms = extractSymptomList(item.symptoms);
+        const symptomsPreview = rawSymptoms.length > 0
+          ? rawSymptoms.slice(0, 3).join(", ") + (rawSymptoms.length > 3 ? "..." : "")
           : "No specific symptoms noted";
 
         card.innerHTML = `
@@ -776,6 +797,15 @@
       const modal = document.getElementById("detailsModal");
       const body = document.getElementById("modalBody");
       const riskColor = item.risk === "High" ? "var(--danger)" : item.risk === "Medium" ? "var(--warning)" : "var(--success)";
+      const rawSymptoms = extractSymptomList(item.symptoms);
+
+      const symptomsHtml = rawSymptoms.length > 0
+        ? rawSymptoms.map(s => `<li>${s}</li>`).join("")
+        : "<li>No specific symptoms recorded</li>";
+
+      const adviceHtml = item.advice && item.advice.length > 0
+        ? item.advice.map(a => `<li>${a}</li>`).join("")
+        : "<li>Follow local health guidelines and rest.</li>";
 
       body.innerHTML = `
         <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem;">Assessment Details</h2>
@@ -794,36 +824,31 @@
 
         <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 0.5rem;">Reported Symptoms:</h4>
         <ul style="padding-left: 1.2rem; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
-          ${item.symptoms && item.symptoms.length > 0 ? item.symptoms.map(s => `<li>${s}</li>`).join('') : '<li>None logged</li>'}
+          ${symptomsHtml}
         </ul>
 
-        ${item.recommendations && item.recommendations.length > 0 ? `
-          <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 0.5rem;">Recommended Next Steps:</h4>
-          <ul style="padding-left: 1.2rem; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6; color: var(--text-color);">
-            ${item.recommendations.map(r => `<li>${r}</li>`).join('')}
-          </ul>
-        ` : ''}
+        <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 0.5rem;">Clinical Recommendations:</h4>
+        <p style="font-size: 0.875rem; color: var(--text-color); margin-bottom: 1rem; line-height: 1.5;">
+          ${item.recommendation || "No specific recommendation provided."}
+        </p>
 
-        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
-          <a href="guidelines.html" class="btn-primary" style="background: var(--primary-green); color: #fff; text-decoration: none;">View Guidelines</a>
-          <button onclick="closeModal()" class="btn-secondary" style="background: rgba(0,0,0,0.06); color: var(--text-color); border: none;">Close</button>
-        </div>
+        <h4 style="font-size: 0.95rem; font-weight: 800; margin-bottom: 0.5rem;">Actionable Health Advice:</h4>
+        <ul style="padding-left: 1.2rem; font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          ${adviceHtml}
+        </ul>
+
+        ${item.ai_insights ? `
+          <div style="background: rgba(15,157,88,0.08); border-left: 4px solid var(--primary-green); padding: 1rem; border-radius: 6px; font-size: 0.85rem;">
+            <strong>AI Insight:</strong> ${item.ai_insights}
+          </div>
+        ` : ""}
       `;
 
       modal.classList.add("open");
     }
 
     function closeModal() {
-      const modal = document.getElementById("detailsModal");
-      modal.classList.remove("open");
-    }
-
-    function formatDate(dateStr) {
-      if (!dateStr) return "--";
-      const d = new Date(dateStr);
-      if (isNaN(d.getTime())) return dateStr;
-      return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) + ", " +
-             d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+      document.getElementById("detailsModal").classList.remove("open");
     }
   </script>
 </body>
