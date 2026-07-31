@@ -1,112 +1,53 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from fastapi import APIRouter, HTTPException
+from app.schemas.auth import RegisterRequest, LoginRequest, AuthResponse
+from app.core.supabase import get_supabase
 
-from app.db.database import get_db
-from app.models.user import User
-from app.schemas.auth import (
-    RegisterRequest,
-    LoginRequest,
-    RefreshTokenRequest,
-    AuthResponse,
-    UserOut,
+router = APIRouter(prefix="/auth", tags=["Authentication"])
+
+@router.post("/register", response_model=AuthResponse)
+def register(payload: RegisterRequest):
+supabase = get_supabase()
+
+```
+result = supabase.auth.sign_up({
+    "email": payload.email,
+    "password": payload.password,
+    "options": {
+        "data": {
+            "full_name": payload.full_name,
+            "age": payload.age,
+            "gender": payload.gender,
+            "state": payload.state,
+            "lga": payload.lga,
+        }
+    }
+})
+
+if result.session is None:
+    raise HTTPException(status_code=400, detail="Registration failed")
+
+return AuthResponse(
+    access_token=result.session.access_token,
+    refresh_token=result.session.refresh_token,
 )
-from fastapi import APIRouter, HTTPException, Header
-from pydantic import BaseModel
+```
 
-from app.core.supabase import supabase
-from app.schemas.auth import RegisterRequest, LoginRequest
-from app.services.auth_service import (
-    register_user,
-    login_user,
-    logout_user,
+@router.post("/login", response_model=AuthResponse)
+def login(payload: LoginRequest):
+supabase = get_supabase()
+
+```
+result = supabase.auth.sign_in_with_password({
+    "email": payload.email,
+    "password": payload.password,
+})
+
+if result.session is None:
+    raise HTTPException(status_code=401, detail="Incorrect email or password")
+
+return AuthResponse(
+    access_token=result.session.access_token,
+    refresh_token=result.session.refresh_token,
 )
+```
 
-router = APIRouter(
-    prefix="/api/v1/auth",
-    tags=["Authentication"],
-)
-
-# -----------------------------
-# Register
-# -----------------------------
-@router.post("/register")
-async def register(data: RegisterRequest):
-    try:
-        result = await register_user(
-            data.full_name,
-            data.email,
-            data.password,
-        )
-
-        return {
-            "message": "Registration successful",
-            "user": result.user,
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-
-# -----------------------------
-# Login
-# -----------------------------
-@router.post("/login")
-async def login(data: LoginRequest):
-    try:
-        session = await login_user(
-            data.email,
-            data.password,
-        )
-
-        return {
-            "access_token": session.session.access_token,
-            "refresh_token": session.session.refresh_token,
-            "user": session.user,
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=401, detail=str(e))
-
-
-# -----------------------------
-# Refresh Token
-# -----------------------------
-class RefreshRequest(BaseModel):
-    refresh_token: str
-
-
-@router.post("/refresh")
-async def refresh_token(data: RefreshRequest):
-    try:
-        session = supabase.auth.refresh_session(
-            data.refresh_token
-        )
-
-        return {
-            "access_token": session.session.access_token,
-            "refresh_token": session.session.refresh_token,
-        }
-
-    except Exception as e:
-        raise HTTPException(
-            status_code=401,
-            detail=f"Refresh failed: {str(e)}",
-        )
-
-
-# -----------------------------
-# Logout
-# -----------------------------
-@router.post("/logout")
-async def logout(authorization: str = Header(...)):
-    try:
-        token = authorization.replace("Bearer ", "")
-
-        await logout_user(token)
-
-        return {
-            "message": "Logged out successfully"
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
