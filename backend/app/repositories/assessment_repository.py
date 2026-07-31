@@ -1,34 +1,20 @@
-from app.core.supabase import supabase
+from app.core.supabase import get_supabase
+
 
 class AssessmentRepository:
+    def __init__(self):
+        self.client = get_supabase()
 
-    @staticmethod
-    def create(data: dict):
-        return (
-            supabase
-            .table("assessments")
-            .insert(data)
-            .execute()
-        )
+    def create_assessment(self, data: dict):
+        response = self.client.table("assessments").insert(data).execute()
+        return response.data
 
-    @staticmethod
-    def list_by_user(user_id: str):
-        return (
-            supabase
-            .table("assessments")
+    def get_assessment_by_id(self, assessment_id: str):
+        response = (
+            self.client.table("assessments")
             .select("*")
-            .eq("user_id", user_id)
-            .order("created_at", desc=True)
-            .execute()
-        )
-
-    @staticmethod
-    def delete(user_id: str, assessment_id: str):
-        return (
-            supabase
-            .table("assessments")
-            .delete()
             .eq("id", assessment_id)
-            .eq("user_id", user_id)
+            .single()
             .execute()
         )
+        return response.data
