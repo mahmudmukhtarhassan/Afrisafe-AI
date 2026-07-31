@@ -50,4 +50,3 @@ return AuthResponse(
     refresh_token=result.session.refresh_token,
 )
 ```
-
