@@ -1,72 +1,17 @@
-from fastapi import APIRouter, Depends
-
-from app.schemas.assessment import AssessmentCreate
-
+from fastapi import APIRouter, HTTPException, status
 from app.services.assessment_service import AssessmentService
 
-from app.dependencies.auth import get_current_user
-
-from app.utils.responses import success
-
-router = APIRouter(
-    prefix="/api/v1/assessment",
-    tags=["Assessment"],
-)
+router = APIRouter()
+service = AssessmentService()
 
 
-@router.post("")
-async def create_assessment(
-    data: AssessmentCreate,
-    user=Depends(get_current_user),
-):
-
-    result = await AssessmentService.save(
-        user["sub"],
-        data,
-    )
-
-    return success(
-        result,
-        "Assessment saved successfully",
-    )
-
-
-@router.get("/history")
-async def history(
-    user=Depends(get_current_user),
-):
-
-    result = await AssessmentService.history(
-        user["sub"]
-    )
-
-    return success(result)
-
-
-@router.get("/dashboard")
-async def dashboard(
-    user=Depends(get_current_user),
-):
-
-    result = await AssessmentService.dashboard(
-        user["sub"]
-    )
-
-    return success(result)
-
-
-@router.delete("/{assessment_id}")
-async def delete_assessment(
-    assessment_id: str,
-    user=Depends(get_current_user),
-):
-
-    result = await AssessmentService.remove(
-        user["sub"],
-        assessment_id,
-    )
-
-    return success(
-        result,
-        "Assessment deleted successfully",
-    )
+@router.post("/predict", status_code=status.HTTP_200_OK)
+def calculate_assessment(payload: dict):
+    try:
+        result = service.process_triage(payload)
+        return result
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to process assessment: {str(e)}"
+        )
