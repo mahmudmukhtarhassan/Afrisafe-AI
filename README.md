@@ -80,7 +80,7 @@ All routes are prefixed with `/api/v1`.
 | POST   | `/auth/register`            | None   | Register, returns JWT pair           |
 | POST   | `/auth/login`               | None   | Login, returns JWT pair              |
 | POST   | `/auth/refresh`             | None   | Refresh access token                 |
-| POST   | `/auth/logout`               | None   | Revoke refresh token                 |
+| POST   | `/auth/logout`              | None   | Revoke refresh token                 |
 | GET    | `/auth/me`                  | User   | Current user profile                  |
 | POST   | `/prediction/predict`       | User   | Run malaria prediction + save history|
 | GET    | `/prediction/history`       | User   | List user's prediction history       |
