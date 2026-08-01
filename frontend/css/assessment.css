@@ -111,9 +111,10 @@ body {
   color: var(--primary-green);
 }
 
-.logo-icon svg {
-  width: 24px;
-  height: 24px;
+.logo-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
 .brand-name {
