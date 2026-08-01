@@ -525,6 +525,13 @@ function initNotificationSystem() {
   }, 60000);
 }
 
+// Expose globally for module scripts
+window.getNotificationSettings = getNotificationSettings;
+window.saveNotificationSettings = saveNotificationSettings;
+window.requestBrowserNotificationPermission = requestBrowserNotificationPermission;
+window.addNotification = addNotification;
+window.showToast = window.showToast || showToast;
+
 document.addEventListener("DOMContentLoaded", () => {
   initNotificationSystem();
 });

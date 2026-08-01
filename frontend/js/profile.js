@@ -38,7 +38,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // Load notification settings from localStorage
-  const settings = getNotificationSettings();
+  const settings = window.getNotificationSettings ? window.getNotificationSettings() : {
+    symptomReminderEnabled: true, symptomReminderTime: "09:00",
+    preventionReminderEnabled: true, preventionReminderTime: "18:00",
+    browserNotifsEnabled: false,
+  };
   document.getElementById("symptomEnabled").checked = settings.symptomReminderEnabled;
   document.getElementById("symptomTime").value = settings.symptomReminderTime;
   document.getElementById("preventionEnabled").checked = settings.preventionReminderEnabled;
@@ -77,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       browserNotifsEnabled: document.getElementById("browserNotifsEnabled").checked,
       intervalDays: 1,
     };
-    saveNotificationSettings(newSettings);
+    if (window.saveNotificationSettings) window.saveNotificationSettings(newSettings);
     if (typeof showToast === "function") {
       showToast("Notification settings saved.", "success");
     }
