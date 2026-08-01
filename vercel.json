@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "afrisafe-ai-frontend",
+  "builds": [
+    { "src": "frontend/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/dashboard.html", "dest": "/frontend/dashboard.html" },
+    { "src": "/assessment.html", "dest": "/frontend/assessment.html" },
+    { "src": "/login.html", "dest": "/frontend/login.html" },
+    { "src": "/register.html", "dest": "/frontend/register.html" },
+    { "src": "/(.*)", "dest": "/frontend/$1" }
+  ]
+}
