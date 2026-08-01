@@ -618,10 +618,10 @@ app.get("/api/v1/admin/statistics", authenticateToken, requireAdmin, (req: Authe
 // ---------------------------------------------------------------------------
 
 const frontendDir = path.join(process.cwd(), "frontend");
-app.use(express.static(frontendDir));
+app.use(express.static(frontendDir, { extensions: ["html", "htm"] }));
 
 app.get("/", (req: Request, res: Response) => {
-  res.redirect("/login.html");
+  res.sendFile(path.join(frontendDir, "index.html"));
 });
 
 // Catch-all route for unknown frontend routes
@@ -629,7 +629,7 @@ app.get("*", (req: Request, res: Response) => {
   if (req.path.startsWith("/api/")) {
     return res.status(404).json({ detail: "Endpoint not found" });
   }
-  res.status(404).send("404 - Page Not Found");
+  res.status(404).sendFile(path.join(frontendDir, "404.html"));
 });
 
 // ---------------------------------------------------------------------------

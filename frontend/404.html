@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found - AfriSafe AI</title>
+  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/result.css">
+  <style>
+    .not-found-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--glass-shadow);
+      padding: 4rem 2rem;
+      text-align: center;
+      max-width: 560px;
+      margin: 3rem auto;
+    }
+    .not-found-code { font-size: 5rem; font-weight: 800; color: var(--primary-green); letter-spacing: -0.04em; }
+    .not-found-title { font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0 1rem; }
+    .not-found-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <div class="ambient-background" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <main class="main-layout" style="grid-template-columns: 1fr;">
+    <div class="not-found-card">
+      <div class="not-found-code">404</div>
+      <h1 class="not-found-title">Page Not Found</h1>
+      <p class="not-found-desc">The page you are looking for doesn't exist or has been moved.</p>
+      <a href="dashboard.html" class="btn btn-primary" style="width:auto;">Back to Dashboard</a>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p class="copyright">&copy; 2026 AfriSafe AI</p>
+  </footer>
+</body>
+</html>

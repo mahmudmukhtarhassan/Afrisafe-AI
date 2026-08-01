@@ -1,35 +1,205 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Register — AfriSafe AI</title>
-  <link rel="stylesheet" href="/css/styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your AfriSafe AI account - AI-powered malaria risk assessment for Nigeria.">
+  <title>Register - AfriSafe AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/registration.css">
+
+  <meta name="theme-color" content="#0F9D58">
+  <meta property="og:title" content="Register - AfriSafe AI">
+  <meta property="og:description" content="Create your AfriSafe AI account.">
+  <meta property="og:type" content="website">
 </head>
 <body>
-  <header>
-    <h1>AfriSafe AI — Register</h1>
-    <nav>
-      <a href="/index.html">Home</a>
-      <a href="/login.html">Login</a>
-    </nav>
-  </header>
 
-  <main>
-    <form id="registerForm" class="card">
-      <label>
-        Email
-        <input name="email" type="email" required />
-      </label>
-      <label>
-        Password
-        <input name="password" type="password" required minlength="6" />
-      </label>
-      <button type="submit">Create account</button>
-    </form>
-    <p>Already registered? <a href="/login.html">Login</a></p>
+  <div class="background-elements" aria-hidden="true">
+    <div class="gradient-circle circle-1"></div>
+    <div class="gradient-circle circle-2"></div>
+    <div class="floating-particles"></div>
+  </div>
+
+  <main class="login-container">
+    <section class="login-left" aria-label="Application Presentation">
+      <div class="brand-content">
+        <div class="brand-logo">
+          <img src="assets/gemini-svg.svg" alt="AfriSafe AI Logo">
+          <span>AfriSafe AI</span>
+        </div>
+        <h1>Protect your community with <span class="gradient-text">AI-driven malaria screening</span></h1>
+        <p>Join thousands of Nigerians using AfriSafe AI for early malaria risk detection and prevention guidance.</p>
+        <ul class="feature-list" aria-label="Key Platform Features">
+          <li class="feature-item"><i aria-hidden="true">🛡️</i><span>Instant AI risk assessment based on symptoms</span></li>
+          <li class="feature-item"><i aria-hidden="true">📊</i><span>Track your assessment history over time</span></li>
+          <li class="feature-item"><i aria-hidden="true">📄</i><span>Download clinical triage reports as PDF</span></li>
+          <li class="feature-item"><i aria-hidden="true">🔔</i><span>Daily prevention reminders and guidelines</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="login-right" aria-label="Registration Area">
+      <div class="glass-card animate-fade-in-up">
+        <div class="card-header">
+          <h2>Create Your Account</h2>
+          <p>Get started with AI-powered malaria risk screening</p>
+        </div>
+
+        <div id="formAlert" class="form-alert" role="alert" aria-live="assertive"></div>
+
+        <form id="registerForm" class="auth-form" novalidate>
+          <div class="input-group">
+            <label for="full_name">Full Name</label>
+            <div class="input-wrapper">
+              <input type="text" id="full_name" name="full_name" class="form-control" placeholder="Enter your full name" required autocomplete="name">
+              <span class="input-icon"><i class="fas fa-user"></i>👤</span>
+            </div>
+            <span class="error-message" id="fullNameError"></span>
+          </div>
+
+          <div class="input-group">
+            <label for="email">Email Address</label>
+            <div class="input-wrapper">
+              <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required autocomplete="email">
+              <span class="input-icon">✉️</span>
+            </div>
+            <span class="error-message" id="emailError"></span>
+          </div>
+
+          <div class="form-row">
+            <div class="input-group">
+              <label for="age">Age</label>
+              <div class="input-wrapper">
+                <input type="number" id="age" name="age" class="form-control" placeholder="Years" min="1" max="120">
+                <span class="input-icon">🎂</span>
+              </div>
+              <span class="error-message" id="ageError"></span>
+            </div>
+
+            <div class="input-group">
+              <label for="gender">Gender</label>
+              <div class="input-wrapper">
+                <select id="gender" name="gender" class="form-control">
+                  <option value="">Select...</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <span class="input-icon">⚧</span>
+              </div>
+              <span class="error-message"></span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="state">State of Residence</label>
+            <div class="input-wrapper">
+              <select id="state" name="state" class="form-control">
+                <option value="">Select your state...</option>
+                <option value="Abia">Abia</option>
+                <option value="Adamawa">Adamawa</option>
+                <option value="Akwa Ibom">Akwa Ibom</option>
+                <option value="Anambra">Anambra</option>
+                <option value="Bauchi">Bauchi</option>
+                <option value="Bayelsa">Bayelsa</option>
+                <option value="Benue">Benue</option>
+                <option value="Borno">Borno</option>
+                <option value="Cross River">Cross River</option>
+                <option value="Delta">Delta</option>
+                <option value="Ebonyi">Ebonyi</option>
+                <option value="Edo">Edo</option>
+                <option value="Ekiti">Ekiti</option>
+                <option value="Enugu">Enugu</option>
+                <option value="FCT">Federal Capital Territory</option>
+                <option value="Gombe">Gombe</option>
+                <option value="Imo">Imo</option>
+                <option value="Jigawa">Jigawa</option>
+                <option value="Kaduna">Kaduna</option>
+                <option value="Kano">Kano</option>
+                <option value="Katsina">Katsina</option>
+                <option value="Kebbi">Kebbi</option>
+                <option value="Kogi">Kogi</option>
+                <option value="Kwara">Kwara</option>
+                <option value="Lagos">Lagos</option>
+                <option value="Nasarawa">Nasarawa</option>
+                <option value="Niger">Niger</option>
+                <option value="Ogun">Ogun</option>
+                <option value="Ondo">Ondo</option>
+                <option value="Osun">Osun</option>
+                <option value="Oyo">Oyo</option>
+                <option value="Plateau">Plateau</option>
+                <option value="Rivers">Rivers</option>
+                <option value="Sokoto">Sokoto</option>
+                <option value="Taraba">Taraba</option>
+                <option value="Yobe">Yobe</option>
+                <option value="Zamfara">Zamfara</option>
+              </select>
+              <span class="input-icon">📍</span>
+            </div>
+            <span class="error-message" id="stateError"></span>
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <input type="password" id="password" name="password" class="form-control" placeholder="At least 6 characters" required autocomplete="new-password">
+              <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+            <span class="error-message" id="passwordError"></span>
+          </div>
+
+          <div class="remember-row">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" id="termsAgree" required>
+              <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+            </label>
+          </div>
+
+          <button type="submit" id="registerBtn" class="btn btn-primary">
+            <span class="btn-text">Create Account</span>
+            <span class="btn-spinner hidden" aria-hidden="true"></span>
+          </button>
+        </form>
+
+        <div class="register-link">
+          <p>Already have an account? <a href="login.html">Sign in here</a></p>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script type="module" src="/js/register.js"></script>
+  <footer class="app-footer">
+    <p class="copyright">&copy; 2026 AfriSafe AI. All rights reserved.</p>
+    <p class="disclaimer">
+      <strong>Medical Disclaimer:</strong> This application provides AI-assisted screening only and is NOT a medical diagnosis.
+    </p>
+  </footer>
+
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/helpers.js"></script>
+  <script type="module" src="js/registration.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("passwordToggle");
+      const passwordInput = document.getElementById("password");
+      toggle.addEventListener("click", () => {
+        const isPassword = passwordInput.type === "password";
+        passwordInput.type = isPassword ? "text" : "password";
+      });
+    });
+  </script>
 </body>
 </html>

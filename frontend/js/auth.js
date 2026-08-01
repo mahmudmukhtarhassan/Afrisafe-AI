@@ -36,7 +36,6 @@ async function refreshAccessToken() {
     throw new Error("Refresh failed");
   }
   const data = await resp.json();
-  // Supabase returns no expires_in via this proxy; we keep previous expiry heuristic
   saveTokens({ access_token: data.access_token, refresh_token: data.refresh_token, expires_in: 3600 });
   return data.access_token;
 }
@@ -56,7 +55,6 @@ async function fetchWithAuth(url, options = {}, retry = true) {
       options.headers["Authorization"] = `Bearer ${newAccess}`;
       resp = await fetch(url, options);
     } catch (err) {
-      // refresh failed
       clearTokens();
       throw err;
     }

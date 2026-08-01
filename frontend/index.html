@@ -1,34 +1,89 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AfriSafe AI</title>
-  <link rel="stylesheet" href="/css/styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfriSafe AI - AI-Powered Malaria Risk Assessment</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/login.css">
+
+  <meta name="theme-color" content="#0F9D58">
+  <meta name="description" content="AfriSafe AI - AI-powered malaria risk prediction and triage system for Nigeria.">
 </head>
 <body>
-  <header>
-    <h1>AfriSafe AI</h1>
-    <nav>
-      <a href="/index.html">Home</a>
-      <a href="/login.html">Login</a>
-      <a href="/register.html">Register</a>
-      <a href="/dashboard.html">Dashboard</a>
-      <a href="/assessment.html">Assessment</a>
-      <a href="/reports.html">Reports</a>
-    </nav>
-  </header>
 
-  <main>
-    <section>
-      <h2>Welcome</h2>
-      <p>AfriSafe AI helps assess safety risk. Use the navigation above to login or take an assessment.</p>
-      <p><a href="/assessment.html" class="btn">Start Assessment</a></p>
+  <div class="background-decorations" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <main class="login-wrapper">
+    <section class="brand-side" aria-label="Application Presentation">
+      <div class="brand-content">
+        <div class="badge">
+          <span class="badge-dot"></span> Digital Health AI Support
+        </div>
+        <h1 class="brand-title">
+          AfriSafe<br><span class="highlight-text">AI</span>
+        </h1>
+        <p class="brand-subtitle">
+          AI-powered early malaria risk assessment designed to support safer healthcare decisions across Nigeria.
+        </p>
+        <ul class="feature-list" aria-label="Key Platform Features">
+          <li class="feature-item"><span class="feature-icon" aria-hidden="true">✔</span><span>AI-Powered Screening</span></li>
+          <li class="feature-item"><span class="feature-icon" aria-hidden="true">✔</span><span>Built for Nigeria</span></li>
+          <li class="feature-item"><span class="feature-icon" aria-hidden="true">✔</span><span>Privacy Focused</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="form-side" aria-label="Get Started">
+      <div class="glass-card animate-fade-in-up" style="text-align:center;">
+        <div class="card-header">
+          <div class="logo-wrapper">
+            <img src="assets/gemini-svg.svg" alt="AfriSafe AI Logo" class="app-logo">
+          </div>
+          <h2 class="card-title">Get Started</h2>
+          <p class="card-subtitle">Sign in or create an account to begin your malaria risk assessment</p>
+        </div>
+
+        <a href="login.html" class="btn btn-primary" style="display:block;text-decoration:none;margin-bottom:1rem;">
+          Sign In
+        </a>
+        <a href="registration.html" class="btn btn-secondary" style="display:block;text-decoration:none;">
+          Create Account
+        </a>
+
+        <div class="card-footer-text">
+          Learn more about malaria prevention with our <a href="guidelines.html" class="register-link">public health guidelines</a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <small>© AfriSafe AI</small>
+  <footer class="app-footer">
+    <p class="copyright">&copy; 2026 AfriSafe AI. All rights reserved.</p>
+    <p class="disclaimer">
+      <strong>Medical Disclaimer:</strong> This application provides AI-assisted screening only and is NOT a medical diagnosis.
+    </p>
   </footer>
+
+  <script>
+    // Redirect to dashboard if already logged in
+    try {
+      const tokens = JSON.parse(localStorage.getItem("afrisafe_tokens"));
+      if (tokens && tokens.access_token) {
+        window.location.href = "/dashboard.html";
+      }
+    } catch {}
+  </script>
 </body>
 </html>

@@ -1,31 +1,165 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dashboard — AfriSafe AI</title>
-  <link rel="stylesheet" href="/css/styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your AfriSafe AI dashboard - view assessment history and risk summaries.">
+  <title>Dashboard - AfriSafe AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/result.css">
+
+  <meta name="theme-color" content="#0F9D58">
+  <style>
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--glass-shadow);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .stat-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    .stat-icon.green { background: var(--success-bg); color: var(--success); }
+    .stat-icon.blue { background: rgba(30,136,229,0.1); color: var(--medical-blue); }
+    .stat-icon.red { background: var(--danger-bg); color: var(--danger); }
+    .stat-value { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.825rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+
+    .history-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--glass-shadow);
+      padding: 2rem;
+    }
+    .history-card h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 1.25rem; }
+    .history-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 0; border-bottom: 1px solid var(--border-color);
+    }
+    .history-item:last-child { border-bottom: none; }
+    .history-left { display: flex; flex-direction: column; gap: 4px; }
+    .history-prediction { font-weight: 700; font-size: 0.95rem; }
+    .history-date { font-size: 0.8rem; color: var(--text-muted); }
+    .history-right { display: flex; align-items: center; gap: 1rem; }
+    .history-conf { font-size: 0.875rem; font-weight: 700; color: var(--text-muted); }
+    .empty-history { text-align: center; padding: 2rem; color: var(--text-muted); }
+    .quick-actions { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    @media (max-width: 768px) {
+      .dash-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Dashboard</h1>
-    <nav>
-      <a href="/index.html">Home</a>
-      <a href="/assessment.html">New Assessment</a>
-      <a href="/history.html">History</a>
-      <a href="/profile.html">Profile</a>
-      <button id="logoutBtn" class="btn-inline">Logout</button>
-    </nav>
+
+  <div class="ambient-background" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="dashboard.html" class="brand-group" style="text-decoration:none;color:inherit;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+        </div>
+        <div class="brand-name">AfriSafe <span class="brand-badge">AI</span></div>
+      </a>
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="dashboard.html" class="nav-link active" aria-current="page">Dashboard</a>
+        <a href="assessment.html" class="nav-link">Assessment</a>
+        <a href="guidelines.html" class="nav-link">Guidelines</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="user-badge" title="Active Session">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="user-text">User</span>
+        </div>
+        <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
+      </div>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2>Welcome, <span id="userEmail">—</span></h2>
-      <h3>Latest assessments</h3>
-      <ul id="historyList"></ul>
-    </section>
+  <main class="main-layout" style="grid-template-columns: 1fr;">
+    <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;">
+      <h1 style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;">Welcome back, <span id="userName">User</span></h1>
+      <p style="color:var(--text-muted);font-size:0.95rem;">Here's your malaria risk assessment overview.</p>
+    </div>
+
+    <div class="dash-grid">
+      <div class="stat-card">
+        <div class="stat-icon green">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <span class="stat-value" id="totalAssessments">0</span>
+        <span class="stat-label">Total Assessments</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon blue">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <span class="stat-value" id="avgConfidence">0%</span>
+        <span class="stat-label">Avg Confidence</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon red">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <span class="stat-value" id="highRiskCount">0</span>
+        <span class="stat-label">High Risk Cases</span>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <a href="assessment.html" class="btn btn-primary" style="width:auto;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon"><path d="M12 5v14M5 12h14"/></svg>
+        New Assessment
+      </a>
+      <a href="guidelines.html" class="btn btn-secondary" style="width:auto;">View Guidelines</a>
+    </div>
+
+    <div class="history-card">
+      <h2>Recent Assessments</h2>
+      <div id="historyList">
+        <div class="empty-history">Loading your assessment history...</div>
+      </div>
+    </div>
   </main>
 
-  <script type="module" src="/js/dashboard.js"></script>
+  <footer class="app-footer">
+    <p class="copyright">&copy; 2026 AfriSafe AI</p>
+    <p class="disclaimer">This application provides AI-assisted screening only. It is NOT a medical diagnosis.</p>
+  </footer>
+
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/helpers.js"></script>
+  <script src="js/notifications.js"></script>
+  <script type="module" src="js/dashboard.js"></script>
 </body>
 </html>
