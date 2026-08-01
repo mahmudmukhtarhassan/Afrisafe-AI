@@ -1,0 +1,13 @@
+:root { --max-width: 900px; --gap: 16px; --muted: #666; --primary: #0b6; }
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; padding:0; color:#222; }
+header { background:#f7f7f7; padding:12px 16px; border-bottom:1px solid #eaeaea; display:flex; align-items:center; justify-content:space-between; }
+header h1 { margin:0; font-size:1.1rem; }
+nav a { margin-right:12px; color:#0366d6; text-decoration:none; font-weight:600; }
+main { padding:24px; max-width:var(--max-width); margin:0 auto; }
+.card { background:#fff; padding:16px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,0.06); margin-bottom:16px; }
+label { display:block; margin-bottom:8px; }
+input, select { width:100%; padding:8px; margin-top:6px; box-sizing:border-box; border:1px solid #ddd; border-radius:4px; }
+button { padding:10px 14px; border:none; border-radius:6px; background:var(--primary); color:white; cursor:pointer; }
+.btn { display:inline-block; padding:8px 12px; background:#0366d6; color:#fff; border-radius:6px; text-decoration:none; }
+.btn-inline { background:transparent; color:#0366d6; border:1px solid transparent; cursor:pointer; }
+ul { padding-left:16px; }
