@@ -1,240 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prediction History - AfriSafe AI</title>
-  <meta name="description" content="View your past malaria risk prediction history on AfriSafe AI.">
-
-  <!-- SEO & Social -->
-  <meta name="theme-color" content="#0F9D58">
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta property="og:title" content="Prediction History - AfriSafe AI">
-  <meta property="og:description" content="View your past malaria risk prediction history on AfriSafe AI.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/gemini-svg.svg">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Prediction History - AfriSafe AI">
-  <meta name="twitter:description" content="View your past malaria risk prediction history on AfriSafe AI.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/assessment.css">
-  <style>
-    .history-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.5rem;
-    }
-    .history-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-card);
-      box-shadow: var(--glass-shadow);
-      padding: 1.75rem;
-      transition: var(--transition);
-      position: relative;
-    }
-    .history-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -8px rgba(31,41,55,0.12); }
-    .history-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; }
-    .risk-badge {
-      padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-    }
-    .risk-badge.high { background: var(--danger-bg); color: var(--danger); }
-    .risk-badge.medium { background: var(--warning-bg); color: var(--warning); }
-    .risk-badge.low { background: var(--success-bg); color: var(--success); }
-    .history-date { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
-    .history-prediction { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
-    .history-confidence-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-    .confidence-bar-bg { flex: 1; height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden; }
-    .confidence-bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
-    .confidence-bar-fill.high { background: var(--danger); }
-    .confidence-bar-fill.medium { background: var(--warning); }
-    .confidence-bar-fill.low { background: var(--success); }
-    .confidence-text { font-size: 0.85rem; font-weight: 700; }
-    .history-recommendation { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; }
-    .history-symptoms { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
-    .symptom-tag {
-      background: rgba(30,136,229,0.08); color: var(--medical-blue);
-      padding: 3px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 600;
-    }
-    .delete-btn {
-      background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(239,68,68,0.2);
-      padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;
-      cursor: pointer; transition: var(--transition); width: 100%;
-    }
-    .delete-btn:hover { background: var(--danger); color: #fff; }
-    .empty-state { text-align: center; padding: 4rem 1rem; color: var(--text-muted); }
-    .empty-state svg { width: 72px; height: 72px; margin-bottom: 1.5rem; opacity: 0.25; }
-    .empty-state h3 { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
-    .spinner {
-      width: 40px; height: 40px; border: 3px solid var(--border-color);
-      border-top-color: var(--primary-green); border-radius: 50%;
-      animation: spin 0.8s linear infinite; margin: 4rem auto;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-    .section-title { font-size: 1.5rem; font-weight: 800; }
-    .new-assessment-btn {
-      background: var(--primary-green); color: #fff; border: none;
-      padding: 0.625rem 1.25rem; border-radius: var(--radius-btn);
-      font-weight: 700; font-size: 0.875rem; cursor: pointer; transition: var(--transition);
-      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
-    }
-    .new-assessment-btn:hover { background: var(--primary-green-dark); transform: translateY(-2px); }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>History — AfriSafe AI</title>
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-  <div class="ambient-background">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-  </div>
-
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="dashboard.html" class="brand-group" style="text-decoration:none;color:inherit;">
-        <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
-            <path d="M12 6v6l4 2"></path>
-          </svg>
-        </div>
-        <div class="brand-name">AfriSafe <span class="brand-badge">AI</span></div>
-      </a>
-      <nav class="nav-links" aria-label="Main Navigation">
-        <a href="dashboard.html" class="nav-link">Dashboard</a>
-        <a href="assessment.html" class="nav-link">Assessment</a>
-        <a href="guidelines.html" class="nav-link">Guidelines</a>
-        <a href="history.html" class="nav-link active" aria-current="page">History</a>
-        <a href="profile.html" class="nav-link">Profile</a>
-      </nav>
-      <div class="nav-actions">
-        <div class="user-badge" title="Active Session">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span class="user-text">User</span>
-        </div>
-        <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
-      </div>
-    </div>
+  <header>
+    <h1>Assessment History</h1>
+    <nav>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/index.html">Home</a>
+    </nav>
   </header>
 
-  <main class="main-layout" style="grid-template-columns: 1fr;">
-    <div class="section-header">
-      <h1 class="section-title">Prediction History</h1>
-      <a href="assessment.html" class="new-assessment-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        New Assessment
-      </a>
-    </div>
-
-    <div id="loadingState" class="spinner"></div>
-
-    <div id="historyContainer" style="display:none;">
-      <div id="historyGrid" class="history-grid"></div>
-      <div id="emptyState" class="empty-state" style="display:none;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-        <h3>No Predictions Yet</h3>
-        <p>You haven't run any malaria risk assessments. Start your first screening now.</p>
-        <a href="assessment.html" class="new-assessment-btn" style="margin-top: 1.5rem;">Start Assessment</a>
-      </div>
-    </div>
+  <main>
+    <ul id="historyList"></ul>
   </main>
 
-  <script src="js/config.js"></script>
-  <script src="js/notifications.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      if (!requireAuth()) return;
-      populateUserBadge();
-      wireLogout();
+  <script type="module">
+    import { API_BASE_URL } from "/js/config.js";
+    import { fetchWithAuth } from "/js/auth.js";
 
+    document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const data = await apiRequest("/api/v1/prediction/history?limit=50");
-        renderHistory(data);
-      } catch (err) {
-        document.getElementById("loadingState").style.display = "none";
-        showToast(err.message || "Failed to load history.", "error");
+        const r = await fetchWithAuth(`${API_BASE_URL}/api/v1/assessment/history`, { method: "GET" });
+        if (!r.ok) return window.location.href = "/login.html";
+        const history = await r.json();
+        const list = document.getElementById("historyList");
+        list.innerHTML = "";
+        history.forEach((a) => {
+          const li = document.createElement("li");
+          li.innerText = `${a.created_at} — ${a.result} (score: ${a.score})`;
+          list.appendChild(li);
+        });
+      } catch (e) {
+        window.location.href = "/login.html";
       }
     });
-
-    function renderHistory(data) {
-      document.getElementById("loadingState").style.display = "none";
-      document.getElementById("historyContainer").style.display = "block";
-
-      const grid = document.getElementById("historyGrid");
-      const emptyState = document.getElementById("emptyState");
-      const items = data.items || [];
-
-      if (items.length === 0) {
-        emptyState.style.display = "block";
-        return;
-      }
-
-      grid.innerHTML = "";
-      items.forEach(item => {
-        const riskClass = (item.risk || "").toLowerCase();
-        const card = document.createElement("div");
-        card.className = "history-card";
-        card.dataset.id = item.id;
-
-        const symptoms = (item.symptoms && item.symptoms.symptoms) || [];
-        const symptomsHtml = symptoms.length > 0
-          ? symptoms.map(s => `<span class="symptom-tag">${escapeHtml(s)}</span>`).join("")
-          : '<span style="font-size:0.8rem;color:var(--text-muted);">None reported</span>';
-
-        card.innerHTML = `
-          <div class="history-card-header">
-            <span class="risk-badge ${riskClass}">${escapeHtml(item.risk)} Risk</span>
-            <span class="history-date">${formatDate(item.created_at)}</span>
-          </div>
-          <div class="history-prediction">${escapeHtml(item.prediction)}</div>
-          <div class="history-confidence-row">
-            <div class="confidence-bar-bg">
-              <div class="confidence-bar-fill ${riskClass}" style="width: 0%"></div>
-            </div>
-            <span class="confidence-text">${item.confidence}%</span>
-          </div>
-          <div class="history-recommendation">${escapeHtml(item.recommendation || "No recommendation available.")}</div>
-          <div class="history-symptoms">${symptomsHtml}</div>
-          <button class="delete-btn" onclick="deletePrediction(${item.id})">Delete Record</button>
-        `;
-        grid.appendChild(card);
-
-        // Animate confidence bar
-        setTimeout(() => {
-          const bar = card.querySelector(".confidence-bar-fill");
-          if (bar) bar.style.width = `${item.confidence}%`;
-        }, 100);
-      });
-    }
-
-    async function deletePrediction(id) {
-      if (!confirm("Are you sure you want to delete this prediction record?")) return;
-
-      try {
-        await apiRequest(`/api/v1/prediction/history/${id}`, { method: "DELETE" });
-        const card = document.querySelector(`[data-id="${id}"]`);
-        if (card) {
-          card.style.opacity = "0";
-          card.style.transform = "scale(0.95)";
-          setTimeout(() => card.remove(), 300);
-        }
-        showToast("Prediction deleted.", "success");
-
-        // If no cards left, show empty state
-        setTimeout(() => {
-          if (document.querySelectorAll(".history-card").length === 0) {
-            document.getElementById("emptyState").style.display = "block";
-          }
-        }, 400);
-      } catch (err) {
-        showToast(err.message || "Failed to delete record.", "error");
-      }
-    }
   </script>
 </body>
 </html>
