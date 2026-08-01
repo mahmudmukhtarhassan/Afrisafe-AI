@@ -1,129 +1,338 @@
 # AfriSafe AI
 
-An AI-powered Malaria Risk Prediction System for Nigeria.
+**AI-powered health risk assessment and disease prediction platform for Africa**
 
-## Overview
+AfriSafe AI is an intelligent healthcare platform designed to improve early disease detection and preventive healthcare across Africa. The platform enables users to perform AI-driven health assessments, receive personalized risk predictions, track assessment history, and access health insights through a secure web application.
 
-AfriSafe AI uses a trained logistic regression model to estimate malaria
-likelihood from patient-reported symptoms and demographic data, then classifies
-the case into a triage risk level (Low / Medium / High) with tailored
-recommendations. The backend exposes a secure JWT-authenticated REST API with
-user registration, login, prediction, history, and an admin dashboard.
+Built with **FastAPI**, **Supabase**, and a **Vercel-hosted frontend**, AfriSafe AI aims to provide accessible, scalable, and data-driven healthcare support for underserved communities.
 
-## Tech Stack
+---
 
-- **Python 3.12** / **FastAPI** / **Uvicorn**
-- **SQLAlchemy 2.0** ORM with **Alembic** migrations
-- **SQLite** (development) / **PostgreSQL** (production)
-- **Pydantic v2** for validation
-- **JWT** auth (python-jose) + **bcrypt** hashing (passlib)
-- **scikit-learn** / **joblib** for ML inference
-- **pytest** for testing
+## Vision
+
+To build Africa’s most trusted AI-powered preventive healthcare platform, helping millions of people detect health risks early and make informed medical decisions.
+
+## Key Features
+
+* AI-powered health risk assessment
+* Disease prediction engine
+* Secure user authentication
+* Personalized dashboard
+* Assessment history tracking
+* PDF report generation
+* Health reminders and notifications
+* RESTful API architecture
+* Cloud deployment with Render and Vercel
+* Supabase authentication and database integration
+
+---
+
+## Technology Stack
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript (ES6+)
+* Vercel
+
+### Backend
+
+* FastAPI
+* Uvicorn
+* Python
+* Pydantic
+* ReportLab
+
+### AI / Data
+
+* Scikit-learn
+* Pandas
+* NumPy
+* Joblib
+
+### Database & Authentication
+
+* Supabase
+* Supabase Auth
+* PostgreSQL
+
+### Deployment
+
+* Render (Backend)
+* Vercel (Frontend)
+
+---
 
 ## Project Structure
 
-```
-backend/
-├── app/
-│   ├── api/
-│   │   └── routes/        # auth, prediction, admin routers
-│   ├── config/            # Pydantic BaseSettings
-│   ├── core/              # security, logging, exceptions
-│   ├── database/          # engine, session, Base
-│   ├── dependencies/      # current user / admin guards
-│   ├── middleware/        # rate limiting
-│   ├── ml/                # model loading + inference
-│   ├── models/            # SQLAlchemy ORM models
-│   ├── repositories/      # Repository Pattern data access
-│   ├── schemas/           # Pydantic v2 request/response models
-│   ├── services/          # business logic (auth, prediction, admin)
-│   ├── utils/             # helpers
-│   ├── logs/              # rotating log files
-│   └── main.py            # FastAPI entry point
-├── migrations/            # Alembic migrations
-├── Model/                 # malaria_model.pkl, feature_names.pkl
-├── tests/                 # pytest suite
-├── alembic.ini
-├── requirements.txt
-├── Dockerfile
-├── docker-compose.yml
-└── .env.example
+```text
+Afrisafe-AI/
+│
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   └── main.py
+│   ├── requirements.txt
+│   └── render.yaml
+│
+├── frontend/
+│   ├── css/
+│   ├── js/
+│   ├── index.html
+│   ├── login.html
+│   ├── dashboard.html
+│   └── assessment.html
+│
+└── README.md
 ```
 
-## Quick Start
+---
 
-### Local development
+## API Overview
+
+### Authentication
+
+| Method | Endpoint                |
+| ------ | ----------------------- |
+| POST   | `/api/v1/auth/register` |
+| POST   | `/api/v1/auth/login`    |
+| POST   | `/api/v1/auth/refresh`  |
+| GET    | `/api/v1/auth/me`       |
+
+### Assessment
+
+| Method | Endpoint                     |
+| ------ | ---------------------------- |
+| POST   | `/api/v1/assessment`         |
+| GET    | `/api/v1/assessment/history` |
+| GET    | `/api/v1/assessment/{id}`    |
+| DELETE | `/api/v1/assessment/{id}`    |
+
+### System
+
+| Method | Endpoint  |
+| ------ | --------- |
+| GET    | `/health` |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+* Python 3.11+
+* Node.js (optional for frontend tooling)
+* Supabase account
+* Git
+
+### Clone the Repository
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
+git clone https://github.com/your-username/Afrisafe-AI.git
+cd Afrisafe-AI
+```
+
+### Backend Setup
+
+```bash
+cd backend
+
+python -m venv .venv
+
+# Windows
+.venv\\Scripts\\activate
+
+# macOS/Linux
+source .venv/bin/activate
+
 pip install -r requirements.txt
-cp .env.example .env
+```
+
+Create a `.env` file:
+
+```env
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+JWT_SECRET_KEY=your_secret_key
+JWT_REFRESH_SECRET_KEY=your_refresh_secret_key
+
+FRONTEND_URL=http://localhost:3000
+```
+
+Run the backend:
+
+```bash
 uvicorn app.main:app --reload
 ```
 
-The API is available at `http://localhost:8000`. Interactive docs at `/docs`.
+Backend will be available at:
 
-### Docker
-
-```bash
-cp .env.example .env
-docker compose up --build
+```text
+http://localhost:8000
 ```
 
-## API Endpoints
+Swagger documentation:
 
-All routes are prefixed with `/api/v1`.
-
-| Method | Path                        | Auth   | Description                          |
-|--------|-----------------------------|--------|--------------------------------------|
-| GET    | `/health`                   | None   | Health check + model load state      |
-| POST   | `/auth/register`            | None   | Register, returns JWT pair           |
-| POST   | `/auth/login`               | None   | Login, returns JWT pair              |
-| POST   | `/auth/refresh`             | None   | Refresh access token                 |
-| POST   | `/auth/logout`              | None   | Revoke refresh token                 |
-| GET    | `/auth/me`                  | User   | Current user profile                  |
-| POST   | `/prediction/predict`       | User   | Run malaria prediction + save history|
-| GET    | `/prediction/history`       | User   | List user's prediction history       |
-| DELETE | `/prediction/history/{id}`   | User   | Delete a prediction record           |
-| GET    | `/admin/users`              | Admin  | List all users                       |
-| GET    | `/admin/predictions`        | Admin  | List all predictions                 |
-| GET    | `/admin/statistics`         | Admin  | Aggregate platform statistics        |
-
-## Database Migrations (Alembic)
-
-```bash
-# Generate a new migration after model changes
-alembic revision --autogenerate -m "describe change"
-
-# Apply migrations
-alembic upgrade head
-
-# Rollback one migration
-alembic downgrade -1
+```text
+http://localhost:8000/docs
 ```
 
-> Note: in development, tables are auto-created on startup via `init_db()`.
-> In production, use Alembic migrations.
+---
 
-## Testing
+## Frontend Setup
+
+Open the frontend directory:
 
 ```bash
-pytest -v
+cd frontend
 ```
 
-Tests cover authentication, JWT, prediction, and database layers.
+Update `js/config.js`:
 
-## Environment Variables
+```javascript
+const API_BASE_URL = "http://localhost:8000";
+```
 
-See `.env.example` for all supported variables. Never commit the real `.env`.
+Open `index.html` in your browser or serve it with a local server.
+
+---
 
 ## Deployment
 
-The backend is deployable to Render, Railway, Azure, AWS, and Docker. Set the
-environment variables from `.env.example` in your hosting provider and run:
+### Backend (Render)
 
-```
-uvicorn app.main:app --host 0.0.0.0 --port 8000
+1. Connect GitHub repository
+2. Set `rootDir` to `backend`
+3. Build command:
+
+```text
+pip install -r requirements.txt
 ```
 
-For PostgreSQL, set `DATABASE_URL=postgresql+psycopg://user:pass@host:5432/db`.
+4. Start command:
+
+```text
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
+
+5. Add environment variables in Render.
+
+### Frontend (Vercel)
+
+1. Import repository
+2. Set project root to `frontend`
+3. Update:
+
+```javascript
+const API_BASE_URL = "https://your-render-service.onrender.com";
+```
+
+Deploy.
+
+---
+
+## AI Pipeline
+
+1. User submits health assessment
+2. Backend validates input
+3. AI model processes symptoms and demographic data
+4. Prediction result is generated
+5. Result is stored in Supabase
+6. Dashboard displays assessment history and recommendations
+7. PDF reports can be generated for sharing with healthcare providers
+
+---
+
+## Security
+
+* Supabase Authentication
+* JWT-based access control
+* Password hashing
+* Protected API endpoints
+* CORS configuration
+* Environment variable management
+* HTTPS deployment support
+
+---
+
+## Current Development Status
+
+| Module                 | Status      |
+| ---------------------- | ----------- |
+| Frontend UI            | Completed   |
+| Authentication         | In Progress |
+| Dashboard              | In Progress |
+| Assessment Engine      | In Progress |
+| AI Prediction          | In Progress |
+| Reports                | In Progress |
+| Deployment             | Active      |
+| Production Integration | Ongoing     |
+
+---
+
+## Roadmap
+
+* Mobile application (Android/iOS)
+* Multi-language support (English, Hausa, Yoruba, Igbo)
+* Telemedicine integration
+* Hospital and pharmacy connectivity
+* Maternal health emergency support
+* Offline-first mode
+* SMS/USSD access
+* Wearable device integration
+* Community health analytics
+
+---
+
+## Contributing
+
+Contributions are welcome.
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push the branch
+5. Open a Pull Request
+
+---
+
+## Founder
+
+**Mahmud Mukhtar Hassan**
+
+Founder & CEO, **MAHTECH Innovation Lab**
+
+Passionate about artificial intelligence, healthcare technology, and building scalable digital solutions for Africa.
+
+GitHub: https://github.com/your-username
+
+LinkedIn: https://linkedin.com/in/your-profile
+
+---
+
+## License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## Acknowledgements
+
+* Supabase
+* FastAPI
+* Vercel
+* Render
+* Scikit-learn
+* Open-source AI and healthcare communities
+
+---
+
+**AfriSafe AI — Smarter Prevention. Healthier Africa.**
+
