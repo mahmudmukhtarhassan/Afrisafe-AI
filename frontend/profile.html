@@ -1,326 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile - AfriSafe AI</title>
-  <meta name="description" content="View and manage your AfriSafe AI account profile.">
-
-  <!-- SEO & Social -->
-  <meta name="theme-color" content="#0F9D58">
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta property="og:title" content="Profile - AfriSafe AI">
-  <meta property="og:description" content="View and manage your AfriSafe AI account profile.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/gemini-svg.svg">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Profile - AfriSafe AI">
-  <meta name="twitter:description" content="View and manage your AfriSafe AI account profile.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/assessment.css">
-  <style>
-    .profile-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-card);
-      box-shadow: var(--glass-shadow);
-      padding: 2.5rem;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-    .profile-header {
-      display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;
-      padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-color);
-    }
-    .profile-avatar {
-      width: 80px; height: 80px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary-green), var(--medical-blue));
-      color: #fff; display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; font-weight: 800; flex-shrink: 0;
-    }
-    .profile-name { font-size: 1.5rem; font-weight: 800; }
-    .profile-email { font-size: 0.9rem; color: var(--text-muted); }
-    .profile-role-badge {
-      display: inline-block; margin-top: 0.5rem; padding: 3px 10px;
-      border-radius: 12px; font-size: 0.75rem; font-weight: 700;
-      background: rgba(15,157,88,0.1); color: var(--primary-green);
-    }
-    .profile-field { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border-color); }
-    .profile-field:last-child { border-bottom: none; }
-    .profile-field-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
-    .profile-field-value { font-size: 0.95rem; font-weight: 700; text-align: right; }
-    .spinner {
-      width: 40px; height: 40px; border: 3px solid var(--border-color);
-      border-top-color: var(--primary-green); border-radius: 50%;
-      animation: spin 0.8s linear infinite; margin: 4rem auto;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile — AfriSafe AI</title>
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-  <div class="ambient-background">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-  </div>
-
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="dashboard.html" class="brand-group" style="text-decoration:none;color:inherit;">
-        <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
-            <path d="M12 6v6l4 2"></path>
-          </svg>
-        </div>
-        <div class="brand-name">AfriSafe <span class="brand-badge">AI</span></div>
-      </a>
-      <nav class="nav-links" aria-label="Main Navigation">
-        <a href="dashboard.html" class="nav-link">Dashboard</a>
-        <a href="assessment.html" class="nav-link">Assessment</a>
-        <a href="guidelines.html" class="nav-link">Guidelines</a>
-        <a href="history.html" class="nav-link">History</a>
-        <a href="profile.html" class="nav-link active" aria-current="page">Profile</a>
-      </nav>
-      <div class="nav-actions">
-        <div class="user-badge" title="Active Session">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span class="user-text">User</span>
-        </div>
-        <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
-      </div>
-    </div>
+  <header>
+    <h1>Profile</h1>
+    <nav>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/index.html">Home</a>
+    </nav>
   </header>
 
-  <main class="main-layout" style="grid-template-columns: 1fr;">
-    <div id="loadingState" class="spinner"></div>
-
-    <div id="profileContent" style="display:none;">
-      <div class="profile-card">
-        <div class="profile-header">
-          <div class="profile-avatar" id="profileAvatar">U</div>
-          <div>
-            <div class="profile-name" id="profileName">--</div>
-            <div class="profile-email" id="profileEmail">--</div>
-            <span class="profile-role-badge" id="profileRole">User</span>
-          </div>
-        </div>
-
-        <div class="profile-field">
-          <span class="profile-field-label">Full Name</span>
-          <span class="profile-field-value" id="fieldFullName">--</span>
-        </div>
-        <div class="profile-field">
-          <span class="profile-field-label">Email</span>
-          <span class="profile-field-value" id="fieldEmail">--</span>
-        </div>
-        <div class="profile-field">
-          <span class="profile-field-label">Age</span>
-          <span class="profile-field-value" id="fieldAge">--</span>
-        </div>
-        <div class="profile-field">
-          <span class="profile-field-label">Gender</span>
-          <span class="profile-field-value" id="fieldGender">--</span>
-        </div>
-        <div class="profile-field">
-          <span class="profile-field-label">State</span>
-          <span class="profile-field-value" id="fieldState">--</span>
-        </div>
-        <div class="profile-field">
-          <span class="profile-field-label">LGA</span>
-          <span class="profile-field-value" id="fieldLga">--</span>
-        </div>
-        <div class="profile-field">
-          <span class="profile-field-label">Phone Number</span>
-          <span class="profile-field-value" id="fieldPhone">--</span>
-        </div>
-        <div class="profile-field">
-          <span class="profile-field-label">Member Since</span>
-          <span class="profile-field-value" id="fieldJoined">--</span>
-        </div>
-      </div>
-
-      <!-- Local Reminders & Notification Settings Card -->
-      <div class="profile-card" id="notifications" style="margin-top: 2rem;">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
-          <div>
-            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-color); margin-bottom: 4px;">Local Reminders & Notifications</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Configure automatic local reminders to check symptoms or review prevention tips.</p>
-          </div>
-          <div id="webNotifStatusBadge" style="font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 12px; background: rgba(107,114,128,0.12); color: var(--text-muted);">
-            Web Push Disabled
-          </div>
-        </div>
-
-        <!-- Symptom Log Reminder -->
-        <div style="margin-bottom: 1.5rem; padding: 1.25rem; background: rgba(15,157,88,0.04); border: 1px solid var(--border-color); border-radius: 12px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 0.75rem;">
-            <div>
-              <strong style="font-size: 0.95rem; color: var(--text-color);">Daily Symptom Log Check</strong>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Reminds you to log any fever, chills, or headache to track risk trends.</p>
-            </div>
-            <label class="switch" for="toggleSymptomReminder" style="margin-left: 1rem;">
-              <input type="checkbox" id="toggleSymptomReminder" checked>
-              <span class="slider" aria-hidden="true"></span>
-            </label>
-          </div>
-          <div style="display:flex; align-items:center; gap: 12px; margin-top: 0.75rem;">
-            <label for="timeSymptomReminder" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Scheduled Time:</label>
-            <input type="time" id="timeSymptomReminder" value="09:00" style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 0.85rem; font-weight: 700;">
-          </div>
-        </div>
-
-        <!-- Daily Prevention Tips Reminder -->
-        <div style="margin-bottom: 1.5rem; padding: 1.25rem; background: rgba(30,136,229,0.04); border: 1px solid var(--border-color); border-radius: 12px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 0.75rem;">
-            <div>
-              <strong style="font-size: 0.95rem; color: var(--text-color);">Daily Malaria Prevention Tips</strong>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Receive daily public health guidelines (bed nets, standing water, vaccines).</p>
-            </div>
-            <label class="switch" for="toggleTipReminder" style="margin-left: 1rem;">
-              <input type="checkbox" id="toggleTipReminder" checked>
-              <span class="slider" aria-hidden="true"></span>
-            </label>
-          </div>
-          <div style="display:flex; align-items:center; gap: 12px; margin-top: 0.75rem;">
-            <label for="timeTipReminder" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Scheduled Time:</label>
-            <input type="time" id="timeTipReminder" value="18:00" style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 0.85rem; font-weight: 700;">
-          </div>
-        </div>
-
-        <!-- Action Controls -->
-        <div style="display:flex; flex-wrap:wrap; gap: 0.75rem; justify-content:space-between; align-items:center; margin-top: 1.5rem; pt: 1rem; border-top: 1px solid var(--border-color);">
-          <button id="enableWebNotifsBtn" style="background: rgba(30,136,229,0.1); color: var(--medical-blue); border: 1px solid rgba(30,136,229,0.25); padding: 0.6rem 1.2rem; border-radius: var(--radius-btn); font-weight: 700; font-size: 0.825rem; cursor: pointer;">
-            Enable Browser Push Notifications
-          </button>
-          <button id="sendTestNotifBtn" style="background: var(--primary-green); color: #fff; border: none; padding: 0.6rem 1.25rem; border-radius: var(--radius-btn); font-weight: 700; font-size: 0.825rem; cursor: pointer;">
-            Send Test Reminder Now
-          </button>
-        </div>
-      </div>
-    </div>
+  <main>
+    <section>
+      <h2>Your profile</h2>
+      <p>Email: <span id="userEmail">—</span></p>
+      <p>This page can be expanded to edit profile information.</p>
+    </section>
   </main>
 
-  <script src="js/config.js"></script>
-  <script src="js/notifications.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      if (!requireAuth()) return;
-      populateUserBadge();
-      wireLogout();
-      setupNotificationSettingsUI();
+  <script type="module">
+    import { API_BASE_URL } from "/js/config.js";
+    import { fetchWithAuth } from "/js/auth.js";
 
+    document.addEventListener("DOMContentLoaded", async () => {
       try {
-        const user = await apiRequest("/api/v1/auth/me");
-        renderProfile(user);
-      } catch (err) {
-        // Fallback to cached user data
-        const cached = getUser();
-        if (cached) {
-          renderProfile(cached);
-        } else {
-          document.getElementById("loadingState").style.display = "none";
-          showToast(err.message || "Failed to load profile.", "error");
-        }
+        const r = await fetchWithAuth(`${API_BASE_URL}/api/v1/auth/me`, { method: "GET" });
+        if (!r.ok) return window.location.href = "/login.html";
+        const me = await r.json();
+        document.getElementById("userEmail").innerText = me.email || me.user_metadata?.email || "Unknown";
+      } catch (e) {
+        window.location.href = "/login.html";
       }
     });
-
-    function setupNotificationSettingsUI() {
-      const toggleSymptom = document.getElementById("toggleSymptomReminder");
-      const timeSymptom = document.getElementById("timeSymptomReminder");
-      const toggleTip = document.getElementById("toggleTipReminder");
-      const timeTip = document.getElementById("timeTipReminder");
-      const enablePushBtn = document.getElementById("enableWebNotifsBtn");
-      const sendTestBtn = document.getElementById("sendTestNotifBtn");
-      const statusBadge = document.getElementById("webNotifStatusBadge");
-
-      // Load settings
-      const settings = typeof getNotificationSettings === "function" ? getNotificationSettings() : {};
-      if (toggleSymptom) toggleSymptom.checked = !!settings.symptomReminderEnabled;
-      if (timeSymptom) timeSymptom.value = settings.symptomReminderTime || "09:00";
-      if (toggleTip) toggleTip.checked = !!settings.preventionReminderEnabled;
-      if (timeTip) timeTip.value = settings.preventionReminderTime || "18:00";
-
-      // Check Notification Permission
-      if ("Notification" in window && Notification.permission === "granted") {
-        statusBadge.textContent = "Web Push Active";
-        statusBadge.style.background = "rgba(15,157,88,0.12)";
-        statusBadge.style.color = "var(--primary-green-dark)";
-        enablePushBtn.textContent = "✓ Web Push Enabled";
-        enablePushBtn.disabled = true;
-        enablePushBtn.style.opacity = "0.7";
-      }
-
-      // Save listeners
-      const updateSettings = () => {
-        const updated = {
-          symptomReminderEnabled: toggleSymptom.checked,
-          symptomReminderTime: timeSymptom.value,
-          preventionReminderEnabled: toggleTip.checked,
-          preventionReminderTime: timeTip.value
-        };
-        if (typeof saveNotificationSettings === "function") {
-          saveNotificationSettings(updated);
-          showToast("Notification reminder settings saved.", "success", 2000);
-        }
-      };
-
-      toggleSymptom.addEventListener("change", updateSettings);
-      timeSymptom.addEventListener("change", updateSettings);
-      toggleTip.addEventListener("change", updateSettings);
-      timeTip.addEventListener("change", updateSettings);
-
-      enablePushBtn.addEventListener("click", async () => {
-        if (typeof requestBrowserNotificationPermission === "function") {
-          const granted = await requestBrowserNotificationPermission();
-          if (granted) {
-            statusBadge.textContent = "Web Push Active";
-            statusBadge.style.background = "rgba(15,157,88,0.12)";
-            statusBadge.style.color = "var(--primary-green-dark)";
-            enablePushBtn.textContent = "✓ Web Push Enabled";
-            enablePushBtn.disabled = true;
-          }
-        }
-      });
-
-      sendTestBtn.addEventListener("click", () => {
-        if (typeof addNotification === "function") {
-          addNotification(
-            "Test Malaria Safety Reminder",
-            "This is a test local notification. Remember to log symptoms daily and check around your home for standing water!",
-            "test",
-            "assessment.html"
-          );
-        }
-      });
-    }
-
-    function renderProfile(user) {
-      document.getElementById("loadingState").style.display = "none";
-      document.getElementById("profileContent").style.display = "block";
-
-      const fullName = user.full_name || "--";
-      const email = user.email || "--";
-
-      document.getElementById("profileName").textContent = fullName;
-      document.getElementById("profileEmail").textContent = email;
-      document.getElementById("profileRole").textContent = (user.role || "user").charAt(0).toUpperCase() + (user.role || "user").slice(1);
-      document.getElementById("profileAvatar").textContent = fullName.charAt(0).toUpperCase();
-
-      document.getElementById("fieldFullName").textContent = fullName;
-      document.getElementById("fieldEmail").textContent = email;
-      document.getElementById("fieldAge").textContent = user.age || "--";
-      document.getElementById("fieldGender").textContent = user.gender || "--";
-      document.getElementById("fieldState").textContent = user.state || "--";
-      document.getElementById("fieldLga").textContent = user.lga || "--";
-      document.getElementById("fieldPhone").textContent = user.phone_number || "Not provided";
-      document.getElementById("fieldJoined").textContent = formatDate(user.created_at);
-    }
   </script>
 </body>
 </html>
