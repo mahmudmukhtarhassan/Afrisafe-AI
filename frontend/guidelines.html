@@ -349,7 +349,11 @@
           url += `&query=${encodeURIComponent(searchQuery)}`;
         }
 
-        const data = await apiRequest(url, "GET", null, false);
+        const resp = await apiRequest(url, "GET", null, false);
+        if (!resp.ok) {
+          throw new Error(`Request failed (${resp.status})`);
+        }
+        const data = await resp.json();
         renderGuidelines(data);
       } catch (err) {
         spinner.style.display = "none";
