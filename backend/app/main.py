@@ -19,19 +19,11 @@ API_V1_PREFIX = "/api/v1"
 
 app = FastAPI(title="AfriSafe AI - Backend")
 
-# CORS
-FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://afrisafe-ai.vercel.app")
-CORS_ORIGINS = [
-    FRONTEND_URL,
-    "https://afrisafe-ai.vercel.app",
-    "http://localhost:3000",
-    "http://localhost:8000",
-]
-
+# CORS — allow all origins since auth uses JWT bearer tokens (not cookies)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
