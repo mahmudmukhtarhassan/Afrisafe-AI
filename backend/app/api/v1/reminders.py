@@ -4,10 +4,7 @@ from app.services.reminder_service import ReminderService
 from app.dependencies.auth import get_current_user
 from app.utils.responses import success
 
-router = APIRouter(
-    prefix="/api/v1/reminders",
-    tags=["Reminders"],
-)
+router = APIRouter(tags=["Reminders"])
 
 @router.post("")
 async def create_reminder(

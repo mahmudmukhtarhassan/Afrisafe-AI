@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import { fetchWithAuth, clearTokens } from "./auth.js";
+import { fetchWithAuth, clearTokens, extractErrorMessage } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (typeof populateUserBadge === "function") populateUserBadge();
@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = "/login.html";
         return;
       }
-      container.innerHTML = '<div class="empty-state">Failed to load history. Please try again.</div>';
+      const msg = await extractErrorMessage(resp, "Failed to load history.");
+      container.innerHTML = `<div class="empty-state">${msg}</div>`;
       return;
     }
 
@@ -65,7 +66,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     container.innerHTML = html;
 
-    // Wire delete buttons
     container.querySelectorAll(".delete-btn").forEach((btn) => {
       btn.addEventListener("click", async () => {
         const id = btn.dataset.id;
@@ -77,13 +77,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             const row = container.querySelector(`.history-row[data-id="${id}"]`);
             if (row) row.remove();
             if (typeof showToast === "function") showToast("Record deleted.", "success");
+          } else {
+            const msg = await extractErrorMessage(delResp, "Failed to delete record.");
+            if (typeof showToast === "function") showToast(msg, "error");
           }
         } catch (err) {
-          if (typeof showToast === "function") showToast("Failed to delete record.", "error");
+          if (typeof showToast === "function") showToast(err.message || "Failed to delete record.", "error");
         }
       });
     });
   } catch (err) {
-    container.innerHTML = '<div class="empty-state">Network error. Please try again.</div>';
+    container.innerHTML = `<div class="empty-state">${err.message || "Unable to reach the server. Please try again."}</div>`;
   }
 });

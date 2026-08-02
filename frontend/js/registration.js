@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import { saveTokens } from "./auth.js";
+import { saveTokens, extractErrorMessage } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("registerForm");
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!resp.ok) {
         formAlert.className = "form-alert error";
-        formAlert.textContent = data.detail || "Registration failed. Please try again.";
+        formAlert.textContent = await extractErrorMessage(resp, "Registration failed. Please try again.");
         registerBtn.disabled = false;
         btnSpinner.classList.add("hidden");
         btnText.textContent = "Create Account";
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "/dashboard.html";
     } catch (err) {
       formAlert.className = "form-alert error";
-      formAlert.textContent = "Network error. Please try again.";
+      formAlert.textContent = err.message || "Unable to connect to the server. Please try again.";
       registerBtn.disabled = false;
       btnSpinner.classList.add("hidden");
       btnText.textContent = "Create Account";

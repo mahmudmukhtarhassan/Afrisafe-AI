@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import { saveTokens } from "./auth.js";
+import { saveTokens, extractErrorMessage } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("loginForm");
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!resp.ok) {
         formAlert.classList.remove("hidden");
         formAlert.classList.add("danger");
-        formAlert.textContent = data.detail || "Login failed. Please check your credentials.";
+        formAlert.textContent = await extractErrorMessage(resp, "Login failed. Please check your credentials.");
         loginBtn.disabled = false;
         btnSpinner.classList.add("hidden");
         btnText.textContent = "Sign In";
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       formAlert.classList.remove("hidden");
       formAlert.classList.add("danger");
-      formAlert.textContent = "Network error. Please try again.";
+      formAlert.textContent = err.message || "Unable to connect to the server. Please try again.";
       loginBtn.disabled = false;
       btnSpinner.classList.add("hidden");
       btnText.textContent = "Sign In";

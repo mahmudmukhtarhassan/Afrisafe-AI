@@ -23,21 +23,60 @@ function clearTokens() {
   localStorage.removeItem(TOKEN_KEY);
 }
 
+function isTokenExpired() {
+  const tokens = loadTokens();
+  if (!tokens || !tokens.expires_at) return false;
+  return Date.now() > tokens.expires_at - 60000;
+}
+
 async function refreshAccessToken() {
   const tokens = loadTokens();
-  if (!tokens || !tokens.refresh_token) throw new Error("No refresh token");
-  const resp = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ refresh_token: tokens.refresh_token }),
-  });
+  if (!tokens || !tokens.refresh_token) {
+    clearTokens();
+    throw new Error("No refresh token available");
+  }
+  let resp;
+  try {
+    resp = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refresh_token: tokens.refresh_token }),
+    });
+  } catch (err) {
+    clearTokens();
+    throw new Error("Network error during token refresh");
+  }
+
   if (!resp.ok) {
     clearTokens();
-    throw new Error("Refresh failed");
+    const errData = await resp.json().catch(() => ({}));
+    throw new Error(errData.detail || "Session expired. Please log in again.");
   }
+
   const data = await resp.json();
-  saveTokens({ access_token: data.access_token, refresh_token: data.refresh_token, expires_in: 3600 });
+  saveTokens({
+    access_token: data.access_token,
+    refresh_token: data.refresh_token || tokens.refresh_token,
+    expires_in: 3600,
+  });
   return data.access_token;
+}
+
+function extractErrorMessage(resp, fallback) {
+  return resp.json()
+    .then((data) => {
+      if (typeof data === "string") return data;
+      if (data.detail) {
+        if (typeof data.detail === "string") return data.detail;
+        if (Array.isArray(data.detail)) {
+          return data.detail.map((e) => e.msg || JSON.stringify(e)).join("; ");
+        }
+        return JSON.stringify(data.detail);
+      }
+      if (data.message) return data.message;
+      return fallback;
+    })
+    .catch(() => fallback);
 }
 
 async function fetchWithAuth(url, options = {}, retry = true) {
@@ -48,7 +87,13 @@ async function fetchWithAuth(url, options = {}, retry = true) {
   }
   options.headers["Content-Type"] = options.headers["Content-Type"] || "application/json";
 
-  let resp = await fetch(url, options);
+  let resp;
+  try {
+    resp = await fetch(url, options);
+  } catch (err) {
+    throw new Error("Unable to reach the server. Please check your connection and try again.");
+  }
+
   if (resp.status === 401 && retry) {
     try {
       const newAccess = await refreshAccessToken();
@@ -62,4 +107,4 @@ async function fetchWithAuth(url, options = {}, retry = true) {
   return resp;
 }
 
-export { saveTokens, loadTokens, clearTokens, refreshAccessToken, fetchWithAuth };
+export { saveTokens, loadTokens, clearTokens, refreshAccessToken, fetchWithAuth, isTokenExpired, extractErrorMessage };

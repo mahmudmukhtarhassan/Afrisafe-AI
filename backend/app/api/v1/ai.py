@@ -6,10 +6,7 @@ from app.schemas.prediction import (
 
 from app.services.ai_service import predict
 
-router = APIRouter(
-    prefix="/api/v1/ai",
-    tags=["AI"],
-)
+router = APIRouter(tags=["AI"])
 
 
 @router.post("/predict")

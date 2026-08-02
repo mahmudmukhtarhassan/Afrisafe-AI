@@ -1,22 +1,21 @@
 /**
  * AfriSafe AI - Shared UI Helpers
- * Provides global utilities used across all pages: auth guards, user badge,
- * logout wiring, toast notifications, HTML escaping, and API requests.
+ * Auth guards, user badge, logout wiring, toast notifications, HTML escaping, API requests.
  */
 import { API_BASE_URL } from "./config.js";
-import { fetchWithAuth, loadTokens, clearTokens } from "./auth.js";
+import { fetchWithAuth, loadTokens, clearTokens, extractErrorMessage } from "./auth.js";
 
-// --- Auth Guard ---
 function requireAuth() {
   const tokens = loadTokens();
   if (!tokens || !tokens.access_token) {
-    window.location.href = "/login.html";
+    if (!window.location.pathname.endsWith("/login.html")) {
+      window.location.href = "/login.html";
+    }
     return false;
   }
   return true;
 }
 
-// --- Populate User Badge in Navbar ---
 async function populateUserBadge() {
   const userText = document.querySelector(".user-text");
   if (!userText) return;
@@ -29,7 +28,6 @@ async function populateUserBadge() {
   } catch {}
 }
 
-// --- Wire Logout Button ---
 function wireLogout() {
   const btn = document.getElementById("logoutBtn");
   if (!btn) return;
@@ -40,7 +38,6 @@ function wireLogout() {
   });
 }
 
-// --- Toast Notifications ---
 function showToast(message, type = "info", duration = 4000) {
   let container = document.getElementById("toastContainer");
   if (!container) {
@@ -76,7 +73,6 @@ function showToast(message, type = "info", duration = 4000) {
   }, duration);
 }
 
-// --- HTML Escape ---
 function escapeHtml(str) {
   if (!str) return "";
   return String(str)
@@ -87,7 +83,6 @@ function escapeHtml(str) {
     .replace(/'/g, "&#039;");
 }
 
-// --- Format Date ---
 function formatDate(dateString) {
   try {
     const d = new Date(dateString);
@@ -104,22 +99,18 @@ function formatDate(dateString) {
   }
 }
 
-// --- API Request Helper ---
 async function apiRequest(url, method = "GET", body = null, auth = true) {
   const options = { method, headers: {} };
   if (body) {
     options.headers["Content-Type"] = "application/json";
     options.body = JSON.stringify(body);
   }
-
   if (auth) {
     return await fetchWithAuth(`${API_BASE_URL}${url}`, options);
-  } else {
-    return await fetch(`${API_BASE_URL}${url}`, options);
   }
+  return await fetch(`${API_BASE_URL}${url}`, options);
 }
 
-// Expose globally for non-module scripts
 window.requireAuth = requireAuth;
 window.populateUserBadge = populateUserBadge;
 window.wireLogout = wireLogout;

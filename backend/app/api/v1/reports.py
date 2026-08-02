@@ -6,10 +6,7 @@ from app.dependencies.auth import get_current_user
 from app.services.assessment_service import AssessmentService
 from app.services.report_service import ReportService
 
-router = APIRouter(
-    prefix="/api/v1/reports",
-    tags=["Reports"],
-)
+router = APIRouter(tags=["Reports"])
 
 @router.get("/{assessment_id}/pdf")
 async def pdf_report(

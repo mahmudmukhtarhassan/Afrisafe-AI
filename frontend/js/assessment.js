@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import { fetchWithAuth, loadTokens } from "./auth.js";
+import { fetchWithAuth, loadTokens, extractErrorMessage } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof populateUserBadge === "function") populateUserBadge();
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentStep = 1;
 
-  // --- Step Navigation ---
   function showStep(step) {
     document.querySelectorAll(".form-section").forEach((s) => s.classList.add("hidden-section"));
     document.getElementById(`step${step}`).classList.remove("hidden-section");
@@ -35,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("backBtn2").addEventListener("click", () => showStep(1));
   document.getElementById("backBtn3").addEventListener("click", () => showStep(2));
 
-  // --- Duration Slider ---
   const durationSlider = document.getElementById("durationSlider");
   const durationValue = document.getElementById("durationValue");
   const summaryDuration = document.getElementById("summaryDuration");
@@ -48,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateRiskIndicator();
   });
 
-  // --- Symptom Toggle Cards ---
   document.querySelectorAll(".symptom-card").forEach((card) => {
     const checkbox = card.querySelector('input[type="checkbox"]');
     checkbox.addEventListener("change", () => {
@@ -58,12 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- Context Toggles ---
   ["mosquitoExposure", "standingWater", "travelHistory", "bedNetUsed", "drugHistory"].forEach((id) => {
     document.getElementById(id).addEventListener("change", updateRiskIndicator);
   });
 
-  // --- Live Summary Updates ---
   function getSelectedSymptoms() {
     return Array.from(document.querySelectorAll('.symptom-card input[type="checkbox"]:checked'))
       .map((cb) => cb.value);
@@ -106,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("reviewDrugs").textContent = document.getElementById("drugHistory").checked ? "Yes" : "No";
   }
 
-  // --- Form Submission ---
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -121,8 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
       drug_history: document.getElementById("drugHistory").checked,
     };
 
-    // Save patient inputs for result page
-    const tokens = loadTokens();
     const patientInputs = { ...payload };
     try {
       const meResp = await fetchWithAuth(`${API_BASE_URL}/api/v1/auth/me`, { method: "GET" });
@@ -143,17 +135,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (!resp.ok) {
-        const err = await resp.json().catch(() => ({}));
+        const msg = await extractErrorMessage(resp, "Assessment failed. Please try again.");
         document.getElementById("loadingOverlay").classList.add("hidden");
-        if (typeof showToast === "function") {
-          showToast(err.detail || "Assessment failed. Please try again.", "error");
-        }
+        if (typeof showToast === "function") showToast(msg, "error");
         return;
       }
 
       const data = await resp.json();
 
-      // Save result for the result page
       localStorage.setItem("triageResult", JSON.stringify(data));
       localStorage.setItem("patientInputs", JSON.stringify(patientInputs));
 
@@ -161,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       document.getElementById("loadingOverlay").classList.add("hidden");
       if (typeof showToast === "function") {
-        showToast("Network error. Please try again.", "error");
+        showToast(err.message || "Unable to reach the server. Please try again.", "error");
       }
     }
   });
