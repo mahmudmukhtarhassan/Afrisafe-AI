@@ -371,6 +371,47 @@ app.get("/api/v1/auth/me/active", authenticateToken, (req: AuthenticatedRequest,
   res.json(formatUserOut(req.user!));
 });
 
+// --- Profile & Password Routes ---
+app.put("/api/v1/users/profile", authenticateToken, (req: AuthenticatedRequest, res: Response) => {
+  const { full_name, age, gender, state } = req.body || {};
+  const user = req.user!;
+
+  if (typeof full_name === "string" && full_name.trim()) {
+    user.full_name = full_name.trim();
+  }
+  if (age !== undefined && age !== null && age !== "") {
+    user.age = Number(age);
+  }
+  if (typeof gender === "string") {
+    user.gender = gender || undefined;
+  }
+  if (typeof state === "string") {
+    user.state = state || undefined;
+  }
+
+  return res.json(formatUserOut(user));
+});
+
+app.put("/api/v1/users/password", authenticateToken, async (req: AuthenticatedRequest, res: Response) => {
+  const { current_password, new_password } = req.body || {};
+  const user = req.user!;
+
+  if (!current_password || !new_password) {
+    return res.status(422).json({ detail: "current_password and new_password are required" });
+  }
+  if (new_password.length < 6) {
+    return res.status(422).json({ detail: "New password must be at least 6 characters" });
+  }
+
+  const match = await bcrypt.compare(current_password, user.passwordHash);
+  if (!match) {
+    return res.status(401).json({ detail: "Current password is incorrect" });
+  }
+
+  user.passwordHash = await bcrypt.hash(new_password, 10);
+  return res.json({ message: "Password updated successfully" });
+});
+
 // --- Prediction Routes ---
 app.post("/api/v1/prediction/predict", authenticateToken, (req: AuthenticatedRequest, res: Response) => {
   const payload = req.body || {};

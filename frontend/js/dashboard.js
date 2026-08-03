@@ -5,97 +5,104 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (typeof populateUserBadge === "function") populateUserBadge();
   if (typeof wireLogout === "function") wireLogout();
 
-  // Fetch user profile
+  // Greeting based on time of day
+  const hour = new Date().getHours();
+  let greeting = "Welcome";
+  if (hour < 12) greeting = "Good Morning";
+  else if (hour < 17) greeting = "Good Afternoon";
+  else greeting = "Good Evening";
+  document.getElementById("greetingTime").textContent = greeting;
+
+  // Fetch user profile for name
   try {
     const meResp = await fetchWithAuth(`${API_BASE_URL}/api/v1/auth/me`, { method: "GET" });
-    if (!meResp.ok) {
-      if (meResp.status === 401) {
-        clearTokens();
-        window.location.href = "/login.html";
-        return;
-      }
-      const msg = await extractErrorMessage(meResp, "Failed to load profile.");
-      if (typeof showToast === "function") showToast(msg, "error");
-    } else {
+    if (meResp.ok) {
       const me = await meResp.json();
       const nameEl = document.getElementById("userName");
-      if (nameEl) nameEl.textContent = me.full_name || me.email || "User";
-    }
-  } catch (err) {
-    if (err.message && err.message.includes("Session expired")) {
+      const firstName = (me.full_name || me.email || "User").split(" ")[0];
+      nameEl.textContent = firstName;
+    } else if (meResp.status === 401) {
       clearTokens();
       window.location.href = "/login.html";
       return;
     }
-    if (typeof showToast === "function") showToast(err.message || "Failed to load profile.", "error");
-  }
+  } catch {}
 
-  // Fetch prediction history
+  // Fetch prediction history for stats
   try {
     const histResp = await fetchWithAuth(`${API_BASE_URL}/api/v1/prediction/history`, { method: "GET" });
     if (!histResp.ok) {
-      const msg = await extractErrorMessage(histResp, "Failed to load assessment history.");
-      if (typeof showToast === "function") showToast(msg, "error");
+      if (histResp.status === 401) {
+        clearTokens();
+        window.location.href = "/login.html";
+        return;
+      }
+      const list = document.getElementById("historyList");
+      list.innerHTML = `<div class="error-state"><p>Failed to load history.</p></div>`;
       return;
     }
+
     const data = await histResp.json();
     const items = data.items || data;
 
     const total = items.length;
+    const positive = items.filter((i) => (i.prediction || "").toLowerCase().includes("malaria") && !i.prediction.toLowerCase().includes("no")).length;
+    const negative = total - positive;
     const highRisk = items.filter((i) => (i.risk || "").toLowerCase() === "high").length;
-    const avgConf =
-      total > 0
-        ? Math.round(items.reduce((acc, i) => acc + (i.confidence || 0), 0) / total)
-        : 0;
 
-    const totalEl = document.getElementById("totalAssessments");
-    const avgEl = document.getElementById("avgConfidence");
-    const highEl = document.getElementById("highRiskCount");
-    if (totalEl) totalEl.textContent = total;
-    if (avgEl) avgEl.textContent = `${avgConf}%`;
-    if (highEl) highEl.textContent = highRisk;
+    document.getElementById("totalAssessments").textContent = total;
+    document.getElementById("positiveCases").textContent = positive;
+    document.getElementById("negativeCases").textContent = negative;
+    document.getElementById("highRiskCount").textContent = highRisk;
 
+    // Health status hero text
+    const healthText = document.getElementById("healthStatusText");
+    if (total === 0) {
+      healthText.textContent = "No assessments yet. Take your first malaria risk assessment to get started.";
+    } else {
+      const latest = items[0];
+      const risk = latest.risk || "Low";
+      healthText.textContent = `Latest result: ${latest.prediction} — ${risk} risk. ${total} assessment${total > 1 ? "s" : ""} completed.`;
+    }
+
+    // Recent activity list
     const list = document.getElementById("historyList");
-    if (!list) return;
-
     if (!items || items.length === 0) {
       list.innerHTML = `
-        <div class="empty-history">
-          <p style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">No assessments yet</p>
-          <p style="font-size:0.9rem;">Take your first malaria risk assessment to see results here.</p>
-          <a href="assessment.html" class="btn btn-primary" style="width:auto;margin-top:1rem;">Start Assessment</a>
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <h3>No Assessments Yet</h3>
+          <p>Take your first malaria risk assessment to see results here.</p>
+          <a href="assessment.html" class="btn btn-primary">Start Assessment</a>
         </div>`;
       return;
     }
 
     list.innerHTML = "";
-    items.slice(0, 10).forEach((item) => {
-      const div = document.createElement("div");
-      div.className = "history-item";
-
+    items.slice(0, 5).forEach((item) => {
       const date = new Date(item.created_at).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
+        month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
       });
-
       const riskClass = (item.risk || "low").toLowerCase();
-
+      const div = document.createElement("a");
+      div.href = "history.html";
+      div.style.textDecoration = "none";
+      div.style.color = "inherit";
+      div.className = "list-item fade-in";
       div.innerHTML = `
-        <div class="history-left">
-          <span class="history-prediction">${item.prediction || "Unknown"}</span>
-          <span class="history-date">${date}</span>
+        <div class="list-item-left">
+          <span class="list-item-title">${item.prediction || "Unknown"}</span>
+          <span class="list-item-sub">${date}</span>
         </div>
-        <div class="history-right">
-          <span class="history-conf">${item.confidence || 0}% confidence</span>
-          <span class="risk-badge risk-${riskClass}">${item.risk || "Low"} Risk</span>
+        <div class="list-item-right">
+          <span class="list-item-sub">${item.confidence || 0}%</span>
+          <span class="risk-badge risk-${riskClass}">${item.risk || "Low"}</span>
         </div>
       `;
       list.appendChild(div);
     });
   } catch (err) {
-    if (typeof showToast === "function") showToast(err.message || "Failed to load history.", "error");
+    const list = document.getElementById("historyList");
+    list.innerHTML = `<div class="error-state"><p>Unable to load data. Check your connection.</p></div>`;
   }
 });

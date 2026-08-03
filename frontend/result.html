@@ -2,244 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="AfriSafe AI - AI Prediction Analysis & Clinical Guidance Report">
   <title>Assessment Result - AfriSafe AI</title>
-
-  <!-- SEO & Social -->
   <meta name="theme-color" content="#0F9D58">
   <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta property="og:title" content="Assessment Result - AfriSafe AI">
-  <meta property="og:description" content="AI prediction analysis and clinical guidance report from AfriSafe AI.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/gemini-svg.svg">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Assessment Result - AfriSafe AI">
-  <meta name="twitter:description" content="AI prediction analysis and clinical guidance report from AfriSafe AI.">
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/result.css">
-
-  <!-- jsPDF for client-side PDF generation -->
+  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/app.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    .confidence-meter-container { position: relative; width: 130px; height: 130px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+    .progress-ring { transform: rotate(-90deg); }
+    .progress-ring-bg { stroke: var(--border); stroke-width: 10; fill: transparent; }
+    .progress-ring-circle { stroke: var(--primary); stroke-width: 10; stroke-linecap: round; fill: transparent; stroke-dasharray: 364.42; stroke-dashoffset: 364.42; transition: stroke-dashoffset 1.2s ease, stroke 0.3s ease; }
+    .confidence-value-box { position: absolute; display: flex; flex-direction: column; align-items: center; }
+    .confidence-number { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+    .confidence-percent { font-size: 0.9rem; font-weight: 700; }
+    .confidence-sub { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-top: 2px; font-weight: 700; }
+    .prediction-hero { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+    .result-sub-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--text-muted); }
+    .prediction-title { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; margin: 4px 0; }
+    .prediction-subtext { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+    .card-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .report-timestamp { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); }
+    .insights-body, .recommendation-text { font-size: 0.9rem; line-height: 1.6; }
+    .recommendation-card { border-left: 5px solid var(--primary); }
+    .recommendation-card.risk-high { border-left-color: var(--danger); }
+    .recommendation-card.risk-medium { border-left-color: var(--warning); }
+    .summary-list { display: flex; flex-direction: column; gap: 10px; }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border); padding-bottom: 8px; }
+    .full-width-row { flex-direction: column; align-items: flex-start; gap: 6px; border-bottom: none; }
+    .row-label { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+    .row-value { font-size: 0.88rem; font-weight: 700; }
+    .symptoms-tags-wrapper { display: flex; flex-wrap: wrap; gap: 6px; }
+    .symptom-tag { background: var(--primary-light); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
+    .no-tags { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
+    .disclaimer-box { background: var(--warning-bg); border: 1px solid rgba(245,158,11,0.25); border-radius: var(--radius); padding: 14px; }
+    .disclaimer-header { display: flex; align-items: center; gap: 8px; color: var(--warning); font-size: 0.82rem; font-weight: 800; margin-bottom: 6px; }
+    .disclaimer-header svg { width: 18px; height: 18px; }
+    .disclaimer-text { font-size: 0.78rem; color: #92400E; line-height: 1.5; }
+    [data-theme="dark"] .disclaimer-text { color: #FBBF24; }
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+    @media print { .bottom-nav, .app-header { display: none !important; } .app-main { padding: 0; } }
+  </style>
 </head>
 <body>
+  <div class="app-shell">
+    <main class="app-main">
+      <!-- Empty State -->
+      <section id="emptyState" class="empty-state hidden">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg>
+        <h3>No Triage Record Found</h3>
+        <p>We couldn't locate recent AI prediction data. Please complete an assessment first.</p>
+        <a href="assessment.html" class="btn btn-primary btn-lg">Start New Assessment</a>
+      </section>
 
-  <!-- Background Animated Decor -->
-  <div class="ambient-background" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-  </div>
-
-  <!-- Top Navigation Bar -->
-  <header class="navbar">
-    <div class="nav-container">
-      <div class="brand-group">
-        <div class="logo-icon">
-          <img src="assets/gemini-svg.svg" alt="AfriSafe AI Logo" class="logo-img">
-        </div>
-        <span class="brand-name">AfriSafe <span class="brand-badge">AI</span></span>
-      </div>
-
-      <nav class="nav-links" aria-label="Main Navigation">
-        <a href="dashboard.html" class="nav-link">Dashboard</a>
-        <a href="assessment.html" class="nav-link">Assessment</a>
-        <a href="guidelines.html" class="nav-link">Guidelines</a>
-        <a href="history.html" class="nav-link">History</a>
-        <a href="profile.html" class="nav-link">Profile</a>
-        <a href="result.html" class="nav-link active" aria-current="page">Result Report</a>
-      </nav>
-
-      <div class="nav-actions">
-        <!-- User Session Badge -->
-        <div class="user-badge" title="Active Session">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span class="user-text">User</span>
-        </div>
-        <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Container -->
-  <main class="main-layout" id="printableArea">
-    
-    <!-- EMPTY STATE CONTAINER (Hidden when valid data exists) -->
-    <section id="emptyState" class="empty-state-card hidden" aria-live="polite">
-      <div class="empty-illustration" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 8v4M12 16h.01" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h2 class="empty-title">No Triage Record Found</h2>
-      <p class="empty-desc">We couldn't locate recent AI prediction data in your session. Please complete an assessment first to view your clinical evaluation.</p>
-      <a href="assessment.html" class="btn btn-primary btn-action-large">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" aria-hidden="true">
-          <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
-        </svg>
-        <span>Start New Assessment</span>
-      </a>
-    </section>
-
-    <!-- RESULT CONTENT CONTAINER -->
-    <div id="resultContent" class="results-grid hidden">
-
-      <!-- LEFT COLUMN: Primary Result & Insights -->
-      <div class="primary-column">
-
-        <!-- Main AI Risk Card -->
-        <article class="result-card primary-result-card fade-in">
+      <div id="resultContent" class="hidden">
+        <div class="card fade-in">
           <div class="card-top-row">
-            <span class="report-timestamp" id="reportDate">Evaluated on: --</span>
-            <div id="riskLevelBadge" class="risk-badge">Evaluating...</div>
+            <span class="report-timestamp" id="reportDate">—</span>
+            <div id="riskLevelBadge" class="risk-badge">—</div>
           </div>
-
           <div class="prediction-hero">
             <div class="confidence-meter-container">
-              <svg class="progress-ring" width="140" height="140" aria-hidden="true">
-                <circle class="progress-ring-bg" cx="70" cy="70" r="58" />
-                <circle id="confidenceCircle" class="progress-ring-circle" cx="70" cy="70" r="58" />
-              </svg>
-              <div class="confidence-value-box">
-                <span id="confidenceNumber" class="confidence-number">0</span>
-                <span class="confidence-percent">%</span>
-                <span class="confidence-sub">Confidence</span>
-              </div>
+              <svg class="progress-ring" width="130" height="130"><circle class="progress-ring-bg" cx="65" cy="65" r="58"/><circle id="confidenceCircle" class="progress-ring-circle" cx="65" cy="65" r="58"/></svg>
+              <div class="confidence-value-box"><span id="confidenceNumber" class="confidence-number">0</span><span class="confidence-percent">%</span><span class="confidence-sub">Confidence</span></div>
             </div>
-
-            <div class="prediction-info">
-              <span class="result-sub-label">Model Outcome</span>
-              <h1 id="predictionTitle" class="prediction-title">--</h1>
-              <p id="predictionSubtext" class="prediction-subtext">Calculating biomarker matrix...</p>
-            </div>
+            <div><span class="result-sub-label">Model Outcome</span><h1 id="predictionTitle" class="prediction-title">—</h1><p id="predictionSubtext" class="prediction-subtext">—</p></div>
           </div>
-        </article>
-
-        <!-- AI Insights Explanation Card -->
-        <article class="result-card insights-card fade-in delay-1">
-          <div class="card-header">
-            <div class="header-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                <path d="M12 22V12M12 12L3.3 7M12 12l8.7-5"/>
-              </svg>
-            </div>
-            <h2 class="card-title">AI Assessment Insights</h2>
-          </div>
-          <p id="aiInsightsText" class="insights-body">--</p>
-        </article>
-
-        <!-- Clinical Recommendation Card -->
-        <article id="recommendationCard" class="result-card recommendation-card fade-in delay-2">
-          <div class="card-header">
-            <div class="header-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-            </div>
-            <h2 class="card-title">Recommended Clinical Action</h2>
-          </div>
-          <div class="recommendation-content">
-            <p id="recommendationText" class="recommendation-text">--</p>
-            <div id="adviceList"></div>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- RIGHT COLUMN: Patient Summary & Action Buttons -->
-      <div class="secondary-column">
-
-        <!-- Patient Profile Summary Card -->
-        <aside class="result-card summary-side-card fade-in delay-1" aria-label="Patient Triage Summary">
-          <div class="card-header">
-            <h3 class="card-title">Patient Profile Summary</h3>
-          </div>
-
-          <div class="summary-list">
-            <div class="summary-row">
-              <span class="row-label">Age / Gender</span>
-              <span id="patientDemographics" class="row-value">--</span>
-            </div>
-
-            <div class="summary-row">
-              <span class="row-label">Location</span>
-              <span id="patientLocation" class="row-value">--</span>
-            </div>
-
-            <div class="summary-row">
-              <span class="row-label">Symptom Duration</span>
-              <span id="patientDuration" class="row-value">--</span>
-            </div>
-
-            <div class="summary-row full-width-row">
-              <span class="row-label">Reported Symptoms</span>
-              <div id="patientSymptomsTags" class="symptoms-tags-wrapper">
-                <span class="no-tags">None listed</span>
-              </div>
-            </div>
-          </div>
-        </aside>
-
-        <!-- Action Buttons Card -->
-        <div class="action-card fade-in delay-2">
-          <button type="button" id="downloadPdfBtn" class="btn btn-primary btn-action-large">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round"/>
-            </svg>
-            <span>Download Report (PDF)</span>
-          </button>
-
-          <a href="assessment.html" class="btn btn-secondary btn-action-large">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon" aria-hidden="true">
-              <path d="M1 4v6h6M23 20v-6h-6M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
-            </svg>
-            <span>New Assessment</span>
-          </a>
-
-          <a href="dashboard.html" class="btn btn-tertiary btn-action-large">
-            <span>Back to Dashboard</span>
-          </a>
         </div>
 
-        <!-- Medical Disclaimer -->
-        <aside class="disclaimer-box fade-in delay-3" aria-label="Medical Disclaimer">
-          <div class="disclaimer-header">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-            <span>Important Medical Disclaimer</span>
+        <div class="card fade-in delay-1">
+          <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>AI Assessment Insights</div>
+          <p id="aiInsightsText" class="insights-body">—</p>
+        </div>
+
+        <div id="recommendationCard" class="card recommendation-card fade-in delay-2">
+          <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Recommended Clinical Action</div>
+          <p id="recommendationText" class="recommendation-text">—</p>
+          <div id="adviceList"></div>
+        </div>
+
+        <div class="card fade-in delay-1">
+          <div class="card-title">Patient Profile Summary</div>
+          <div class="summary-list">
+            <div class="summary-row"><span class="row-label">Age / Gender</span><span id="patientDemographics" class="row-value">—</span></div>
+            <div class="summary-row"><span class="row-label">Location</span><span id="patientLocation" class="row-value">—</span></div>
+            <div class="summary-row"><span class="row-label">Symptom Duration</span><span id="patientDuration" class="row-value">—</span></div>
+            <div class="summary-row full-width-row"><span class="row-label">Reported Symptoms</span><div id="patientSymptomsTags" class="symptoms-tags-wrapper"><span class="no-tags">None listed</span></div></div>
           </div>
-          <p class="disclaimer-text">
-            This application provides AI-assisted screening only. It is <strong>NOT a medical diagnosis</strong>. Always consult a qualified healthcare professional or visit an accredited clinic for blood tests (RDT/Microscopy).
-          </p>
-        </aside>
+        </div>
 
+        <div class="card fade-in delay-2">
+          <button type="button" id="downloadPdfBtn" class="btn btn-primary btn-block btn-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round"/></svg>
+            Download Report (PDF)
+          </button>
+          <a href="assessment.html" class="btn btn-secondary btn-block btn-lg mt-1">New Assessment</a>
+          <a href="dashboard.html" class="btn btn-ghost btn-block mt-1">Back to Dashboard</a>
+        </div>
+
+        <div class="disclaimer-box fade-in delay-3">
+          <div class="disclaimer-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Important Medical Disclaimer</div>
+          <p class="disclaimer-text">This application provides AI-assisted screening only. It is <strong>NOT a medical diagnosis</strong>. Always consult a qualified healthcare professional for blood tests (RDT/Microscopy).</p>
+        </div>
       </div>
-
-    </div>
-
-  </main>
-
-  <!-- Global Footer -->
-  <footer class="app-footer">
-    <p class="copyright">&copy; 2026 AfriSafe AI</p>
-    <p class="disclaimer">
-      This application provides AI-assisted screening only. It is NOT a medical diagnosis.
-    </p>
-  </footer>
+    </main>
+  </div>
 
   <script type="module" src="js/config.js"></script>
   <script type="module" src="js/helpers.js"></script>
   <script src="js/notifications.js"></script>
+  <script src="js/bottomnav.js"></script>
   <script src="js/result.js"></script>
 </body>
 </html>

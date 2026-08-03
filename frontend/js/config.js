@@ -1,10 +1,13 @@
 // Frontend configuration
-// Production backend on Render. Override at runtime via window.__API_BASE_URL__.
+// Uses relative URLs so requests work against the dev server proxy (same origin)
+// in development, and against the Vercel rewrite to the Render backend in production.
 function resolveApiBaseUrl() {
   if (window.__API_BASE_URL__) {
     return window.__API_BASE_URL__.replace(/\/$/, "");
   }
-  return "https://afrisafe-ai.onrender.com";
+  // Relative base: the dev server (server.ts) serves the API at /api/v1/*
+  // and the frontend from /frontend/*, and Vercel rewrites /api/* to Render.
+  return "";
 }
 const API_BASE_URL = resolveApiBaseUrl();
 

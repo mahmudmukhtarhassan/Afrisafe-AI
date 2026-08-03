@@ -1,9 +1,21 @@
 import { API_BASE_URL } from "./config.js";
-import { fetchWithAuth, clearTokens } from "./auth.js";
+import { fetchWithAuth, clearTokens, extractErrorMessage } from "./auth.js";
+
+const NIGERIAN_STATES = ["Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"];
+
+let currentUser = null;
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (typeof populateUserBadge === "function") populateUserBadge();
   if (typeof wireLogout === "function") wireLogout();
+
+  // Populate state dropdown in edit form
+  const editStateSelect = document.getElementById("editState");
+  NIGERIAN_STATES.forEach((s) => {
+    const opt = document.createElement("option");
+    opt.value = s; opt.textContent = s;
+    editStateSelect.appendChild(opt);
+  });
 
   // Load profile
   try {
@@ -13,77 +25,143 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.location.href = "/login.html";
       return;
     }
-    const me = await resp.json();
-
-    document.getElementById("profileName").textContent = me.full_name || "--";
-    document.getElementById("profileEmail").textContent = me.email || "--";
-    document.getElementById("profileAge").textContent = me.age ? `${me.age} years` : "--";
-    document.getElementById("profileGender").textContent = me.gender || "--";
-    document.getElementById("profileState").textContent = me.state || "--";
-    document.getElementById("profileJoined").textContent = me.created_at
-      ? new Date(me.created_at).toLocaleDateString("en-US", { month: "long", year: "numeric" })
-      : "--";
-
-    const avatar = document.getElementById("avatarCircle");
-    const name = me.full_name || me.email || "U";
-    avatar.textContent = name.charAt(0).toUpperCase();
-
-    // Update nav user badge
-    const userText = document.querySelector(".user-text");
-    if (userText) userText.textContent = me.full_name || me.email || "User";
-  } catch (err) {
+    currentUser = await resp.json();
+    populateProfile(currentUser);
+  } catch {
     clearTokens();
     window.location.href = "/login.html";
     return;
   }
 
-  // Load notification settings from localStorage
-  const settings = window.getNotificationSettings ? window.getNotificationSettings() : {
-    symptomReminderEnabled: true, symptomReminderTime: "09:00",
-    preventionReminderEnabled: true, preventionReminderTime: "18:00",
-    browserNotifsEnabled: false,
-  };
-  document.getElementById("symptomEnabled").checked = settings.symptomReminderEnabled;
-  document.getElementById("symptomTime").value = settings.symptomReminderTime;
-  document.getElementById("preventionEnabled").checked = settings.preventionReminderEnabled;
-  document.getElementById("preventionTime").value = settings.preventionReminderTime;
-  document.getElementById("browserNotifsEnabled").checked = settings.browserNotifsEnabled;
+  // Load notification settings
+  const settings = window.getNotificationSettings ? window.getNotificationSettings() : {};
+  document.getElementById("symptomToggle").checked = settings.symptomReminderEnabled !== false;
+  document.getElementById("preventionToggle").checked = settings.preventionReminderEnabled !== false;
 
-  // Style sliders based on checkbox state
-  function updateSliderStyle(checkbox) {
-    const slider = checkbox.nextElementSibling;
-    slider.style.backgroundColor = checkbox.checked ? "var(--primary-green)" : "#D1D5DB";
-  }
-  ["symptomEnabled", "preventionEnabled", "browserNotifsEnabled"].forEach((id) => {
-    const cb = document.getElementById(id);
-    updateSliderStyle(cb);
-    cb.addEventListener("change", () => updateSliderStyle(cb));
+  // Dark mode toggle
+  const darkToggle = document.getElementById("darkModeToggle");
+  const savedTheme = localStorage.getItem("afrisafe_theme") || "light";
+  darkToggle.checked = savedTheme === "dark";
+  darkToggle.addEventListener("change", () => {
+    const theme = darkToggle.checked ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("afrisafe_theme", theme);
   });
 
-  // Enable browser notifications button
+  // Save notification toggles
+  ["symptomToggle", "preventionToggle"].forEach((id) => {
+    document.getElementById(id).addEventListener("change", () => {
+      const s = window.getNotificationSettings ? window.getNotificationSettings() : {};
+      s.symptomReminderEnabled = document.getElementById("symptomToggle").checked;
+      s.preventionReminderEnabled = document.getElementById("preventionToggle").checked;
+      if (window.saveNotificationSettings) window.saveNotificationSettings(s);
+    });
+  });
+
+  // Enable browser notifications
   document.getElementById("enableBrowserBtn").addEventListener("click", async () => {
     if (typeof requestBrowserNotificationPermission === "function") {
-      const granted = await requestBrowserNotificationPermission();
-      if (granted) {
-        document.getElementById("browserNotifsEnabled").checked = true;
-        updateSliderStyle(document.getElementById("browserNotifsEnabled"));
-      }
+      await requestBrowserNotificationPermission();
     }
   });
 
-  // Save settings
-  document.getElementById("saveNotifBtn").addEventListener("click", () => {
-    const newSettings = {
-      symptomReminderEnabled: document.getElementById("symptomEnabled").checked,
-      symptomReminderTime: document.getElementById("symptomTime").value,
-      preventionReminderEnabled: document.getElementById("preventionEnabled").checked,
-      preventionReminderTime: document.getElementById("preventionTime").value,
-      browserNotifsEnabled: document.getElementById("browserNotifsEnabled").checked,
-      intervalDays: 1,
+  // Edit profile
+  document.getElementById("editProfileBtn").addEventListener("click", () => {
+    document.getElementById("editName").value = currentUser.full_name || "";
+    document.getElementById("editAge").value = currentUser.age || "";
+    document.getElementById("editGender").value = currentUser.gender || "";
+    document.getElementById("editState").value = currentUser.state || "";
+    document.getElementById("editModal").classList.remove("hidden");
+  });
+
+  document.getElementById("editForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const updates = {
+      full_name: document.getElementById("editName").value.trim(),
+      age: document.getElementById("editAge").value ? Number(document.getElementById("editAge").value) : null,
+      gender: document.getElementById("editGender").value,
+      state: document.getElementById("editState").value,
     };
-    if (window.saveNotificationSettings) window.saveNotificationSettings(newSettings);
-    if (typeof showToast === "function") {
-      showToast("Notification settings saved.", "success");
+    try {
+      const resp = await fetchWithAuth(`${API_BASE_URL}/api/v1/users/profile`, {
+        method: "PUT",
+        body: JSON.stringify(updates),
+      });
+      if (!resp.ok) {
+        const msg = await extractErrorMessage(resp, "Failed to update profile.");
+        if (typeof showToast === "function") showToast(msg, "error");
+        return;
+      }
+      const updated = await resp.json();
+      currentUser = { ...currentUser, ...updated };
+      populateProfile(currentUser);
+      document.getElementById("editModal").classList.add("hidden");
+      if (typeof showToast === "function") showToast("Profile updated successfully.", "success");
+    } catch (err) {
+      if (typeof showToast === "function") showToast(err.message || "Failed to update profile.", "error");
     }
   });
+
+  // Change password
+  document.getElementById("changePassBtn").addEventListener("click", () => {
+    document.getElementById("passForm").reset();
+    document.getElementById("passModal").classList.remove("hidden");
+  });
+
+  document.getElementById("passForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const currentPass = document.getElementById("currentPass").value;
+    const newPass = document.getElementById("newPass").value;
+    const confirmPass = document.getElementById("confirmPass").value;
+
+    if (newPass !== confirmPass) {
+      if (typeof showToast === "function") showToast("New passwords do not match.", "error");
+      return;
+    }
+    if (newPass.length < 6) {
+      if (typeof showToast === "function") showToast("Password must be at least 6 characters.", "error");
+      return;
+    }
+
+    try {
+      const resp = await fetchWithAuth(`${API_BASE_URL}/api/v1/users/password`, {
+        method: "PUT",
+        body: JSON.stringify({ current_password: currentPass, new_password: newPass }),
+      });
+      if (!resp.ok) {
+        const msg = await extractErrorMessage(resp, "Failed to change password.");
+        if (typeof showToast === "function") showToast(msg, "error");
+        return;
+      }
+      document.getElementById("passModal").classList.add("hidden");
+      if (typeof showToast === "function") showToast("Password changed successfully.", "success");
+    } catch (err) {
+      if (typeof showToast === "function") showToast(err.message || "Failed to change password.", "error");
+    }
+  });
+
+  // Logout button
+  document.getElementById("logoutBtnMain").addEventListener("click", () => {
+    clearTokens();
+    window.location.href = "/login.html";
+  });
 });
+
+function populateProfile(me) {
+  const name = me.full_name || me.email || "User";
+  document.getElementById("profileName").textContent = name;
+  document.getElementById("profileEmail").textContent = me.email || "—";
+  document.getElementById("avatarCircle").textContent = name.charAt(0).toUpperCase();
+
+  document.getElementById("pName").textContent = me.full_name || "—";
+  document.getElementById("pEmail").textContent = me.email || "—";
+  document.getElementById("pAge").textContent = me.age ? `${me.age} years` : "—";
+  document.getElementById("pGender").textContent = me.gender || "—";
+  document.getElementById("pState").textContent = me.state || "—";
+  document.getElementById("pJoined").textContent = me.created_at
+    ? new Date(me.created_at).toLocaleDateString("en-US", { month: "long", year: "numeric" })
+    : "—";
+
+  const userText = document.querySelector(".user-text");
+  if (userText) userText.textContent = me.full_name || me.email || "User";
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="More options and settings - AfriSafe AI">
+  <title>More - AfriSafe AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/app.css">
+  <meta name="theme-color" content="#0F9D58">
+</head>
+<body>
+  <div class="app-shell">
+    <main class="app-main">
+      <h1 class="page-title">More</h1>
+      <p class="page-subtitle">Additional options and information</p>
+
+      <div class="card">
+        <div class="list-item" onclick="toggleSection('aboutSection')" style="cursor:pointer;">
+          <div class="list-item-left">
+            <span class="list-item-title">About AfriSafe AI</span>
+            <span class="list-item-sub">Learn about our mission</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+
+        <a href="guidelines.html" class="list-item" style="text-decoration:none;color:inherit;">
+          <div class="list-item-left">
+            <span class="list-item-title">Health Guidelines</span>
+            <span class="list-item-sub">Malaria prevention tips</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        </a>
+
+        <div class="list-item" onclick="toggleSection('faqSection')" style="cursor:pointer;">
+          <div class="list-item-left">
+            <span class="list-item-title">FAQ</span>
+            <span class="list-item-sub">Frequently asked questions</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+
+        <div class="list-item" onclick="toggleSection('helpSection')" style="cursor:pointer;">
+          <div class="list-item-left">
+            <span class="list-item-title">Help & Support</span>
+            <span class="list-item-sub">Get assistance</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="list-item" onclick="toggleSection('termsSection')" style="cursor:pointer;">
+          <div class="list-item-left">
+            <span class="list-item-title">Terms & Privacy</span>
+            <span class="list-item-sub">Legal information</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+
+        <div class="list-item" onclick="toggleSection('contactSection')" style="cursor:pointer;">
+          <div class="list-item-left">
+            <span class="list-item-title">Contact</span>
+            <span class="list-item-sub">Reach out to us</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+
+        <a href="profile.html" class="list-item" style="text-decoration:none;color:inherit;">
+          <div class="list-item-left">
+            <span class="list-item-title">Settings</span>
+            <span class="list-item-sub">Profile and preferences</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        </a>
+      </div>
+
+      <!-- Expandable sections -->
+      <div id="aboutSection" class="hidden card">
+        <div class="card-title">About AfriSafe AI</div>
+        <p style="font-size:0.9rem;line-height:1.6;color:var(--text-muted);">
+          AfriSafe AI is an intelligent healthcare platform designed to improve early disease detection and preventive healthcare across Africa. Our AI-powered malaria risk assessment helps users identify potential malaria risk based on symptoms and exposure factors, providing personalized recommendations for next steps.
+        </p>
+        <p style="font-size:0.9rem;line-height:1.6;color:var(--text-muted);margin-top:10px;">
+          <strong>Mission:</strong> To build Africa's most trusted AI-powered preventive healthcare platform, helping millions detect health risks early and make informed medical decisions.
+        </p>
+      </div>
+
+      <div id="faqSection" class="hidden card">
+        <div class="card-title">Frequently Asked Questions</div>
+        <p style="font-weight:700;font-size:0.9rem;margin-top:8px;">Is AfriSafe AI a medical diagnosis?</p>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">No. AfriSafe AI provides AI-assisted screening only. It is NOT a medical diagnosis. Always consult a qualified healthcare professional for proper testing and treatment.</p>
+        <p style="font-weight:700;font-size:0.9rem;">How does the assessment work?</p>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Our AI model analyzes your reported symptoms, exposure factors, and duration to estimate malaria risk probability using a logistic regression model.</p>
+        <p style="font-weight:700;font-size:0.9rem;">Is my data private?</p>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Yes. Your data is encrypted and stored securely. Only you can access your assessment history.</p>
+      </div>
+
+      <div id="helpSection" class="hidden card">
+        <div class="card-title">Help & Support</div>
+        <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.6;">Need help with the app? Here are some quick tips:</p>
+        <ul style="padding-left:20px;font-size:0.88rem;margin-top:8px;line-height:1.8;">
+          <li>Make sure you're logged in to access assessments</li>
+          <li>Complete all steps in the assessment for accurate results</li>
+          <li>Check your history page for past assessments</li>
+          <li>Enable notifications for daily reminders</li>
+        </ul>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-top:10px;">For further support, contact us below.</p>
+      </div>
+
+      <div id="termsSection" class="hidden card">
+        <div class="card-title">Terms & Privacy</div>
+        <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;">
+          By using AfriSafe AI, you agree that this application provides AI-assisted screening only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions about a medical condition.
+        </p>
+        <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;margin-top:10px;">
+          Your personal data and assessment history are stored securely and are only accessible to you. We do not share your data with third parties.
+        </p>
+      </div>
+
+      <div id="contactSection" class="hidden card">
+        <div class="card-title">Contact Us</div>
+        <div class="list-item"><span class="list-item-sub">Email</span><span class="list-item-title">support@afrisafe.ai</span></div>
+        <div class="list-item"><span class="list-item-sub">Organization</span><span class="list-item-title">MAHTECH Innovation Lab</span></div>
+        <div class="list-item"><span class="list-item-sub">Website</span><span class="list-item-title">afrisafe-ai.vercel.app</span></div>
+      </div>
+
+      <p class="text-center text-muted" style="font-size:0.75rem;margin-top:20px;">AfriSafe AI v1.0.0 — Smarter Prevention. Healthier Africa.</p>
+    </main>
+  </div>
+
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/helpers.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/bottomnav.js"></script>
+  <script>
+    function toggleSection(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle("hidden");
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof populateUserBadge === "function") populateUserBadge();
+      if (typeof wireLogout === "function") wireLogout();
+    });
+  </script>
+</body>
+</html>

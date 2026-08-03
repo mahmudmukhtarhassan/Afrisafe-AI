@@ -2,123 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="View your full malaria risk assessment history - AfriSafe AI">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="View your full malaria risk assessment history">
   <title>History - AfriSafe AI</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/result.css">
-
+  <link rel="stylesheet" href="css/app.css">
   <meta name="theme-color" content="#0F9D58">
-  <style>
-    .history-table-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-card);
-      box-shadow: var(--glass-shadow);
-      padding: 2rem;
-      margin-top: 1.5rem;
-    }
-    .history-table-card h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 1.25rem; }
-    .history-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr 100px 120px 80px;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border-color);
-      align-items: center;
-    }
-    .history-row.header {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      border-bottom: 2px solid var(--border-color);
-    }
-    .history-row.empty { border-bottom: none; }
-    .row-prediction { font-weight: 700; font-size: 0.925rem; }
-    .row-date { font-size: 0.85rem; color: var(--text-muted); }
-    .row-conf { font-size: 0.875rem; font-weight: 600; }
-    .delete-btn {
-      background: transparent;
-      border: 1px solid var(--danger);
-      color: var(--danger);
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .delete-btn:hover { background: var(--danger); color: white; }
-    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
-    @media (max-width: 768px) {
-      .history-row { grid-template-columns: 1fr; gap: 0.5rem; }
-      .history-row.header { display: none; }
-    }
-  </style>
 </head>
 <body>
+  <div class="app-shell">
+    <main class="app-main">
+      <h1 class="page-title">Assessment History</h1>
+      <p class="page-subtitle">All your malaria risk assessments</p>
 
-  <div class="ambient-background" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
+      <div class="search-bar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Search assessments...">
+      </div>
+
+      <div class="filter-chips" id="filterChips">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="positive">Positive</button>
+        <button class="chip" data-filter="negative">Negative</button>
+        <button class="chip" data-filter="high">High Risk</button>
+        <button class="chip" data-filter="low">Low Risk</button>
+      </div>
+
+      <div id="historyContainer">
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+    </main>
   </div>
 
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="dashboard.html" class="brand-group" style="text-decoration:none;color:inherit;">
-        <div class="logo-icon">
-          <img src="assets/gemini-svg.svg" alt="AfriSafe AI Logo" class="logo-img">
-        </div>
-        <div class="brand-name">AfriSafe <span class="brand-badge">AI</span></div>
-      </a>
-      <nav class="nav-links" aria-label="Main Navigation">
-        <a href="dashboard.html" class="nav-link">Dashboard</a>
-        <a href="assessment.html" class="nav-link">Assessment</a>
-        <a href="guidelines.html" class="nav-link">Guidelines</a>
-        <a href="history.html" class="nav-link active" aria-current="page">History</a>
-        <a href="profile.html" class="nav-link">Profile</a>
-      </nav>
-      <div class="nav-actions">
-        <div class="user-badge" title="Active Session">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span class="user-text">User</span>
-        </div>
-        <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
-      </div>
-    </div>
-  </header>
-
-  <main class="main-layout" style="grid-template-columns: 1fr;">
-    <div>
-      <h1 style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.25rem;">Assessment History</h1>
-      <p style="color:var(--text-muted);font-size:0.95rem;">Full record of your malaria risk assessments.</p>
-    </div>
-
-    <div class="history-table-card">
-      <h2>All Assessments</h2>
-      <div id="historyContainer">
-        <div class="empty-state">Loading your assessment history...</div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="app-footer">
-    <p class="copyright">&copy; 2026 AfriSafe AI</p>
-    <p class="disclaimer">This application provides AI-assisted screening only. It is NOT a medical diagnosis.</p>
-  </footer>
+  <!-- Detail Modal -->
+  <div id="detailModal" class="hidden" style="position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);display:flex;align-items:flex-end;justify-content:center;" onclick="if(event.target===this)this.classList.add('hidden')">
+    <div style="background:var(--surface);width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:24px;max-height:80vh;overflow-y:auto;" id="detailContent"></div>
+  </div>
 
   <script type="module" src="js/config.js"></script>
   <script type="module" src="js/helpers.js"></script>
   <script src="js/notifications.js"></script>
+  <script src="js/bottomnav.js"></script>
   <script type="module" src="js/history.js"></script>
 </body>
 </html>
