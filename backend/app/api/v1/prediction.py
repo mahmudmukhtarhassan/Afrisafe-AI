@@ -190,6 +190,22 @@ def predict(payload: PredictionPayload, request: Request):
             detail=resp.text,
         )
 
+    # Log activity (best-effort, don't fail the request if logging fails)
+    try:
+        log_url = f"{REST_URL}/activity_logs"
+        log_body = {
+            "user_id": user_id,
+            "action": "assessment_created",
+            "metadata": {
+                "prediction": result["prediction"],
+                "risk": result["risk"],
+                "prediction_id": record["id"],
+            },
+        }
+        requests.post(log_url, json=log_body, headers=service_headers, timeout=5)
+    except Exception:
+        pass
+
     return {
         "id": record["id"],
         "prediction": record["prediction"],

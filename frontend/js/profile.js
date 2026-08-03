@@ -6,6 +6,10 @@ const NIGERIAN_STATES = ["Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayels
 let currentUser = null;
 
 document.addEventListener("DOMContentLoaded", async () => {
+  if (typeof initAuth === "function") {
+    const ok = await initAuth();
+    if (!ok) return;
+  }
   if (typeof populateUserBadge === "function") populateUserBadge();
   if (typeof wireLogout === "function") wireLogout();
 

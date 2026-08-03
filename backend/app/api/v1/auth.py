@@ -51,10 +51,42 @@ def _normalize_user(user: dict) -> dict:
         "age": metadata.get("age"),
         "gender": metadata.get("gender"),
         "state": metadata.get("state"),
+        "phone": metadata.get("phone"),
         "role": (user.get("role") or "user"),
         "is_active": user.get("is_active", True),
         "created_at": user.get("created_at"),
     }
+
+
+def _fetch_profile(user_id: str) -> dict | None:
+    """Fetch the profiles row for a user via the REST API (service role)."""
+    if not SUPABASE_SERVICE_ROLE_KEY:
+        return None
+    url = f"{SUPABASE_URL}/rest/v1/profiles?id=eq.{user_id}"
+    headers = {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+    }
+    try:
+        resp = requests.get(url, headers=headers, timeout=5)
+        if resp.status_code == 200:
+            rows = resp.json()
+            return rows[0] if rows else None
+    except Exception:
+        pass
+    return None
+
+
+def _merge_user_profile(auth_user: dict) -> dict:
+    """Merge auth.users data with the profiles row, preferring profile values."""
+    base = _normalize_user(auth_user)
+    profile = _fetch_profile(base.get("id"))
+    if profile:
+        for key in ("full_name", "age", "gender", "state", "phone"):
+            val = profile.get(key)
+            if val is not None:
+                base[key] = val
+    return base
 
 
 @router.post("/register")
@@ -85,6 +117,28 @@ def register(payload: RegisterPayload):
     access_token = data.get("access_token") or session.get("access_token")
     refresh_token = data.get("refresh_token") or session.get("refresh_token")
     user = data.get("user") or {}
+    user_id = user.get("id")
+
+    # Ensure a profiles row exists (the DB trigger also does this; upsert is idempotent)
+    if user_id and SUPABASE_SERVICE_ROLE_KEY:
+        prof_url = f"{SUPABASE_URL}/rest/v1/profiles"
+        prof_body = {
+            "id": user_id,
+            "email": payload.email,
+            "full_name": payload.full_name,
+            "age": payload.age,
+            "gender": payload.gender,
+            "state": payload.state,
+        }
+        try:
+            requests.post(prof_url, json=prof_body, headers={
+                "apikey": SUPABASE_ANON_KEY,
+                "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+                "Content-Type": "application/json",
+                "Prefer": "resolution=merge-duplicates",
+            }, timeout=5)
+        except Exception:
+            pass
 
     return {
         "message": "User registered successfully.",
@@ -114,7 +168,7 @@ def login(payload: LoginPayload):
         "access_token": data.get("access_token"),
         "refresh_token": data.get("refresh_token"),
         "token_type": data.get("token_type", "bearer"),
-        "user": _normalize_user(data.get("user")),
+        "user": _merge_user_profile(data.get("user")),
     }
 
 
@@ -162,4 +216,4 @@ def me(request: Request):
             status_code=status.HTTP_401_UNAUTHORIZED, detail=detail
         )
 
-    return _normalize_user(resp.json())
+    return _merge_user_profile(resp.json())

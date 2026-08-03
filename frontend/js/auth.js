@@ -107,4 +107,20 @@ async function fetchWithAuth(url, options = {}, retry = true) {
   return resp;
 }
 
-export { saveTokens, loadTokens, clearTokens, refreshAccessToken, fetchWithAuth, isTokenExpired, extractErrorMessage };
+async function ensureValidSession() {
+  const tokens = loadTokens();
+  if (!tokens || !tokens.access_token) {
+    return false;
+  }
+  if (isTokenExpired()) {
+    try {
+      await refreshAccessToken();
+    } catch {
+      clearTokens();
+      return false;
+    }
+  }
+  return true;
+}
+
+export { saveTokens, loadTokens, clearTokens, refreshAccessToken, fetchWithAuth, isTokenExpired, ensureValidSession, extractErrorMessage };

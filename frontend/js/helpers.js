@@ -3,11 +3,22 @@
  * Auth guards, user badge, logout wiring, toast notifications, HTML escaping, API requests.
  */
 import { API_BASE_URL } from "./config.js";
-import { fetchWithAuth, loadTokens, clearTokens, extractErrorMessage } from "./auth.js";
+import { fetchWithAuth, loadTokens, clearTokens, extractErrorMessage, ensureValidSession } from "./auth.js";
 
 function requireAuth() {
   const tokens = loadTokens();
   if (!tokens || !tokens.access_token) {
+    if (!window.location.pathname.endsWith("/login.html")) {
+      window.location.href = "/login.html";
+    }
+    return false;
+  }
+  return true;
+}
+
+async function initAuth() {
+  const valid = await ensureValidSession();
+  if (!valid) {
     if (!window.location.pathname.endsWith("/login.html")) {
       window.location.href = "/login.html";
     }
@@ -112,6 +123,7 @@ async function apiRequest(url, method = "GET", body = null, auth = true) {
 }
 
 window.requireAuth = requireAuth;
+window.initAuth = initAuth;
 window.populateUserBadge = populateUserBadge;
 window.wireLogout = wireLogout;
 window.showToast = showToast;

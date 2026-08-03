@@ -2,6 +2,10 @@ import { API_BASE_URL } from "./config.js";
 import { fetchWithAuth, clearTokens, extractErrorMessage } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+  if (typeof initAuth === "function") {
+    const ok = await initAuth();
+    if (!ok) return;
+  }
   if (typeof populateUserBadge === "function") populateUserBadge();
   if (typeof wireLogout === "function") wireLogout();
 
