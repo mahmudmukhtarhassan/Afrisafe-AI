@@ -261,4 +261,3 @@ if resp.status_code != 200:
 
 return _merge_user_profile(resp.json())
 ```
-
