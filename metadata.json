@@ -1,6 +1,0 @@
-{
-  "name": "AfriSafe AI",
-  "description": "AI-powered malaria risk assessment and triage system for Nigeria.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
