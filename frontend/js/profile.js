@@ -39,34 +39,53 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Load notification settings
   const settings = window.getNotificationSettings ? window.getNotificationSettings() : {};
-  document.getElementById("symptomToggle").checked = settings.symptomReminderEnabled !== false;
-  document.getElementById("preventionToggle").checked = settings.preventionReminderEnabled !== false;
+  const reminderToggle = document.getElementById("reminderToggle");
+  if (reminderToggle) reminderToggle.checked = settings.symptomReminderEnabled !== false;
 
   // Dark mode toggle
   const darkToggle = document.getElementById("darkModeToggle");
   const savedTheme = localStorage.getItem("afrisafe_theme") || "light";
-  darkToggle.checked = savedTheme === "dark";
-  darkToggle.addEventListener("change", () => {
-    const theme = darkToggle.checked ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("afrisafe_theme", theme);
-  });
+  if (darkToggle) {
+    darkToggle.checked = savedTheme === "dark";
+    darkToggle.addEventListener("change", () => {
+      const theme = darkToggle.checked ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("afrisafe_theme", theme);
+    });
+  }
 
-  // Save notification toggles
-  ["symptomToggle", "preventionToggle"].forEach((id) => {
-    document.getElementById(id).addEventListener("change", () => {
+  // Save reminder toggle
+  if (reminderToggle) {
+    reminderToggle.addEventListener("change", () => {
       const s = window.getNotificationSettings ? window.getNotificationSettings() : {};
-      s.symptomReminderEnabled = document.getElementById("symptomToggle").checked;
-      s.preventionReminderEnabled = document.getElementById("preventionToggle").checked;
+      s.symptomReminderEnabled = reminderToggle.checked;
       if (window.saveNotificationSettings) window.saveNotificationSettings(s);
     });
-  });
+  }
 
   // Enable browser notifications
-  document.getElementById("enableBrowserBtn").addEventListener("click", async () => {
-    if (typeof requestBrowserNotificationPermission === "function") {
-      await requestBrowserNotificationPermission();
-    }
+  const enableNotifBtn = document.getElementById("enableNotifBtn");
+  if (enableNotifBtn) {
+    enableNotifBtn.addEventListener("click", async () => {
+      if (typeof requestBrowserNotificationPermission === "function") {
+        await requestBrowserNotificationPermission();
+      }
+    });
+  }
+
+  // Modal helpers
+  function openModal(id) { document.getElementById(id).classList.add("active"); }
+  function closeModal(id) { document.getElementById(id).classList.remove("active"); }
+  document.querySelectorAll("[data-close]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const modal = btn.closest(".modal-overlay");
+      if (modal) modal.classList.remove("active");
+    });
+  });
+  document.querySelectorAll(".modal-overlay").forEach(overlay => {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) overlay.classList.remove("active");
+    });
   });
 
   // Edit profile
@@ -75,11 +94,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("editAge").value = currentUser.age || "";
     document.getElementById("editGender").value = currentUser.gender || "";
     document.getElementById("editState").value = currentUser.state || "";
-    document.getElementById("editModal").classList.remove("hidden");
+    openModal("editModal");
   });
 
-  document.getElementById("editForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+  document.getElementById("saveProfileBtn").addEventListener("click", async () => {
     const updates = {
       full_name: document.getElementById("editName").value.trim(),
       age: document.getElementById("editAge").value ? Number(document.getElementById("editAge").value) : null,
@@ -99,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const updated = await resp.json();
       currentUser = { ...currentUser, ...updated };
       populateProfile(currentUser);
-      document.getElementById("editModal").classList.add("hidden");
+      closeModal("editModal");
       if (typeof showToast === "function") showToast("Profile updated successfully.", "success");
     } catch (err) {
       if (typeof showToast === "function") showToast(err.message || "Failed to update profile.", "error");
@@ -107,13 +125,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // Change password
-  document.getElementById("changePassBtn").addEventListener("click", () => {
-    document.getElementById("passForm").reset();
-    document.getElementById("passModal").classList.remove("hidden");
+  document.getElementById("changePasswordRow").addEventListener("click", () => {
+    document.getElementById("currentPass").value = "";
+    document.getElementById("newPass").value = "";
+    document.getElementById("confirmPass").value = "";
+    openModal("passModal");
   });
 
-  document.getElementById("passForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+  document.getElementById("savePassBtn").addEventListener("click", async () => {
     const currentPass = document.getElementById("currentPass").value;
     const newPass = document.getElementById("newPass").value;
     const confirmPass = document.getElementById("confirmPass").value;
@@ -137,7 +156,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (typeof showToast === "function") showToast(msg, "error");
         return;
       }
-      document.getElementById("passModal").classList.add("hidden");
+      closeModal("passModal");
       if (typeof showToast === "function") showToast("Password changed successfully.", "success");
     } catch (err) {
       if (typeof showToast === "function") showToast(err.message || "Failed to change password.", "error");
@@ -145,7 +164,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // Logout button
-  document.getElementById("logoutBtnMain").addEventListener("click", () => {
+  document.getElementById("logoutBtn").addEventListener("click", () => {
     clearTokens();
     window.location.href = "/login.html";
   });
@@ -155,14 +174,13 @@ function populateProfile(me) {
   const name = me.full_name || me.email || "User";
   document.getElementById("profileName").textContent = name;
   document.getElementById("profileEmail").textContent = me.email || "—";
-  document.getElementById("avatarCircle").textContent = name.charAt(0).toUpperCase();
+  document.getElementById("profileAvatar").textContent = name.charAt(0).toUpperCase();
 
-  document.getElementById("pName").textContent = me.full_name || "—";
-  document.getElementById("pEmail").textContent = me.email || "—";
-  document.getElementById("pAge").textContent = me.age ? `${me.age} years` : "—";
-  document.getElementById("pGender").textContent = me.gender || "—";
-  document.getElementById("pState").textContent = me.state || "—";
-  document.getElementById("pJoined").textContent = me.created_at
+  document.getElementById("infoName").textContent = me.full_name || "—";
+  document.getElementById("infoAge").textContent = me.age ? `${me.age} years` : "—";
+  document.getElementById("infoGender").textContent = me.gender || "—";
+  document.getElementById("infoState").textContent = me.state || "—";
+  document.getElementById("infoJoined").textContent = me.created_at
     ? new Date(me.created_at).toLocaleDateString("en-US", { month: "long", year: "numeric" })
     : "—";
 

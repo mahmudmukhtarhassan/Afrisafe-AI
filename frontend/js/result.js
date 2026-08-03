@@ -14,23 +14,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const emptyState = document.getElementById("emptyState");
   const resultContent = document.getElementById("resultContent");
 
-  const reportDate = document.getElementById("reportDate");
-  const riskLevelBadge = document.getElementById("riskLevelBadge");
-  const confidenceCircle = document.getElementById("confidenceCircle");
-  const confidenceNumber = document.getElementById("confidenceNumber");
+  const riskLevelBadge = document.getElementById("riskBadge");
+  const confidenceCircle = document.getElementById("confidenceRing");
+  const confidenceNumber = document.getElementById("confidenceValue");
   const predictionTitle = document.getElementById("predictionTitle");
-  const predictionSubtext = document.getElementById("predictionSubtext");
+  const predictionSubtext = document.getElementById("predictionSub");
 
-  const aiInsightsText = document.getElementById("aiInsightsText");
+  const aiInsightsText = document.getElementById("insightsText");
   const recommendationCard = document.getElementById("recommendationCard");
   const recommendationText = document.getElementById("recommendationText");
-  const adviceListContainer = document.getElementById("adviceList");
 
-  const patientDemographics = document.getElementById("patientDemographics");
-  const patientLocation = document.getElementById("patientLocation");
-  const patientDuration = document.getElementById("patientDuration");
-  const patientSymptomsTags = document.getElementById("patientSymptomsTags");
-  const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+  const summaryRows = document.getElementById("summaryRows");
+  const patientSymptomsTags = document.getElementById("symptomTags");
+  const downloadPdfBtn = document.getElementById("downloadPdf");
 
   // 3. Load Data from LocalStorage (Supports fallback keys)
   let resultData = null;
@@ -69,10 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const timestamp = resultData.timestamp || resultData.created_at || new Date().toISOString();
 
   // 6. Populate Header & Assessment Meta
-  if (reportDate) {
-    reportDate.textContent = `Evaluated on: ${formatDate(timestamp)}`;
-  }
-
   if (predictionTitle) {
     predictionTitle.textContent = prediction;
   }
@@ -94,14 +86,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (recommendationCard) {
-    recommendationCard.className = `result-card recommendation-card risk-${risk.toLowerCase()}`;
+    recommendationCard.className = `card insight-card fade-in delay-2 ${risk.toLowerCase()}`;
   }
 
   // 8. Progress Ring & Number Counter Animation
   const confidencePercent = Math.min(100, Math.max(0, confidence));
   const confidenceFraction = confidencePercent / 100;
-  const radius = confidenceCircle ? confidenceCircle.r.baseVal.value : 58;
-  const circumference = 2 * Math.PI * radius; // ~364.42 for r=58
+  const radius = confidenceCircle ? confidenceCircle.r.baseVal.value : 70;
+  const circumference = 2 * Math.PI * radius;
 
   if (confidenceCircle) {
     confidenceCircle.style.strokeDasharray = `${circumference}`;
@@ -122,7 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (confidenceNumber) {
-    animateCounter(confidenceNumber, 0, Math.round(confidencePercent), 800);
+    animateCounter(confidenceNumber, 0, Math.round(confidencePercent), 1500);
+    confidenceNumber.textContent = Math.round(confidencePercent) + '%';
   }
 
   // 9. Render Insights & Recommendations
@@ -134,40 +127,24 @@ document.addEventListener("DOMContentLoaded", () => {
     recommendationText.innerHTML = formatText(recommendation || "Consult a qualified healthcare provider for clinical evaluation.");
   }
 
-  if (adviceListContainer) {
-    adviceListContainer.innerHTML = "";
-    if (advice.length > 0) {
-      const ul = document.createElement("ul");
-      ul.className = "advice-ul";
-      ul.style.cssText = "margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 1.25rem; list-style-type: disc;";
-      advice.forEach((item) => {
-        const li = document.createElement("li");
-        li.style.marginBottom = "0.35rem";
-        li.textContent = item;
-        ul.appendChild(li);
-      });
-      adviceListContainer.appendChild(ul);
-    }
-  }
-
-  // 10. Populate Patient Profile Sidebar
+  // 10. Populate Patient Profile Summary
   if (patientInputs) {
     const age = patientInputs.age || patientInputs.patient_age || "--";
     const gender = patientInputs.gender || patientInputs.patient_gender || "--";
-    if (patientDemographics) patientDemographics.textContent = `${age} Yrs / ${gender}`;
-
-    const state = patientInputs.state || patientInputs.location || "";
-    const lga = patientInputs.lga ? `, ${patientInputs.lga}` : "";
-    if (patientLocation) patientLocation.textContent = state ? `${state}${lga}` : "Not specified";
-
+    const state = patientInputs.state || patientInputs.location || "Not specified";
     const duration = patientInputs.duration || patientInputs.symptom_duration || 1;
-    if (patientDuration) patientDuration.textContent = `${duration} ${parseInt(duration, 10) === 1 ? "Day" : "Days"}`;
 
-    // Render Symptom Tags
+    if (summaryRows) {
+      summaryRows.innerHTML = `
+        <div class="summary-row"><span class="summary-key">Age / Gender</span><span class="summary-val">${age} / ${gender}</span></div>
+        <div class="summary-row"><span class="summary-key">Location</span><span class="summary-val">${state}</span></div>
+        <div class="summary-row"><span class="summary-key">Symptom Duration</span><span class="summary-val">${duration} ${parseInt(duration, 10) === 1 ? "Day" : "Days"}</span></div>
+      `;
+    }
+
     if (patientSymptomsTags) {
       patientSymptomsTags.innerHTML = "";
       const symptoms = Array.isArray(patientInputs.symptoms) ? patientInputs.symptoms : [];
-      
       if (symptoms.length > 0) {
         symptoms.forEach((sym) => {
           const span = document.createElement("span");
@@ -176,14 +153,12 @@ document.addEventListener("DOMContentLoaded", () => {
           patientSymptomsTags.appendChild(span);
         });
       } else {
-        patientSymptomsTags.innerHTML = '<span class="no-tags">None listed</span>';
+        patientSymptomsTags.innerHTML = '<span class="text-muted" style="font-size:0.8rem;">None listed</span>';
       }
     }
   } else {
-    if (patientDemographics) patientDemographics.textContent = "--";
-    if (patientLocation) patientLocation.textContent = "--";
-    if (patientDuration) patientDuration.textContent = "--";
-    if (patientSymptomsTags) patientSymptomsTags.innerHTML = '<span class="no-tags">None listed</span>';
+    if (summaryRows) summaryRows.innerHTML = '<div class="text-muted">No patient data available</div>';
+    if (patientSymptomsTags) patientSymptomsTags.innerHTML = '<span class="text-muted" style="font-size:0.8rem;">None listed</span>';
   }
 
   // 11. PDF Download Handler

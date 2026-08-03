@@ -9,43 +9,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const formAlert = document.getElementById("formAlert");
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
-  const emailError = document.getElementById("emailError");
-  const passwordError = document.getElementById("passwordError");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    emailError.textContent = "";
-    passwordError.textContent = "";
-    emailInput.classList.remove("invalid");
-    passwordInput.classList.remove("invalid");
-    formAlert.classList.add("hidden");
-    formAlert.classList.remove("danger", "info");
+    emailInput.classList.remove("is-error");
+    passwordInput.classList.remove("is-error");
+    formAlert.className = "form-alert";
+    formAlert.textContent = "";
 
     const email = emailInput.value.trim();
     const password = passwordInput.value;
 
     let valid = true;
-    if (!email) {
-      emailError.textContent = "Email is required.";
-      emailInput.classList.add("invalid");
-      valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      emailError.textContent = "Please enter a valid email address.";
-      emailInput.classList.add("invalid");
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailInput.classList.add("is-error");
       valid = false;
     }
     if (!password) {
-      passwordError.textContent = "Password is required.";
-      passwordInput.classList.add("invalid");
+      passwordInput.classList.add("is-error");
       valid = false;
     }
-    if (!valid) return;
+    if (!valid) {
+      formAlert.className = "form-alert danger";
+      formAlert.textContent = "Please enter a valid email and password.";
+      return;
+    }
 
+    loginBtn.classList.add("loading");
     loginBtn.disabled = true;
-    const btnText = loginBtn.querySelector(".btn-text");
-    const btnSpinner = loginBtn.querySelector(".btn-spinner");
-    btnSpinner.classList.remove("hidden");
-    btnText.textContent = "Signing in...";
 
     try {
       const resp = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
@@ -57,12 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await resp.json().catch(() => ({}));
 
       if (!resp.ok) {
-        formAlert.classList.remove("hidden");
-        formAlert.classList.add("danger");
+        formAlert.className = "form-alert danger";
         formAlert.textContent = await extractErrorMessage(resp, "Login failed. Please check your credentials.");
+        loginBtn.classList.remove("loading");
         loginBtn.disabled = false;
-        btnSpinner.classList.add("hidden");
-        btnText.textContent = "Sign In";
         return;
       }
 
@@ -74,12 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       window.location.href = "/dashboard.html";
     } catch (err) {
-      formAlert.classList.remove("hidden");
-      formAlert.classList.add("danger");
+      formAlert.className = "form-alert danger";
       formAlert.textContent = err.message || "Unable to connect to the server. Please try again.";
+      loginBtn.classList.remove("loading");
       loginBtn.disabled = false;
-      btnSpinner.classList.add("hidden");
-      btnText.textContent = "Sign In";
     }
   });
 });

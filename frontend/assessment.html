@@ -1,158 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Complete a malaria risk assessment">
-  <title>Assessment - AfriSafe AI</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/app.css">
-  <meta name="theme-color" content="#0F9D58">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0F9D58" />
+  <title>AfriSafe AI — Assessment</title>
+  <link rel="stylesheet" href="css/app.css" />
   <style>
-    .progress-bar-bg { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 20px; }
-    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.3s ease; }
-    .stepper-steps { list-style: none; display: flex; justify-content: space-between; margin-bottom: 20px; }
-    .step-item { display: flex; flex-direction: column; align-items: center; flex: 1; text-align: center; opacity: 0.4; transition: var(--transition); }
-    .step-item.active { opacity: 1; }
-    .step-circle { width: 28px; height: 28px; border-radius: 50%; background: var(--border); color: var(--text); font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 4px; transition: var(--transition); }
-    .step-item.active .step-circle { background: var(--primary); color: #fff; box-shadow: 0 0 0 4px rgba(15,157,88,0.15); }
-    .step-label { font-size: 0.72rem; font-weight: 700; }
-    .form-section { display: flex; flex-direction: column; gap: 16px; }
-    .form-section.hidden-section { display: none !important; }
-    .section-header { border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-    .section-title { font-size: 1.15rem; font-weight: 800; }
-    .section-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
-    .symptoms-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-    .symptom-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; transition: var(--transition); }
-    .symptom-card:active { transform: scale(0.98); }
+    .progress-bar-bg { width: 100%; height: 6px; background: var(--border-2); border-radius: var(--radius-full); overflow: hidden; }
+    .progress-bar-fill {
+      height: 100%; background: var(--gradient); border-radius: var(--radius-full);
+      transition: width 0.4s var(--ease-out); width: 33%;
+    }
+    .stepper-steps { display: flex; justify-content: space-between; margin: 16px 0 24px; }
+    .step-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative; }
+    .step-item::after { content: ''; position: absolute; top: 14px; left: 50%; right: -50%; height: 2px; background: var(--border); z-index: 0; }
+    .step-item:last-child::after { display: none; }
+    .step-item.completed::after { background: var(--primary); }
+    .step-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--fs-tiny); font-weight: 700;
+      background: var(--surface); border: 2px solid var(--border);
+      color: var(--text-2); z-index: 1; transition: all var(--t) var(--ease);
+    }
+    .step-item.active .step-circle { background: var(--gradient); border-color: transparent; color: #fff; box-shadow: var(--shadow-glow); }
+    .step-item.completed .step-circle { background: var(--primary); border-color: transparent; color: #fff; }
+    .step-label { font-size: var(--fs-tiny); font-weight: 600; color: var(--text-2); }
+    .step-item.active .step-label { color: var(--primary); }
+
+    .step-content { animation: fadeInUp 0.4s var(--ease-out) both; }
+    .step-content.hidden { display: none; }
+
+    .symptoms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .symptom-card {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px; border-radius: var(--radius);
+      border: 1.5px solid var(--border); background: var(--surface);
+      cursor: pointer; transition: all var(--t) var(--ease);
+      position: relative;
+    }
+    .symptom-card:hover { border-color: var(--primary); }
     .symptom-card.selected { border-color: var(--primary); background: var(--primary-light); }
-    .symptom-icon { width: 40px; height: 40px; background: var(--surface-2); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--text-muted); }
-    .symptom-card.selected .symptom-icon { background: var(--primary); color: #fff; }
-    .symptom-icon svg { width: 20px; height: 20px; }
-    .symptom-info { flex: 1; }
-    .symptom-title { font-size: 0.92rem; font-weight: 700; }
-    .symptom-desc { font-size: 0.75rem; color: var(--text-muted); }
-    .duration-box { background: var(--medical-blue-light); border: 1px solid rgba(30,136,229,0.15); border-radius: var(--radius-sm); padding: 16px; }
-    .duration-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .duration-value { font-size: 1rem; font-weight: 800; color: var(--medical-blue); }
-    .range-slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; background: var(--border); outline: none; }
-    .range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--medical-blue); cursor: pointer; box-shadow: 0 2px 6px rgba(30,136,229,0.3); }
-    .slider-ticks { display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); margin-top: 6px; }
-    .context-card { border: 1.5px solid var(--border); background: var(--surface); border-radius: var(--radius-sm); padding: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-    .context-text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-    .context-title { font-size: 0.92rem; font-weight: 700; }
-    .context-desc { font-size: 0.76rem; color: var(--text-muted); }
-    .review-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; }
-    .review-group { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 10px; margin-bottom: 10px; gap: 12px; }
-    .review-group:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
-    .review-key { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
-    .review-val { font-size: 0.88rem; font-weight: 700; text-align: right; }
-    .section-actions { display: flex; justify-content: space-between; margin-top: 8px; }
-    .section-actions.align-right { justify-content: flex-end; }
-    .btn-submit-large { width: 100%; height: 54px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; font-size: 1rem; font-weight: 800; border: none; border-radius: var(--radius-sm); box-shadow: 0 6px 20px rgba(15,157,88,0.25); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: var(--transition); }
-    .btn-submit-large:active { transform: scale(0.97); }
-    .loading-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; }
-    .loading-card { background: var(--surface); border-radius: var(--radius-lg); padding: 32px; max-width: 360px; width: calc(100% - 32px); text-align: center; }
-    .ai-spinner { position: relative; width: 60px; height: 60px; margin: 0 auto 16px; }
-    .spinner-ring { position: absolute; width: 60px; height: 60px; border: 5px solid var(--primary-light); border-radius: 50%; animation: spin 1.2s linear infinite; border-top-color: var(--primary); }
-    .loading-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
-    .loading-text { font-size: 0.85rem; color: var(--text-muted); }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @media (min-width: 640px) { .symptoms-grid { grid-template-columns: 1fr 1fr; } }
+    .symptom-card.selected::after {
+      content: ''; position: absolute; top: 8px; right: 8px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--primary);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center;
+      background-size: 12px;
+    }
+    .symptom-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; color: var(--text-2); flex-shrink: 0; }
+    .symptom-card.selected .symptom-icon { background: var(--gradient); color: #fff; }
+    .symptom-name { font-size: var(--fs-caption); font-weight: 600; }
+
+    .duration-box { margin-top: 20px; padding: 16px; border-radius: var(--radius); background: var(--surface-2); }
+    .duration-box label { font-size: var(--fs-caption); font-weight: 600; color: var(--text-2); display: block; margin-bottom: 12px; }
+    .range-slider {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 6px; border-radius: var(--radius-full);
+      background: var(--border); outline: none;
+    }
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--gradient); cursor: pointer;
+      box-shadow: var(--shadow-md);
+    }
+    .range-slider::-moz-range-thumb {
+      width: 24px; height: 24px; border-radius: 50%; border: none;
+      background: var(--primary); cursor: pointer;
+    }
+    .slider-value { text-align: center; margin-top: 8px; font-size: var(--fs-body); font-weight: 700; color: var(--primary); }
+
+    .context-card {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--surface);
+      margin-bottom: 10px;
+    }
+    .context-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; color: var(--text-2); flex-shrink: 0; }
+    .context-text { flex: 1; }
+    .context-text strong { font-size: var(--fs-body); font-weight: 600; display: block; }
+    .context-text span { font-size: var(--fs-tiny); color: var(--text-2); }
+
+    .review-box { padding: 16px; border-radius: var(--radius); background: var(--surface-2); }
+    .review-group { margin-bottom: 14px; }
+    .review-group:last-child { margin-bottom: 0; }
+    .review-key { font-size: var(--fs-tiny); font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .review-val { font-size: var(--fs-body); font-weight: 600; }
+
+    .step-actions { display: flex; gap: 12px; margin-top: 24px; }
+
+    .loading-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+    }
+    [data-theme="dark"] .loading-overlay { background: rgba(2,6,23,0.95); }
+    .loading-overlay.active { display: flex; animation: fadeIn 0.3s ease both; }
+    .ai-spinner-wrap { position: relative; width: 80px; height: 80px; }
+    .ai-spinner-ring {
+      position: absolute; inset: 0; border-radius: 50%;
+      border: 3px solid transparent;
+    }
+    .ai-spinner-ring:nth-child(1) { border-top-color: var(--primary); animation: spin 1s linear infinite; }
+    .ai-spinner-ring:nth-child(2) { border-bottom-color: var(--secondary); animation: spin 1.5s linear infinite reverse; inset: 8px; }
+    .ai-spinner-ring:nth-child(3) { border-left-color: var(--accent); animation: spin 0.8s linear infinite; inset: 16px; }
+    .loading-text { font-size: var(--fs-body); font-weight: 600; color: var(--text); }
+    .loading-sub { font-size: var(--fs-tiny); color: var(--text-2); }
   </style>
 </head>
 <body>
-  <div class="app-shell">
-    <main class="app-main">
+  <div class="app-main">
+    <div class="fade-in-up">
       <h1 class="page-title">Health Assessment</h1>
-      <p class="page-subtitle">Complete the steps below for your malaria risk assessment</p>
+      <p class="page-subtitle">Answer a few questions for your AI screening</p>
+    </div>
 
-      <div class="card">
-        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar" style="width: 33%;"></div></div>
-        <ul class="stepper-steps">
-          <li class="step-item active" data-step="1"><span class="step-circle">1</span><span class="step-label">Symptoms</span></li>
-          <li class="step-item" data-step="2"><span class="step-circle">2</span><span class="step-label">Context</span></li>
-          <li class="step-item" data-step="3"><span class="step-circle">3</span><span class="step-label">Review</span></li>
-        </ul>
-
-        <form id="assessmentForm">
-          <!-- Step 1 -->
-          <section class="form-section" id="step1">
-            <div class="section-header">
-              <div class="section-title">Symptom Checklist</div>
-              <div class="section-desc">Select all symptoms you are currently experiencing</div>
-            </div>
-            <div class="symptoms-grid" id="symptomsGrid">
-              <label class="symptom-card" data-symptom="Fever"><div class="symptom-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4 4 0 1 0 5 0z"/></svg></div><div class="symptom-info"><span class="symptom-title">Fever</span><span class="symptom-desc">High body temperature</span></div><label class="switch"><input type="checkbox" name="symptom_fever" value="Fever"><span class="slider"></span></label></label>
-              <label class="symptom-card" data-symptom="High Fever"><div class="symptom-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4 4 0 1 0 5 0z"/></svg></div><div class="symptom-info"><span class="symptom-title">High Fever</span><span class="symptom-desc">Temperature above 39°C</span></div><label class="switch"><input type="checkbox" name="symptom_highfever" value="High Fever"><span class="slider"></span></label></label>
-              <label class="symptom-card" data-symptom="Chills"><div class="symptom-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></div><div class="symptom-info"><span class="symptom-title">Chills</span><span class="symptom-desc">Shivering or cold sweats</span></div><label class="switch"><input type="checkbox" name="symptom_chills" value="Chills"><span class="slider"></span></label></label>
-              <label class="symptom-card" data-symptom="Headache"><div class="symptom-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></div><div class="symptom-info"><span class="symptom-title">Headache</span><span class="symptom-desc">Persistent head pain</span></div><label class="switch"><input type="checkbox" name="symptom_headache" value="Headache"><span class="slider"></span></label></label>
-              <label class="symptom-card" data-symptom="Vomiting"><div class="symptom-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div><div class="symptom-info"><span class="symptom-title">Vomiting</span><span class="symptom-desc">Nausea or throwing up</span></div><label class="switch"><input type="checkbox" name="symptom_vomiting" value="Vomiting"><span class="slider"></span></label></label>
-              <label class="symptom-card" data-symptom="Bitter Taste"><div class="symptom-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></div><div class="symptom-info"><span class="symptom-title">Bitter Taste</span><span class="symptom-desc">Bitter mouth taste</span></div><label class="switch"><input type="checkbox" name="symptom_bitter" value="Bitter Taste"><span class="slider"></span></label></label>
-              <label class="symptom-card" data-symptom="Loss of Appetite"><div class="symptom-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg></div><div class="symptom-info"><span class="symptom-title">Loss of Appetite</span><span class="symptom-desc">Not wanting to eat</span></div><label class="switch"><input type="checkbox" name="symptom_appetite" value="Loss of Appetite"><span class="slider"></span></label></label>
-              <label class="symptom-card" data-symptom="Dizziness"><div class="symptom-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg></div><div class="symptom-info"><span class="symptom-title">Dizziness</span><span class="symptom-desc">Feeling lightheaded</span></div><label class="switch"><input type="checkbox" name="symptom_dizziness" value="Dizziness"><span class="slider"></span></label></label>
-            </div>
-
-            <div class="duration-box">
-              <div class="duration-header"><span class="input-label" style="margin:0;">How many days have you had these symptoms?</span><span class="duration-value" id="durationValue">1 Day</span></div>
-              <input type="range" class="range-slider" id="durationSlider" min="1" max="14" value="1">
-              <div class="slider-ticks"><span>1 Day</span><span>7 Days</span><span>14 Days</span></div>
-            </div>
-
-            <div class="section-actions"><span></span><button type="button" class="btn btn-primary" id="nextBtn1">Continue</button></div>
-          </section>
-
-          <!-- Step 2 -->
-          <section class="form-section hidden-section" id="step2">
-            <div class="section-header">
-              <div class="section-title">Exposure & Medical Context</div>
-              <div class="section-desc">Help the AI assess your malaria risk more accurately</div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:10px;">
-              <div class="context-card"><div class="context-text"><span class="context-title">Recent Mosquito Bites</span><span class="context-desc">Have you been bitten by mosquitoes recently?</span></div><label class="switch"><input type="checkbox" name="mosquito_exposure" id="mosquitoExposure"><span class="slider"></span></label></div>
-              <div class="context-card"><div class="context-text"><span class="context-title">Standing Water Nearby</span><span class="context-desc">Is there stagnant water near your home?</span></div><label class="switch"><input type="checkbox" name="standing_water" id="standingWater"><span class="slider"></span></label></div>
-              <div class="context-card"><div class="context-text"><span class="context-title">Recent Travel to Endemic Area</span><span class="context-desc">Have you travelled to a high-risk malaria zone?</span></div><label class="switch"><input type="checkbox" name="travel_history" id="travelHistory"><span class="slider"></span></label></div>
-              <div class="context-card"><div class="context-text"><span class="context-title">Use of Insecticide-Treated Bed Net</span><span class="context-desc">Do you regularly sleep under a treated net?</span></div><label class="switch"><input type="checkbox" name="bed_net_used" id="bedNetUsed"><span class="slider"></span></label></div>
-              <div class="context-card"><div class="context-text"><span class="context-title">Recent Antimalarial Use</span><span class="context-desc">Have you taken antimalarial drugs recently?</span></div><label class="switch"><input type="checkbox" name="drug_history" id="drugHistory"><span class="slider"></span></label></div>
-            </div>
-            <div class="section-actions"><button type="button" class="btn btn-secondary" id="backBtn2">Back</button><button type="button" class="btn btn-primary" id="nextBtn2">Continue</button></div>
-          </section>
-
-          <!-- Step 3 -->
-          <section class="form-section hidden-section" id="step3">
-            <div class="section-header">
-              <div class="section-title">Review & Submit</div>
-              <div class="section-desc">Please review your information before running the assessment</div>
-            </div>
-            <div class="review-box" id="reviewBox">
-              <div class="review-group"><span class="review-key">Symptoms</span><span class="review-val" id="reviewSymptoms">None selected</span></div>
-              <div class="review-group"><span class="review-key">Duration</span><span class="review-val" id="reviewDuration">1 Day</span></div>
-              <div class="review-group"><span class="review-key">Mosquito Exposure</span><span class="review-val" id="reviewMosquito">No</span></div>
-              <div class="review-group"><span class="review-key">Standing Water</span><span class="review-val" id="reviewWater">No</span></div>
-              <div class="review-group"><span class="review-key">Travel History</span><span class="review-val" id="reviewTravel">No</span></div>
-              <div class="review-group"><span class="review-key">Bed Net Used</span><span class="review-val" id="reviewBedNet">No</span></div>
-              <div class="review-group"><span class="review-key">Recent Antimalarials</span><span class="review-val" id="reviewDrugs">No</span></div>
-            </div>
-            <div class="section-actions align-right"><button type="button" class="btn btn-secondary" id="backBtn3">Back</button></div>
-            <button type="submit" class="btn-submit-large" id="submitBtn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:22px;height:22px;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-              Run AI Assessment
-            </button>
-          </section>
-        </form>
+    <div class="card fade-in-up" style="animation-delay: 50ms;">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+      <div class="stepper-steps">
+        <div class="step-item active" id="step1Indicator">
+          <div class="step-circle">1</div>
+          <div class="step-label">Symptoms</div>
+        </div>
+        <div class="step-item" id="step2Indicator">
+          <div class="step-circle">2</div>
+          <div class="step-label">Context</div>
+        </div>
+        <div class="step-item" id="step3Indicator">
+          <div class="step-circle">3</div>
+          <div class="step-label">Review</div>
+        </div>
       </div>
-    </main>
+
+      <!-- Step 1: Symptoms -->
+      <div class="step-content" id="step1">
+        <div class="symptoms-grid" id="symptomsGrid">
+          <label class="symptom-card" data-symptom="fever">
+            <div class="symptom-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div>
+            <span class="symptom-name">Fever</span>
+            <input type="checkbox" class="hidden" />
+          </label>
+          <label class="symptom-card" data-symptom="high_fever">
+            <div class="symptom-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/><line x1="2" y1="6" x2="22" y2="6"/></svg></div>
+            <span class="symptom-name">High Fever</span>
+            <input type="checkbox" class="hidden" />
+          </label>
+          <label class="symptom-card" data-symptom="chills">
+            <div class="symptom-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 8v6m-7-9h2m14 0h2M5.6 5.6l1.4 1.4m10 10l1.4 1.4M5.6 18.4l1.4-1.4m10-10l1.4-1.4"/></svg></div>
+            <span class="symptom-name">Chills</span>
+            <input type="checkbox" class="hidden" />
+          </label>
+          <label class="symptom-card" data-symptom="headache">
+            <div class="symptom-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 0-5 5v3a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5z"/><path d="M12 12v4m0 4h.01"/></svg></div>
+            <span class="symptom-name">Headache</span>
+            <input type="checkbox" class="hidden" />
+          </label>
+          <label class="symptom-card" data-symptom="vomiting">
+            <div class="symptom-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m-3-3h6"/><circle cx="12" cy="16" r="6"/></svg></div>
+            <span class="symptom-name">Vomiting</span>
+            <input type="checkbox" class="hidden" />
+          </label>
+          <label class="symptom-card" data-symptom="bitter_taste">
+            <div class="symptom-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 4 3 8 8 12 5-4 8-8 8-12a8 8 0 0 0-8-8z"/></svg></div>
+            <span class="symptom-name">Bitter Taste</span>
+            <input type="checkbox" class="hidden" />
+          </label>
+          <label class="symptom-card" data-symptom="loss_appetite">
+            <div class="symptom-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1M6 8h12v10a6 6 0 0 1-12 0V8z"/><line x1="6" y1="2" x2="6" y2="5"/><line x1="10" y1="2" x2="10" y2="5"/><line x1="14" y1="2" x2="14" y2="5"/></svg></div>
+            <span class="symptom-name">Loss of Appetite</span>
+            <input type="checkbox" class="hidden" />
+          </label>
+          <label class="symptom-card" data-symptom="dizziness">
+            <div class="symptom-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12a4 4 0 0 1 8 0"/><path d="M12 8v4l2 2"/></svg></div>
+            <span class="symptom-name">Dizziness</span>
+            <input type="checkbox" class="hidden" />
+          </label>
+        </div>
+        <div class="duration-box">
+          <label>How many days have you had symptoms?</label>
+          <input type="range" class="range-slider" id="duration" min="1" max="14" value="3" />
+          <div class="slider-value"><span id="durationValue">3</span> days</div>
+        </div>
+      </div>
+
+      <!-- Step 2: Context -->
+      <div class="step-content hidden" id="step2">
+        <div class="context-card">
+          <div class="context-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 8v6m-7-9h2m14 0h2"/></svg></div>
+          <div class="context-text"><strong>Recent Mosquito Bites</strong><span>In the past 2 weeks</span></div>
+          <label class="switch"><input type="checkbox" id="mosquitoBites" /><span class="switch-slider"></span></label>
+        </div>
+        <div class="context-card">
+          <div class="context-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20"/></svg></div>
+          <div class="context-text"><strong>Standing Water Nearby</strong><span>Around your home</span></div>
+          <label class="switch"><input type="checkbox" id="standingWater" /><span class="switch-slider"></span></label>
+        </div>
+        <div class="context-card">
+          <div class="context-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="context-text"><strong>Travel History</strong><span>To endemic areas recently</span></div>
+          <label class="switch"><input type="checkbox" id="travelHistory" /><span class="switch-slider"></span></label>
+        </div>
+        <div class="context-card">
+          <div class="context-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg></div>
+          <div class="context-text"><strong>Use Bed Net</strong><span>Sleep under treated net</span></div>
+          <label class="switch"><input type="checkbox" id="bedNet" /><span class="switch-slider"></span></label>
+        </div>
+        <div class="context-card">
+          <div class="context-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg></div>
+          <div class="context-text"><strong>Antimalarial Use</strong><span>Taking medication currently</span></div>
+          <label class="switch"><input type="checkbox" id="antimalarial" /><span class="switch-slider"></span></label>
+        </div>
+      </div>
+
+      <!-- Step 3: Review -->
+      <div class="step-content hidden" id="step3">
+        <div class="review-box" id="reviewBox">
+          <div class="review-group"><div class="review-key">Symptoms</div><div class="review-val" id="reviewSymptoms">--</div></div>
+          <div class="review-group"><div class="review-key">Duration</div><div class="review-val" id="reviewDuration">--</div></div>
+          <div class="review-group"><div class="review-key">Risk Factors</div><div class="review-val" id="reviewFactors">--</div></div>
+        </div>
+        <button class="btn btn-primary btn-lg btn-block" id="submitAssessment" style="margin-top: 20px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v1.5a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M7 8h10l-1 12H8L7 8z"/><circle cx="10" cy="14" r="1"/><circle cx="14" cy="14" r="1"/></svg>
+          Run AI Assessment
+        </button>
+      </div>
+
+      <div class="step-actions">
+        <button class="btn btn-secondary btn-block" id="prevBtn" style="display:none;">Back</button>
+        <button class="btn btn-primary btn-block" id="nextBtn">Continue</button>
+      </div>
+    </div>
   </div>
 
-  <div class="loading-overlay hidden" id="loadingOverlay">
-    <div class="loading-card">
-      <div class="ai-spinner"><div class="spinner-ring"></div></div>
-      <div class="loading-title">Running AI Assessment...</div>
-      <div class="loading-text">Analyzing your symptoms and risk factors</div>
+  <!-- AI Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="ai-spinner-wrap">
+      <div class="ai-spinner-ring"></div>
+      <div class="ai-spinner-ring"></div>
+      <div class="ai-spinner-ring"></div>
     </div>
+    <div class="loading-text">AI Analyzing...</div>
+    <div class="loading-sub">Reviewing your symptoms with our malaria model</div>
   </div>
 
   <script type="module" src="js/config.js"></script>

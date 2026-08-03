@@ -1,135 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="More options and settings - AfriSafe AI">
-  <title>More - AfriSafe AI</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/app.css">
-  <meta name="theme-color" content="#0F9D58">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0F9D58" />
+  <title>AfriSafe AI — More</title>
+  <link rel="stylesheet" href="css/app.css" />
+  <style>
+    .settings-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--border-2);
+      cursor: pointer; transition: background var(--t) var(--ease);
+    }
+    .settings-row:last-child { border-bottom: none; }
+    .settings-row:hover { background: var(--surface-2); margin: 0 -12px; padding-left: 12px; padding-right: 12px; border-radius: var(--radius-xs); }
+    .settings-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .settings-icon.green { background: var(--primary-light); color: var(--primary); }
+    .settings-icon.blue { background: var(--secondary-light); color: var(--secondary); }
+    .settings-icon.amber { background: var(--warning-bg); color: var(--warning); }
+    .settings-icon.gray { background: var(--surface-2); color: var(--text-2); }
+    .settings-text { flex: 1; }
+    .settings-label { font-size: var(--fs-body); font-weight: 600; }
+    .settings-sub { font-size: var(--fs-tiny); color: var(--text-2); }
+    .settings-right { color: var(--text-3); }
+    .expand-section { padding: 12px 0 4px; font-size: var(--fs-caption); color: var(--text-2); line-height: 1.6; }
+    .version-footer { text-align: center; font-size: var(--fs-tiny); color: var(--text-3); padding: 16px 0; }
+  </style>
 </head>
 <body>
-  <div class="app-shell">
-    <main class="app-main">
+  <div class="app-main">
+    <div class="fade-in-up">
       <h1 class="page-title">More</h1>
-      <p class="page-subtitle">Additional options and information</p>
+      <p class="page-subtitle">Settings, info, and support</p>
+    </div>
 
-      <div class="card">
-        <div class="list-item" onclick="toggleSection('aboutSection')" style="cursor:pointer;">
-          <div class="list-item-left">
-            <span class="list-item-title">About AfriSafe AI</span>
-            <span class="list-item-sub">Learn about our mission</span>
-          </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+    <div class="card fade-in-up" style="animation-delay: 50ms;">
+      <div class="settings-group">
+        <div class="settings-row" id="aboutRow">
+          <div class="settings-icon green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+          <div class="settings-text"><div class="settings-label">About AfriSafe AI</div><div class="settings-sub">Learn about our mission</div></div>
+          <div class="settings-right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="expand-section hidden" id="aboutSection">
+          AfriSafe AI is an AI-powered malaria screening tool built for Nigeria. Our mission is to provide accessible, fast, and reliable health assessments to communities across Africa using machine learning and modern technology.
         </div>
 
-        <a href="guidelines.html" class="list-item" style="text-decoration:none;color:inherit;">
-          <div class="list-item-left">
-            <span class="list-item-title">Health Guidelines</span>
-            <span class="list-item-sub">Malaria prevention tips</span>
-          </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        <a href="guidelines.html" class="settings-row">
+          <div class="settings-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="settings-text"><div class="settings-label">Health Guidelines</div><div class="settings-sub">Malaria prevention tips</div></div>
+          <div class="settings-right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
         </a>
 
-        <div class="list-item" onclick="toggleSection('faqSection')" style="cursor:pointer;">
-          <div class="list-item-left">
-            <span class="list-item-title">FAQ</span>
-            <span class="list-item-sub">Frequently asked questions</span>
-          </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="settings-row" id="faqRow">
+          <div class="settings-icon amber"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="settings-text"><div class="settings-label">FAQ</div><div class="settings-sub">Common questions</div></div>
+          <div class="settings-right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="expand-section hidden" id="faqSection">
+          <strong>How does the AI assessment work?</strong><br>The AI model analyzes your symptoms and risk factors to estimate malaria likelihood. It's trained on health data relevant to Nigerian contexts.<br><br>
+          <strong>Is my data secure?</strong><br>Yes. All data is encrypted and stored securely. Only you can access your assessment history.<br><br>
+          <strong>Can I use this offline?</strong><br>An internet connection is required for AI predictions, but your history is cached locally.
         </div>
 
-        <div class="list-item" onclick="toggleSection('helpSection')" style="cursor:pointer;">
-          <div class="list-item-left">
-            <span class="list-item-title">Help & Support</span>
-            <span class="list-item-sub">Get assistance</span>
-          </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="settings-row" id="helpRow">
+          <div class="settings-icon gray"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="settings-text"><div class="settings-label">Help &amp; Support</div><div class="settings-sub">Get assistance</div></div>
+          <div class="settings-right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="expand-section hidden" id="helpSection">
+          For support, email us at <strong>support@afrisafe.ai</strong> or call our helpline at <strong>+234 800 AFISAFE</strong>. Our team is available 24/7 to assist you.
         </div>
       </div>
+    </div>
 
-      <div class="card">
-        <div class="list-item" onclick="toggleSection('termsSection')" style="cursor:pointer;">
-          <div class="list-item-left">
-            <span class="list-item-title">Terms & Privacy</span>
-            <span class="list-item-sub">Legal information</span>
-          </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+    <div class="card fade-in-up" style="animation-delay: 100ms;">
+      <div class="settings-group">
+        <div class="settings-row" id="termsRow">
+          <div class="settings-icon gray"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="settings-text"><div class="settings-label">Terms &amp; Privacy</div><div class="settings-sub">Legal information</div></div>
+          <div class="settings-right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="expand-section hidden" id="termsSection">
+          AfriSafe AI is a screening tool, not a diagnostic device. Results should not replace professional medical advice. Your data is handled in accordance with Nigeria's Data Protection Regulation (NDPR) and international privacy standards.
         </div>
 
-        <div class="list-item" onclick="toggleSection('contactSection')" style="cursor:pointer;">
-          <div class="list-item-left">
-            <span class="list-item-title">Contact</span>
-            <span class="list-item-sub">Reach out to us</span>
-          </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="settings-row" id="contactRow">
+          <div class="settings-icon green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="settings-text"><div class="settings-label">Contact Us</div><div class="settings-sub">Reach the AfriSafe team</div></div>
+          <div class="settings-right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="expand-section hidden" id="contactSection">
+          Email: <strong>hello@afrisafe.ai</strong><br>Phone: <strong>+234 800 AFISAFE</strong><br>Address: Abuja, Nigeria
         </div>
 
-        <a href="profile.html" class="list-item" style="text-decoration:none;color:inherit;">
-          <div class="list-item-left">
-            <span class="list-item-title">Settings</span>
-            <span class="list-item-sub">Profile and preferences</span>
-          </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;color:var(--text-muted);"><path d="M9 18l6-6-6-6"/></svg>
+        <a href="profile.html" class="settings-row">
+          <div class="settings-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+          <div class="settings-text"><div class="settings-label">Settings</div><div class="settings-sub">Profile and preferences</div></div>
+          <div class="settings-right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
         </a>
       </div>
+    </div>
 
-      <!-- Expandable sections -->
-      <div id="aboutSection" class="hidden card">
-        <div class="card-title">About AfriSafe AI</div>
-        <p style="font-size:0.9rem;line-height:1.6;color:var(--text-muted);">
-          AfriSafe AI is an intelligent healthcare platform designed to improve early disease detection and preventive healthcare across Africa. Our AI-powered malaria risk assessment helps users identify potential malaria risk based on symptoms and exposure factors, providing personalized recommendations for next steps.
-        </p>
-        <p style="font-size:0.9rem;line-height:1.6;color:var(--text-muted);margin-top:10px;">
-          <strong>Mission:</strong> To build Africa's most trusted AI-powered preventive healthcare platform, helping millions detect health risks early and make informed medical decisions.
-        </p>
-      </div>
-
-      <div id="faqSection" class="hidden card">
-        <div class="card-title">Frequently Asked Questions</div>
-        <p style="font-weight:700;font-size:0.9rem;margin-top:8px;">Is AfriSafe AI a medical diagnosis?</p>
-        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">No. AfriSafe AI provides AI-assisted screening only. It is NOT a medical diagnosis. Always consult a qualified healthcare professional for proper testing and treatment.</p>
-        <p style="font-weight:700;font-size:0.9rem;">How does the assessment work?</p>
-        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Our AI model analyzes your reported symptoms, exposure factors, and duration to estimate malaria risk probability using a logistic regression model.</p>
-        <p style="font-weight:700;font-size:0.9rem;">Is my data private?</p>
-        <p style="font-size:0.85rem;color:var(--text-muted);">Yes. Your data is encrypted and stored securely. Only you can access your assessment history.</p>
-      </div>
-
-      <div id="helpSection" class="hidden card">
-        <div class="card-title">Help & Support</div>
-        <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.6;">Need help with the app? Here are some quick tips:</p>
-        <ul style="padding-left:20px;font-size:0.88rem;margin-top:8px;line-height:1.8;">
-          <li>Make sure you're logged in to access assessments</li>
-          <li>Complete all steps in the assessment for accurate results</li>
-          <li>Check your history page for past assessments</li>
-          <li>Enable notifications for daily reminders</li>
-        </ul>
-        <p style="font-size:0.85rem;color:var(--text-muted);margin-top:10px;">For further support, contact us below.</p>
-      </div>
-
-      <div id="termsSection" class="hidden card">
-        <div class="card-title">Terms & Privacy</div>
-        <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;">
-          By using AfriSafe AI, you agree that this application provides AI-assisted screening only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions about a medical condition.
-        </p>
-        <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;margin-top:10px;">
-          Your personal data and assessment history are stored securely and are only accessible to you. We do not share your data with third parties.
-        </p>
-      </div>
-
-      <div id="contactSection" class="hidden card">
-        <div class="card-title">Contact Us</div>
-        <div class="list-item"><span class="list-item-sub">Email</span><span class="list-item-title">support@afrisafe.ai</span></div>
-        <div class="list-item"><span class="list-item-sub">Organization</span><span class="list-item-title">MAHTECH Innovation Lab</span></div>
-        <div class="list-item"><span class="list-item-sub">Website</span><span class="list-item-title">afrisafe-ai.vercel.app</span></div>
-      </div>
-
-      <p class="text-center text-muted" style="font-size:0.75rem;margin-top:20px;">AfriSafe AI v1.0.0 — Smarter Prevention. Healthier Africa.</p>
-    </main>
+    <div class="version-footer">AfriSafe AI v1.0.0</div>
   </div>
 
   <script type="module" src="js/config.js"></script>
@@ -139,11 +115,17 @@
   <script>
     function toggleSection(id) {
       const el = document.getElementById(id);
-      el.classList.toggle("hidden");
+      if (el) el.classList.toggle('hidden');
     }
-    document.addEventListener("DOMContentLoaded", () => {
-      if (typeof populateUserBadge === "function") populateUserBadge();
-      if (typeof wireLogout === "function") wireLogout();
+    document.getElementById('aboutRow').addEventListener('click', () => toggleSection('aboutSection'));
+    document.getElementById('faqRow').addEventListener('click', () => toggleSection('faqSection'));
+    document.getElementById('helpRow').addEventListener('click', () => toggleSection('helpSection'));
+    document.getElementById('termsRow').addEventListener('click', () => toggleSection('termsSection'));
+    document.getElementById('contactRow').addEventListener('click', () => toggleSection('contactSection'));
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof populateUserBadge === 'function') populateUserBadge();
+      if (typeof wireLogout === 'function') wireLogout();
     });
   </script>
 </body>

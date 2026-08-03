@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import { fetchWithAuth, clearTokens, extractErrorMessage } from "./auth.js";
+import { fetchWithAuth, clearTokens } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (typeof initAuth === "function") {
@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (typeof populateUserBadge === "function") populateUserBadge();
   if (typeof wireLogout === "function") wireLogout();
 
-  // Greeting based on time of day
   const hour = new Date().getHours();
   let greeting = "Welcome";
   if (hour < 12) greeting = "Good Morning";
@@ -17,14 +16,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   else greeting = "Good Evening";
   document.getElementById("greetingTime").textContent = greeting;
 
-  // Fetch user profile for name
   try {
     const meResp = await fetchWithAuth(`${API_BASE_URL}/api/v1/auth/me`, { method: "GET" });
     if (meResp.ok) {
       const me = await meResp.json();
-      const nameEl = document.getElementById("userName");
       const firstName = (me.full_name || me.email || "User").split(" ")[0];
-      nameEl.textContent = firstName;
+      document.getElementById("greetingName").textContent = firstName;
     } else if (meResp.status === 401) {
       clearTokens();
       window.location.href = "/login.html";
@@ -32,7 +29,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   } catch {}
 
-  // Fetch prediction history for stats
   try {
     const histResp = await fetchWithAuth(`${API_BASE_URL}/api/v1/prediction/history`, { method: "GET" });
     if (!histResp.ok) {
@@ -41,8 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = "/login.html";
         return;
       }
-      const list = document.getElementById("historyList");
-      list.innerHTML = `<div class="error-state"><p>Failed to load history.</p></div>`;
+      document.getElementById("historyList").innerHTML = `<div class="error-state"><p>Failed to load history.</p></div>`;
       return;
     }
 
@@ -54,30 +49,44 @@ document.addEventListener("DOMContentLoaded", async () => {
     const negative = total - positive;
     const highRisk = items.filter((i) => (i.risk || "").toLowerCase() === "high").length;
 
-    document.getElementById("totalAssessments").textContent = total;
-    document.getElementById("positiveCases").textContent = positive;
-    document.getElementById("negativeCases").textContent = negative;
-    document.getElementById("highRiskCount").textContent = highRisk;
+    document.getElementById("statTotal").textContent = total;
+    document.getElementById("statPositive").textContent = positive;
+    document.getElementById("statNegative").textContent = negative;
+    document.getElementById("statHighRisk").textContent = highRisk;
 
-    // Health status hero text
-    const healthText = document.getElementById("healthStatusText");
+    // Health score gauge
+    let score = 85;
+    if (total > 0) {
+      const latest = items[0];
+      const conf = parseFloat(latest.confidence || 0);
+      const isPositive = (latest.prediction || "").toLowerCase().includes("malaria") && !latest.prediction.toLowerCase().includes("no");
+      score = isPositive ? Math.round(100 - conf) : Math.round(60 + conf * 0.4);
+    }
+    document.getElementById("healthScore").textContent = score;
+    const gaugeFill = document.getElementById("gaugeFill");
+    const circumference = 377;
+    const offset = circumference - (score / 100) * circumference;
+    requestAnimationFrame(() => { gaugeFill.style.strokeDashoffset = offset; });
+
+    const healthStatus = document.getElementById("healthStatus");
     if (total === 0) {
-      healthText.textContent = "No assessments yet. Take your first malaria risk assessment to get started.";
+      healthStatus.textContent = "No assessments yet";
     } else {
       const latest = items[0];
       const risk = latest.risk || "Low";
-      healthText.textContent = `Latest result: ${latest.prediction} — ${risk} risk. ${total} assessment${total > 1 ? "s" : ""} completed.`;
+      healthStatus.textContent = `Latest: ${latest.prediction || "Unknown"} (${risk} risk)`;
     }
 
-    // Recent activity list
+    // Recent activity
     const list = document.getElementById("historyList");
     if (!items || items.length === 0) {
       list.innerHTML = `
-        <div class="empty-state">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-          <h3>No Assessments Yet</h3>
-          <p>Take your first malaria risk assessment to see results here.</p>
-          <a href="assessment.html" class="btn btn-primary">Start Assessment</a>
+        <div class="empty-state" style="padding:24px;">
+          <div class="empty-state-icon" style="width:48px;height:48px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="empty-state-title" style="font-size:15px;">No Assessments Yet</div>
+          <div class="empty-state-text">Take your first assessment to see results here.</div>
         </div>`;
       return;
     }
@@ -88,25 +97,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
       });
       const riskClass = (item.risk || "low").toLowerCase();
+      const isPositive = (item.prediction || "").toLowerCase().includes("malaria") && !item.prediction.toLowerCase().includes("no");
+      const iconClass = isPositive ? "red" : "green";
       const div = document.createElement("a");
       div.href = "history.html";
       div.style.textDecoration = "none";
       div.style.color = "inherit";
-      div.className = "list-item fade-in";
+      div.className = "activity-item";
       div.innerHTML = `
-        <div class="list-item-left">
-          <span class="list-item-title">${item.prediction || "Unknown"}</span>
-          <span class="list-item-sub">${date}</span>
+        <div class="activity-dot ${iconClass}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
         </div>
-        <div class="list-item-right">
-          <span class="list-item-sub">${item.confidence || 0}%</span>
-          <span class="risk-badge risk-${riskClass}">${item.risk || "Low"}</span>
+        <div class="activity-info">
+          <div class="activity-title">${item.prediction || "Unknown"}</div>
+          <div class="activity-time">${date}</div>
         </div>
+        <span class="risk-badge risk-${riskClass}">${item.risk || "Low"}</span>
       `;
       list.appendChild(div);
     });
   } catch (err) {
-    const list = document.getElementById("historyList");
-    list.innerHTML = `<div class="error-state"><p>Unable to load data. Check your connection.</p></div>`;
+    document.getElementById("historyList").innerHTML = `<div class="error-state"><p>Unable to load data. Check your connection.</p></div>`;
   }
 });

@@ -1,99 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Create your AfriSafe AI account">
-  <title>Register - AfriSafe AI</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/app.css">
-  <meta name="theme-color" content="#0F9D58">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0F9D58" />
+  <title>AfriSafe AI — Create Account</title>
+  <link rel="stylesheet" href="css/app.css" />
   <style>
-    .auth-page { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
-    .auth-card { width: 100%; max-width: 400px; }
-    .auth-logo { width: 56px; height: 56px; background: var(--primary-light); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
-    .auth-logo img { width: 36px; height: 36px; }
-    .auth-title { font-size: 1.6rem; font-weight: 800; text-align: center; margin-bottom: 4px; }
-    .auth-subtitle { font-size: 0.88rem; color: var(--text-muted); text-align: center; margin-bottom: 24px; }
-    .form-alert { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; margin-bottom: 14px; display: none; }
-    .form-alert.error { display: block; background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); }
-    .form-alert.warning { display: block; background: var(--warning-bg); color: var(--warning); border: 1px solid rgba(245,158,11,0.2); }
-    .input-wrapper { position: relative; }
-    .input-wrapper .toggle-pass { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; }
+    .auth-page {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px; position: relative; overflow: hidden;
+      background: var(--bg);
+    }
+    .auth-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .auth-bg::before, .auth-bg::after {
+      content: ''; position: absolute; border-radius: 50%; filter: blur(60px);
+    }
+    .auth-bg::before {
+      width: 280px; height: 280px; top: -60px; left: -60px;
+      background: radial-gradient(circle, rgba(15,157,88,0.15), transparent 70%);
+      animation: float 6s ease-in-out infinite;
+    }
+    .auth-bg::after {
+      width: 220px; height: 220px; bottom: -40px; right: -40px;
+      background: radial-gradient(circle, rgba(30,136,229,0.15), transparent 70%);
+      animation: float 7s ease-in-out infinite reverse;
+    }
+
+    .auth-card {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 420px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-xl);
+      animation: fadeInUp var(--t-slow) var(--ease-out) both;
+    }
+    [data-theme="dark"] .auth-card { background: rgba(15,23,42,0.85); border-color: rgba(255,255,255,0.08); }
+
+    .auth-logo { width: 56px; height: 56px; border-radius: 14px; margin: 0 auto 16px; display: block; animation: scaleIn 0.6s var(--ease-out) both; }
+    .auth-title { font-size: var(--fs-title); font-weight: 700; text-align: center; letter-spacing: -0.02em; }
+    .auth-subtitle { font-size: var(--fs-caption); color: var(--text-2); text-align: center; margin-top: 4px; margin-bottom: 24px; }
+
+    .form-alert { padding: 12px 16px; border-radius: var(--radius); font-size: var(--fs-caption); font-weight: 600; margin-bottom: 16px; display: none; animation: fadeIn 0.2s ease both; }
+    .form-alert.danger { background: var(--danger-bg); color: var(--danger); display: block; }
+    .form-alert.success { background: var(--success-bg); color: var(--success); display: block; }
+
+    .input-wrapper { position: relative; margin-bottom: 14px; }
+    .input-wrapper .input-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-3); pointer-events: none; z-index: 1; }
+    .input-wrapper .form-control { padding-left: 46px; }
+    .toggle-pass { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-3); padding: 8px; border-radius: 8px; cursor: pointer; transition: color var(--t) var(--ease); }
+    .toggle-pass:hover { color: var(--primary); }
+
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .checkbox-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 16px; }
-    .checkbox-row input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--primary); }
-    .checkbox-row label { font-size: 0.82rem; color: var(--text-muted); }
-    .checkbox-row a { color: var(--primary); font-weight: 600; text-decoration: none; }
-    .auth-footer { text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 20px; }
-    .auth-footer a { color: var(--primary); font-weight: 700; text-decoration: none; }
-    .btn-spinner { width: 20px; height: 20px; border: 2.5px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+    .checkbox-row { display: flex; align-items: flex-start; gap: 10px; margin: 16px 0 20px; }
+    .checkbox-row input { width: 20px; height: 20px; accent-color: var(--primary); margin-top: 1px; cursor: pointer; flex-shrink: 0; }
+    .checkbox-row label { font-size: var(--fs-tiny); color: var(--text-2); line-height: 1.5; cursor: pointer; }
+    .checkbox-row label a { color: var(--secondary); font-weight: 600; }
+
+    .btn-auth { position: relative; }
+    .btn-auth .spinner { display: none; }
+    .btn-auth.loading { pointer-events: none; }
+    .btn-auth.loading .btn-text { opacity: 0.4; }
+    .btn-auth.loading .spinner { display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+
+    .auth-footer { text-align: center; margin-top: 20px; font-size: var(--fs-caption); color: var(--text-2); }
+    .auth-footer a { font-weight: 600; color: var(--primary); }
+
+    @media (max-width: 400px) { .form-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <div class="auth-page">
+    <div class="auth-bg"></div>
     <div class="auth-card">
-      <div class="auth-logo"><img src="assets/gemini-svg.svg" alt="AfriSafe AI"></div>
+      <svg class="auth-logo" viewBox="0 0 48 48" fill="none">
+        <defs>
+          <linearGradient id="regGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#0F9D58"/><stop offset="1" stop-color="#1E88E5"/>
+          </linearGradient>
+        </defs>
+        <rect width="48" height="48" rx="12" fill="url(#regGrad)"/>
+        <path d="M24 12v24M12 24h24" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      </svg>
       <h1 class="auth-title">Create Account</h1>
-      <p class="auth-subtitle">Get started with AI-powered malaria risk screening</p>
+      <p class="auth-subtitle">Join AfriSafe AI for smarter health screening</p>
 
-      <div id="formAlert" class="form-alert" role="alert"></div>
+      <div class="form-alert" id="formAlert"></div>
 
-      <form id="registerForm">
-        <div class="input-group">
-          <label class="input-label" for="full_name">Full Name</label>
-          <input type="text" class="form-control" id="full_name" placeholder="Enter your full name" required autocomplete="name">
-          <div class="field-error" id="fullNameError"></div>
+      <form id="registerForm" novalidate>
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <input type="text" class="form-control" id="fullName" placeholder="Full name" required />
         </div>
-        <div class="input-group">
-          <label class="input-label" for="email">Email Address</label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com" required autocomplete="email">
-          <div class="field-error" id="emailError"></div>
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input type="email" class="form-control" id="email" placeholder="Email address" autocomplete="email" required />
         </div>
         <div class="form-row">
-          <div class="input-group">
-            <label class="input-label" for="age">Age</label>
-            <input type="number" class="form-control" id="age" placeholder="Years" min="1" max="120">
-            <div class="field-error" id="ageError"></div>
-          </div>
-          <div class="input-group">
-            <label class="input-label" for="gender">Gender</label>
-            <select class="form-control" id="gender"><option value="">Select...</option><option>Male</option><option>Female</option><option>Other</option></select>
-          </div>
-        </div>
-        <div class="input-group">
-          <label class="input-label" for="state">State of Residence</label>
-          <select class="form-control" id="state"><option value="">Select your state...</option></select>
-          <div class="field-error" id="stateError"></div>
-        </div>
-        <div class="input-group">
-          <label class="input-label" for="password">Password</label>
           <div class="input-wrapper">
-            <input type="password" class="form-control" id="password" placeholder="At least 6 characters" required autocomplete="new-password">
-            <button type="button" class="toggle-pass" id="passwordToggle" aria-label="Toggle password visibility">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+            <input type="number" class="form-control" id="age" placeholder="Age" min="1" max="120" required />
           </div>
-          <div class="field-error" id="passwordError"></div>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+            <select class="form-control" id="gender" required>
+              <option value="">Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <select class="form-control" id="state" required>
+            <option value="">State of residence</option>
+          </select>
+        </div>
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input type="password" class="form-control" id="password" placeholder="Password (min 6 characters)" autocomplete="new-password" required />
+          <button type="button" class="toggle-pass" id="togglePass" aria-label="Toggle password">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
         </div>
         <div class="checkbox-row">
-          <input type="checkbox" id="termsAgree" required>
-          <label for="termsAgree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+          <input type="checkbox" id="terms" required />
+          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
         </div>
-        <button type="submit" id="registerBtn" class="btn btn-primary btn-block btn-lg">
+        <button type="submit" class="btn btn-primary btn-lg btn-block btn-auth" id="registerBtn">
           <span class="btn-text">Create Account</span>
-          <span class="btn-spinner hidden" id="registerSpinner"></span>
+          <div class="spinner"></div>
         </button>
       </form>
-
-      <div class="auth-footer">
-        Already have an account? <a href="login.html">Sign in here</a>
-      </div>
+      <p class="auth-footer">Already have an account? <a href="login.html">Sign in</a></p>
     </div>
   </div>
 
@@ -101,13 +146,12 @@
   <script type="module" src="js/helpers.js"></script>
   <script type="module" src="js/registration.js"></script>
   <script>
-    const NIGERIAN_STATES = ["Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"];
-    document.addEventListener("DOMContentLoaded", () => {
-      const stateSelect = document.getElementById("state");
-      NIGERIAN_STATES.forEach((s) => { const o = document.createElement("option"); o.value = s; o.textContent = s; stateSelect.appendChild(o); });
-      const toggle = document.getElementById("passwordToggle");
-      const passwordInput = document.getElementById("password");
-      toggle.addEventListener("click", () => { passwordInput.type = passwordInput.type === "password" ? "text" : "password"; });
+    const states = ["Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"];
+    const sel = document.getElementById('state');
+    states.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
+    document.getElementById('togglePass').addEventListener('click', function() {
+      const input = document.getElementById('password');
+      input.type = input.type === 'password' ? 'text' : 'password';
     });
   </script>
 </body>

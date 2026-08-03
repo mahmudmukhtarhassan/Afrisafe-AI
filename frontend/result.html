@@ -1,126 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="AfriSafe AI - AI Prediction Analysis & Clinical Guidance Report">
-  <title>Assessment Result - AfriSafe AI</title>
-  <meta name="theme-color" content="#0F9D58">
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/app.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0F9D58" />
+  <title>AfriSafe AI — Result</title>
+  <link rel="stylesheet" href="css/app.css" />
   <style>
-    .confidence-meter-container { position: relative; width: 130px; height: 130px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
-    .progress-ring { transform: rotate(-90deg); }
-    .progress-ring-bg { stroke: var(--border); stroke-width: 10; fill: transparent; }
-    .progress-ring-circle { stroke: var(--primary); stroke-width: 10; stroke-linecap: round; fill: transparent; stroke-dasharray: 364.42; stroke-dashoffset: 364.42; transition: stroke-dashoffset 1.2s ease, stroke 0.3s ease; }
-    .confidence-value-box { position: absolute; display: flex; flex-direction: column; align-items: center; }
-    .confidence-number { font-size: 1.8rem; font-weight: 800; line-height: 1; }
-    .confidence-percent { font-size: 0.9rem; font-weight: 700; }
-    .confidence-sub { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-top: 2px; font-weight: 700; }
-    .prediction-hero { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
-    .result-sub-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--text-muted); }
-    .prediction-title { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; margin: 4px 0; }
-    .prediction-subtext { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
-    .card-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .report-timestamp { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); }
-    .insights-body, .recommendation-text { font-size: 0.9rem; line-height: 1.6; }
-    .recommendation-card { border-left: 5px solid var(--primary); }
-    .recommendation-card.risk-high { border-left-color: var(--danger); }
-    .recommendation-card.risk-medium { border-left-color: var(--warning); }
-    .summary-list { display: flex; flex-direction: column; gap: 10px; }
-    .summary-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border); padding-bottom: 8px; }
-    .full-width-row { flex-direction: column; align-items: flex-start; gap: 6px; border-bottom: none; }
-    .row-label { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
-    .row-value { font-size: 0.88rem; font-weight: 700; }
-    .symptoms-tags-wrapper { display: flex; flex-wrap: wrap; gap: 6px; }
-    .symptom-tag { background: var(--primary-light); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
-    .no-tags { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
-    .disclaimer-box { background: var(--warning-bg); border: 1px solid rgba(245,158,11,0.25); border-radius: var(--radius); padding: 14px; }
-    .disclaimer-header { display: flex; align-items: center; gap: 8px; color: var(--warning); font-size: 0.82rem; font-weight: 800; margin-bottom: 6px; }
-    .disclaimer-header svg { width: 18px; height: 18px; }
-    .disclaimer-text { font-size: 0.78rem; color: #92400E; line-height: 1.5; }
-    [data-theme="dark"] .disclaimer-text { color: #FBBF24; }
-    .fade-in { animation: fadeIn 0.5s ease forwards; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    .delay-1 { animation-delay: 0.1s; opacity: 0; }
-    .delay-2 { animation-delay: 0.2s; opacity: 0; }
-    .delay-3 { animation-delay: 0.3s; opacity: 0; }
-    @media print { .bottom-nav, .app-header { display: none !important; } .app-main { padding: 0; } }
+    .result-hero {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      padding: 32px 20px; text-align: center;
+    }
+    .confidence-ring-wrap { position: relative; width: 160px; height: 160px; }
+    .confidence-ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring-bg { fill: none; stroke: var(--border-2); stroke-width: 8; }
+    .ring-fill {
+      fill: none; stroke: url(#resultGrad); stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 440; stroke-dashoffset: 440;
+      transition: stroke-dashoffset 1.5s var(--ease-out);
+    }
+    .ring-pulse {
+      position: absolute; inset: -8px; border-radius: 50%;
+      border: 2px solid var(--primary); opacity: 0;
+      animation: pulseRing 2s ease-out infinite;
+    }
+    .ring-center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .ring-value { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; }
+    .ring-label { font-size: var(--fs-tiny); color: var(--text-2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .prediction-title { font-size: 22px; font-weight: 700; margin-top: 8px; }
+    .prediction-sub { font-size: var(--fs-caption); color: var(--text-2); max-width: 280px; }
+
+    .insight-card { border-left: 4px solid var(--primary); }
+    .insight-card.high { border-left-color: var(--danger); }
+    .insight-card.medium { border-left-color: var(--warning); }
+    .insight-card.low { border-left-color: var(--success); }
+
+    .summary-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border-2); }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-key { font-size: var(--fs-caption); color: var(--text-2); font-weight: 500; }
+    .summary-val { font-size: var(--fs-caption); font-weight: 600; }
+
+    .symptom-tag {
+      display: inline-flex; align-items: center; padding: 6px 14px;
+      border-radius: var(--radius-full); font-size: var(--fs-tiny); font-weight: 600;
+      background: var(--primary-light); color: var(--primary); margin: 4px 4px 0 0;
+    }
+
+    .disclaimer-box {
+      padding: 14px 16px; border-radius: var(--radius);
+      background: var(--warning-bg); border-left: 4px solid var(--warning);
+      font-size: var(--fs-tiny); color: #92400E; line-height: 1.5;
+    }
+    [data-theme="dark"] .disclaimer-box { color: var(--warning); }
+
+    .action-row { display: flex; gap: 10px; }
+    .fade-in { animation: fadeIn 0.5s var(--ease) both; }
+    .fade-in.delay-1 { animation-delay: 100ms; }
+    .fade-in.delay-2 { animation-delay: 200ms; }
+    .fade-in.delay-3 { animation-delay: 300ms; }
+    .fade-in.delay-4 { animation-delay: 400ms; }
+
+    @media print {
+      .app-header, .bottom-nav, .ai-fab, .action-row, .disclaimer-box { display: none !important; }
+      .app-main { padding: 0; }
+    }
   </style>
 </head>
 <body>
-  <div class="app-shell">
-    <main class="app-main">
-      <!-- Empty State -->
-      <section id="emptyState" class="empty-state hidden">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/></svg>
-        <h3>No Triage Record Found</h3>
-        <p>We couldn't locate recent AI prediction data. Please complete an assessment first.</p>
-        <a href="assessment.html" class="btn btn-primary btn-lg">Start New Assessment</a>
-      </section>
+  <div class="app-main">
+    <!-- Empty State -->
+    <div class="card empty-state hidden" id="emptyState">
+      <div class="empty-state-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="empty-state-title">No Result Yet</div>
+      <div class="empty-state-text">Complete an assessment to see your AI prediction here.</div>
+      <a href="assessment.html" class="btn btn-primary mt-3">Start New Assessment</a>
+    </div>
 
-      <div id="resultContent" class="hidden">
-        <div class="card fade-in">
-          <div class="card-top-row">
-            <span class="report-timestamp" id="reportDate">—</span>
-            <div id="riskLevelBadge" class="risk-badge">—</div>
-          </div>
-          <div class="prediction-hero">
-            <div class="confidence-meter-container">
-              <svg class="progress-ring" width="130" height="130"><circle class="progress-ring-bg" cx="65" cy="65" r="58"/><circle id="confidenceCircle" class="progress-ring-circle" cx="65" cy="65" r="58"/></svg>
-              <div class="confidence-value-box"><span id="confidenceNumber" class="confidence-number">0</span><span class="confidence-percent">%</span><span class="confidence-sub">Confidence</span></div>
-            </div>
-            <div><span class="result-sub-label">Model Outcome</span><h1 id="predictionTitle" class="prediction-title">—</h1><p id="predictionSubtext" class="prediction-subtext">—</p></div>
-          </div>
-        </div>
-
-        <div class="card fade-in delay-1">
-          <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>AI Assessment Insights</div>
-          <p id="aiInsightsText" class="insights-body">—</p>
-        </div>
-
-        <div id="recommendationCard" class="card recommendation-card fade-in delay-2">
-          <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Recommended Clinical Action</div>
-          <p id="recommendationText" class="recommendation-text">—</p>
-          <div id="adviceList"></div>
-        </div>
-
-        <div class="card fade-in delay-1">
-          <div class="card-title">Patient Profile Summary</div>
-          <div class="summary-list">
-            <div class="summary-row"><span class="row-label">Age / Gender</span><span id="patientDemographics" class="row-value">—</span></div>
-            <div class="summary-row"><span class="row-label">Location</span><span id="patientLocation" class="row-value">—</span></div>
-            <div class="summary-row"><span class="row-label">Symptom Duration</span><span id="patientDuration" class="row-value">—</span></div>
-            <div class="summary-row full-width-row"><span class="row-label">Reported Symptoms</span><div id="patientSymptomsTags" class="symptoms-tags-wrapper"><span class="no-tags">None listed</span></div></div>
+    <!-- Result Content -->
+    <div id="resultContent" class="hidden">
+      <!-- Prediction Hero -->
+      <div class="card result-hero fade-in">
+        <div class="confidence-ring-wrap">
+          <div class="ring-pulse"></div>
+          <svg class="confidence-ring" viewBox="0 0 160 160">
+            <defs>
+              <linearGradient id="resultGrad" x1="0" y1="0" x2="160" y2="160" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#0F9D58"/><stop offset="1" stop-color="#1E88E5"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-bg" cx="80" cy="80" r="70"/>
+            <circle class="ring-fill" id="confidenceRing" cx="80" cy="80" r="70"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-value" id="confidenceValue">--%</span>
+            <span class="ring-label">Confidence</span>
           </div>
         </div>
+        <div class="prediction-title" id="predictionTitle">--</div>
+        <div class="prediction-sub" id="predictionSub">--</div>
+        <div class="risk-badge risk-low" id="riskBadge">Low Risk</div>
+      </div>
 
-        <div class="card fade-in delay-2">
-          <button type="button" id="downloadPdfBtn" class="btn btn-primary btn-block btn-lg">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round"/></svg>
-            Download Report (PDF)
-          </button>
-          <a href="assessment.html" class="btn btn-secondary btn-block btn-lg mt-1">New Assessment</a>
-          <a href="dashboard.html" class="btn btn-ghost btn-block mt-1">Back to Dashboard</a>
-        </div>
+      <!-- AI Insights -->
+      <div class="card insight-card fade-in delay-1" id="insightsCard">
+        <div class="card-title mb-2">AI Assessment Insights</div>
+        <p class="text-muted" id="insightsText" style="font-size: var(--fs-caption); line-height: 1.6;">--</p>
+      </div>
 
-        <div class="disclaimer-box fade-in delay-3">
-          <div class="disclaimer-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Important Medical Disclaimer</div>
-          <p class="disclaimer-text">This application provides AI-assisted screening only. It is <strong>NOT a medical diagnosis</strong>. Always consult a qualified healthcare professional for blood tests (RDT/Microscopy).</p>
+      <!-- Recommendation -->
+      <div class="card insight-card fade-in delay-2" id="recommendationCard">
+        <div class="card-title mb-2">Recommended Clinical Action</div>
+        <p class="text-muted" id="recommendationText" style="font-size: var(--fs-caption); line-height: 1.6;">--</p>
+      </div>
+
+      <!-- Patient Summary -->
+      <div class="card fade-in delay-3">
+        <div class="card-title mb-2">Patient Profile Summary</div>
+        <div id="summaryRows"></div>
+        <div class="mt-2">
+          <div class="summary-key mb-1">Symptoms Reported</div>
+          <div id="symptomTags"></div>
         </div>
       </div>
-    </main>
+
+      <!-- Actions -->
+      <div class="action-row fade-in delay-4">
+        <button class="btn btn-primary btn-block" id="downloadPdf">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Save Report
+        </button>
+        <a href="assessment.html" class="btn btn-secondary btn-block">New Assessment</a>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer-box fade-in delay-4">
+        <strong>Medical Disclaimer:</strong> This AI assessment is for screening purposes only and does not replace professional medical advice. Please consult a healthcare provider for diagnosis and treatment.
+      </div>
+
+      <a href="dashboard.html" class="btn btn-ghost btn-block btn-sm mt-2">Back to Dashboard</a>
+    </div>
   </div>
 
   <script type="module" src="js/config.js"></script>
   <script type="module" src="js/helpers.js"></script>
   <script src="js/notifications.js"></script>
   <script src="js/bottomnav.js"></script>
-  <script src="js/result.js"></script>
+  <script type="module" src="js/result.js"></script>
 </body>
 </html>
