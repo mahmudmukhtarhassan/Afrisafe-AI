@@ -8,8 +8,8 @@ import { fetchWithAuth, loadTokens, clearTokens, extractErrorMessage, ensureVali
 function requireAuth() {
   const tokens = loadTokens();
   if (!tokens || !tokens.access_token) {
-    if (!window.location.pathname.endsWith("/login.html")) {
-      window.location.href = "/login.html";
+    if (!window.location.pathname.endsWith("/login.html") && !window.location.pathname.endsWith("login.html")) {
+      window.location.href = "./login.html";
     }
     return false;
   }
@@ -19,8 +19,8 @@ function requireAuth() {
 async function initAuth() {
   const valid = await ensureValidSession();
   if (!valid) {
-    if (!window.location.pathname.endsWith("/login.html")) {
-      window.location.href = "/login.html";
+    if (!window.location.pathname.endsWith("/login.html") && !window.location.pathname.endsWith("login.html")) {
+      window.location.href = "./login.html";
     }
     return false;
   }
@@ -45,7 +45,7 @@ function wireLogout() {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     clearTokens();
-    window.location.href = "/login.html";
+    window.location.href = "./login.html";
   });
 }
 
