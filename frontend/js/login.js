@@ -13,7 +13,6 @@ const passwordInput = document.getElementById("password");
 form.addEventListener("submit", async (e) => {
 e.preventDefault();
 
-```
 emailInput.classList.remove("is-error");
 passwordInput.classList.remove("is-error");
 formAlert.className = "form-alert";
@@ -24,7 +23,7 @@ const password = passwordInput.value;
 
 let valid = true;
 
-if (!email || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
   emailInput.classList.add("is-error");
   valid = false;
 }
@@ -71,7 +70,11 @@ try {
   }
 
   if (!data.access_token) {
-    throw new Error("Invalid login response from server.");
+    formAlert.className = "form-alert danger";
+    formAlert.textContent = "Invalid login response from server. Please try again.";
+    loginBtn.classList.remove("loading");
+    loginBtn.disabled = false;
+    return;
   }
 
   saveTokens({
@@ -97,8 +100,6 @@ try {
   loginBtn.classList.remove("loading");
   loginBtn.disabled = false;
 }
-```
 
 });
 });
-
