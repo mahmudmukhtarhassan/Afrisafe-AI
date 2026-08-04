@@ -133,8 +133,9 @@ def register(payload: RegisterPayload):
 
     user_id = user.get("id")
 
+    # Create user profile in the database with UPSERT via PUT
     if user_id and SUPABASE_SERVICE_ROLE_KEY:
-        profile_url = f"{SUPABASE_URL}/rest/v1/profiles"
+        profile_url = f"{SUPABASE_URL}/rest/v1/profiles?id=eq.{user_id}"
 
         profile_body = {
             "id": user_id,
@@ -145,21 +146,28 @@ def register(payload: RegisterPayload):
             "state": payload.state,
         }
 
+        headers_with_auth = {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+            "Content-Type": "application/json",
+            "Prefer": "resolution=merge-duplicates",
+        }
+
         try:
-            requests.post(
+            # Use PUT for upsert (safer than POST with merge-duplicates)
+            profile_resp = requests.put(
                 profile_url,
                 json=profile_body,
-                headers={
-                    "apikey": SUPABASE_ANON_KEY,
-                    "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
-                    "Content-Type": "application/json",
-                    "Prefer": "resolution=merge-duplicates",
-                },
+                headers=headers_with_auth,
                 timeout=5,
             )
+            # Log profile creation errors but don't fail registration
+            if profile_resp.status_code not in (200, 201):
+                print(f"Profile creation warning: {profile_resp.status_code} - {profile_resp.text}")
 
-        except Exception:
-            pass
+        except Exception as e:
+            # Profile creation should not block registration
+            print(f"Profile creation error: {str(e)}")
 
     return {
         "message": "User registered successfully.",
