@@ -74,7 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
         refresh_token: data.refresh_token,
         expires_in: 3600,
       });
-      window.location.href = "/dashboard.html";
+      formAlert.className = "form-alert success";
+      formAlert.textContent = "Registration successful. Redirecting...";
+      
+      setTimeout(() => {
+        window.location.href = "./dashboard.html";
+      }, 300);
     } catch (err) {
       formAlert.className = "form-alert danger";
       formAlert.textContent = err.message || "Unable to connect to the server. Please try again.";
