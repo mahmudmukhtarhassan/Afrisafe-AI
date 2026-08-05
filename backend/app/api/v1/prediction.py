@@ -10,6 +10,7 @@ import math
 import uuid
 import datetime
 import requests
+import logging
 from fastapi import APIRouter, HTTPException, Request, status
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -22,6 +23,8 @@ SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 REST_URL = f"{SUPABASE_URL}/rest/v1"
+
+logger = logging.getLogger("afrisafe")
 
 service_headers = {
     "apikey": SUPABASE_ANON_KEY,
@@ -183,12 +186,18 @@ def predict(payload: PredictionPayload, request: Request):
     }
 
     url = f"{REST_URL}/predictions"
-    resp = requests.post(url, json=record, headers=service_headers)
-    if resp.status_code not in (200, 201):
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=resp.text,
-        )
+    saved = False
+    save_error = None
+    try:
+        resp = requests.post(url, json=record, headers=service_headers, timeout=6)
+        if resp.status_code in (200, 201):
+            saved = True
+        else:
+            save_error = f"Supabase responded with {resp.status_code}: {resp.text}"
+            logger.warning("Failed to save prediction to Supabase: %s", save_error)
+    except Exception as e:
+        save_error = str(e)
+        logger.warning("Error while saving prediction to Supabase: %s", e)
 
     # Log activity (best-effort, don't fail the request if logging fails)
     try:
@@ -202,21 +211,31 @@ def predict(payload: PredictionPayload, request: Request):
                 "prediction_id": record["id"],
             },
         }
+        # don't raise on logging failure
         requests.post(log_url, json=log_body, headers=service_headers, timeout=5)
     except Exception:
         pass
 
-    return {
+    # Always return the prediction payload to the client — do not fail the whole operation if DB save fails.
+    response_payload = {
         "id": record["id"],
         "prediction": record["prediction"],
         "confidence": record["confidence"],
+        "probability": result.get("probability"),
         "risk": record["risk"],
         "recommendation": record["recommendation"],
         "advice": record["advice"],
         "symptoms": record["symptoms"],
         "ai_insights": record["ai_insights"],
         "timestamp": created_at,
+        "saved": saved,
     }
+
+    if not saved and save_error:
+        # include the save_error for debugging (client can surface this if needed)
+        response_payload["save_error"] = save_error
+
+    return response_payload
 
 
 @router.get("/history")
@@ -235,7 +254,8 @@ def prediction_history(request: Request):
             "id": r.get("id"),
             "prediction": r.get("prediction"),
             "confidence": r.get("confidence"),
-            "risk": r.get("risk"),
+            "probability": r.get("probability") if r.get("probability") is not None else r.get("probability_estimate"),
+            "risk": r.get("risk") or r.get("risk_level"),
             "recommendation": r.get("recommendation"),
             "advice": r.get("advice"),
             "symptoms": r.get("symptoms"),
