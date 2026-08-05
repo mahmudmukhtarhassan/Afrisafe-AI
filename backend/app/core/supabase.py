@@ -40,3 +40,18 @@ def get_supabase_admin() -> Client:
         )
 
     return create_client(url, service_key)
+
+
+# Backwards compatibility: some modules import `supabase` directly.
+# Provide a module-level client using the ANON key so existing imports do not break.
+# Prefer using get_supabase()/get_supabase_admin() in new code.
+try:
+    supabase: Client = get_supabase()
+except Exception:
+    # Defer raising until the caller actually needs the client; keep attribute present
+    supabase = None  # type: ignore
+
+try:
+    supabase_admin: Client = get_supabase_admin()
+except Exception:
+    supabase_admin = None  # type: ignore
