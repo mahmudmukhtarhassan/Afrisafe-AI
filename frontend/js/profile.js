@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Load profile
   try {
-    const resp = await fetchWithAuth(`${API_BASE_URL}/api/v1/auth/me`, { method: "GET" });
+    const resp = await fetchWithAuth(`${API_BASE_URL}/api/v1/users/me`, { method: "GET" });
     if (!resp.ok) {
       clearTokens();
       window.location.href = "/login.html";
