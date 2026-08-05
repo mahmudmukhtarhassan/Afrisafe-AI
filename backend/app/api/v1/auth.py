@@ -12,8 +12,8 @@ SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 
-if not SUPABASE_URL or not SUPABASE_ANON_KEY:
-    raise Exception("SUPABASE_URL and SUPABASE_ANON_KEY must be set in environment")
+# Do not raise at import time — allow the app to start even if env vars are missing.
+# Endpoints will return clear HTTP errors when called if configuration is incomplete.
 
 headers_anon = {
     "apikey": SUPABASE_ANON_KEY,
