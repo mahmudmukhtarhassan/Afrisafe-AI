@@ -1,8 +1,7 @@
-/**
- * AfriSafe AI - Result Controller
- * Reads prediction and patient state from localStorage and populates the DOM.
- * Generates client-side PDF summaries via jsPDF.
- */
+/*
+  AfriSafe AI - Result Controller
+  (patched: show save status when server persistence failed, log raw payload)
+*/
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Session & Auth Check
@@ -55,6 +54,26 @@ document.addEventListener("DOMContentLoaded", () => {
   if (emptyState) emptyState.classList.add("hidden");
   if (resultContent) resultContent.classList.remove("hidden");
 
+  // DEBUG: log raw payload for troubleshooting
+  try {
+    console.log("triageResult raw:", resultData);
+  } catch {}
+
+  // Surface save state to the user if server persistence failed
+  if (resultData && resultData.saved === false) {
+    try {
+      const saveNotice = document.createElement("div");
+      saveNotice.className = "save-warning";
+      saveNotice.style.cssText = "background:#fff3cd;border:1px solid #ffeeba;padding:8px;border-radius:6px;margin-bottom:12px;color:#856404;";
+      saveNotice.innerText = resultData.save_error
+        ? `Warning: result was not saved to the server — ${resultData.save_error}`
+        : "Warning: result could not be saved to the server.";
+      if (resultContent) resultContent.insertAdjacentElement("afterbegin", saveNotice);
+    } catch (e) {
+      console.warn("Could not render save warning", e);
+    }
+  }
+
   // 5. Data Field Extraction & Normalization
   const prediction = resultData.prediction || resultData.model_outcome || "Malaria Assessment";
   const confidence = resultData.confidence !== undefined ? parseFloat(resultData.confidence) : 0;
@@ -82,11 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // 7. Dynamic Risk Badge & Styling
   if (riskLevelBadge) {
     riskLevelBadge.textContent = `${risk} Risk`;
-    riskLevelBadge.className = `risk-badge risk-${risk.toLowerCase()}`;
+    riskLevelBadge.className = `risk-badge risk-${String(risk).toLowerCase()}`;
   }
 
   if (recommendationCard) {
-    recommendationCard.className = `card insight-card fade-in delay-2 ${risk.toLowerCase()}`;
+    recommendationCard.className = `card insight-card fade-in delay-2 ${String(risk).toLowerCase()}`;
   }
 
   // 8. Progress Ring & Number Counter Animation
@@ -282,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.setFontSize(8);
     doc.setTextColor(120, 120, 120);
     doc.setFont("helvetica", "italic");
-    const disclaimer = "IMPORTANT DISCLAIMER: This document contains AI-assisted screening logic and does NOT constitute a formal medical diagnosis. Always verify clinical findings via accredited laboratory tests (RDT/Microscopy) with a licensed healthcare practitioner.";
+    const disclaimer = "IMPORTANT DISCLAIMER: This document contains AI-assisted screening logic and does NOT constitute a formal medical diagnosis. Always verify clinical findings via accredited healthcare services.";
     const splitDisclaimer = doc.splitTextToSize(disclaimer, 180);
     doc.text(splitDisclaimer, 15, y + 5);
 
