@@ -49,12 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // If no resultData in localStorage, try to fetch by id query param as a fallback
   async function tryLoadFromServerById(predId) {
     try {
-      const resp = await fetchWithAuth(`${API_BASE_URL}/api/v1/prediction/history`, { method: "GET" });
+      const resp = await fetchWithAuth(`${API_BASE_URL}/api/v1/prediction/${predId}`, { method: "GET" });
       if (!resp.ok) return null;
       const data = await resp.json();
-      const items = data.items || data || [];
-      const found = items.find((it) => String(it.id) === String(predId));
-      if (found) return found;
+      return data;
     } catch (e) {
       console.warn("Fallback fetch for prediction by id failed:", e);
     }
@@ -335,7 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
       doc.setFontSize(8);
       doc.setTextColor(120, 120, 120);
       doc.setFont("helvetica", "italic");
-      const disclaimer = "IMPORTANT DISCLAIMER: This document contains AI-assisted screening logic and does NOT constitute a formal medical diagnosis. Always verify clinical findings via accredited[...]";
+      const disclaimer = "IMPORTANT DISCLAIMER: This document contains AI-assisted screening logic and does NOT constitute a formal medical diagnosis. Always verify clinical findings via accredit[...]";
       const splitDisclaimer = doc.splitTextToSize(disclaimer, 180);
       doc.text(splitDisclaimer, 15, y + 5);
 
