@@ -16,12 +16,14 @@ async def prediction(data: PredictionRequest):
             detail="AI model is not available. Please try again later.",
         )
 
-    result, probability = predict(data)
+    # ai_service.predict returns (prediction, probability, model_version)
+    result, probability, model_version = predict(data)
 
     return {
         "prediction": result,
         "probability": round(
             probability * 100,
             2,
-        )
+        ),
+        "model_version": model_version,
     }
