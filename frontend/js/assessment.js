@@ -119,9 +119,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       const data = await resp.json();
+      // log and persist
+      console.log("api response:", data);
       localStorage.setItem("triageResult", JSON.stringify(data));
       localStorage.setItem("patientInputs", JSON.stringify(patientInputs));
-      window.location.href = "/result.html";
+      // redirect using relative path and include prediction id for server fallback
+      window.location.href = `result.html?id=${encodeURIComponent(data.id)}`;
     } catch (err) {
       document.getElementById("loadingOverlay").classList.remove("active");
       if (typeof showToast === "function") {
