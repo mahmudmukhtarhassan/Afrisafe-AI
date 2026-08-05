@@ -15,9 +15,8 @@ SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 REST_URL = f"{SUPABASE_URL}/rest/v1"
 
-if not SUPABASE_SERVICE_ROLE_KEY:
-    # For database writes/reads we require service role key to bypass row-level security
-    raise Exception("SUPABASE_SERVICE_ROLE_KEY must be set for assessment persistence")
+# Do not raise at import time — allow app to start even if env vars are missing.
+# Perform checks at request time and return clear HTTP errors when necessary.
 
 service_headers = {
     "apikey": SUPABASE_ANON_KEY,
@@ -45,6 +44,12 @@ def get_user_id_from_request(request: Request):
 
 @router.post("", status_code=201)
 def create_assessment(payload: AssessmentPayload, request: Request):
+    if not SUPABASE_SERVICE_ROLE_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Server misconfiguration: SUPABASE_SERVICE_ROLE_KEY not configured.",
+        )
+
     user_id = get_user_id_from_request(request)
     # Deterministic simple scoring: sum numeric values in answers; non-numeric ignored
     score = 0.0
@@ -87,6 +92,12 @@ def create_assessment(payload: AssessmentPayload, request: Request):
 
 @router.get("/history")
 def assessment_history(request: Request):
+    if not SUPABASE_SERVICE_ROLE_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Server misconfiguration: SUPABASE_SERVICE_ROLE_KEY not configured.",
+        )
+
     user_id = get_user_id_from_request(request)
     url = f"{REST_URL}/assessments?user_id=eq.{user_id}&order=created_at.desc"
     headers = {"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}"}
@@ -98,6 +109,12 @@ def assessment_history(request: Request):
 
 @router.get("/{assessment_id}")
 def get_assessment(assessment_id: str, request: Request):
+    if not SUPABASE_SERVICE_ROLE_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Server misconfiguration: SUPABASE_SERVICE_ROLE_KEY not configured.",
+        )
+
     user_id = get_user_id_from_request(request)
     url = f"{REST_URL}/assessments?id=eq.{assessment_id}&user_id=eq.{user_id}"
     headers = {"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}"}
@@ -112,6 +129,12 @@ def get_assessment(assessment_id: str, request: Request):
 
 @router.delete("/{assessment_id}", status_code=204)
 def delete_assessment(assessment_id: str, request: Request):
+    if not SUPABASE_SERVICE_ROLE_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Server misconfiguration: SUPABASE_SERVICE_ROLE_KEY not configured.",
+        )
+
     user_id = get_user_id_from_request(request)
     url = f"{REST_URL}/assessments?id=eq.{assessment_id}&user_id=eq.{user_id}"
     headers = {"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}"}
