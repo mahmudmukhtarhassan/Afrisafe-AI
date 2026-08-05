@@ -1,4 +1,9 @@
-from pydantic_settings import BaseSettings
+try:
+    # prefer pydantic-settings (pydantic v2 style) when available
+    from pydantic_settings import BaseSettings
+except Exception:
+    # fallback to pydantic v1 BaseSettings for environments using pydantic<2
+    from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
