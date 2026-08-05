@@ -8,6 +8,7 @@ from app.api.v1.prediction import router as prediction_router
 from app.api.v1.reminders import router as reminders_router
 from app.api.v1.reports import router as reports_router
 from app.api.v1.users import router as users_router
+from app.api.v1.debug import router as debug_router
 
 api_router = APIRouter(prefix="/api/v1")
 
@@ -19,3 +20,4 @@ api_router.include_router(assessment_router, prefix="/assessments", tags=["Asses
 api_router.include_router(reports_router, prefix="/reports", tags=["Reports"])
 api_router.include_router(reminders_router, prefix="/reminders", tags=["Reminders"])
 api_router.include_router(health_router, prefix="/health", tags=["Health Check"])
+api_router.include_router(debug_router, prefix="/debug", tags=["Debug"])
