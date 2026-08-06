@@ -12,13 +12,22 @@ SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 
-# Do not raise at import time — allow the app to start even if env vars are missing.
-# Endpoints will return clear HTTP errors when called if configuration is incomplete.
 
-headers_anon = {
-    "apikey": SUPABASE_ANON_KEY,
-    "Content-Type": "application/json",
-}
+def _require_supabase():
+    if not SUPABASE_URL or not SUPABASE_ANON_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Supabase environment variables are not configured.",
+        )
+
+
+def _anon_headers():
+    _require_supabase()
+    return {
+        "apikey": SUPABASE_ANON_KEY,
+        "Content-Type": "application/json",
+    }
+
 
 class RegisterPayload(BaseModel):
     email: EmailStr
@@ -28,12 +37,15 @@ class RegisterPayload(BaseModel):
     gender: str | None = None
     state: str | None = None
 
+
 class LoginPayload(BaseModel):
     email: EmailStr
     password: str
 
+
 class RefreshPayload(BaseModel):
     refresh_token: str
+
 
 def _normalize_user(user: dict) -> dict:
     if not user:
@@ -54,6 +66,7 @@ def _normalize_user(user: dict) -> dict:
         "created_at": user.get("created_at"),
     }
 
+
 def _fetch_profile(user_id: str) -> dict | None:
     if not SUPABASE_SERVICE_ROLE_KEY:
         return None
@@ -67,15 +80,14 @@ def _fetch_profile(user_id: str) -> dict | None:
 
     try:
         resp = requests.get(url, headers=headers, timeout=5)
-
         if resp.status_code == 200:
             rows = resp.json()
             return rows[0] if rows else None
-
     except Exception:
         pass
 
     return None
+
 
 def _merge_user_profile(auth_user: dict) -> dict:
     base = _normalize_user(auth_user)
@@ -84,14 +96,16 @@ def _merge_user_profile(auth_user: dict) -> dict:
     if profile:
         for key in ("full_name", "age", "gender", "state", "phone"):
             value = profile.get(key)
-
             if value is not None:
                 base[key] = value
 
     return base
 
+
 @router.post("/register")
 def register(payload: RegisterPayload):
+    _require_supabase()
+
     url = f"{SUPABASE_URL}/auth/v1/signup"
 
     body = {
@@ -106,11 +120,11 @@ def register(payload: RegisterPayload):
     }
 
     try:
-        resp = requests.post(url, json=body, headers=headers_anon, timeout=10)
+        resp = requests.post(url, json=body, headers=_anon_headers(), timeout=10)
     except requests.exceptions.RequestException as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Authentication service unavailable: {str(e)}"
+            detail=f"Authentication service unavailable: {str(e)}",
         )
 
     if resp.status_code not in (200, 201):
@@ -119,8 +133,10 @@ def register(payload: RegisterPayload):
         except Exception:
             detail = resp.text
 
-        error_status = status.HTTP_400_BAD_REQUEST if resp.status_code >= 400 else status.HTTP_500_INTERNAL_SERVER_ERROR
-        raise HTTPException(status_code=error_status, detail=detail)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=detail,
+        )
 
     data = resp.json()
 
@@ -130,12 +146,11 @@ def register(payload: RegisterPayload):
     refresh_token = data.get("refresh_token") or session.get("refresh_token")
 
     user = data.get("user") or {}
-
     user_id = user.get("id")
 
-    # Create user profile in the database with UPSERT via PUT
+    # Create or update user profile in Supabase
     if user_id and SUPABASE_SERVICE_ROLE_KEY:
-        profile_url = f"{SUPABASE_URL}/rest/v1/profiles?id=eq.{user_id}"
+        profile_url = f"{SUPABASE_URL}/rest/v1/profiles"
 
         profile_body = {
             "id": user_id,
@@ -146,7 +161,7 @@ def register(payload: RegisterPayload):
             "state": payload.state,
         }
 
-        headers_with_auth = {
+        headers = {
             "apikey": SUPABASE_ANON_KEY,
             "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
             "Content-Type": "application/json",
@@ -154,19 +169,19 @@ def register(payload: RegisterPayload):
         }
 
         try:
-            # Use POST for upsert (safer than PUT with merge-duplicates)
             profile_resp = requests.post(
                 profile_url,
                 json=profile_body,
-                headers=headers_with_auth,
+                headers=headers,
                 timeout=5,
             )
-            # Log profile creation errors but don't fail registration
+
             if profile_resp.status_code not in (200, 201):
-                print(f"Profile creation warning: {profile_resp.status_code} - {profile_resp.text}")
+                print(
+                    f"Profile creation warning: {profile_resp.status_code} - {profile_resp.text}"
+                )
 
         except Exception as e:
-            # Profile creation should not block registration
             print(f"Profile creation error: {str(e)}")
 
     return {
@@ -177,8 +192,11 @@ def register(payload: RegisterPayload):
         "token_type": "bearer",
     }
 
+
 @router.post("/login")
 def login(payload: LoginPayload):
+    _require_supabase()
+
     url = f"{SUPABASE_URL}/auth/v1/token?grant_type=password"
 
     body = {
@@ -187,11 +205,11 @@ def login(payload: LoginPayload):
     }
 
     try:
-        resp = requests.post(url, json=body, headers=headers_anon, timeout=10)
+        resp = requests.post(url, json=body, headers=_anon_headers(), timeout=10)
     except requests.exceptions.RequestException as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Authentication service unavailable: {str(e)}"
+            detail=f"Authentication service unavailable: {str(e)}",
         )
 
     if resp.status_code != 200:
@@ -200,14 +218,17 @@ def login(payload: LoginPayload):
         except Exception:
             detail = resp.text
 
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=detail)
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=detail,
+        )
 
     data = resp.json()
 
     if not data.get("access_token"):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials or authentication service error"
+            detail="Invalid credentials or authentication service error",
         )
 
     return {
@@ -217,8 +238,11 @@ def login(payload: LoginPayload):
         "user": _merge_user_profile(data.get("user")),
     }
 
+
 @router.post("/refresh")
 def refresh(payload: RefreshPayload):
+    _require_supabase()
+
     url = f"{SUPABASE_URL}/auth/v1/token?grant_type=refresh_token"
 
     body = {
@@ -226,11 +250,11 @@ def refresh(payload: RefreshPayload):
     }
 
     try:
-        resp = requests.post(url, json=body, headers=headers_anon, timeout=10)
+        resp = requests.post(url, json=body, headers=_anon_headers(), timeout=10)
     except requests.exceptions.RequestException as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Authentication service unavailable: {str(e)}"
+            detail=f"Authentication service unavailable: {str(e)}",
         )
 
     if resp.status_code != 200:
@@ -239,7 +263,10 @@ def refresh(payload: RefreshPayload):
         except Exception:
             detail = resp.text
 
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=detail)
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=detail,
+        )
 
     data = resp.json()
 
@@ -249,8 +276,11 @@ def refresh(payload: RefreshPayload):
         "token_type": data.get("token_type", "bearer"),
     }
 
+
 @router.get("/me")
 def me(request: Request):
+    _require_supabase()
+
     auth_header = request.headers.get("Authorization")
 
     if not auth_header:
@@ -271,7 +301,7 @@ def me(request: Request):
     except requests.exceptions.RequestException as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Authentication service unavailable: {str(e)}"
+            detail=f"Authentication service unavailable: {str(e)}",
         )
 
     if resp.status_code != 200:
