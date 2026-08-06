@@ -154,8 +154,8 @@ def register(payload: RegisterPayload):
         }
 
         try:
-            # Use PUT for upsert (safer than POST with merge-duplicates)
-            profile_resp = requests.put(
+            # Use POST for upsert (safer than PUT with merge-duplicates)
+            profile_resp = requests.post(
                 profile_url,
                 json=profile_body,
                 headers=headers_with_auth,
