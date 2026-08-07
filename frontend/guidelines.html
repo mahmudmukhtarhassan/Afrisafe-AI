@@ -1,166 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Public Health Guidelines - AfriSafe AI</title>
-  <meta name="description" content="Latest public health guidelines and awareness tips for malaria prevention and treatment in Nigeria.">
-  <meta name="theme-color" content="#0F9D58">
-  <meta name="robots" content="index, follow">
-  <link rel="icon" href="assets/gemini-svg.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/app.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfriSafe AI - Malaria Prevention Guidelines</title>
+
   <style>
-    .guidelines-header {
-      background: linear-gradient(135deg, var(--primary-dark), var(--accent));
-      color: #fff; border-radius: var(--radius-lg); padding: 22px; margin-bottom: 16px;
-      box-shadow: 0 8px 24px rgba(15,157,88,0.25); position: relative; overflow: hidden;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
-    .guidelines-header h1 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
-    .guidelines-header p { font-size: 0.88rem; opacity: 0.92; line-height: 1.6; }
-    .source-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .source-pill { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 16px; }
-    .search-input-wrap { position: relative; margin-bottom: 12px; }
-    .search-input-wrap input { width: 100%; height: 46px; padding: 0 14px 0 42px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); font-family: inherit; font-size: 0.9rem; outline: none; }
-    .search-input-wrap input:focus { border-color: var(--primary); }
-    .search-input-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--text-muted); }
-    .category-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-    .cat-btn { background: var(--surface); border: 1.5px solid var(--border); padding: 7px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: var(--transition); }
-    .cat-btn:hover, .cat-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .guideline-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
-    .badge-tag { font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.03em; background: var(--primary-light); color: var(--primary-dark); display: inline-block; margin-bottom: 10px; }
-    .badge-tag.emergency { background: var(--danger-bg); color: var(--danger); }
-    .badge-tag.vaccine { background: var(--medical-blue-light); color: var(--medical-blue); }
-    .gc-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; line-height: 1.35; }
-    .gc-summary { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; }
-    .tips-list { list-style: none; padding: 0; margin: 0 0 12px 0; display: flex; flex-direction: column; gap: 8px; }
-    .tips-list li { position: relative; padding-left: 20px; font-size: 0.85rem; line-height: 1.45; }
-    .tips-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--primary); font-weight: 800; }
-    .rec-box { background: var(--primary-light); border-left: 3px solid var(--primary); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 0.82rem; font-weight: 600; line-height: 1.4; }
-    .card-footer-src { margin-top: 10px; font-size: 0.72rem; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 6px; }
-    .card-footer-src svg { width: 14px; height: 14px; }
+
+    body {
+      background: #f5f7fb;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #0f9d58;
+      color: white;
+      padding: 1rem 1.5rem;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .search-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-input-wrap svg {
+      width: 20px;
+      height: 20px;
+      color: #6b7280;
+    }
+
+    .search-input-wrap input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 1rem;
+      background: transparent;
+    }
+
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .cat-btn {
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .cat-btn:hover {
+      border-color: #0f9d58;
+      color: #0f9d58;
+    }
+
+    .cat-btn.active {
+      background: #0f9d58;
+      color: white;
+      border-color: #0f9d58;
+    }
+
+    .spinner {
+      display: none;
+      text-align: center;
+      padding: 1.5rem;
+      color: #0f9d58;
+      font-weight: 700;
+    }
+
+    .guidelines-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .guideline-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    .guideline-card h3 {
+      margin: 0.5rem 0;
+      font-size: 1.05rem;
+      color: #111827;
+    }
+
+    .guideline-card p {
+      color: #4b5563;
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      background: #e8f5e9;
+      color: #0f9d58;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: #6b7280;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error-card {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      border-radius: 16px;
+      padding: 1rem;
+    }
+
+    .error-card h3 {
+      margin-bottom: 0.4rem;
+    }
+
+    footer {
+      text-align: center;
+      color: #6b7280;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
+
 <body>
-  <div class="app-shell">
-    <main class="app-main">
-      <div class="guidelines-header">
-        <h1>Malaria Public Health Guidelines</h1>
-        <p>Official prevention protocols, vaccination schedules (R21/Matrix-M), vector control standards, and diagnostic treatment guidelines from WHO and NMEP.</p>
-        <div class="source-pills"><span class="source-pill">NMEP Nigeria</span><span class="source-pill">WHO Africa</span><span class="source-pill">NCDC</span></div>
-      </div>
+  <header>
+    <h1>AfriSafe AI - Malaria Prevention Guidelines</h1>
+  </header>
 
-      <div class="search-input-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="text" id="searchInput" placeholder="Search guidelines...">
-      </div>
+  <main>
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="M21 21l-4.35-4.35"></path>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search guidelines..." />
+    </div>
 
-      <div class="category-pills" id="categoryPills">
-        <button class="cat-btn active" data-cat="all">All Topics</button>
-        <button class="cat-btn" data-cat="vector">Vector Control</button>
-        <button class="cat-btn" data-cat="vaccine">Vaccines & SMC</button>
-        <button class="cat-btn" data-cat="treatment">Testing & ACTs</button>
-        <button class="cat-btn" data-cat="community">Sanitation</button>
-        <button class="cat-btn" data-cat="emergency">Emergency Signs</button>
-      </div>
+    <div class="category-pills" id="categoryPills">
+      <button class="cat-btn active" data-cat="all">All Topics</button>
+      <button class="cat-btn" data-cat="vector">Vector Control</button>
+      <button class="cat-btn" data-cat="vaccine">Vaccines & SMC</button>
+      <button class="cat-btn" data-cat="treatment">Testing & ACTs</button>
+      <button class="cat-btn" data-cat="community">Sanitation</button>
+      <button class="cat-btn" data-cat="emergency">Emergency Signs</button>
+    </div>
 
-      <div id="loadingSpinner" class="spinner"></div>
-      <div id="guidelinesGrid"></div>
-      <div id="emptyResult" class="empty-state hidden">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <h3>No matching guidelines found</h3>
-        <p>Try searching with a different term or select another category filter.</p>
-      </div>
-    </main>
-  </div>
+    <div id="loadingSpinner" class="spinner">Loading guidelines...</div>
 
-  <script type="module" src="js/config.js"></script>
-  <script type="module" src="js/helpers.js"></script>
-  <script src="js/notifications.js"></script>
-  <script src="js/bottomnav.js"></script>
-  <script>
+    <div id="guidelinesGrid" class="guidelines-grid"></div>
+
+    <div id="emptyResult" class="empty-state hidden">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="M21 21l-4.35-4.35"></path>
+      </svg>
+      <h3>No matching guidelines found</h3>
+      <p>Try searching with a different term or select another category filter.</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 AfriSafe AI. Nigeria Malaria Prevention Guidance.
+  </footer>
+
+  <script type="module">
+    import { API_BASE_URL } from "./js/config.js";
+
+    const grid = document.getElementById("guidelinesGrid");
+    const spinner = document.getElementById("loadingSpinner");
+    const empty = document.getElementById("emptyResult");
+    const searchInput = document.getElementById("searchInput");
+    const categoryButtons = document.querySelectorAll(".cat-btn");
+
+    let allGuidelines = [];
     let activeCategory = "all";
-    let searchQuery = "";
 
-    document.addEventListener("DOMContentLoaded", async () => {
-      if (typeof populateUserBadge === "function") populateUserBadge();
-      if (typeof wireLogout === "function") wireLogout();
-
-      const searchInput = document.getElementById("searchInput");
-      const catButtons = document.querySelectorAll(".cat-btn");
-
-      searchInput.addEventListener("input", (e) => {
-        searchQuery = e.target.value.trim();
-        fetchGuidelines();
-      });
-
-      catButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          catButtons.forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          activeCategory = btn.getAttribute("data-cat");
-          fetchGuidelines();
-        });
-      });
-
-      fetchGuidelines();
-    });
-
-    async function fetchGuidelines() {
-      const spinner = document.getElementById("loadingSpinner");
-      const grid = document.getElementById("guidelinesGrid");
-      const empty = document.getElementById("emptyResult");
-
-      spinner.classList.remove("hidden");
+    async function loadGuidelines(category = "all") {
+      spinner.style.display = "block";
       grid.innerHTML = "";
       empty.classList.add("hidden");
 
       try {
-        let url = `/api/v1/prevention-guidelines?category=${encodeURIComponent(activeCategory)}`;
-        if (searchQuery) url += `&query=${encodeURIComponent(searchQuery)}`;
+        const res = await fetch(`${API_BASE_URL}/api/v1/prevention-guidelines?category=${category}`);
 
-        const resp = await apiRequest(url, "GET", null, false);
-        if (!resp.ok) throw new Error(`Request failed (${resp.status})`);
-        const data = await resp.json();
-        renderGuidelines(data);
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+        allGuidelines = data.guidelines || [];
+        renderGuidelines(allGuidelines);
       } catch (err) {
-        spinner.classList.add("hidden");
-        if (typeof showToast === "function") showToast("Failed to load guidelines. Please try again.", "error");
+        console.error(err);
+        grid.innerHTML = `
+          <div class="error-card">
+            <h3>Failed to load guidelines</h3>
+            <p>Please check your internet connection and try again.</p>
+          </div>
+        `;
+      } finally {
+        spinner.style.display = "none";
       }
     }
 
-    function renderGuidelines(data) {
-      const spinner = document.getElementById("loadingSpinner");
-      const grid = document.getElementById("guidelinesGrid");
-      const empty = document.getElementById("emptyResult");
+    function renderGuidelines(items) {
+      grid.innerHTML = "";
 
-      spinner.classList.add("hidden");
-
-      if (!data || !data.guidelines || data.guidelines.length === 0) {
+      if (!items.length) {
         empty.classList.remove("hidden");
         return;
       }
 
-      data.guidelines.forEach(item => {
-        const card = document.createElement("article");
-        card.className = "guideline-card fade-in";
-        let badgeClass = "badge-tag";
-        if (item.category === "emergency") badgeClass += " emergency";
-        if (item.category === "vaccine") badgeClass += " vaccine";
-        const tipsHtml = item.tips.map(tip => `<li>${escapeHtml(tip)}</li>`).join("");
+      empty.classList.add("hidden");
+
+      items.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "guideline-card";
         card.innerHTML = `
-          <span class="${badgeClass}">${escapeHtml(item.badge)}</span>
-          <h2 class="gc-title">${escapeHtml(item.title)}</h2>
-          <p class="gc-summary">${escapeHtml(item.summary)}</p>
-          <ul class="tips-list">${tipsHtml}</ul>
-          <div class="rec-box"><strong>Key Insight:</strong> ${escapeHtml(item.key_recommendations)}</div>
-          <div class="card-footer-src"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Source: ${escapeHtml(item.source)}</div>
+          <span class="badge">${item.category}</span>
+          <h3>${item.title}</h3>
+          <p>${item.description}</p>
         `;
         grid.appendChild(card);
       });
     }
+
+    searchInput.addEventListener("input", () => {
+      const q = searchInput.value.toLowerCase().trim();
+
+      const filtered = allGuidelines.filter(item =>
+        item.title.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q)
+      );
+
+      renderGuidelines(filtered);
+    });
+
+    categoryButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        categoryButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCategory = btn.dataset.cat;
+        loadGuidelines(activeCategory);
+      });
+    });
+
+    loadGuidelines();
   </script>
 </body>
 </html>
