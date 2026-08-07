@@ -89,4 +89,4 @@ api_router.include_router(
     debug_router,
     prefix="/debug",
     tags=["Debug"],
-)g_router, prefix="/debug", tags=["Debug"])
+)
