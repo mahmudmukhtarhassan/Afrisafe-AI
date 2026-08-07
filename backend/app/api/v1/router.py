@@ -43,10 +43,10 @@ api_router.include_router(
     tags=["AI Engine"],
 )
 
-# AI Chat (available at /api/v1/ai/chat)
+# AI Chat (available at /api/v1/ai_chat)
 api_router.include_router(
     ai_chat_router,
-    prefix="/ai/chat",
+    prefix="/ai_chat",
     tags=["AI Chat"],
 )
 
