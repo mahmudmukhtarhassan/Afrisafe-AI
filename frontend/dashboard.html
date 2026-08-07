@@ -1,104 +1,195 @@
-```
-.ai-fab {
-  position: fixed;
-  bottom: calc(var(--bottom-nav-h) + var(--safe-bottom) + 20px);
-  right: 20px;
-  width: 56px; height: 56px;
-  border-radius: var(--radius-full);
-  background: var(--gradient);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow-glow);
-  z-index: 80;
-  cursor: pointer;
-  transition: all var(--t) var(--ease);
-  animation: float 3s ease-in-out infinite;
-}
-.ai-fab:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(15,157,88,0.4); }
-.ai-fab:active { transform: scale(0.95); }
-.ai-fab svg { width: 28px; height: 28px; color: #fff; }
-@media (min-width: 768px) { .ai-fab { right: calc(50% - var(--max-width)/2 + 20px); } }
+<!DOCTYPE html>
 
-.activity-item {
-  display: flex; align-items: center; gap: 14px;
-  padding: 14px 0; border-bottom: 1px solid var(--border-2);
-}
-.activity-item:last-child { border-bottom: none; }
-.activity-dot {
-  width: 36px; height: 36px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.activity-dot.green { background: var(--primary-light); color: var(--primary); }
-.activity-dot.blue { background: var(--secondary-light); color: var(--secondary); }
-.activity-dot.red { background: var(--danger-bg); color: var(--danger); }
-.activity-info { flex: 1; min-width: 0; }
-.activity-title { font-size: var(--fs-body); font-weight: 600; }
-.activity-time { font-size: var(--fs-tiny); color: var(--text-2); }
-```
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfriSafe AI - Dashboard</title>
+
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <main class="app-main">
 
 ```
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+  <div class="header-left">
+    <h2>AfriSafe AI</h2>
+    <p class="header-subtitle">AI-powered malaria health monitoring</p>
+  </div>
+
+  <div class="header-actions">
+
+    <!-- Reminder Icon -->
+    <a href="reminders.html" class="header-icon" id="reminderBtn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+      <span id="reminderBadge" class="icon-badge hidden">0</span>
+    </a>
+
+    <!-- Notification Icon -->
+    <a href="notifications.html" class="header-icon" id="notificationBtn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+      <span id="notificationBadge" class="icon-badge hidden">0</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- Greeting -->
+<div class="greeting fade-in-up">
+  <span class="greeting-time" id="greetingTime">Good Morning</span>
+  <span class="greeting-name" id="greetingName">User</span>
+</div>
+
 <!-- AI Health Status Hero -->
-<div class="health-hero fade-in-up" style="animation-delay: 50ms;">
+<div class="health-hero fade-in-up">
   <div class="hero-label">AI Health Status</div>
-  <div class="hero-title">Stay ahead of malaria with AI-powered insights</div>
+  <div class="hero-title">
+    Stay ahead of malaria with AI-powered insights
+  </div>
+
   <a href="assessment.html" class="hero-action">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
-    Quick Assessment
+    Start Assessment
   </a>
 </div>
 
-<!-- Health Score Gauge -->
-<div class="card health-score-card fade-in-up" style="animation-delay: 100ms;">
+<!-- Health Score -->
+<div class="card health-score-card fade-in-up">
+
   <div class="gauge-wrap">
+
     <svg class="gauge-svg" viewBox="0 0 140 140">
+
       <defs>
-        <linearGradient id="gaugeGrad" x1="0" y1="0" x2="140" y2="140" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#0F9D58"/><stop offset="1" stop-color="#1E88E5"/>
+        <linearGradient id="gaugeGrad" x1="0" y1="0" x2="140" y2="140">
+          <stop stop-color="#0F9D58"></stop>
+          <stop offset="1" stop-color="#1E88E5"></stop>
         </linearGradient>
       </defs>
-      <circle class="gauge-bg-circle" cx="70" cy="70" r="60"/>
-      <circle class="gauge-fill-circle" id="gaugeFill" cx="70" cy="70" r="60"/>
+
+      <circle class="gauge-bg-circle" cx="70" cy="70" r="60"></circle>
+
+      <circle
+        class="gauge-fill-circle"
+        id="gaugeFill"
+        cx="70"
+        cy="70"
+        r="60"
+      ></circle>
+
     </svg>
+
     <div class="gauge-center">
       <span class="gauge-value" id="healthScore">--</span>
       <span class="gauge-label">Health Score</span>
     </div>
+
   </div>
-  <div class="health-status" id="healthStatus">No assessments yet</div>
-  <div class="health-status-sub">Complete your first assessment to get a personalized health score</div>
+
+  <div class="health-status" id="healthStatus">
+    No assessments yet
+  </div>
+
+  <div class="health-status-sub">
+    Complete your first assessment to get a personalized health score
+  </div>
+
+</div>
+
+<!-- Quick Actions -->
+<div class="quick-actions fade-in-up">
+
+  <a href="assessment.html" class="quick-card">
+    <div class="quick-icon">🩺</div>
+    <div class="quick-title">Assessment</div>
+  </a>
+
+  <a href="prevention-guidelines.html" class="quick-card">
+    <div class="quick-icon">🛡️</div>
+    <div class="quick-title">Guidelines</div>
+  </a>
+
+  <a href="ai-chat.html" class="quick-card">
+    <div class="quick-icon">🤖</div>
+    <div class="quick-title">AI Chat</div>
+  </a>
+
+  <a href="hospitals.html" class="quick-card">
+    <div class="quick-icon">🏥</div>
+    <div class="quick-title">Hospitals</div>
+  </a>
+
 </div>
 
 <!-- Statistics -->
-<div class="stat-grid stagger">
+<div class="stat-grid fade-in-up">
+
   <div class="stat-card">
-    <div class="stat-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
     <div class="stat-value" id="statTotal">0</div>
     <div class="stat-label">Total Assessments</div>
   </div>
+
   <div class="stat-card">
-    <div class="stat-icon red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg></div>
     <div class="stat-value" id="statPositive">0</div>
     <div class="stat-label">Positive Cases</div>
   </div>
+
   <div class="stat-card">
-    <div class="stat-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
     <div class="stat-value" id="statNegative">0</div>
     <div class="stat-label">Negative Cases</div>
   </div>
+
   <div class="stat-card">
-    <div class="stat-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
     <div class="stat-value" id="statHighRisk">0</div>
     <div class="stat-label">High Risk Cases</div>
   </div>
+
 </div>
 
 <!-- Recent Activity -->
-<div class="card fade-in-up" style="animation-delay: 200ms;">
-  <div class="card-title mb-2">Recent Activity</div>
+<div class="card fade-in-up">
+
+  <div class="card-title">Recent Activity</div>
+
   <div id="historyList">
-    <div class="skeleton" style="height:48px;border-radius:12px;margin-bottom:8px;"></div>
-    <div class="skeleton" style="height:48px;border-radius:12px;margin-bottom:8px;"></div>
-    <div class="skeleton" style="height:48px;border-radius:12px;"></div>
+
+    <div class="activity-item">
+      <div class="activity-dot green">✔</div>
+
+      <div class="activity-info">
+        <div class="activity-title">Loading activity...</div>
+        <div class="activity-time">Please wait</div>
+      </div>
+
+    </div>
+
   </div>
+
 </div>
 ```
+
+  </main>
+
+  <!-- AI Floating Button -->
+
+  <a href="ai-chat.html" class="ai-fab">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2a10 10 0 100 20 10 10 0 000-20z"></path>
+      <path d="M8 12h8"></path>
+      <path d="M12 8v8"></path>
+    </svg>
+  </a>
+
+  <script type="module" src="js/dashboard.js"></script>
+
+</body>
+</html>
