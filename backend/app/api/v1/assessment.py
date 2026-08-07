@@ -142,3 +142,65 @@ def delete_assessment(assessment_id: str, request: Request):
     if resp.status_code not in (200, 204):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=resp.text)
     return {}
+    @router.get("/guidelines")
+def malaria_guidelines_2026():
+    return {
+        "title": "Nigeria Malaria Guidelines 2026",
+        "version": "2026",
+        "country": "Nigeria",
+        "summary": "General malaria prevention, testing, and treatment guidance for users in Nigeria in 2026.",
+        "prevention": [
+            "Sleep under insecticide-treated mosquito nets every night.",
+            "Use indoor residual spraying where available.",
+            "Eliminate stagnant water around homes and communities.",
+            "Wear protective clothing during evening and night hours.",
+            "Use approved mosquito repellents when appropriate."
+        ],
+        "symptoms": [
+            "Fever",
+            "Chills or shivering",
+            "Headache",
+            "Body weakness or fatigue",
+            "Nausea or vomiting",
+            "Loss of appetite",
+            "Sweating"
+        ],
+        "testing": {
+            "recommended": True,
+            "methods": [
+                "Rapid Diagnostic Test (RDT)",
+                "Microscopy (blood smear)"
+            ],
+            "note": "Confirm malaria with a diagnostic test whenever possible before treatment."
+        },
+        "treatment": {
+            "first_line": "Artemisinin-based Combination Therapy (ACT) as prescribed by a qualified healthcare professional.",
+            "warning": "Do not self-medicate with antimalarial drugs without proper medical guidance."
+        },
+        "high_risk_groups": [
+            "Children under five years",
+            "Pregnant women",
+            "Older adults",
+            "People with weakened immune systems"
+        ],
+        "when_to_seek_care": [
+            "Persistent high fever",
+            "Difficulty breathing",
+            "Confusion or altered consciousness",
+            "Repeated vomiting",
+            "Convulsions",
+            "Severe weakness or inability to drink fluids"
+        ],
+        "emergency": {
+            "severe_malaria_signs": [
+                "Unconsciousness",
+                "Seizures",
+                "Severe anemia",
+                "Respiratory distress",
+                "Jaundice"
+            ],
+            "action": "Go immediately to the nearest hospital or emergency medical facility."
+        },
+        "last_updated": "2026-01-01",
+        "source": "AfriSafe AI 2026 Nigeria Malaria Guidance"
+    }
