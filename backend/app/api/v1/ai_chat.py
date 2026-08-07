@@ -3,6 +3,7 @@ import requests
 from fastapi import APIRouter, HTTPException, Request, status
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from openai import OpenAI
 
 load_dotenv()
 
@@ -10,12 +11,9 @@ router = APIRouter(tags=["AI Chat"])
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
-GEMINI_URL = (
-    "https://generativelanguage.googleapis.com/v1beta/models/"
-    "gemini-2.0-flash:generateContent"
-)
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 
 class ChatRequest(BaseModel):
@@ -24,6 +22,7 @@ class ChatRequest(BaseModel):
 
 def get_user_id_from_request(request: Request) -> str:
     auth_header = request.headers.get("Authorization")
+
     if not auth_header:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -31,12 +30,19 @@ def get_user_id_from_request(request: Request) -> str:
         )
 
     url = f"{SUPABASE_URL}/auth/v1/user"
+
     headers = {
         "Authorization": auth_header,
         "apikey": SUPABASE_ANON_KEY,
     }
 
-    resp = requests.get(url, headers=headers, timeout=10)
+    try:
+        resp = requests.get(url, headers=headers, timeout=10)
+    except requests.RequestException:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Unable to verify user session"
+        )
 
     if resp.status_code != 200:
         raise HTTPException(
@@ -47,51 +53,69 @@ def get_user_id_from_request(request: Request) -> str:
     return resp.json().get("id")
 
 
+SYSTEM_PROMPT = """
+You are AfriSafe AI, a malaria-focused health assistant for Nigeria and Africa.
+
+Your role:
+- Provide educational guidance about malaria.
+- Explain symptoms, prevention, mosquito control, medication reminders,
+  hydration, nutrition, and when to seek medical care.
+- Encourage malaria testing when symptoms suggest possible malaria.
+- Encourage users to visit a hospital or clinic for diagnosis and treatment.
+- If symptoms sound severe (difficulty breathing, seizures, confusion,
+  unconsciousness, severe dehydration, persistent vomiting, high fever that
+  does not improve, or signs of severe malaria), instruct the user to seek
+  emergency medical care immediately.
+- Never claim to diagnose malaria with certainty.
+- Never prescribe specific medication dosages.
+- Keep responses clear, practical, and supportive.
+- Use short paragraphs and bullet points when useful.
+- End most responses with a reminder that AfriSafe AI does not replace a
+  qualified healthcare professional.
+"""
+
+
 @router.post("")
 def chat(data: ChatRequest, request: Request):
+    # Verify authenticated user
     get_user_id_from_request(request)
 
-    if not GEMINI_API_KEY:
+    if not OPENAI_API_KEY:
         raise HTTPException(
-            status_code=500,
-            detail="GEMINI_API_KEY is not configured"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="OPENAI_API_KEY is not configured"
         )
 
-    payload = {
-        "contents": [
-            {
-                "parts": [
-                    {
-                        "text": data.message
-                    }
-                ]
-            }
-        ]
-    }
+    user_message = data.message.strip()
 
-    resp = requests.post(
-        f"{GEMINI_URL}?key={GEMINI_API_KEY}",
-        json=payload,
-        headers={"Content-Type": "application/json"},
-        timeout=30,
-    )
-
-    if resp.status_code != 200:
+    if not user_message:
         raise HTTPException(
-            status_code=502,
-            detail=f"Gemini API error: {resp.text}"
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Message cannot be empty"
         )
 
-    result = resp.json()
+    try:
+        response = client.responses.create(
+            model="gpt-5-mini",
+            input=[
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT,
+                },
+                {
+                    "role": "user",
+                    "content": user_message,
+                },
+            ],
+        )
 
-    reply = (
-        result.get("candidates", [{}])[0]
-        .get("content", {})
-        .get("parts", [{}])[0]
-        .get("text", "Sorry, I could not generate a response.")
-    )
+        return {
+            "success": True,
+            "reply": response.output_text,
+        }
 
-    return {
-        "success": True,
-        "reply": reply
-    }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail=f"OpenAI API error: {str(e)}"
+        )
