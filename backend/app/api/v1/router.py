@@ -15,84 +15,109 @@ from app.api.v1.debug import router as debug_router
 
 api_router = APIRouter(prefix="/api/v1")
 
+# -------------------------------------------------------------------
 # Authentication
+# -------------------------------------------------------------------
 api_router.include_router(
     auth_router,
     prefix="/auth",
     tags=["Authentication"],
 )
 
+# -------------------------------------------------------------------
 # Users
+# -------------------------------------------------------------------
 api_router.include_router(
     users_router,
     prefix="/users",
     tags=["Users"],
 )
 
+# -------------------------------------------------------------------
 # Prediction
+# -------------------------------------------------------------------
 api_router.include_router(
     prediction_router,
     prefix="/prediction",
     tags=["Predictions"],
 )
 
-# AI Engine
+# -------------------------------------------------------------------
+# AI Engine (ML prediction model)
+# -------------------------------------------------------------------
 api_router.include_router(
     ai_router,
     prefix="/ai",
     tags=["AI Engine"],
 )
 
-# AI Chat (available at /api/v1/ai_chat)
+# -------------------------------------------------------------------
+# AI Chat (OpenAI-powered health assistant)
+# Endpoint: /api/v1/ai_chat
+# -------------------------------------------------------------------
 api_router.include_router(
     ai_chat_router,
     prefix="/ai_chat",
     tags=["AI Chat"],
 )
 
+# -------------------------------------------------------------------
 # Assessments
+# -------------------------------------------------------------------
 api_router.include_router(
     assessment_router,
     prefix="/assessments",
     tags=["Assessments"],
 )
 
+# -------------------------------------------------------------------
 # Prevention Guidelines
+# -------------------------------------------------------------------
 api_router.include_router(
     prevention_guidelines_router,
     prefix="/prevention-guidelines",
     tags=["Prevention Guidelines"],
 )
 
+# -------------------------------------------------------------------
 # Reports
+# -------------------------------------------------------------------
 api_router.include_router(
     reports_router,
     prefix="/reports",
     tags=["Reports"],
 )
 
+# -------------------------------------------------------------------
 # Reminders
+# -------------------------------------------------------------------
 api_router.include_router(
     reminders_router,
     prefix="/reminders",
     tags=["Reminders"],
 )
 
+# -------------------------------------------------------------------
 # Notifications
+# -------------------------------------------------------------------
 api_router.include_router(
     notifications_router,
     prefix="/notifications",
     tags=["Notifications"],
 )
 
+# -------------------------------------------------------------------
 # Health Check
+# -------------------------------------------------------------------
 api_router.include_router(
     health_router,
     prefix="/health",
     tags=["Health Check"],
 )
 
+# -------------------------------------------------------------------
 # Debug
+# -------------------------------------------------------------------
 api_router.include_router(
     debug_router,
     prefix="/debug",
