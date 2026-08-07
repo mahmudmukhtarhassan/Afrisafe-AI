@@ -22,8 +22,6 @@
   </div>
 
   <div class="header-actions">
-
-    <!-- Reminder Icon -->
     <a href="reminders.html" class="header-icon" id="reminderBtn">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="10"></circle>
@@ -32,7 +30,6 @@
       <span id="reminderBadge" class="icon-badge hidden">0</span>
     </a>
 
-    <!-- Notification Icon -->
     <a href="notifications.html" class="header-icon" id="notificationBtn">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -40,7 +37,6 @@
       </svg>
       <span id="notificationBadge" class="icon-badge hidden">0</span>
     </a>
-
   </div>
 </div>
 
@@ -64,11 +60,8 @@
 
 <!-- Health Score -->
 <div class="card health-score-card fade-in-up">
-
   <div class="gauge-wrap">
-
     <svg class="gauge-svg" viewBox="0 0 140 140">
-
       <defs>
         <linearGradient id="gaugeGrad" x1="0" y1="0" x2="140" y2="140">
           <stop stop-color="#0F9D58"></stop>
@@ -85,14 +78,12 @@
         cy="70"
         r="60"
       ></circle>
-
     </svg>
 
     <div class="gauge-center">
       <span class="gauge-value" id="healthScore">--</span>
       <span class="gauge-label">Health Score</span>
     </div>
-
   </div>
 
   <div class="health-status" id="healthStatus">
@@ -102,12 +93,10 @@
   <div class="health-status-sub">
     Complete your first assessment to get a personalized health score
   </div>
-
 </div>
 
 <!-- Quick Actions -->
 <div class="quick-actions fade-in-up">
-
   <a href="assessment.html" class="quick-card">
     <div class="quick-icon">🩺</div>
     <div class="quick-title">Assessment</div>
@@ -127,12 +116,10 @@
     <div class="quick-icon">🏥</div>
     <div class="quick-title">Hospitals</div>
   </a>
-
 </div>
 
 <!-- Statistics -->
 <div class="stat-grid fade-in-up">
-
   <div class="stat-card">
     <div class="stat-value" id="statTotal">0</div>
     <div class="stat-label">Total Assessments</div>
@@ -152,16 +139,13 @@
     <div class="stat-value" id="statHighRisk">0</div>
     <div class="stat-label">High Risk Cases</div>
   </div>
-
 </div>
 
 <!-- Recent Activity -->
 <div class="card fade-in-up">
-
   <div class="card-title">Recent Activity</div>
 
   <div id="historyList">
-
     <div class="activity-item">
       <div class="activity-dot green">✔</div>
 
@@ -169,11 +153,8 @@
         <div class="activity-title">Loading activity...</div>
         <div class="activity-time">Please wait</div>
       </div>
-
     </div>
-
   </div>
-
 </div>
 ```
 
@@ -183,7 +164,7 @@
 
   <a href="ai-chat.html" class="ai-fab">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 2a10 10 0 100 20 10 10 0 000-20z"></path>
+      <circle cx="12" cy="12" r="10"></circle>
       <path d="M8 12h8"></path>
       <path d="M12 8v8"></path>
     </svg>
