@@ -38,8 +38,9 @@ async function sendMessage(text) {
   setLoading(true);
 
   try {
+    // Backend endpoint: /api/v1/ai_chat
     const response = await fetchWithAuth(
-      `${API_BASE_URL}/api/v1/ai/chat`,
+      `${API_BASE_URL}/api/v1/ai_chat`,
       {
         method: 'POST',
         headers: {
