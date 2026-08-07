@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   else if (hour < 17) greeting = "Good Afternoon";
   else greeting = "Good Evening";
 
-  document.getElementById("greetingTime").textContent = greeting;
+  const greetingTime = document.getElementById("greetingTime");
+  if (greetingTime) greetingTime.textContent = greeting;
 
   // ---------------------------
   // Current user
@@ -35,21 +36,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (meResp.ok) {
       const me = await meResp.json();
       const firstName = (me.full_name || me.email || "User").split(" ")[0];
-      document.getElementById("greetingName").textContent = firstName;
+      const greetingName = document.getElementById("greetingName");
+      if (greetingName) greetingName.textContent = firstName;
     } else if (meResp.status === 401) {
       clearTokens();
       window.location.href = "/login.html";
       return;
     }
-  } catch {}
+  } catch (err) {
+    console.error(err);
+  }
 
   // ---------------------------
   // Load dashboard sections
   // ---------------------------
   await Promise.all([
     loadHistory(),
-    loadNotifications(),
-    loadReminders(),
+    updateHeaderBadges(),
   ]);
 });
 
@@ -70,8 +73,11 @@ async function loadHistory() {
         return;
       }
 
-      document.getElementById("historyList").innerHTML =
-        `<div class="error-state"><p>Failed to load history.</p></div>`;
+      const historyList = document.getElementById("historyList");
+      if (historyList) {
+        historyList.innerHTML =
+          `<div class="error-state"><p>Failed to load history.</p></div>`;
+      }
       return;
     }
 
@@ -91,10 +97,15 @@ async function loadHistory() {
       (i) => (i.risk || "").toLowerCase() === "high"
     ).length;
 
-    document.getElementById("statTotal").textContent = total;
-    document.getElementById("statPositive").textContent = positive;
-    document.getElementById("statNegative").textContent = negative;
-    document.getElementById("statHighRisk").textContent = highRisk;
+    const statTotal = document.getElementById("statTotal");
+    const statPositive = document.getElementById("statPositive");
+    const statNegative = document.getElementById("statNegative");
+    const statHighRisk = document.getElementById("statHighRisk");
+
+    if (statTotal) statTotal.textContent = total;
+    if (statPositive) statPositive.textContent = positive;
+    if (statNegative) statNegative.textContent = negative;
+    if (statHighRisk) statHighRisk.textContent = highRisk;
 
     // ---------------------------
     // Health score
@@ -114,31 +125,38 @@ async function loadHistory() {
         : Math.round(60 + conf * 0.4);
     }
 
-    document.getElementById("healthScore").textContent = score;
+    const healthScore = document.getElementById("healthScore");
+    if (healthScore) healthScore.textContent = score;
 
     const gaugeFill = document.getElementById("gaugeFill");
-    const circumference = 377;
-    const offset = circumference - (score / 100) * circumference;
+    if (gaugeFill) {
+      const circumference = 377;
+      const offset = circumference - (score / 100) * circumference;
 
-    requestAnimationFrame(() => {
-      gaugeFill.style.strokeDashoffset = offset;
-    });
+      requestAnimationFrame(() => {
+        gaugeFill.style.strokeDashoffset = offset;
+      });
+    }
 
     const healthStatus = document.getElementById("healthStatus");
 
-    if (total === 0) {
-      healthStatus.textContent = "No assessments yet";
-    } else {
-      const latest = items[0];
-      const risk = latest.risk || "Low";
-      healthStatus.textContent =
-        `Latest: ${latest.prediction || "Unknown"} (${risk} risk)`;
+    if (healthStatus) {
+      if (total === 0) {
+        healthStatus.textContent = "No assessments yet";
+      } else {
+        const latest = items[0];
+        const risk = latest.risk || "Low";
+        healthStatus.textContent =
+          `Latest: ${latest.prediction || "Unknown"} (${risk} risk)`;
+      }
     }
 
     // ---------------------------
     // Recent activity
     // ---------------------------
     const list = document.getElementById("historyList");
+
+    if (!list) return;
 
     if (items.length === 0) {
       list.innerHTML =
@@ -176,11 +194,18 @@ async function loadHistory() {
       div.className = "activity-item";
 
       div.innerHTML = `
-        <div class="activity-dot ${iconClass}">❤️</div>
+        <div class="activity-dot ${iconClass}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+                     2 5.42 4.42 3 7.5 3
+                     c1.74 0 3.41.81 4.5 2.09
+                     C13.09 3.81 14.76 3 16.5 3
+                     19.58 3 22 5.42 22 8.5
+                     c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
         <div class="activity-info">
-          <div class="activity-title">
-            ${item.prediction || "Unknown"}
-          </div>
+          <div class="activity-title">${item.prediction || "Unknown"}</div>
           <div class="activity-time">${date}</div>
         </div>
         <span class="risk-badge risk-${riskClass}">
@@ -191,125 +216,65 @@ async function loadHistory() {
       list.appendChild(div);
     });
   } catch (err) {
-    document.getElementById("historyList").innerHTML =
-      `<div class="error-state">
-        <p>Unable to load data. Check your connection.</p>
-      </div>`;
+    const historyList = document.getElementById("historyList");
+    if (historyList) {
+      historyList.innerHTML =
+        `<div class="error-state">
+          <p>Unable to load data. Check your connection.</p>
+        </div>`;
+    }
   }
 }
 
 // =====================================================
-// Notifications
+// Header Notification & Reminder Badges
 // =====================================================
-async function loadNotifications() {
-  const list = document.getElementById("notificationsList");
-  const badge = document.getElementById("notificationBadge");
-
-  if (!list || !badge) return;
-
+async function updateHeaderBadges() {
   try {
-    const resp = await fetchWithAuth(
+    // Notifications
+    const nResp = await fetchWithAuth(
       `${API_BASE_URL}/api/v1/notifications`,
       { method: "GET" }
     );
 
-    if (!resp.ok) {
-      list.innerHTML =
-        `<div class="empty-state">No notifications available.</div>`;
-      badge.style.display = "none";
-      return;
+    if (nResp.ok) {
+      const nData = await nResp.json();
+      const unread = (nData.data || []).filter(n => !n.read).length;
+
+      const nBadge = document.getElementById("notificationBadge");
+
+      if (nBadge) {
+        if (unread > 0) {
+          nBadge.textContent = unread;
+          nBadge.classList.remove("hidden");
+        } else {
+          nBadge.classList.add("hidden");
+        }
+      }
     }
 
-    const result = await resp.json();
-    const notifications = result.data || [];
-
-    if (notifications.length === 0) {
-      list.innerHTML =
-        `<div class="empty-state">No notifications available.</div>`;
-      badge.style.display = "none";
-      return;
-    }
-
-    const unread = notifications.filter((n) => !n.read).length;
-
-    if (unread > 0) {
-      badge.textContent = unread;
-      badge.style.display = "inline-block";
-    } else {
-      badge.style.display = "none";
-    }
-
-    list.innerHTML = notifications
-      .slice(0, 3)
-      .map(
-        (n) => `
-        <div class="activity-item">
-          <div class="activity-dot ${n.read ? "blue" : "green"}">
-            🔔
-          </div>
-          <div class="activity-info">
-            <div class="activity-title">${n.title}</div>
-            <div class="activity-time">${n.message}</div>
-          </div>
-        </div>
-      `
-      )
-      .join("");
-  } catch (err) {
-    list.innerHTML =
-      `<div class="error-state">
-        <p>Failed to load notifications.</p>
-      </div>`;
-  }
-}
-
-// =====================================================
-// Reminders
-// =====================================================
-async function loadReminders() {
-  const list = document.getElementById("remindersList");
-
-  if (!list) return;
-
-  try {
-    const resp = await fetchWithAuth(
+    // Reminders
+    const rResp = await fetchWithAuth(
       `${API_BASE_URL}/api/v1/reminders`,
       { method: "GET" }
     );
 
-    if (!resp.ok) {
-      list.innerHTML =
-        `<div class="empty-state">No reminders available.</div>`;
-      return;
+    if (rResp.ok) {
+      const rData = await rResp.json();
+      const count = (rData.data || []).length;
+
+      const rBadge = document.getElementById("reminderBadge");
+
+      if (rBadge) {
+        if (count > 0) {
+          rBadge.textContent = count;
+          rBadge.classList.remove("hidden");
+        } else {
+          rBadge.classList.add("hidden");
+        }
+      }
     }
-
-    const result = await resp.json();
-    const reminders = result.data || [];
-
-    if (reminders.length === 0) {
-      list.innerHTML =
-        `<div class="empty-state">No reminders scheduled.</div>`;
-      return;
-    }
-
-    list.innerHTML = reminders
-      .slice(0, 3)
-      .map(
-        (r) => `
-        <div class="activity-item">
-          <div class="activity-dot blue">⏰</div>
-          <div class="activity-info">
-            <div class="activity-title">${r.title}</div>
-            <div class="activity-time">${r.reminder_date}</div>
-          </div>
-        </div>
-      `
-      )
-      .join("");
   } catch (err) {
-    list.innerHTML =
-      `<div class="error-state">
-        <p>Failed to load reminders.</p>
-      </div>`;
+    console.error("Header badge error:", err);
   }
 }
