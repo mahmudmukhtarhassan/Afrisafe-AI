@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfriSafe AI - Reminders</title>
+
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+
+  <style>
+    .reminders-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .back-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: #f3f4f6;
+      color: #111827;
+      border: 1px solid #e5e7eb;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .page-subtitle {
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .field input {
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    }
+
+    .btn-primary {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      background: #111827;
+      color: #ffffff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-primary:disabled {
+      opacity: .6;
+      cursor: default;
+    }
+
+    .status-message {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #2563eb;
+    }
+
+    .reminder-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .reminder-card {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 16px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+    }
+
+    .reminder-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #dcfce7;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .reminder-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .reminder-title {
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .reminder-date {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #6b7280;
+    }
+
+    .empty-state .icon {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="reminders-page">
+    <div class="page-header">
+      <a href="dashboard.html" class="back-btn" aria-label="Back to dashboard">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </a>
+
+      <div>
+        <div class="page-title">Reminders</div>
+        <div class="page-subtitle">Create medication, assessment, and prevention reminders.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Create reminder</div>
+
+      <form id="reminderForm" class="form-grid">
+        <div class="field">
+          <label for="title">Reminder title</label>
+          <input id="title" type="text" placeholder="Take antimalarial medication" required />
+        </div>
+
+        <div class="field">
+          <label for="reminderDate">Reminder date &amp; time</label>
+          <input id="reminderDate" type="datetime-local" required />
+        </div>
+
+        <button id="saveReminderBtn" type="submit" class="btn-primary">
+          Save reminder
+        </button>
+
+        <div id="statusMessage" class="status-message"></div>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Upcoming reminders</div>
+
+      <div id="reminderList" class="reminder-list">
+        <div class="empty-state">
+          <div class="icon">⏰</div>
+          <div>Loading reminders...</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="js/reminders.js"></script>
+</body>
+</html>
