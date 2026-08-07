@@ -11,7 +11,7 @@ Endpoints:
 - /api/v1/reminders/*              User reminders
 - /api/v1/notifications/*          Notifications
 - /api/v1/ai/*                     AI engine
-- /api/v1/ai_chat                  AI health assistant
+- /api/v1/ai/chat                  AI health assistant
 - /api/v1/health                   Health check
 - /health                          Render health endpoint
 """
@@ -152,4 +152,4 @@ async def unhandled_exception_handler(request: Request, exc: Exception):
             "success": False,
             "detail": "Internal server error",
         },
-    )ode, content={"detail": exc.detail})
+    )
