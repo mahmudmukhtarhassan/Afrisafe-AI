@@ -1,16 +1,16 @@
 from fastapi import APIRouter
 
+from app.api.v1.auth import router as auth_router
+from app.api.v1.users import router as users_router
+from app.api.v1.prediction import router as prediction_router
 from app.api.v1.ai import router as ai_router
 from app.api.v1.ai_chat import router as ai_chat_router
 from app.api.v1.assessment import router as assessment_router
-from app.api.v1.auth import router as auth_router
-from app.api.v1.health import router as health_router
-from app.api.v1.notifications import router as notifications_router
-from app.api.v1.prediction import router as prediction_router
 from app.api.v1.prevention_guidelines import router as prevention_guidelines_router
-from app.api.v1.reminders import router as reminders_router
 from app.api.v1.reports import router as reports_router
-from app.api.v1.users import router as users_router
+from app.api.v1.reminders import router as reminders_router
+from app.api.v1.notifications import router as notifications_router
+from app.api.v1.health import router as health_router
 from app.api.v1.debug import router as debug_router
 
 api_router = APIRouter(prefix="/api/v1")
@@ -43,7 +43,7 @@ api_router.include_router(
     tags=["AI Engine"],
 )
 
-# AI Chat
+# AI Chat (available at /api/v1/ai/chat)
 api_router.include_router(
     ai_chat_router,
     prefix="/ai/chat",
