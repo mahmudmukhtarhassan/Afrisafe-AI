@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Request, Depends
+from fastapi import APIRouter, HTTPException, status, Request
 from pydantic import BaseModel
 import os
 import requests
@@ -15,29 +15,40 @@ SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 REST_URL = f"{SUPABASE_URL}/rest/v1"
 
-# Do not raise at import time — allow app to start even if env vars are missing.
-# Perform checks at request time and return clear HTTP errors when necessary.
-
 service_headers = {
     "apikey": SUPABASE_ANON_KEY,
     "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
     "Content-Type": "application/json",
 }
 
-# simple payload: question answers are arbitrary - store json and create deterministic score
-class AssessmentPayload(BaseModel):
-    answers: dict  # free-form answers stored as JSON
 
-# helper to validate token and fetch user id
+class AssessmentPayload(BaseModel):
+    answers: dict
+
+
 def get_user_id_from_request(request: Request):
     auth_header = request.headers.get("Authorization")
+
     if not auth_header:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing Authorization header")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing Authorization header",
+        )
+
     url = f"{SUPABASE_URL}/auth/v1/user"
-    headers = {"Authorization": auth_header, "apikey": SUPABASE_ANON_KEY}
+    headers = {
+        "Authorization": auth_header,
+        "apikey": SUPABASE_ANON_KEY,
+    }
+
     resp = requests.get(url, headers=headers)
+
     if resp.status_code != 200:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+        )
+
     user = resp.json()
     return user.get("id")
 
@@ -51,21 +62,21 @@ def create_assessment(payload: AssessmentPayload, request: Request):
         )
 
     user_id = get_user_id_from_request(request)
-    # Deterministic simple scoring: sum numeric values in answers; non-numeric ignored
+
     score = 0.0
     count = 0
-    for k, v in (payload.answers or {}).items():
+
+    for _, value in (payload.answers or {}).items():
         try:
-            val = float(v)
-            score += val
+            score += float(value)
             count += 1
         except Exception:
-            # try to map booleans / strings
-            if isinstance(v, bool):
-                score += 1 if v else 0
+            if isinstance(value, bool):
+                score += 1 if value else 0
                 count += 1
+
     average = score / count if count else 0.0
-    # map to result
+
     if average >= 0.75:
         result = "High Risk"
     elif average >= 0.4:
@@ -81,12 +92,16 @@ def create_assessment(payload: AssessmentPayload, request: Request):
         "score": average,
         "created_at": datetime.datetime.utcnow().isoformat(),
     }
-    # insert into Supabase table 'assessments'
+
     url = f"{REST_URL}/assessments"
     resp = requests.post(url, json=assessment, headers=service_headers)
+
     if resp.status_code not in (200, 201):
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=resp.text)
-    # Return inserted assessment
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=resp.text,
+        )
+
     return assessment
 
 
@@ -99,11 +114,21 @@ def assessment_history(request: Request):
         )
 
     user_id = get_user_id_from_request(request)
+
     url = f"{REST_URL}/assessments?user_id=eq.{user_id}&order=created_at.desc"
-    headers = {"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}"}
+    headers = {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+    }
+
     resp = requests.get(url, headers=headers)
+
     if resp.status_code != 200:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=resp.text)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=resp.text,
+        )
+
     return resp.json()
 
 
@@ -116,14 +141,29 @@ def get_assessment(assessment_id: str, request: Request):
         )
 
     user_id = get_user_id_from_request(request)
+
     url = f"{REST_URL}/assessments?id=eq.{assessment_id}&user_id=eq.{user_id}"
-    headers = {"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}"}
+    headers = {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+    }
+
     resp = requests.get(url, headers=headers)
+
     if resp.status_code != 200:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=resp.text)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=resp.text,
+        )
+
     data = resp.json()
+
     if not data:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Assessment not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Assessment not found",
+        )
+
     return data[0]
 
 
@@ -136,13 +176,25 @@ def delete_assessment(assessment_id: str, request: Request):
         )
 
     user_id = get_user_id_from_request(request)
+
     url = f"{REST_URL}/assessments?id=eq.{assessment_id}&user_id=eq.{user_id}"
-    headers = {"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}"}
+    headers = {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+    }
+
     resp = requests.delete(url, headers=headers)
+
     if resp.status_code not in (200, 204):
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=resp.text)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=resp.text,
+        )
+
     return {}
-    @router.get("/guidelines")
+
+
+@router.get("/guidelines")
 def malaria_guidelines_2026():
     return {
         "title": "Nigeria Malaria Guidelines 2026",
