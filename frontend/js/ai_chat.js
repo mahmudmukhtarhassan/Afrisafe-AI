@@ -9,7 +9,7 @@ const typingIndicator = document.getElementById('typingIndicator');
 const quickChips = document.querySelectorAll('.quick-chip');
 
 document.addEventListener('DOMContentLoaded', () => {
-  chatInput.focus();
+  if (chatInput) chatInput.focus();
 
   quickChips.forEach(chip => {
     chip.addEventListener('click', () => {
@@ -57,6 +57,10 @@ async function sendMessage(text) {
       return;
     }
 
+    if (response.status === 404) {
+      throw new Error('AI Chat endpoint not found on the server.');
+    }
+
     const data = await response.json();
 
     if (!response.ok) {
@@ -72,7 +76,8 @@ async function sendMessage(text) {
     console.error(err);
 
     addAIMessage(
-      'I’m having trouble connecting to the AfriSafe AI service right now. Please check your internet connection and try again in a moment.'
+      err.message ||
+      'I’m having trouble connecting to the AfriSafe AI service right now. Please try again in a moment.'
     );
 
   } finally {
