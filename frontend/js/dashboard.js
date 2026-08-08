@@ -2,29 +2,32 @@ import { API_BASE_URL } from './config.js';
 import { fetchWithAuth, clearTokens } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  initMenu();
+  wireLogout();
+
   const hour = new Date().getHours();
   const greeting =
     hour < 12 ? 'Good Morning' :
     hour < 17 ? 'Good Afternoon' :
     'Good Evening';
 
-  const greetingTime = document.getElementById('greetingTime');
-  if (greetingTime) greetingTime.textContent = greeting;
+  setText('greetingTime', greeting);
 
   try {
     const meResp = await fetchWithAuth(`${API_BASE_URL}/api/v1/auth/me`);
 
-    if (meResp.ok) {
-      const me = await meResp.json();
-      const greetingName = document.getElementById('greetingName');
-      if (greetingName) {
-        greetingName.textContent =
-          (me.full_name || me.email || 'User').split(' ')[0];
-      }
-    } else if (meResp.status === 401) {
+    if (meResp.status === 401) {
       clearTokens();
       window.location.href = 'login.html';
       return;
+    }
+
+    if (meResp.ok) {
+      const me = await meResp.json();
+      setText(
+        'greetingName',
+        (me.full_name || me.email || 'User').split(' ')[0]
+      );
     }
   } catch (err) {
     console.error('User profile error:', err);
@@ -36,11 +39,59 @@ document.addEventListener('DOMContentLoaded', async () => {
   ]);
 });
 
+/* ----------------------------------------------------
+   Navigation Menu
+---------------------------------------------------- */
+
+function initMenu() {
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+
+  if (!menuToggle || !sideMenu) return;
+
+  menuToggle.addEventListener('click', () => {
+    sideMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (
+      sideMenu.classList.contains('open') &&
+      !sideMenu.contains(e.target) &&
+      !menuToggle.contains(e.target)
+    ) {
+      sideMenu.classList.remove('open');
+    }
+  });
+}
+
+function wireLogout() {
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (!logoutBtn) return;
+
+  logoutBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    clearTokens();
+    window.location.href = 'login.html';
+  });
+}
+
+/* ----------------------------------------------------
+   History + Statistics
+---------------------------------------------------- */
+
 async function loadHistory() {
   const list = document.getElementById('historyList');
   if (!list) return;
 
-  list.innerHTML = '<div class="empty-state">Loading activity...</div>';
+  list.innerHTML = `
+    <div class="activity-item">
+      <div class="activity-dot green">✔</div>
+      <div class="activity-info">
+        <div class="activity-title">Loading activity...</div>
+        <div class="activity-time">Please wait</div>
+      </div>
+    </div>
+  `;
 
   try {
     const resp = await fetchWithAuth(
@@ -63,6 +114,7 @@ async function loadHistory() {
     const items = data.items || data || [];
 
     const total = items.length;
+
     const positive = items.filter(i =>
       (i.prediction || '').toLowerCase().includes('malaria') &&
       !(i.prediction || '').toLowerCase().includes('no')
@@ -104,14 +156,7 @@ async function loadHistory() {
     score = Math.max(0, Math.min(100, score));
     setText('healthScore', score);
 
-    const gauge = document.getElementById('gaugeFill');
-    if (gauge) {
-      const circumference = 377;
-      const offset = circumference - (score / 100) * circumference;
-      requestAnimationFrame(() => {
-        gauge.style.strokeDashoffset = offset;
-      });
-    }
+    animateGauge(score);
 
     if (items.length === 0) {
       list.innerHTML =
@@ -123,6 +168,7 @@ async function loadHistory() {
 
     items.slice(0, 5).forEach(item => {
       const date = new Date(item.created_at).toLocaleString();
+
       const riskClass = (item.risk || 'low').toLowerCase();
 
       const isPositive =
@@ -166,6 +212,10 @@ async function loadHistory() {
   }
 }
 
+/* ----------------------------------------------------
+   Header Badges
+---------------------------------------------------- */
+
 async function updateHeaderBadges() {
   try {
     const nResp = await fetchWithAuth(
@@ -176,18 +226,10 @@ async function updateHeaderBadges() {
       const nData = await nResp.json();
       const unread = (nData.data || []).filter(n => !n.read).length;
 
-      const badge = document.getElementById('notificationBadge');
-      if (badge) {
-        if (unread > 0) {
-          badge.textContent = unread;
-          badge.classList.remove('hidden');
-        } else {
-          badge.classList.add('hidden');
-        }
-      }
+      updateBadge('notificationBadge', unread);
     }
   } catch (err) {
-    console.error(err);
+    console.error('Notification badge error:', err);
   }
 
   try {
@@ -199,20 +241,50 @@ async function updateHeaderBadges() {
       const rData = await rResp.json();
       const count = (rData.data || []).length;
 
-      const badge = document.getElementById('reminderBadge');
-      if (badge) {
-        if (count > 0) {
-          badge.textContent = count;
-          badge.classList.remove('hidden');
-        } else {
-          badge.classList.add('hidden');
-        }
-      }
+      updateBadge('reminderBadge', count);
     }
   } catch (err) {
-    console.error(err);
+    console.error('Reminder badge error:', err);
   }
 }
+
+function updateBadge(id, count) {
+  const badge = document.getElementById(id);
+
+  if (!badge) return;
+
+  if (count > 0) {
+    badge.textContent = count;
+    badge.classList.remove('hidden');
+  } else {
+    badge.classList.add('hidden');
+  }
+}
+
+/* ----------------------------------------------------
+   Health Gauge
+---------------------------------------------------- */
+
+function animateGauge(score) {
+  const gauge = document.getElementById('gaugeFill');
+  if (!gauge) return;
+
+  const radius = 60;
+  const circumference = 2 * Math.PI * radius;
+
+  gauge.style.strokeDasharray = circumference;
+
+  const offset =
+    circumference - (score / 100) * circumference;
+
+  requestAnimationFrame(() => {
+    gauge.style.strokeDashoffset = offset;
+  });
+}
+
+/* ----------------------------------------------------
+   Utilities
+---------------------------------------------------- */
 
 function setText(id, value) {
   const el = document.getElementById(id);
