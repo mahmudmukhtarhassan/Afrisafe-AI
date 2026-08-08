@@ -1,137 +1,73 @@
-/**
- * AfriSafe AI — Bottom Navigation + App Shell Injector
- * Injects the header and bottom nav on all authenticated pages.
- */
+/** AfriSafe AI — shared app navigation. Keeps the same header, notification/reminder actions, bottom tabs and More drawer on every authenticated page. */
 
 const NAV_ITEMS = [
-  {
-    href: 'dashboard.html',
-    label: 'Dashboard',
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
-  },
-  {
-    href: 'assessment.html',
-    label: 'Assess',
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>',
-  },
-  {
-    href: 'history.html',
-    label: 'History',
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>',
-  },
-  {
-    href: 'profile.html',
-    label: 'Profile',
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
-  },
-  {
-    href: 'more.html',
-    label: 'More',
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
-  },
+  { href: 'dashboard.html', label: 'Dashboard', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V21h14V9.5"></path><path d="M9 21v-7h6v7"></path></svg>' },
+  { href: 'assessment.html', label: 'Assess', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h10v18H7z"></path><path d="M9.5 7h5M9.5 11h5M9.5 15h3"></path></svg>' },
+  { href: 'history.html', label: 'History', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path><path d="M12 7v5l3 2"></path></svg>' },
+  { href: 'profile.html', label: 'Profile', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>' },
+  { href: '#', label: 'More', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>' }
 ];
 
-function getCurrentPage() {
-  const path = window.location.pathname;
-  return path.substring(path.lastIndexOf('/') + 1) || 'dashboard.html';
-}
+const LOGO = `<div class="shared-logo-mark" aria-hidden="true"><span></span><span></span></div>`;
+const BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>';
+const CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>';
 
-const LOGO_SVG = `<svg class="brand-logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="navLogoGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0F9D58"/>
-      <stop offset="1" stop-color="#1E88E5"/>
-    </linearGradient>
-  </defs>
-  <rect width="48" height="48" rx="12" fill="url(#navLogoGrad)"/>
-  <path d="M24 12v24M12 24h24" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-</svg>`;
+function currentPage() { return window.location.pathname.split('/').pop() || 'dashboard.html'; }
+
+function injectStyles() {
+  if (document.getElementById('shared-nav-styles')) return;
+  const style = document.createElement('style');
+  style.id = 'shared-nav-styles';
+  style.textContent = `
+    body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+    .shared-app-header{position:sticky;top:0;z-index:150;max-width:560px;margin:0 auto;height:66px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,18,26,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)}
+    .shared-brand{display:flex;align-items:center;gap:9px;text-decoration:none;min-width:0}.shared-logo-mark{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#0F9D58,#1E88E5);display:flex;align-items:center;justify-content:center;gap:3px;box-shadow:0 5px 18px rgba(15,157,88,.2)}.shared-logo-mark span{display:block;width:4px;height:18px;background:#fff;border-radius:4px}.shared-logo-mark span+span{transform:rotate(90deg);margin-left:-7px}.shared-brand-name{font-size:17px;font-weight:800;color:#fff;white-space:nowrap}.shared-actions{display:flex;align-items:center;gap:8px}.shared-action{position:relative;width:40px;height:40px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:#0F1720;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none}.shared-action svg{width:20px;height:20px}.shared-badge{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;border-radius:99px;background:#EF4444;color:#fff;font-size:9px;font-weight:800;display:none;align-items:center;justify-content:center;border:2px solid #07121A}.shared-badge.show{display:flex}
+    .shared-bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:180;width:min(560px,100%);height:calc(76px + env(safe-area-inset-bottom,0px));padding:7px 8px env(safe-area-inset-bottom,0px);display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:rgba(8,16,23,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.09)}
+    .shared-tab{border:0;background:transparent;color:#77818C;text-decoration:none;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:inherit;cursor:pointer}.shared-tab svg{width:21px;height:21px}.shared-tab span{font-size:9px;font-weight:700}.shared-tab.active{color:#42D48A;background:rgba(15,157,88,.1)}.shared-tab:active{transform:scale(.96)}
+    .shared-drawer-backdrop{position:fixed;inset:0;z-index:190;background:rgba(0,0,0,.52);opacity:0;visibility:hidden;transition:.25s}.shared-drawer-backdrop.open{opacity:1;visibility:visible}.shared-drawer{position:fixed;right:0;top:0;z-index:200;width:min(320px,88vw);height:100dvh;padding:20px;background:#0B1720;border-left:1px solid rgba(255,255,255,.08);box-shadow:-20px 0 55px rgba(0,0,0,.4);transform:translateX(105%);transition:transform .28s ease}.shared-drawer.open{transform:translateX(0)}.shared-drawer-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.08)}.shared-drawer-head strong{font-size:20px;color:#fff}.shared-drawer-head small{display:block;color:#94A3B8;margin-top:3px}.shared-close{width:38px;height:38px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:#16202B;color:#fff;font-size:25px}.shared-links{display:flex;flex-direction:column;gap:5px;padding-top:15px}.shared-links a{padding:13px 12px;border-radius:12px;color:#E5E7EB;text-decoration:none;font-size:13px;font-weight:650}.shared-links a:hover{background:rgba(15,157,88,.1);color:#42D48A}.shared-links .logout{color:#F87171;background:rgba(239,68,68,.08)}
+    @media(min-width:700px){.shared-app-header{border-left:1px solid rgba(255,255,255,.06);border-right:1px solid rgba(255,255,255,.06)}.shared-bottom-nav{border-left:1px solid rgba(255,255,255,.08);border-right:1px solid rgba(255,255,255,.08);border-radius:18px 18px 0 0}}
+  `;
+  document.head.appendChild(style);
+}
 
 function injectAppShell() {
-  const body = document.body;
-  if (!body) return;
+  injectStyles();
+  // Remove legacy dashboard shell pieces so every page uses exactly one shared menu.
+  document.querySelectorAll('.top-nav,.app-header').forEach(el => el.remove());
+  document.querySelectorAll('.bottom-nav').forEach(el => el.remove());
+  document.querySelectorAll('.side-menu,.drawer-backdrop').forEach(el => el.remove());
 
-  // Wrap content in app-shell if not already
-  let shell = document.querySelector('.app-shell');
-  if (!shell) {
-    shell = document.createElement('div');
-    shell.className = 'app-shell';
-    const main = document.querySelector('.app-main') || document.createElement('div');
-    if (!main.classList.contains('app-main')) {
-      main.classList.add('app-main');
-    }
-    while (body.firstChild && body.firstChild !== shell) {
-      const node = body.firstChild;
-      if (node.tagName === 'SCRIPT' || node.tagName === 'LINK' || node.tagName === 'STYLE' || node.tagName === 'META') break;
-      shell.appendChild(node);
-    }
-    body.insertBefore(shell, body.firstChild);
-  }
+  const header = document.createElement('header');
+  header.className = 'shared-app-header';
+  header.innerHTML = `<a class="shared-brand" href="dashboard.html">${LOGO}<span class="shared-brand-name">AfriSafe AI</span></a><div class="shared-actions"><a class="shared-action" href="notifications.html" aria-label="Notifications">${BELL}<span id="sharedNotificationBadge" class="shared-badge"></span></a><a class="shared-action" href="reminders.html" aria-label="Reminders">${CLOCK}<span id="sharedReminderBadge" class="shared-badge"></span></a></div>`;
+  document.body.insertBefore(header, document.body.firstChild);
 
-  // Inject header
-  if (!document.querySelector('.app-header')) {
-    const header = document.createElement('header');
-    header.className = 'app-header';
-    header.innerHTML = `
-      <a href="dashboard.html" class="brand">
-        ${LOGO_SVG}
-        <span class="brand-text">AfriSafe AI</span>
-      </a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </button>
-    `;
-    body.insertBefore(header, shell);
-  }
+  const nav = document.createElement('nav');
+  nav.className = 'shared-bottom-nav';
+  const page = currentPage();
+  nav.innerHTML = NAV_ITEMS.map((item, i) => item.label === 'More'
+    ? `<button type="button" class="shared-tab" id="sharedMoreBtn" aria-expanded="false">${item.icon}<span>More</span></button>`
+    : `<a href="${item.href}" class="shared-tab ${page === item.href ? 'active' : ''}">${item.icon}<span>${item.label}</span></a>`).join('');
+  document.body.appendChild(nav);
 
-  // Inject bottom nav
-  if (!document.querySelector('.bottom-nav')) {
-    const nav = document.createElement('nav');
-    nav.className = 'bottom-nav';
-    const currentPage = getCurrentPage();
-    nav.innerHTML = NAV_ITEMS.map(item => `
-      <a href="${item.href}" class="nav-tab ${item.href === currentPage ? 'active' : ''}">
-        ${item.icon}
-        <span>${item.label}</span>
-      </a>
-    `).join('');
-    body.appendChild(nav);
-  }
+  const backdrop = document.createElement('div'); backdrop.className='shared-drawer-backdrop'; backdrop.id='sharedDrawerBackdrop';
+  const drawer = document.createElement('aside'); drawer.className='shared-drawer'; drawer.id='sharedDrawer'; drawer.setAttribute('aria-hidden','true');
+  drawer.innerHTML = `<div class="shared-drawer-head"><div><strong>More</strong><small>AfriSafe AI</small></div><button class="shared-close" id="sharedDrawerClose" aria-label="Close">×</button></div><nav class="shared-links"><a href="notifications.html">🔔 Notifications</a><a href="reminders.html">⏰ Reminders</a><a href="guidelines.html">🛡️ Prevention Guidelines</a><a href="ai_chat.html">🤖 AI Health Assistant</a><a href="reports.html">📊 Reports</a><a href="profile.html">👤 Profile</a><a href="settings.html">⚙️ Settings</a><a href="more.html">☰ More Features</a><a href="login.html" class="logout" id="sharedLogout">↪ Logout</a></nav>`;
+  document.body.append(backdrop, drawer);
 
-  // Wire theme toggle
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  const sunIcon = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
-  const moonIcon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+  const setOpen = open => { drawer.classList.toggle('open',open); backdrop.classList.toggle('open',open); drawer.setAttribute('aria-hidden',String(!open)); document.getElementById('sharedMoreBtn')?.setAttribute('aria-expanded',String(open)); };
+  document.getElementById('sharedMoreBtn')?.addEventListener('click',()=>setOpen(!drawer.classList.contains('open')));
+  document.getElementById('sharedDrawerClose')?.addEventListener('click',()=>setOpen(false));
+  backdrop.addEventListener('click',()=>setOpen(false));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
 
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    if (themeIcon) themeIcon.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
-  }
-
-  const savedTheme = localStorage.getItem('afrisafe_theme') || 'light';
-  applyTheme(savedTheme);
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'light';
-      const next = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      localStorage.setItem('afrisafe_theme', next);
-    });
-  }
+  updateBadges();
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', injectAppShell);
-} else {
-  injectAppShell();
+function updateBadges(){
+  try{const n=JSON.parse(localStorage.getItem('afrisafe_notif_items')||'[]').filter(x=>!x.read).length; const b=document.getElementById('sharedNotificationBadge'); if(n){b.textContent=n>9?'9+':n;b.classList.add('show')}}catch{}
+  try{const r=JSON.parse(localStorage.getItem('afrisafe_reminders')||'[]').length; const b=document.getElementById('sharedReminderBadge'); if(r){b.textContent=r>9?'9+':r;b.classList.add('show')}}catch{}
 }
 
-window.injectAppShell = injectAppShell;
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',injectAppShell); else injectAppShell();
+window.injectAppShell=injectAppShell;
