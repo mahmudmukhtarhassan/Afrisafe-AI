@@ -12,77 +12,15 @@
 </head>
 <body>
   <main class="app-main">
-    <header class="top-nav" aria-label="AfriSafe AI header">
-      <a href="dashboard.html" class="nav-brand" aria-label="AfriSafe AI home">
-        <img src="assets/logo.png" alt="AfriSafe AI" class="logo" />
-        <div class="brand-text"><h1>AfriSafe AI</h1><p>AI-powered malaria health monitoring</p></div>
-      </a>
-      <div class="top-actions">
-        <a href="notifications.html" class="header-icon" id="notificationBtn" aria-label="Notifications">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-          <span id="notificationBadge" class="icon-badge hidden">0</span>
-        </a>
-        <a href="reminders.html" class="header-icon" id="reminderBtn" aria-label="Reminders">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>
-          <span id="reminderBadge" class="icon-badge hidden">0</span>
-        </a>
-      </div>
-    </header>
-
     <section class="greeting fade-in-up"><span class="greeting-time" id="greetingTime">Good Morning</span><span class="greeting-name" id="greetingName">User</span></section>
-
-    <section class="health-hero fade-in-up">
-      <div class="hero-label">AI Health Status</div>
-      <div class="hero-title">Stay ahead of malaria with AI-powered insights</div>
-      <a href="assessment.html" class="hero-action">Start Assessment</a>
-    </section>
-
-    <section class="card health-score-card fade-in-up">
-      <div class="gauge-wrap">
-        <svg class="gauge-svg" viewBox="0 0 140 140">
-          <defs><linearGradient id="gaugeGrad" x1="0" y1="0" x2="140" y2="140"><stop stop-color="#0F9D58"></stop><stop offset="1" stop-color="#1E88E5"></stop></linearGradient></defs>
-          <circle class="gauge-bg-circle" cx="70" cy="70" r="60"></circle>
-          <circle class="gauge-fill-circle" id="gaugeFill" cx="70" cy="70" r="60"></circle>
-        </svg>
-        <div class="gauge-center"><span class="gauge-value" id="healthScore">--</span><span class="gauge-label">Health Score</span></div>
-      </div>
-      <div class="health-status" id="healthStatus">No assessments yet</div>
-      <div class="health-status-sub">Complete your first assessment to get a personalized health score</div>
-    </section>
-
-    <section class="quick-actions fade-in-up" aria-label="Quick actions">
-      <a href="assessment.html" class="quick-card"><span class="quick-icon">🩺</span><span class="quick-title">Assessment</span></a>
-      <a href="guidelines.html" class="quick-card"><span class="quick-icon">🛡️</span><span class="quick-title">Guidelines</span></a>
-      <a href="ai_chat.html" class="quick-card"><span class="quick-icon">🤖</span><span class="quick-title">AI Chat</span></a>
-    </section>
-
-    <section class="stat-grid fade-in-up" aria-label="Statistics">
-      <div class="stat-card"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Total Assessments</div></div>
-      <div class="stat-card"><div class="stat-value" id="statPositive">0</div><div class="stat-label">Positive Cases</div></div>
-      <div class="stat-card"><div class="stat-value" id="statNegative">0</div><div class="stat-label">Negative Cases</div></div>
-      <div class="stat-card"><div class="stat-value" id="statHighRisk">0</div><div class="stat-label">High Risk Cases</div></div>
-    </section>
-
+    <section class="health-hero fade-in-up"><div class="hero-label">AI Health Status</div><div class="hero-title">Stay ahead of malaria with AI-powered insights</div><a href="assessment.html" class="hero-action">Start Assessment</a></section>
+    <section class="card health-score-card fade-in-up"><div class="gauge-wrap"><svg class="gauge-svg" viewBox="0 0 140 140"><defs><linearGradient id="gaugeGrad" x1="0" y1="0" x2="140" y2="140"><stop stop-color="#0F9D58"></stop><stop offset="1" stop-color="#1E88E5"></stop></linearGradient></defs><circle class="gauge-bg-circle" cx="70" cy="70" r="60"></circle><circle class="gauge-fill-circle" id="gaugeFill" cx="70" cy="70" r="60"></circle></svg><div class="gauge-center"><span class="gauge-value" id="healthScore">--</span><span class="gauge-label">Health Score</span></div></div><div class="health-status" id="healthStatus">No assessments yet</div><div class="health-status-sub">Complete your first assessment to get a personalized health score</div></section>
+    <section class="quick-actions fade-in-up" aria-label="Quick actions"><a href="assessment.html" class="quick-card"><span class="quick-icon">🩺</span><span class="quick-title">Assessment</span></a><a href="guidelines.html" class="quick-card"><span class="quick-icon">🛡️</span><span class="quick-title">Guidelines</span></a><a href="ai_chat.html" class="quick-card"><span class="quick-icon">🤖</span><span class="quick-title">AI Chat</span></a></section>
+    <section class="stat-grid fade-in-up" aria-label="Statistics"><div class="stat-card"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Total Assessments</div></div><div class="stat-card"><div class="stat-value" id="statPositive">0</div><div class="stat-label">Positive Cases</div></div><div class="stat-card"><div class="stat-value" id="statNegative">0</div><div class="stat-label">Negative Cases</div></div><div class="stat-card"><div class="stat-value" id="statHighRisk">0</div><div class="stat-label">High Risk Cases</div></div></section>
     <section class="card fade-in-up"><div class="card-title">Recent Activity</div><div id="historyList"><div class="activity-item"><div class="activity-dot green">✔</div><div class="activity-info"><div class="activity-title">Loading activity...</div><div class="activity-time">Please wait</div></div></div></div></section>
   </main>
-
-  <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
-  <aside id="sideMenu" class="side-menu" aria-label="More menu" aria-hidden="true">
-    <div class="side-menu-header"><div><strong>More</strong><span>AfriSafe AI</span></div><button id="menuToggle" class="drawer-close" type="button" aria-label="Close menu">×</button></div>
-    <nav class="side-menu-links">
-      <a href="notifications.html">🔔 Notifications</a><a href="reminders.html">⏰ Reminders</a><a href="guidelines.html">🛡️ Prevention Guidelines</a><a href="ai_chat.html">🤖 AI Health Assistant</a><a href="profile.html">👤 Profile</a><a href="settings.html">⚙️ Settings</a><a href="#" id="logoutBtn" class="logout-link">↪ Logout</a>
-    </nav>
-  </aside>
-
-  <nav class="bottom-nav" aria-label="Primary navigation">
-    <a href="dashboard.html" class="bottom-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V21h14V9.5"></path><path d="M9 21v-7h6v7"></path></svg><span>Dashboard</span></a>
-    <a href="assessment.html" class="bottom-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h10v18H7z"></path><path d="M9.5 7h5M9.5 11h5M9.5 15h3"></path></svg><span>Assess</span></a>
-    <a href="history.html" class="bottom-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path><path d="M12 7v5l3 2"></path></svg><span>History</span></a>
-    <a href="profile.html" class="bottom-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg><span>Profile</span></a>
-    <button type="button" class="bottom-nav-item more-nav-item" id="moreNavBtn" aria-label="More" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg><span>More</span></button>
-  </nav>
-
   <a href="ai_chat.html" class="ai-fab" aria-label="Open AI Chat">🤖</a>
   <script type="module" src="js/dashboard.js"></script>
+  <script src="js/bottomnav.js"></script>
 </body>
 </html>
