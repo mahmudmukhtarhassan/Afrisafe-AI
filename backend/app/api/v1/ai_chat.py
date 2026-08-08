@@ -3,7 +3,6 @@ import requests
 from fastapi import APIRouter, HTTPException, Request, status
 from pydantic import BaseModel
 from dotenv import load_dotenv
-from openai import OpenAI
 
 load_dotenv()
 
@@ -11,9 +10,8 @@ router = APIRouter(tags=["AI Chat"])
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-
-client = OpenAI(api_key=OPENAI_API_KEY)
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 
 
 class ChatRequest(BaseModel):
@@ -22,33 +20,19 @@ class ChatRequest(BaseModel):
 
 def get_user_id_from_request(request: Request) -> str:
     auth_header = request.headers.get("Authorization")
-
     if not auth_header:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Missing Authorization header"
-        )
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing Authorization header")
 
     url = f"{SUPABASE_URL}/auth/v1/user"
-
-    headers = {
-        "Authorization": auth_header,
-        "apikey": SUPABASE_ANON_KEY,
-    }
+    headers = {"Authorization": auth_header, "apikey": SUPABASE_ANON_KEY}
 
     try:
         resp = requests.get(url, headers=headers, timeout=10)
     except requests.RequestException:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Unable to verify user session"
-        )
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Unable to verify user session")
 
     if resp.status_code != 200:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired token"
-        )
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
 
     return resp.json().get("id")
 
@@ -77,45 +61,37 @@ Your role:
 
 @router.post("")
 def chat(data: ChatRequest, request: Request):
-    # Verify authenticated user
     get_user_id_from_request(request)
 
-    if not OPENAI_API_KEY:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="OPENAI_API_KEY is not configured"
-        )
+    if not GEMINI_API_KEY:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="GEMINI_API_KEY is not configured")
 
     user_message = data.message.strip()
-
     if not user_message:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Message cannot be empty"
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Message cannot be empty")
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GEMINI_API_KEY}"
+    payload = {
+        "systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "contents": [{"parts": [{"text": user_message}]}],
+    }
 
     try:
-        response = client.responses.create(
-            model="gpt-5-mini",
-            input=[
-                {
-                    "role": "system",
-                    "content": SYSTEM_PROMPT,
-                },
-                {
-                    "role": "user",
-                    "content": user_message,
-                },
-            ],
-        )
+        resp = requests.post(url, json=payload, timeout=30)
+        if resp.status_code != 200:
+            raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=f"Gemini API error: {resp.text}")
 
-        return {
-            "success": True,
-            "reply": response.output_text,
-        }
+        data = resp.json()
+        candidates = data.get("candidates", [])
+        if not candidates:
+            raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail="Gemini returned no response")
 
+        parts = candidates[0].get("content", {}).get("parts", [])
+        reply = "\n".join(part.get("text", "") for part in parts if part.get("text")) or "I&apos;m sorry, I couldn&apos;t generate a response right now."
+
+        return {"success": True, "reply": reply}
+
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
-            detail=f"OpenAI API error: {str(e)}"
-        )
+        raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=f"Gemini API error: {str(e)}")
